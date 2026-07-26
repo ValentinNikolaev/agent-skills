@@ -1,0 +1,20 @@
+{
+  "name": "valentin-agent-plugins",
+  "interface": {
+    "displayName": "Valentin Agent Plugins"
+  },
+  "plugins": [
+    {
+      "name": "agent-plugins",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

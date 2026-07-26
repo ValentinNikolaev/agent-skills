@@ -23,7 +23,7 @@ Simulate an external code review. Think like a senior engineer who hasn't seen t
 6. **Search before claiming** — before reporting "unused code" or "no callers", grep the codebase. Before reporting "missing test", check test files.
 7. **Devil's advocate** — for every finding, articulate why the author might be right. If the counter-argument is stronger than the concern, retract.
 8. **Read full files** — don't review from diffs alone; understand surrounding context.
-9. **Project conventions** — check against CLAUDE.md and .claude/rules/ for project-specific patterns.
+9. **Project conventions** — check against CLAUDE.md and claude-skills/rules/ for project-specific patterns.
 10. **Check Go version** — before flagging Go-specific issues, verify against go.mod. Outdated Go knowledge causes false positives.
 
 ## Referencing findings in follow-up questions
@@ -145,7 +145,7 @@ For each changed file, read the **full current state** (not just the diff). Eval
 
 ### 10. Tests
 
-**Read `.claude/rules/testing-guidelines.md` before evaluating tests** — it contains project-specific patterns, examples, anti-patterns, and decision criteria. Evaluate all new and changed tests against those guidelines.
+**Read `../../../codex/rules/testing-guidelines.md` before evaluating tests** — it contains project-specific patterns, examples, anti-patterns, and decision criteria. Evaluate all new and changed tests against those guidelines.
 
 Additionally, check what the guidelines don't cover — **review-specific concerns**:
 - If code was **refactored or moved** — do existing tests still cover the same behavior? Renamed methods, changed signatures, or extracted packages can silently orphan test coverage.
@@ -163,10 +163,10 @@ Additionally, check what the guidelines don't cover — **review-specific concer
 - **PII / user-supplied content in logs.** For every new or changed `Info` / `Warn` / `Error` log entry, scan its key-value pairs for user-supplied strings: full message bodies, raw user text, full prompt content, full response content, request / response dumps, email addresses, phone numbers, payment tokens. Common smells: keys named `"message"`, `"messages"`, `"text"`, `"body"`, `"content"`, `"prompt"`, `"request"`, `"response"`. Replace with metadata-only (length, hash, presence flag, ID, prompt_ident) or demote the whole log to `Debug` behind a safe-logging policy. `Error`-level is worse than `Info`-level — longer retention, often wired to alerts.
 
 ### 12. Self-consistency with newly-added rules / configs
-- If the diff modifies any of: `CLAUDE.md`, `COMMON-GO.md`, project rule files (e.g. `.claude/rules/*`), linter configs, codeowner-style policies — extract the **new or changed** constraints first.
+- If the diff modifies any of: `CLAUDE.md`, `COMMON-GO.md`, project rule files (e.g. `../../../codex/rules/*`), linter configs, codeowner-style policies — extract the **new or changed** constraints first.
 - Then re-scan the rest of the diff (and the recent commits in the same branch) for code that violates those just-introduced rules. The most common case: the very PR that introduces a ban also contains examples of the banned pattern.
 - Same heuristic applies to new constants / new error types / new env vars added in this diff: search the rest of the diff for places that should have used them but did not.
-- **Pre-existing bans apply to every diff, not just diffs that change rule files.** Before signing off, grep the diff for patterns banned in `CLAUDE.md` / `COMMON-GO.md` / `.claude/rules/*` regardless of whether those files were touched. Common traps: Jira/task-ID stems (`[A-Z]{2,4}-\d+`) in source comments, internal optimisation labels (`OPT-N`, `Step N`), "see XYZ refactor" / commit-SHA references, banned helpers (`panic` in production, `git add -A`, `_` import aliases). The convention is in scope for the entire codebase, not just for the PR that introduces it.
+- **Pre-existing bans apply to every diff, not just diffs that change rule files.** Before signing off, grep the diff for patterns banned in `CLAUDE.md` / `COMMON-GO.md` / `../../../codex/rules/*` regardless of whether those files were touched. Common traps: Jira/task-ID stems (`[A-Z]{2,4}-\d+`) in source comments, internal optimisation labels (`OPT-N`, `Step N`), "see XYZ refactor" / commit-SHA references, banned helpers (`panic` in production, `git add -A`, `_` import aliases). The convention is in scope for the entire codebase, not just for the PR that introduces it.
 
 ### Semi-Formal Trace (for non-trivial logic)
 
@@ -272,7 +272,7 @@ Not covered (suggested tests, ordered by priority):
 "None" if all significant paths are covered.
 ```
 
-Use `.claude/rules/testing-guidelines.md` to determine which type of test (unit/integration) fits each scenario and what patterns to follow.
+Use `../../../codex/rules/testing-guidelines.md` to determine which type of test (unit/integration) fits each scenario and what patterns to follow.
 
 ### What went well
 
@@ -283,7 +283,7 @@ Use `.claude/rules/testing-guidelines.md` to determine which type of test (unit/
 **Do NOT report:**
 - Style issues caught by linter (gofumpt, golangci-lint)
 - Generated files (mocks, migrations)
-- Changes in `.claude/` configuration
+- Changes in `../../../codex/` configuration
 - Pre-existing tech debt not introduced by this changeset
 - Theoretical problems requiring unlikely preconditions
 

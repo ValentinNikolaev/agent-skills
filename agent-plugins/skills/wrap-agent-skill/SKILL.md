@@ -1,8 +1,8 @@
 ---
-name: wrap-agent-skill
-description: Create Claude and Codex wrapper skills from canonical .agent skills in this repository. Use when asked to add, update, sync, or adapt `.agent/skills/<name>` into `.claude/skills/<name>` and `.codex/skills/<name>` wrappers without duplicating the canonical skill body.
+name: wrap-agent-plugins-skill
+description: Create Claude and Codex wrapper skills from canonical agent-plugins-skills skills in this repository. Use when asked to add, update, sync, or adapt `agent-plugins-skills/skills/<name>` into `codex/skills/<name>` and `.codex/skills/<name>` wrappers without duplicating the canonical skill body.
 metadata:
-  trigger: Creating Claude/Codex wrappers for repository agent skills
+  trigger: Creating Claude/Codex wrappers for repository agent-plugins skills
 user-invocable: true
 allowed-tools: Read, Grep, Glob, Bash, Write, Edit, MultiEdit
 argument-hint: "<skill-name> [--claude] [--codex] [--sync]"
@@ -10,23 +10,23 @@ argument-hint: "<skill-name> [--claude] [--codex] [--sync]"
 
 # Wrap Agent Skill
 
-Create platform wrappers for an existing canonical skill under `.agent/skills/<skill-name>/`.
+Create platform wrappers for an existing canonical skill under `agent-skills/skills/<skill-name>/`.
 
-The canonical `.agent` skill owns the real instructions and bundled resources. The `.claude` and `.codex` skills are thin wrappers that provide platform-specific frontmatter, then include the canonical body:
+The canonical `agent-skills` skill owns the real instructions and bundled resources. The `codex` and `.codex` skills are thin wrappers that provide platform-specific frontmatter, then include the canonical body:
 
 ```md
-@../../../.agent/skills/<skill-name>/SKILL.md
+@../../../agent-skills/skills/<skill-name>/SKILL.md
 ```
 
 ## Workflow
 
-1. Confirm the source exists at `.agent/skills/<skill-name>/SKILL.md`.
+1. Confirm the source exists at `agent-skills/skills/<skill-name>/SKILL.md`.
 2. Read the source `SKILL.md` frontmatter and body before writing wrappers.
-3. Create or update `.claude/skills/<skill-name>/SKILL.md` for Claude/Cloud.
+3. Create or update `../../../codex/skills/<skill-name>/SKILL.md` for Claude/Cloud.
 4. Create or update `.codex/skills/<skill-name>/SKILL.md` for Codex.
 5. Re-read both wrappers and verify:
    - each wrapper name matches the source skill name
-   - each wrapper points to `@../../../.agent/skills/<skill-name>/SKILL.md`
+   - each wrapper points to `@../../../agent-skills/skills/<skill-name>/SKILL.md`
    - the Codex wrapper has at least `name` and `description` in YAML frontmatter
    - each wrapper keeps platform fields that are meaningful for that runtime
 
@@ -44,7 +44,7 @@ name: <skill-name>
 description: <Codex-specific trigger description>
 ---
 
-@../../../.agent/skills/<skill-name>/SKILL.md
+@../../../agent-skills/skills/<skill-name>/SKILL.md
 ```
 
 Extended shape, when useful:
@@ -60,7 +60,7 @@ allowed-tools: <minimal tool list if this repository uses tool allowlists>
 argument-hint: "<expected user argument shape>"
 ---
 
-@../../../.agent/skills/<skill-name>/SKILL.md
+@../../../agent-skills/skills/<skill-name>/SKILL.md
 ```
 
 Write the Codex description for task routing. Include:
@@ -89,7 +89,7 @@ allowed-tools: <minimal tool list needed by the canonical skill>
 argument-hint: "<expected user argument shape>"
 ---
 
-@../../../.agent/skills/<skill-name>/SKILL.md
+@../../../agent-skills/skills/<skill-name>/SKILL.md
 ```
 
 For Claude:
@@ -103,7 +103,7 @@ For Claude:
 
 ## Description Adaptation
 
-Start from the source `.agent` description, then adapt per platform.
+Start from the source `agent-skills` description, then adapt per platform.
 
 For Codex, prefer:
 
@@ -133,25 +133,25 @@ When unsure, choose the narrowest set and mention the assumption in the final re
 
 ## Do Not
 
-- Do not copy the full `.agent` body into wrappers.
+- Do not copy the full `agent-skills` body into wrappers.
 - Do not create extra README, changelog, or installation docs.
 - Do not put meaningless Claude/Cloud fields into Codex wrappers.
 - Do not overwrite a handcrafted wrapper without reading it first.
-- Do not "normalize" the canonical `.agent` skill unless the user explicitly asks.
+- Do not "normalize" the canonical `agent-skills` skill unless the user explicitly asks.
 
 ## Example
 
-For `.agent/skills/stop-slop/SKILL.md`, create:
+For `agent-skills/skills/stop-slop/SKILL.md`, create:
 
 ```md
-.claude/skills/stop-slop/SKILL.md
+claude-skills/skills/stop-slop/SKILL.md
 .codex/skills/stop-slop/SKILL.md
 ```
 
 Both wrappers should include the canonical body:
 
 ```md
-@../../../.agent/skills/stop-slop/SKILL.md
+@../../../agent-skills/skills/stop-slop/SKILL.md
 ```
 
 The Codex wrapper may be minimal or extended depending on repository convention. The Claude wrapper should keep Cloud-specific metadata, invocation hints, and tool permissions.

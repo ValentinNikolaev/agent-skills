@@ -1,0 +1,13 @@
+{
+  "name": "valentin-agent-plugins",
+  "owner": {
+    "name": "Valentin Nikolaev"
+  },
+  "plugins": [
+    {
+      "name": "agent-plugins",
+      "source": "./",
+      "description": "Shared agent workflows with Claude Code wrappers."
+    }
+  ]
+}
