@@ -15,10 +15,15 @@ This list is regenerated from `agent-plugins/skills/`.
 
 Codex plugin manifest: `.codex-plugin/plugin.json` (version `0.1.0`).
 
-1. Open Codex desktop.
-2. Install or connect this repository as a local plugin from the repository root.
-3. Confirm Codex reads `.codex-plugin/plugin.json`.
-4. Codex skills are available from `codex/skills/`.
+Install from the Codex plugin marketplace:
+
+```bash
+codex plugin marketplace add ValentinNikolaev/llm-skills --ref master
+codex plugin add agent-plugins@<marketplace-name>
+codex plugin add agent-plugins@llm-skills
+```
+
+Codex reads `.codex-plugin/plugin.json`; generated Codex skills are available from `codex/skills/`.
 
 After changing canonical skills, regenerate wrappers with:
 
@@ -30,10 +35,22 @@ python scripts/generate_skill_wrappers.py --clean
 
 Claude plugin manifest: `.claude-plugin/plugin.json` (version `0.2.0`).
 
-1. Open Claude Code.
-2. Add this repository as a local plugin from the repository root.
-3. Confirm Claude reads `.claude-plugin/plugin.json`.
-4. Claude skills are available from `claude/skills/`.
+From inside Claude Code:
+
+```text
+/plugin marketplace add ValentinNikolaev/llm-skills@master
+/plugin install agent-plugins@valentin-agent-plugins
+/reload-plugins
+```
+
+Or from a shell:
+
+```bash
+claude plugin marketplace add ValentinNikolaev/llm-skills@master
+claude plugin install agent-plugins@valentin-agent-plugins
+```
+
+Claude reads `.claude-plugin/plugin.json`; generated Claude skills are available from `claude/skills/`.
 
 ## Development
 

@@ -17,7 +17,8 @@ The generated skills are ordinary files and directories. The utility does not cr
 
 The repository `README.md` is generated from the current canonical skill list and
 plugin manifests. It is refreshed whenever the generator runs, so new skills and
-renamed skills appear in the connection instructions automatically.
+renamed skills appear in the connection instructions automatically. The README
+also includes Codex and Claude marketplace install commands.
 
 ## Repository layout
 
