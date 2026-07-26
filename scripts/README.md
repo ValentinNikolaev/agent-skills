@@ -15,6 +15,10 @@ codex/skills/<skill-name>/
 
 The generated skills are ordinary files and directories. The utility does not create symlinks.
 
+The repository `README.md` is generated from the current canonical skill list and
+plugin manifests. It is refreshed whenever the generator runs, so new skills and
+renamed skills appear in the connection instructions automatically.
+
 ## Repository layout
 
 Recommended layout:
@@ -264,6 +268,19 @@ argument-hint: "[files, directory, or PR number]"
 The directory name should match the top-level frontmatter `name`. A mismatch produces a warning, or an error when `--strict-links` is enabled.
 
 Because canonical frontmatter is copied to both platforms, keep it compatible with both Claude Code and Codex where possible. If the two platforms eventually require materially different schemas, add explicit platform overlay support to the generator rather than inferring transformations from field names.
+
+## Plugin version and README policy
+
+When generation changes either platform's generated skill tree, the matching plugin manifest version is bumped automatically:
+
+- added generated files, including a newly added or renamed skill directory: major version bump
+- changed, removed, or stale generated files without newly added files: minor version bump
+
+For example, `0.1.0` becomes `1.0.0` for a major bump and `0.2.0` for a minor bump. Patch versions are reset to `0` because generated distributions are built from canonical skill changes rather than patch-level runtime fixes.
+
+The root `README.md` is regenerated after skill generation and included in `--check` drift detection.
+
+The push workflow also creates a matching GitHub release when a plugin manifest version changes. Claude releases use tags like `claude-v0.2.0`; Codex releases use tags like `codex-v0.2.0`.
 
 ## Command-line options
 

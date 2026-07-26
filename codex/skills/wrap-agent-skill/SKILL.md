@@ -1,5 +1,5 @@
 ---
-name: wrap-agent-plugins-skill
+name: wrap-agent-skill
 description: Create Claude and Codex wrapper skills from canonical agent-plugins-skills skills in this repository. Use when asked to add, update, sync, or adapt `agent-plugins-skills/skills/<name>` into `codex/skills/<name>` and `.codex/skills/<name>` wrappers without duplicating the canonical skill body.
 metadata:
   trigger: Creating Claude/Codex wrappers for repository agent-plugins skills

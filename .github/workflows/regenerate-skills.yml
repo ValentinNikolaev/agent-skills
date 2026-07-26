@@ -1,0 +1,91 @@
+name: Regenerate skills
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate-skills:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Capture plugin versions before regeneration
+        id: before
+        run: |
+          python -c 'import json, os, pathlib; output = pathlib.Path(os.environ["GITHUB_OUTPUT"]); claude = json.loads(pathlib.Path(".claude-plugin/plugin.json").read_text(encoding="utf-8"))["version"]; codex = json.loads(pathlib.Path(".codex-plugin/plugin.json").read_text(encoding="utf-8"))["version"]; output.open("a", encoding="utf-8").write(f"claude_version={claude}\ncodex_version={codex}\n")'
+
+      - name: Regenerate skill wrappers
+        run: python scripts/generate_skill_wrappers.py --clean
+
+      - name: Capture plugin versions after regeneration
+        id: after
+        run: |
+          python -c 'import json, os, pathlib; output = pathlib.Path(os.environ["GITHUB_OUTPUT"]); claude = json.loads(pathlib.Path(".claude-plugin/plugin.json").read_text(encoding="utf-8"))["version"]; codex = json.loads(pathlib.Path(".codex-plugin/plugin.json").read_text(encoding="utf-8"))["version"]; output.open("a", encoding="utf-8").write(f"claude_version={claude}\ncodex_version={codex}\n")'
+
+      - name: Commit regenerated skills
+        id: commit
+        run: |
+          if git diff --quiet -- README.md claude/skills codex/skills .claude-plugin/plugin.json .codex-plugin/plugin.json; then
+            echo "No generated skill changes to commit."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md claude/skills codex/skills .claude-plugin/plugin.json .codex-plugin/plugin.json
+          git commit -m "chore: regenerate skill wrappers [skip ci]"
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          git push
+
+      - name: Release Claude plugin version
+        if: >-
+          steps.commit.outputs.changed == 'true' &&
+          steps.before.outputs.claude_version != steps.after.outputs.claude_version
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.after.outputs.claude_version }}
+          TARGET: ${{ steps.commit.outputs.sha }}
+        run: |
+          tag="claude-v${VERSION}"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "Release $tag already exists."
+            exit 0
+          fi
+          gh release create "$tag" \
+            --target "$TARGET" \
+            --title "Claude plugin ${VERSION}" \
+            --notes "Regenerated Claude plugin skills for version ${VERSION}."
+
+      - name: Release Codex plugin version
+        if: >-
+          steps.commit.outputs.changed == 'true' &&
+          steps.before.outputs.codex_version != steps.after.outputs.codex_version
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.after.outputs.codex_version }}
+          TARGET: ${{ steps.commit.outputs.sha }}
+        run: |
+          tag="codex-v${VERSION}"
+          if gh release view "$tag" >/dev/null 2>&1; then
+            echo "Release $tag already exists."
+            exit 0
+          fi
+          gh release create "$tag" \
+            --target "$TARGET" \
+            --title "Codex plugin ${VERSION}" \
+            --notes "Regenerated Codex plugin skills for version ${VERSION}."
