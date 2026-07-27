@@ -49,7 +49,7 @@ Install the plugin from the Codex plugin marketplace:
 
 ```bash
 codex plugin marketplace add ValentinNikolaev/llm-skills --ref master
-codex plugin add agent-plugins@llm-skills
+codex plugin add agent-plugins@valentin-agent-plugins
 ```
 
 Codex reads `.codex-plugin/plugin.json` and loads generated skills from `codex/skills/`.

@@ -832,14 +832,13 @@ def run(argv: Sequence[str] | None = None) -> int:
                 quiet=args.quiet,
             )
 
-        readme_changed = update_readme(
-            repo_root,
-            skills,
-            check=args.check,
-            dry_run=args.dry_run,
-        )
-
         if args.check:
+            readme_changed = update_readme(
+                repo_root,
+                skills,
+                check=args.check,
+                dry_run=args.dry_run,
+            )
             total_drift = drift_count + stale_count + int(readme_changed)
             if total_drift:
                 print(
@@ -861,6 +860,13 @@ def run(argv: Sequence[str] | None = None) -> int:
                     continue
                 next_version = bump_plugin_manifest(repo_root, platform, bump)
                 version_bumps.append(f"{platform.key} {bump} -> {next_version}")
+
+        readme_changed = update_readme(
+            repo_root,
+            skills,
+            check=args.check,
+            dry_run=args.dry_run,
+        )
 
         verb = "would be updated" if args.dry_run else "updated"
         stale_verb = "would be removed" if args.dry_run else "removed"

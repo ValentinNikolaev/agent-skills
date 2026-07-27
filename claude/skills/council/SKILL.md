@@ -1,6 +1,6 @@
 ---
 
-name: llm-council
+name: council
 
 
 description: "Run any question, idea, or decision through a council of 5 AI advisors who independently analyze it, peer-review each other anonymously, and synthesize a final verdict. Based on Karpathy's LLM Council methodology. MANDATORY TRIGGERS: 'council this', 'run the council', 'war room this', 'pressure-test this', 'stress-test this', 'debate this'. STRONG TRIGGERS (use when combined with a real decision or tradeoff): 'should I X or Y', 'which option', 'what would you do', 'is this the right move', 'validate this', 'get multiple perspectives', 'I can't decide', 'I'm torn between'. Do NOT trigger on simple yes/no questions, factual lookups, or casual 'should I' without a meaningful tradeoff (e.g. 'should I use markdown' is not a council question). DO trigger when the user presents a genuine decision with stakes, multiple options, and context that suggests they want it pressure-tested from multiple angles."
@@ -468,4 +468,4 @@ Only save a transcript if the user asks for it or if the question is significant
 
 - **Don't council trivial questions.** If the user asks something with one right answer, just answer it. The council is for genuine uncertainty where multiple perspectives add value.
 
-- **The visual report matters.** Most users will scan the report, not read the full transcript. Make the HTML output clean and scannable.
+- **The chat verdict matters.** Most users will scan the final answer, not read the full transcript. Make the markdown output clean, direct, and scannable.
