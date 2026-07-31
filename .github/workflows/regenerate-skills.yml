@@ -66,10 +66,15 @@ jobs:
             echo "Release $tag already exists."
             exit 0
           fi
+          python scripts/build_release_notes.py \
+            --platform claude \
+            --version "$VERSION" \
+            --target "$TARGET" \
+            --output claude-release-notes.md
           gh release create "$tag" \
             --target "$TARGET" \
             --title "Claude plugin ${VERSION}" \
-            --notes "Regenerated Claude plugin skills for version ${VERSION}."
+            --notes-file claude-release-notes.md
 
       - name: Release Codex plugin version
         if: >-
@@ -85,7 +90,12 @@ jobs:
             echo "Release $tag already exists."
             exit 0
           fi
+          python scripts/build_release_notes.py \
+            --platform codex \
+            --version "$VERSION" \
+            --target "$TARGET" \
+            --output codex-release-notes.md
           gh release create "$tag" \
             --target "$TARGET" \
             --title "Codex plugin ${VERSION}" \
-            --notes "Regenerated Codex plugin skills for version ${VERSION}."
+            --notes-file codex-release-notes.md

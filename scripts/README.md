@@ -281,7 +281,7 @@ For example, `0.1.0` becomes `1.0.0` for a major bump and `0.2.0` for a minor bu
 
 The root `README.md` is regenerated after skill generation and included in `--check` drift detection.
 
-The push workflow also creates a matching GitHub release when a plugin manifest version changes. Claude releases use tags like `claude-v0.2.0`; Codex releases use tags like `codex-v0.2.0`.
+The push workflow also creates a matching GitHub release when a plugin manifest version changes. Claude releases use tags like `claude-v0.2.0`; Codex releases use tags like `codex-v0.2.0`. Release notes are generated from the diff since the previous platform tag and summarize changed canonical skills, generated platform skills, metadata, docs, and changed files.
 
 ## Command-line options
 
