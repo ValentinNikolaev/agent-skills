@@ -230,6 +230,33 @@ Preserve it when:
 
 Do not uncomment, repair, or restore commented-out code as part of this task.
 
+## Parallel processing
+
+For large or heterogeneous target scopes, use sub-agents to process independent areas in parallel.
+
+Prefer partitioning by meaningful boundaries such as:
+
+* package, service, app, or module ownership;
+* language or framework;
+* generated versus handwritten code;
+* risk level or validation strategy.
+
+Top-level directories may be used as the default partition heuristic, but do not split mechanically.
+
+Merge tiny or tightly coupled folders.
+
+Further subdivide child directories only when a top-level area is itself large or has clearly independent subareas.
+
+The main agent remains responsible for:
+
+* discovering the full requested scope;
+* assigning non-overlapping work areas;
+* providing the shared comment policy to every sub-agent;
+* reviewing the combined diff for consistency;
+* rejecting unsafe or unrelated edits;
+* running or coordinating validation;
+* producing one final report.
+
 ## Ambiguity rule
 
 Preserve a comment when:
