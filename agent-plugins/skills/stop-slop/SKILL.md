@@ -28,6 +28,8 @@ Eliminate predictable AI writing patterns from prose.
 
 8. **Cut quotables.** If it sounds like a pull-quote, rewrite it.
 
+9. **Stop mirroring source labels.** In applications, outreach, proposals, and replies, do not echo the title, team, company, document heading, or prompt back to the reader as an opener. Replace template lines like "I would like to apply for the Senior PHP/Laravel Developer role in the API Platform Team" with a specific reason, fit, or next action.
+
 ## Quick Checks
 
 Before delivering prose:
@@ -44,6 +46,7 @@ Before delivering prose:
 - Vague declarative ("The implications are significant")? Name the specific implication.
 - Narrator-from-a-distance ("Nobody designed this")? Put the reader in the scene.
 - Meta-joiners ("The rest of this essay...")? Delete. Let the essay move.
+- Application or outreach opener repeats a role, team, company, or source title? Replace it with specific fit, motivation, or evidence.
 
 ## Scoring
 

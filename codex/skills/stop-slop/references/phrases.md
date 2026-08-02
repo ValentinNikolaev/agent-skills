@@ -98,6 +98,22 @@ Remove self-referential asides. The essay should move, not announce its own stru
 - "As we'll see..."
 - "I want to explore..."
 
+## Application and Outreach Openers
+
+These sound like a form letter because they mirror labels from the job post, brief, or prompt. Cut the announcement and start with fit, evidence, or intent.
+
+- "I would like to apply for the [role] role"
+- "I am writing to apply for the [role] position"
+- "I am excited to apply for the [role] role"
+- "I am interested in the [role] position"
+- "I came across your [role] opening"
+- "I believe I would be a strong fit for the [role]"
+- "for the [team] team"
+- "at [company]"
+- "with my background in [keyword list]"
+
+If the sentence contains a title plus a team or company, assume template echo. Replace it with one concrete reason the person fits or one sentence showing relevant experience.
+
 ## Performative Emphasis
 
 False intimacy or manufactured sincerity:

@@ -63,6 +63,20 @@ These announce insight rather than deliver it.
 | "By the time X, I was Y." | Narrative template |
 | "X that isn't Y" | Indirect. Say "X is broken" |
 
+## Source-Label Mirroring
+
+Applications, outreach, proposals, and summaries often start by repeating labels from the source text. This reads like a mail merge.
+
+| Pattern | Problem |
+|---------|---------|
+| "I would like to apply for the [exact job title] role in the [exact team] team." | Repeats the posting instead of making a case. |
+| "I am excited to apply for [title] at [company]." | Generic enthusiasm plus pasted labels. |
+| "My experience in [keyword], [keyword], and [keyword] makes me a fit." | Keyword stuffing instead of evidence. |
+| "Regarding your [document title/request], I wanted to..." | Prompt echo before content. |
+| "As a [title] with X years of experience..." | Resume-summary opener. Often safe, but bland as a first sentence. |
+
+**Instead:** Start with a specific reason, proof point, or useful next move. If the exact role, team, company, or document title appears in the first sentence, ask whether the reader needs that label. Usually they don't.
+
 ## False Agency
 
 Giving inanimate things human verbs. Complaints don't "become" fixes. Bets don't "live or die." Decisions don't "emerge." A person does something to make those things happen. AI loves this because it avoids naming the actor.

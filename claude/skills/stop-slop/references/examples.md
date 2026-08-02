@@ -57,3 +57,15 @@
 > "The best teams optimize for learning, not productivity."
 
 **Changes:** Direct claim. No rhetorical scaffolding.
+
+---
+
+## Example 6: Job-Posting Echo
+
+**Before:**
+> "I would like to apply for the Senior PHP/Laravel Developer role in the API Platform Team. I believe my background in Laravel, APIs, and backend development makes me a strong fit."
+
+**After:**
+> "I build Laravel APIs that stay readable after they grow. In my last project, I cut response times, simplified queue handling, and helped the team ship without rewriting the platform."
+
+**Changes:** Removed the pasted title and team name. Replaced generic fit claims with concrete evidence.
