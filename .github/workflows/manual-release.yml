@@ -1,0 +1,143 @@
+name: Manual release
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch or tag containing the committed release state
+        required: true
+        default: master
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  manual-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out release state
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Verify generated distributions
+        run: python scripts/generate_skill_wrappers.py --check --clean --strict-links
+
+      - name: Determine whether a release is needed
+        id: release
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import pathlib
+          import re
+          import subprocess
+
+          manifests = {
+              "claude": json.loads(
+                  pathlib.Path(".claude-plugin/plugin.json").read_text(encoding="utf-8")
+              ),
+              "codex": json.loads(
+                  pathlib.Path(".codex-plugin/plugin.json").read_text(encoding="utf-8")
+              ),
+          }
+          versions = {platform: data.get("version") for platform, data in manifests.items()}
+          if versions["claude"] != versions["codex"]:
+              raise SystemExit(
+                  "Claude and Codex plugin versions must match: "
+                  f"Claude {versions['claude']}, Codex {versions['codex']}"
+              )
+
+          version = versions["claude"]
+          match = re.fullmatch(r"(\d+)\.(\d+)\.(\d+)", str(version))
+          if not match:
+              raise SystemExit(f"Invalid plugin version: {version}")
+          current = tuple(int(part) for part in match.groups())
+          tag = f"agent-plugins-v{version}"
+
+          existing_tags = subprocess.run(
+              ["git", "tag", "--merged", "HEAD", "--list", "agent-plugins-v*"],
+              check=True,
+              capture_output=True,
+              text=True,
+          ).stdout.splitlines()
+          tagged_versions = []
+          for existing_tag in existing_tags:
+              existing_match = re.fullmatch(
+                  r"agent-plugins-v(\d+)\.(\d+)\.(\d+)", existing_tag
+              )
+              if existing_match:
+                  tagged_versions.append(
+                      (
+                          tuple(int(part) for part in existing_match.groups()),
+                          existing_tag,
+                      )
+                  )
+
+          output = pathlib.Path(os.environ["GITHUB_OUTPUT"])
+          if tag in existing_tags:
+              print(f"Release {tag} already exists; nothing to create.")
+              output.write_text(
+                  f"needed=false\nversion={version}\n", encoding="utf-8"
+              )
+          elif not tagged_versions:
+              print(f"No previous combined release found; release {tag} is eligible.")
+              output.write_text(
+                  f"needed=true\nversion={version}\n", encoding="utf-8"
+              )
+          else:
+              previous, previous_tag = max(tagged_versions)
+              if current < previous:
+                  raise SystemExit(
+                      f"Version {version} is older than previous release {previous_tag}"
+                  )
+              if current[:2] == previous[:2]:
+                  print(
+                      f"Version {version} changes only the patch component from "
+                      f"{previous_tag}; no release will be created."
+                  )
+                  output.write_text(
+                      f"needed=false\nversion={version}\n", encoding="utf-8"
+                  )
+              else:
+                  print(f"Release {tag} is eligible.")
+                  output.write_text(
+                      f"needed=true\nversion={version}\n", encoding="utf-8"
+                  )
+          PY
+
+      - name: Package Claude and Codex distributions
+        if: steps.release.outputs.needed == 'true'
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+        run: |
+          tar -czf "agent-plugins-claude-${VERSION}.tar.gz" README.md .claude-plugin claude
+          tar -czf "agent-plugins-codex-${VERSION}.tar.gz" README.md .codex-plugin codex
+
+      - name: Create combined release
+        if: steps.release.outputs.needed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.release.outputs.version }}
+          TARGET: ${{ github.sha }}
+        run: |
+          tag="agent-plugins-v${VERSION}"
+          python scripts/build_release_notes.py \
+            --platform all \
+            --version "$VERSION" \
+            --target "$TARGET" \
+            --output release-notes.md
+          gh release create "$tag" \
+            --target "$TARGET" \
+            --title "Agent plugins ${VERSION}" \
+            --notes-file release-notes.md \
+            "agent-plugins-claude-${VERSION}.tar.gz" \
+            "agent-plugins-codex-${VERSION}.tar.gz"

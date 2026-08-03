@@ -67,3 +67,4 @@ Claude reads `.claude-plugin/plugin.json`; generated Claude skills are available
 Edit skills only in `agent-plugins/skills/<skill-name>/`. The `claude/skills/` and `codex/skills/` trees are generated distribution copies.
 
 The GitHub workflow in `.github/workflows/regenerate-skills.yml` regenerates all skills on push and commits generated updates when needed.
+Run `.github/workflows/manual-release.yml` from GitHub Actions to create one combined release with Claude and Codex distribution archives.

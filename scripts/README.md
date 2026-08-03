@@ -283,6 +283,8 @@ The root `README.md` is regenerated after skill generation and included in `--ch
 
 The push workflow creates one combined GitHub release when the shared Claude/Codex plugin version changes at the major or minor level. It checks both version changes made by regeneration and version changes already present in the incoming commit, so a locally regenerated and versioned change still produces a release even when the workflow has nothing new to commit. Patch-only changes such as `2.1.0` to `2.1.1` do not create a release. Combined releases use tags like `agent-plugins-v2.1.0`, include both Claude and Codex distribution archives, and contain release notes generated from the diff since the previous combined release.
 
+The manual release workflow in `.github/workflows/manual-release.yml` can be started from GitHub Actions with a branch or tag input. It verifies that generated distributions are current, checks that Claude and Codex versions match, skips patch-only versions and duplicate tags, and creates the same combined release with both distribution archives. It does not commit or regenerate files.
+
 ## Command-line options
 
 ```text
