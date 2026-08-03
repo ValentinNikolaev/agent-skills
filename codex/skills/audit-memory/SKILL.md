@@ -18,6 +18,15 @@ This complete skill and its bundled resources are generated from `agent-plugins/
 
 Scan agent memory files and report health issues. This skill is read-only: it reports findings but does not modify files, refresh sources, update indexes, stage changes, or run state-changing commands.
 
+This is the verification member of the memory family:
+
+- `create-memory` bootstraps a durable baseline.
+- `ingest-memory` imports external or supplied knowledge.
+- `update-memory` maintains knowledge learned during ongoing work.
+- `audit-memory` checks the result for quality, drift, and broken relationships.
+
+Keep the workflows separate. The family shares memory-root discovery, frontmatter, provenance, index, and cross-reference conventions.
+
 Use this skill when the user asks to:
 
 - audit memory health
@@ -48,6 +57,17 @@ Build a registry for each discovered memory file:
 ```
 
 Read enough frontmatter or leading content to extract metadata. If a file has no parseable metadata, still include it in index, capacity, and reference checks.
+
+### Family Convention Check
+
+For files that use the family frontmatter convention, verify that:
+
+- `name`, `description`, `type`, `related`, and `last_updated` are present when applicable
+- `type` is `project`, `feedback`, or `reference`
+- source-backed files preserve a `source` or equivalent provenance field
+- related entries use stable local filenames or clearly identified external references
+
+Report missing or invalid fields as warnings when they reduce maintainability, and as info when the host memory system documents a different valid schema. Do not rewrite platform-specific metadata during an audit.
 
 ## Checks
 
