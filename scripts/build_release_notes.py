@@ -24,16 +24,17 @@ def run_git(args: Sequence[str], *, check: bool = True) -> str:
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--platform", choices=("claude", "codex"), required=True)
+    parser.add_argument("--platform", choices=("claude", "codex", "all"), required=True)
     parser.add_argument("--version", required=True)
     parser.add_argument("--target", required=True)
     parser.add_argument("--output", type=Path, required=True)
     return parser.parse_args(argv)
 
 
-def previous_platform_tag(platform: str, target: str) -> str | None:
+def previous_release_tag(platform: str, target: str) -> str | None:
+    pattern = "agent-plugins-v*" if platform == "all" else f"{platform}-v*"
     tag = run_git(
-        ["describe", "--tags", "--match", f"{platform}-v*", "--abbrev=0", f"{target}^"],
+        ["describe", "--tags", "--match", pattern, "--abbrev=0", f"{target}^"],
         check=False,
     )
     return tag or None
@@ -55,9 +56,21 @@ def relevant_changes(
     changes: Sequence[tuple[str, str]],
     platform: str,
 ) -> list[tuple[str, str]]:
-    generated_prefix = f"{platform}/skills/"
-    relevant_prefixes = ("agent-plugins/skills/", generated_prefix)
-    relevant_files = {f".{platform}-plugin/plugin.json", "README.md"}
+    if platform == "all":
+        relevant_prefixes = (
+            "agent-plugins/skills/",
+            "claude/skills/",
+            "codex/skills/",
+        )
+        relevant_files = {
+            ".claude-plugin/plugin.json",
+            ".codex-plugin/plugin.json",
+            "README.md",
+        }
+    else:
+        generated_prefix = f"{platform}/skills/"
+        relevant_prefixes = ("agent-plugins/skills/", generated_prefix)
+        relevant_files = {f".{platform}-plugin/plugin.json", "README.md"}
     return [
         (status, path)
         for status, path in changes
@@ -73,9 +86,12 @@ def skill_name_from_path(path: str, prefix: str) -> str | None:
 
 
 def render_notes(platform: str, version: str, target: str) -> str:
-    platform_label = "Claude" if platform == "claude" else "Codex"
-    generated_prefix = f"{platform}/skills/"
-    previous_tag = previous_platform_tag(platform, target)
+    platform_label = {
+        "claude": "Claude",
+        "codex": "Codex",
+        "all": "Agent plugins",
+    }[platform]
+    previous_tag = previous_release_tag(platform, target)
     base = previous_tag or f"{target}^"
     changes = relevant_changes(changed_files(base, target), platform)
 
@@ -86,18 +102,31 @@ def render_notes(platform: str, version: str, target: str) -> str:
             if (name := skill_name_from_path(path, "agent-plugins/skills/"))
         }
     )
-    generated_skills = sorted(
-        {
-            name
-            for _status, path in changes
-            if (name := skill_name_from_path(path, generated_prefix))
+    generated_prefixes = (
+        [(platform, f"{platform}/skills/")]
+        if platform != "all"
+        else [("claude", "claude/skills/"), ("codex", "codex/skills/")]
+    )
+    generated_skills = {
+        name: sorted(
+            {
+                skill
+                for _status, path in changes
+                if (skill := skill_name_from_path(path, prefix))
+            }
+        )
+        for name, prefix in generated_prefixes
+    }
+    metadata_files = (
+        {f".{platform}-plugin/plugin.json", "README.md"}
+        if platform != "all"
+        else {
+            ".claude-plugin/plugin.json",
+            ".codex-plugin/plugin.json",
+            "README.md",
         }
     )
-    metadata_changes = [
-        path
-        for _status, path in changes
-        if path in {f".{platform}-plugin/plugin.json", "README.md"}
-    ]
+    metadata_changes = [path for _status, path in changes if path in metadata_files]
 
     lines = [
         f"{platform_label} plugin {version}",
@@ -115,11 +144,16 @@ def render_notes(platform: str, version: str, target: str) -> str:
         lines.append("Canonical skill changes:")
         lines.extend(f"- `{skill}`" for skill in canonical_skills)
         lines.append("")
-    if generated_skills:
-        lines.append(f"Generated {platform_label} skill changes:")
-        lines.extend(f"- `{skill}`" for skill in generated_skills)
+    generated_count = 0
+    for generated_platform, skills in generated_skills.items():
+        if not skills:
+            continue
+        generated_count += len(skills)
+        label = generated_platform.capitalize()
+        lines.append(f"Generated {label} skill changes:")
+        lines.extend(f"- `{skill}`" for skill in skills)
         lines.append("")
-    if not canonical_skills and not generated_skills:
+    if not canonical_skills and not generated_count:
         lines.append("- No skill file changes detected in this comparison.")
         lines.append("")
 

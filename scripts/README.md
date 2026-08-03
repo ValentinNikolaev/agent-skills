@@ -281,7 +281,7 @@ For example, `0.1.0` becomes `1.0.0` for a major bump and `0.2.0` for a minor bu
 
 The root `README.md` is regenerated after skill generation and included in `--check` drift detection.
 
-The push workflow also creates a matching GitHub release when a plugin manifest version changes. Claude releases use tags like `claude-v0.2.0`; Codex releases use tags like `codex-v0.2.0`. Release notes are generated from the diff since the previous platform tag and summarize changed canonical skills, generated platform skills, metadata, docs, and changed files.
+The push workflow creates one combined GitHub release when the shared Claude/Codex plugin version changes at the major or minor level. It checks both version changes made by regeneration and version changes already present in the incoming commit, so a locally regenerated and versioned change still produces a release even when the workflow has nothing new to commit. Patch-only changes such as `2.1.0` to `2.1.1` do not create a release. Combined releases use tags like `agent-plugins-v2.1.0`, include both Claude and Codex distribution archives, and contain release notes generated from the diff since the previous combined release.
 
 ## Command-line options
 

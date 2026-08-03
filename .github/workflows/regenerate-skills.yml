@@ -27,6 +27,65 @@ jobs:
         run: |
           python -c 'import json, os, pathlib; output = pathlib.Path(os.environ["GITHUB_OUTPUT"]); claude = json.loads(pathlib.Path(".claude-plugin/plugin.json").read_text(encoding="utf-8"))["version"]; codex = json.loads(pathlib.Path(".codex-plugin/plugin.json").read_text(encoding="utf-8"))["version"]; output.open("a", encoding="utf-8").write(f"claude_version={claude}\ncodex_version={codex}\n")'
 
+      - name: Check plugin version changes in incoming commit
+        id: incoming
+        env:
+          EVENT_BEFORE: ${{ github.event.before }}
+          CURRENT_SHA: ${{ github.sha }}
+        run: |
+          base="$EVENT_BEFORE"
+          if [ -z "$base" ] || [[ "$base" =~ ^0+$ ]]; then
+            base="$(git rev-parse "$CURRENT_SHA^" 2>/dev/null || true)"
+          fi
+
+          BASE_SHA="$base" python - <<'PY'
+          import json
+          import os
+          import pathlib
+          import subprocess
+
+          output = pathlib.Path(os.environ["GITHUB_OUTPUT"])
+          base = os.environ.get("BASE_SHA", "")
+
+          def read_json(path: str) -> dict:
+              if not base:
+                  return {}
+              result = subprocess.run(
+                  ["git", "show", f"{base}:{path}"],
+                  check=False,
+                  capture_output=True,
+                  text=True,
+              )
+              if result.returncode != 0:
+                  return {}
+              try:
+                  value = json.loads(result.stdout)
+              except json.JSONDecodeError:
+                  return {}
+              return value if isinstance(value, dict) else {}
+
+          current = {
+              "claude": json.loads(
+                  pathlib.Path(".claude-plugin/plugin.json").read_text(encoding="utf-8")
+              ),
+              "codex": json.loads(
+                  pathlib.Path(".codex-plugin/plugin.json").read_text(encoding="utf-8")
+              ),
+          }
+
+          lines = []
+          for platform in ("claude", "codex"):
+              path = f".{platform}-plugin/plugin.json"
+              previous_version = read_json(path).get("version")
+              current_version = current[platform].get("version")
+              changed = bool(current_version) and previous_version != current_version
+              lines.append(f"{platform}_changed={'true' if changed else 'false'}")
+              lines.append(f"{platform}_previous={previous_version or 'none'}")
+              lines.append(f"{platform}_current={current_version or 'unknown'}")
+
+          output.open("a", encoding="utf-8").write("\n".join(lines) + "\n")
+          PY
+
       - name: Regenerate skill wrappers
         run: python scripts/generate_skill_wrappers.py --clean
 
@@ -35,12 +94,78 @@ jobs:
         run: |
           python -c 'import json, os, pathlib; output = pathlib.Path(os.environ["GITHUB_OUTPUT"]); claude = json.loads(pathlib.Path(".claude-plugin/plugin.json").read_text(encoding="utf-8"))["version"]; codex = json.loads(pathlib.Path(".codex-plugin/plugin.json").read_text(encoding="utf-8"))["version"]; output.open("a", encoding="utf-8").write(f"claude_version={claude}\ncodex_version={codex}\n")'
 
+      - name: Determine combined release
+        id: release
+        env:
+          INCOMING_CLAUDE: ${{ steps.incoming.outputs.claude_previous }}
+          INCOMING_CODEX: ${{ steps.incoming.outputs.codex_previous }}
+          BEFORE_CLAUDE: ${{ steps.before.outputs.claude_version }}
+          BEFORE_CODEX: ${{ steps.before.outputs.codex_version }}
+          AFTER_CLAUDE: ${{ steps.after.outputs.claude_version }}
+          AFTER_CODEX: ${{ steps.after.outputs.codex_version }}
+        run: |
+          python - <<'PY'
+          import os
+          import pathlib
+
+          values = {
+              "incoming_claude": os.environ["INCOMING_CLAUDE"],
+              "incoming_codex": os.environ["INCOMING_CODEX"],
+              "before_claude": os.environ["BEFORE_CLAUDE"],
+              "before_codex": os.environ["BEFORE_CODEX"],
+              "after_claude": os.environ["AFTER_CLAUDE"],
+              "after_codex": os.environ["AFTER_CODEX"],
+          }
+
+          if values["after_claude"] != values["after_codex"]:
+              raise SystemExit(
+                  "Claude and Codex plugin versions must match before creating a combined release: "
+                  f"Claude {values['after_claude']}, Codex {values['after_codex']}"
+              )
+
+          def major_minor(version: str) -> tuple[int, int] | None:
+              if version in {"", "none", "unknown"}:
+                  return None
+              parts = version.split(".")
+              if len(parts) != 3 or not all(part.isdigit() for part in parts):
+                  raise SystemExit(f"Invalid plugin version: {version}")
+              return int(parts[0]), int(parts[1])
+
+          def requires_release(previous: str, current: str) -> bool:
+              old = major_minor(previous)
+              new = major_minor(current)
+              if new is None:
+                  raise SystemExit(f"Invalid current plugin version: {current}")
+              return old is None or old != new
+
+          incoming_change = requires_release(
+              values["incoming_claude"], values["after_claude"]
+          ) or requires_release(values["incoming_codex"], values["after_codex"])
+          regeneration_change = requires_release(
+              values["before_claude"], values["after_claude"]
+          ) or requires_release(values["before_codex"], values["after_codex"])
+          needed = incoming_change or regeneration_change
+
+          output = pathlib.Path(os.environ["GITHUB_OUTPUT"])
+          output.write_text(
+              f"needed={'true' if needed else 'false'}\n"
+              f"version={values['after_claude']}\n",
+              encoding="utf-8",
+          )
+          print(
+              f"Combined release: {'required' if needed else 'not required'} "
+              f"for version {values['after_claude']} "
+              "(patch-only changes do not release)."
+          )
+          PY
+
       - name: Commit regenerated skills
         id: commit
         run: |
           if git diff --quiet -- README.md claude/skills codex/skills .claude-plugin/plugin.json .codex-plugin/plugin.json; then
             echo "No generated skill changes to commit."
             echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "sha=${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
@@ -52,50 +177,34 @@ jobs:
           echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
           git push
 
-      - name: Release Claude plugin version
-        if: >-
-          steps.commit.outputs.changed == 'true' &&
-          steps.before.outputs.claude_version != steps.after.outputs.claude_version
+      - name: Prepare combined release assets
+        if: steps.release.outputs.needed == 'true'
         env:
-          GH_TOKEN: ${{ github.token }}
-          VERSION: ${{ steps.after.outputs.claude_version }}
-          TARGET: ${{ steps.commit.outputs.sha }}
+          VERSION: ${{ steps.release.outputs.version }}
         run: |
-          tag="claude-v${VERSION}"
-          if gh release view "$tag" >/dev/null 2>&1; then
-            echo "Release $tag already exists."
-            exit 0
-          fi
-          python scripts/build_release_notes.py \
-            --platform claude \
-            --version "$VERSION" \
-            --target "$TARGET" \
-            --output claude-release-notes.md
-          gh release create "$tag" \
-            --target "$TARGET" \
-            --title "Claude plugin ${VERSION}" \
-            --notes-file claude-release-notes.md
+          tar -czf "agent-plugins-claude-${VERSION}.tar.gz" README.md .claude-plugin claude
+          tar -czf "agent-plugins-codex-${VERSION}.tar.gz" README.md .codex-plugin codex
 
-      - name: Release Codex plugin version
-        if: >-
-          steps.commit.outputs.changed == 'true' &&
-          steps.before.outputs.codex_version != steps.after.outputs.codex_version
+      - name: Create combined plugin release
+        if: steps.release.outputs.needed == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-          VERSION: ${{ steps.after.outputs.codex_version }}
+          VERSION: ${{ steps.release.outputs.version }}
           TARGET: ${{ steps.commit.outputs.sha }}
         run: |
-          tag="codex-v${VERSION}"
+          tag="agent-plugins-v${VERSION}"
           if gh release view "$tag" >/dev/null 2>&1; then
             echo "Release $tag already exists."
             exit 0
           fi
           python scripts/build_release_notes.py \
-            --platform codex \
+            --platform all \
             --version "$VERSION" \
             --target "$TARGET" \
-            --output codex-release-notes.md
+            --output release-notes.md
           gh release create "$tag" \
             --target "$TARGET" \
-            --title "Codex plugin ${VERSION}" \
-            --notes-file codex-release-notes.md
+            --title "Agent plugins ${VERSION}" \
+            --notes-file release-notes.md \
+            "agent-plugins-claude-${VERSION}.tar.gz" \
+            "agent-plugins-codex-${VERSION}.tar.gz"
