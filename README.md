@@ -7,16 +7,18 @@ Shared agent skills maintained once in `agent-plugins/skills/` and generated int
 
 This list is regenerated from `agent-plugins/skills/`.
 
+- `audit-docs`: Run a read-only documentation drift audit over repository docs and report evidence-backed findings. Use when asked to audit docs, check documentation drift, find broken doc links or stale generated indexes, review ADR references, detect duplicate canonical facts, or verify migrated documentation facts are still present. Reports only; never edits.
+- `audit-memory`: Run a read-only audit of agent memory files for staleness, broken cross-references, stale external sources, vague descriptions, index drift, bidirectionality gaps, and capacity limits. Use when asked to check memory health, audit Claude/Codex/agent memory files, find stale or broken memories, or review memory index consistency. Reports only; never edits.
 - `business-viability-assessment`: Create an evidence-based project viability and financial assessment for a software product, startup idea, MVP, repository, PRD, requirements folder, or concept document. Use when the user asks whether a project is worth building, wants market demand research, competitor analysis, MVP scope reduction, development estimates, infrastructure and marketing costs, unit economics, financial scenarios, risks, validation experiments, or a GO / VALIDATE_FIRST / PIVOT / NO_GO recommendation. Work through CLI/project files, write only analysis artifacts, and do not modify product source code.
 - `clean-code-comments`: Remove excessive, redundant, or LLM-generated comments from source code in user-specified directories. Use when asked to clean up comments, reduce comment noise, shorten verbose documentation, or remove comments that merely restate self-explanatory code. Preserve intent, constraints, business rules, tooling directives, and non-obvious behavior. Do not use for general refactoring or documentation generation.
 - `code-review`: Pre-PR code review — find bugs, security issues, and logic errors in uncommitted changes, specific files, or a PR diff. Read-only, reports findings without fixing. Covers correctness, cross-method data flow, error handling, security, concurrency, architecture, performance, edge cases, tests.
 - `council`: Run any question, idea, or decision through a council of 5 AI advisors who independently analyze it, peer-review each other anonymously, and synthesize a final verdict. Based on Karpathy's LLM Council methodology. MANDATORY TRIGGERS: 'council this', 'run the council', 'war room this', 'pressure-test this', 'stress-test this', 'debate this'. STRONG TRIGGERS (use when combined with a real decision or tradeoff): 'should I X or Y', 'which option', 'what would you do', 'is this the right move', 'validate this', 'get multiple perspectives', 'I can't decide', 'I'm torn between'. Do NOT trigger on simple yes/no questions, factual lookups, or casual 'should I' without a meaningful tradeoff (e.g. 'should I use markdown' is not a council question). DO trigger when the user presents a genuine decision with stakes, multiple options, and context that suggests they want it pressure-tested from multiple angles.
 - `stop-slop`: Remove AI writing patterns from prose. Use when drafting, editing, or reviewing text to eliminate predictable AI tells.
-- `wrap-agent-skill`: Create Claude and Codex wrapper skills from canonical agent-plugins-skills skills in this repository. Use when asked to add, update, sync, or adapt `agent-plugins-skills/skills/<name>` into `codex/skills/<name>` and `.codex/skills/<name>` wrappers without duplicating the canonical skill body.
+- `wrap-agent-skill`: Add, import, normalize, or sync agent skills into this repository's canonical `agent-plugins/skills/<name>` tree, then generate Claude and Codex distribution copies. Use when asked to add a skill from another repo, `.claude`, `.codex`, Claude Code, Codex, or an existing canonical agent skill; detect whether the source is a real reusable skill before adapting it into a universal platform-neutral skill.
 
 ## Connect To Codex
 
-Codex plugin manifest: `.codex-plugin/plugin.json` (version `3.1.0`).
+Codex plugin manifest: `.codex-plugin/plugin.json` (version `5.2.0`).
 
 Install from the Codex plugin marketplace:
 
@@ -36,7 +38,7 @@ python scripts/generate_skill_wrappers.py --clean
 
 ## Connect To Claude
 
-Claude plugin manifest: `.claude-plugin/plugin.json` (version `3.1.0`).
+Claude plugin manifest: `.claude-plugin/plugin.json` (version `5.2.0`).
 
 From inside Claude Code:
 
