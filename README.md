@@ -14,14 +14,16 @@ This list is regenerated from `agent-plugins/skills/`.
 - `code-review`: Pre-PR code review — find bugs, security issues, and logic errors in uncommitted changes, specific files, or a PR diff. Read-only, reports findings without fixing. Covers correctness, cross-method data flow, error handling, security, concurrency, architecture, performance, edge cases, tests.
 - `council`: Run any question, idea, or decision through a council of 5 AI advisors who independently analyze it, peer-review each other anonymously, and synthesize a final verdict. Based on Karpathy's LLM Council methodology. MANDATORY TRIGGERS: 'council this', 'run the council', 'war room this', 'pressure-test this', 'stress-test this', 'debate this'. STRONG TRIGGERS (use when combined with a real decision or tradeoff): 'should I X or Y', 'which option', 'what would you do', 'is this the right move', 'validate this', 'get multiple perspectives', 'I can't decide', 'I'm torn between'. Do NOT trigger on simple yes/no questions, factual lookups, or casual 'should I' without a meaningful tradeoff (e.g. 'should I use markdown' is not a council question). DO trigger when the user presents a genuine decision with stakes, multiple options, and context that suggests they want it pressure-tested from multiple angles.
 - `create-memory`: Bootstrap durable project memory from a repository and its available instructions. Use when a project has no useful memory index, when memory needs initial creation, or when the user asks to document project context for future agents. Preview broad or destructive writes and keep the result platform-neutral.
+- `fix-pr`: Triage and fix actionable GitHub pull-request review feedback. Use when the user asks to address PR comments, fix review feedback, apply suggestions, or resolve requested changes. Preserve non-actionable comments in the report, make minimal edits, verify the result, and never commit or push unless explicitly asked.
 - `ingest-memory`: Import durable knowledge into an agent memory store from a URL, document, provider record, pasted text, project specification, or refreshed source. Use when the user asks to ingest, sync, refresh, or convert external knowledge into structured memory. Detect duplicates and preview risky writes.
+- `plan-review`: Review an implementation plan against requirements, repository evidence, architecture, risks, and test expectations before coding begins. Use when the user asks to critique, validate, pressure-test, or approve a technical implementation plan. Report evidence-backed findings only and never rewrite the plan.
 - `stop-slop`: Remove AI writing patterns from prose. Use when drafting, editing, or reviewing text to eliminate predictable AI tells.
 - `update-memory`: Maintain existing agent memory after a work session, feature, fix, decision, or project milestone. Use when durable knowledge changed and the user asks to update, record, sync, or maintain project memory. Avoid speculative or temporary notes and preview ambiguous edits.
 - `wrap-agent-skill`: Add, import, normalize, or sync agent skills into this repository's canonical `agent-plugins/skills/<name>` tree, then generate Claude and Codex distribution copies. Use when asked to add a skill from another repo, `.claude`, `.codex`, Claude Code, Codex, or an existing canonical agent skill; detect whether the source is a real reusable skill before adapting it into a universal platform-neutral skill.
 
 ## Connect To Codex
 
-Codex plugin manifest: `.codex-plugin/plugin.json` (version `6.1.0`).
+Codex plugin manifest: `.codex-plugin/plugin.json` (version `7.0.0`).
 
 Install from the Codex plugin marketplace:
 
@@ -41,7 +43,7 @@ python scripts/generate_skill_wrappers.py --clean
 
 ## Connect To Claude
 
-Claude plugin manifest: `.claude-plugin/plugin.json` (version `6.1.0`).
+Claude plugin manifest: `.claude-plugin/plugin.json` (version `7.0.0`).
 
 From inside Claude Code:
 
