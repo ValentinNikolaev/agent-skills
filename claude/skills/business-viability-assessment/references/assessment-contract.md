@@ -222,7 +222,7 @@ Follow these strictly:
 
 ## Required output files
 
-Create exactly these core artifacts under `analysis/business-viability/`:
+For `standard` and `deep` assessments, create exactly these core artifacts under `analysis/business-viability/`:
 
 ```text
 executive-summary.md
@@ -242,6 +242,16 @@ assessment.json
 ```
 
 When useful, create `analysis/business-viability/scripts/` with a small runnable script that regenerates the financial model. Prefer reproducible calculations over manually invented totals.
+
+For `quick` assessments, create only:
+
+```text
+executive-summary.md
+assumptions.md
+sources.md
+```
+
+Mark quick outputs as preliminary and list the omitted standard artifacts.
 
 ## Financial model CSV
 

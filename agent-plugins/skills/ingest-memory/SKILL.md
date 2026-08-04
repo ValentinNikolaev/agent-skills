@@ -39,6 +39,16 @@ Choose the narrowest mode that matches the request:
 
 For tree or batch work, establish a scope and maximum before fetching. Do not recursively ingest an entire provider space by default.
 
+Use this source-type decision table:
+
+| Source type | Retrieval rule | Extra caution |
+|---|---|---|
+| URL | Fetch the exact page and record access date. | Do not crawl descendants unless requested. |
+| Local file | Read the supplied file and nearby referenced files only when needed. | Preserve the original path as provenance. |
+| Provider record | Use the available connector or API for that record ID. | Do not assume tenant, workspace, or database names. |
+| Pasted text | Treat the chat content as the source. | Avoid storing raw private content when a summary is enough. |
+| Source tree | Preview the bounded file list before ingesting. | Ask before broad or recursive imports. |
+
 ## Normalize and Classify
 
 Extract claims, decisions, requirements, constraints, interfaces, and open questions. Remove navigation noise, duplicated boilerplate, and unsupported conclusions.
@@ -60,7 +70,7 @@ Before writing:
 3. Decide whether the content is new, an update, a duplicate, or a conflict.
 4. For refreshes, show changed sections and preserve local notes that are not contradicted by the source.
 
-Preview the plan and ask for confirmation before overwriting existing files, resolving conflicts, writing more than three files, or performing a broad tree import. A duplicate should normally produce a report, not another file.
+Preview the plan and ask for confirmation before overwriting existing files, resolving conflicts, writing more than three files, changing multiple relationships, or performing a broad tree import. The preview must list files to create, files to update, duplicates to skip, conflicts to preserve, and source limits. A duplicate should normally produce a report, not another file.
 
 ## Family File Standard
 
@@ -90,4 +100,3 @@ Use `type: project`, `feedback`, or `reference`. Keep `source` stable and append
 ## Report
 
 Return the source scope, mode, files created or updated, duplicates skipped, conflicts or open questions, and any provider or fetch limitations. Recommend `audit-memory` after a successful import or refresh.
-

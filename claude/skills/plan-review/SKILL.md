@@ -4,7 +4,7 @@ description: Review an implementation plan against requirements, repository evid
 metadata:
   trigger: Reviewing an implementation plan before coding
 user-invocable: true
-allowed-tools: Read, Grep, Glob, Bash
+allowed-tools: Read, Grep, Glob, Bash(git status:*), Bash(git log:*), Bash(git ls-files:*), Bash(rg:*), Bash(find:*)
 argument-hint: "[plan text or plan file] [quick|deep|final]"
 effort: thorough
 ---
@@ -25,6 +25,8 @@ Choose the requested depth; default to `deep`:
 - `quick`: check requirements coverage and blockers only.
 - `deep`: validate all applicable criteria, repository assumptions, and similar implementations.
 - `final`: assume the plan is mostly correct and try to break it with production edge cases, rollback gaps, and unhandled failure modes.
+
+For `quick`, keep repository inspection bounded to explicitly referenced files plus requirements/instructions. For `deep` or `final`, read at most three comparable implementations unless a blocker requires one more targeted lookup.
 
 ## Load Context
 
@@ -147,4 +149,3 @@ Omit empty sections. If no issues are found, state that clearly and include rema
 - Do not modify repository files, checkout branches, install dependencies, or run state-changing commands.
 - Do not report a violation without evidence or a clearly identified missing plan step.
 - Do not duplicate the repository's code-review workflow; use `code-review` after implementation when the request is about a code diff.
-

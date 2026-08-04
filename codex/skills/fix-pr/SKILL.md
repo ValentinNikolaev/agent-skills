@@ -4,7 +4,7 @@ description: Triage and fix actionable GitHub pull-request review feedback. Use 
 metadata:
   trigger: Fixing GitHub pull request review feedback
 user-invocable: true
-allowed-tools: Read, Grep, Glob, Bash, Write, Edit, MultiEdit
+allowed-tools: Read, Grep, Glob, Bash(git status:*), Bash(git branch:*), Bash(git rev-parse:*), Bash(git fetch:*), Bash(git checkout:*), Bash(git worktree:*), Bash(git diff:*), Bash(git log:*), Bash(gh pr view:*), Bash(gh pr diff:*), Bash(gh api:*), Bash(rg:*), Write, Edit, MultiEdit
 argument-hint: "<PR URL or owner/repo#number>"
 effort: thorough
 ---
@@ -25,6 +25,7 @@ Inspect a GitHub pull request, separate actionable feedback from comments that n
 3. Confirm that the GitHub connector or CLI is authenticated before attempting to fetch review data.
 4. Record the starting branch and commit so the final report can describe any branch change.
 5. Do not commit, push, resolve GitHub threads, or send external comments unless the user explicitly requests that follow-up.
+6. Ask before changing branches or creating a worktree unless the user already requested working on that PR branch in this turn.
 
 ## Parse the PR Reference
 
@@ -44,7 +45,7 @@ Prefer a separate worktree when the current repository is clean but the user nee
 
 ## Fetch Review Data
 
-Use a GitHub connector or CLI/API capability. GraphQL is preferred for inline review threads because it exposes resolution and outdated status; use an equivalent API when it provides the same information.
+Use a GitHub connector or CLI/API capability. GraphQL is preferred for inline review threads because it exposes resolution and outdated status; use an equivalent API when it provides the same information. If only flat review comments are available, label thread resolution and outdated status as unknown rather than guessing.
 
 Collect:
 
@@ -140,4 +141,3 @@ Return:
 - verification commands and results
 - current branch and working-tree state
 - next steps requiring human response
-

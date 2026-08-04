@@ -1,7 +1,11 @@
 ---
-
 name: clean-code-comments
 description: Remove excessive, redundant, or LLM-generated comments from source code in user-specified directories. Use when asked to clean up comments, reduce comment noise, shorten verbose documentation, or remove comments that merely restate self-explanatory code. Preserve intent, constraints, business rules, tooling directives, and non-obvious behavior. Do not use for general refactoring or documentation generation.
+metadata:
+  trigger: Cleaning redundant source-code comments
+user-invocable: true
+allowed-tools: Read, Grep, Glob, Bash(git status:*), Bash(git diff:*), Bash(rg:*), Bash(find:*), Write, Edit, MultiEdit
+argument-hint: "<target directory...> [--dry-audit]"
 ---
 
 # Clean Code Comments
@@ -19,6 +23,8 @@ If no directories are provided, ask for them before editing files.
 Resolve relative paths from the repository root unless the user specifies another base directory.
 
 Only modify files inside the resolved target directories.
+
+If the user passes `--dry-audit`, inspect and report comment-cleanup opportunities without editing files.
 
 ## Before editing
 

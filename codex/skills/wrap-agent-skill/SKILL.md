@@ -4,7 +4,7 @@ description: Add, import, normalize, or sync agent skills into this repository's
 metadata:
   trigger: Creating Claude/Codex wrappers for repository agent-plugins skills
 user-invocable: true
-allowed-tools: Read, Grep, Glob, Bash, Write, Edit, MultiEdit
+allowed-tools: Read, Grep, Glob, Bash(git status:*), Bash(git diff:*), Bash(python scripts/generate_skill_wrappers.py:*), Bash(rg:*), Bash(find:*), Write, Edit, MultiEdit
 argument-hint: "<skill-name-or-source-path> [--claude] [--codex] [--sync] [--import]"
 ---
 
@@ -46,6 +46,8 @@ codex/skills/<skill-name>/          # generated
 9. After validation passes, summarize the changed files and ask whether the user wants to push/publish the changes. Do not commit, push, release, or publish unless the user explicitly approves that follow-up action.
 
 If a target path is blocked by permissions or ACLs, report the blocked file and provide the exact wrapper content that should be written.
+
+For `--sync` of an existing canonical skill, skip the mandatory pre-add review only when no new skill is being introduced and the requested source is already under `agent-plugins/skills/<skill-name>/`. Still read the canonical file, regenerate wrappers, validate, and report the diff.
 
 ## Mandatory Pre-Add Review
 

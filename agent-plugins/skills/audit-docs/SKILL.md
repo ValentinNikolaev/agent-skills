@@ -4,8 +4,9 @@ description: Run a read-only documentation drift audit over repository docs and 
 metadata:
   trigger: Read-only documentation drift audit
 user-invocable: true
-allowed-tools: Read, Grep, Glob, Bash
+allowed-tools: Read, Grep, Glob, Bash(git status:*), Bash(git log:*), Bash(git ls-files:*), Bash(rg:*), Bash(find:*), Bash(wc:*)
 argument-hint: "[docs directory or migration scope]"
+effort: thorough
 ---
 
 # Audit Docs
@@ -29,6 +30,12 @@ Default to `docs/` when it exists. Also inspect repository-level agent or contri
 If the user supplies a directory, file list, or migration scope, use that as the primary scope and include adjacent documentation indexes or ADR directories when needed to validate references.
 
 Do not follow symlinks into external shared documentation repositories unless the user explicitly asks and the target is available. Treat cross-repository provenance links as informational unless the repository clearly expects them to resolve locally.
+
+Before reporting, classify each issue by impact:
+
+- `critical`: a documented command, local file reference, generated index, or current ADR pointer is broken in a way likely to mislead contributors.
+- `warning`: duplicated, stale, or ambiguous canonical documentation is likely to drift but does not block immediate use.
+- `info`: a weak signal, external provenance concern, or cleanup opportunity that needs human judgment.
 
 ## Audit Checks
 
@@ -56,6 +63,7 @@ Check the canonical non-research documentation corpus for unwanted language/scri
 
 Group findings by audit class. For each finding, include:
 
+- severity: `critical`, `warning`, or `info`
 - `file:line` evidence
 - the broken, stale, duplicated, or risky reference/fact
 - a one-line explanation of why it matters

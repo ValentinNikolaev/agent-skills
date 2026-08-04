@@ -63,7 +63,7 @@ Separate durable knowledge into these family types:
 
 Capture knowledge that is stable, non-obvious, and useful in a later session. Skip facts that are already enforced by source code or instructions, temporary task state, secrets, raw logs, and details that can be derived cheaply from the repository.
 
-Before writing, produce a compact candidate plan containing the proposed files, their types, and the evidence for each. Ask for confirmation when the plan would create more than three files, replace an existing index, or modify existing memory in a non-additive way. Small additive bootstraps may proceed after the user has clearly requested creation.
+Before writing, produce a compact candidate plan containing the selected memory root, proposed files, their types, and the evidence for each. Ask for confirmation when the target root was inferred rather than supplied, when the plan would create more than three files, replace an existing index, or modify existing memory in a non-additive way. Small additive bootstraps may proceed after the user has clearly requested creation and the root is unambiguous.
 
 ## Family File Standard
 
@@ -90,6 +90,8 @@ Use `type: project`, `feedback`, or `reference`. Preserve an existing `source` f
 5. Preserve manual index entries and unrelated files. Do not delete stale material unless the user explicitly requests cleanup.
 6. Check that every indexed file exists and every related link resolves within the selected memory root.
 
+Before the final report, run a duplicate pass: compare each new filename, `name`, description, and distinctive claim against existing memory files and the updated `MEMORY.md`. Merge or report duplicates instead of leaving two canonical homes for the same durable fact.
+
 ## Safety and Handoff
 
 - Do not write credentials, tokens, private personal data, or raw conversation dumps.
@@ -97,4 +99,3 @@ Use `type: project`, `feedback`, or `reference`. Preserve an existing `source` f
 - Keep temporary discoveries out of durable memory unless they meet the candidate criteria.
 - Report the selected roots, created or changed files, skipped candidates, and unresolved uncertainties.
 - Recommend running `audit-memory` after creation, especially when importing an unfamiliar project or creating more than one file.
-

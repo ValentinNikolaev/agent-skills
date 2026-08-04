@@ -4,7 +4,7 @@ description: Run a read-only audit of agent memory files for staleness, broken c
 metadata:
   trigger: Read-only agent memory health audit
 user-invocable: true
-allowed-tools: Read, Glob, Grep, Bash
+allowed-tools: Read, Glob, Grep, Bash(git status:*), Bash(git log:*), Bash(rg:*), Bash(find:*), Bash(wc:*)
 argument-hint: "[memory root, project root, or memory scope]"
 effort: thorough
 ---
@@ -40,6 +40,8 @@ Use this skill when the user asks to:
 ## Scope Discovery
 
 If the user supplies a memory root, project root, or file list, use that as the primary scope.
+
+Accept optional thresholds in the user's request, such as `--stale-days 60`, `--file-limit 300`, or `--index-line-limit 120`. When absent, use the defaults below and state the assumption in the report.
 
 When no scope is supplied, look for common memory layouts that exist on the machine:
 
@@ -179,3 +181,4 @@ No issues found.
 - Do not stage, commit, reset, checkout, or clean files.
 - Do not assume Claude paths are the only valid memory layout.
 - Do not treat dormant project memories as urgent stale findings without evidence of recent project activity.
+- Do not rewrite a memory file to match the family schema during an audit; report schema drift only when it harms retrieval, provenance, or link maintenance.

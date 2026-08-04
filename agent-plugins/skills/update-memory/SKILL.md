@@ -54,7 +54,7 @@ Use this decision order:
 2. If the topic is durable but absent, propose a focused new file.
 3. If it is temporary, redundant, or uncertain, skip it and report why.
 
-Preview the proposed file-level changes and ask for confirmation when edits are ambiguous, overwrite substantial existing text, create more than three files, or change relationships across multiple topics. Small, clearly requested updates may proceed additively.
+Preview the proposed file-level changes and ask for confirmation when edits are ambiguous, overwrite substantial existing text, create more than three files, change relationships across multiple topics, or use an inferred memory root. Small, clearly requested updates may proceed additively only when the target root and existing file are unambiguous.
 
 ## Family File Standard
 
@@ -81,7 +81,8 @@ Allowed types are `project`, `feedback`, and `reference`. Preserve an existing `
 5. Update `MEMORY.md` only when files or their purposes changed. Keep the index short and navigational.
 6. Verify every index entry and related link resolves within the selected memory root.
 
+For conflicts, use this merge order: preserve current durable truth, add the new evidence with date/source, mark superseded details explicitly, and leave unresolved contradictions in a short `Open Questions` or `Conflicts` section instead of silently choosing one side.
+
 ## Report and Handoff
 
 Report the evidence used, files changed, facts skipped, conflicts, and any follow-up needed. Recommend `audit-memory` after cross-file edits or when the update changes the index, links, or source provenance.
-

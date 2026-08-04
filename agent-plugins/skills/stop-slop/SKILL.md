@@ -4,6 +4,9 @@ description: Remove AI writing patterns from prose. Use when drafting, editing, 
 metadata:
   trigger: Writing prose, editing drafts, reviewing content for AI patterns
   author: Hardik Pandya (https://hvpandya.com)
+user-invocable: true
+allowed-tools: Read, Grep, Glob, Write, Edit, MultiEdit
+argument-hint: "<draft text or file> [light|standard|strict]"
 ---
 
 # Stop Slop
@@ -12,7 +15,15 @@ Eliminate predictable AI writing patterns from prose.
 
 ## Core Rules
 
-1. **Cut filler phrases.** Remove throat-clearing openers, emphasis crutches, and all adverbs. See [references/phrases.md](references/phrases.md).
+Choose the editing strength from the user's context:
+
+- `light`: preserve the author's voice and make only obvious cuts.
+- `standard`: remove common AI tells while keeping the piece natural for its genre.
+- `strict`: apply the full rule set for punchy opinion, outreach, or marketing prose.
+
+Default to `standard`. For technical docs, legal text, academic prose, or API documentation, preserve required precision even when it violates a style rule.
+
+1. **Cut filler phrases.** Remove throat-clearing openers, emphasis crutches, and adverbs that add no meaning. See [references/phrases.md](references/phrases.md).
 
 2. **Break formulaic structures.** Avoid binary contrasts, negative listings, dramatic fragmentation, rhetorical setups, false agency. See [references/structures.md](references/structures.md).
 
@@ -34,7 +45,7 @@ Eliminate predictable AI writing patterns from prose.
 
 Before delivering prose:
 
-- Any adverbs? Kill them.
+- Any empty adverbs? Kill them.
 - Any passive voice? Find the actor, make them the subject.
 - Inanimate thing doing a human verb ("the decision emerges")? Name the person.
 - Sentence starts with a Wh- word? Restructure it.

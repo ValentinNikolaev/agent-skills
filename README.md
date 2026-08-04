@@ -12,7 +12,7 @@ This list is regenerated from `agent-plugins/skills/`.
 - `business-viability-assessment`: Create an evidence-based project viability and financial assessment for a software product, startup idea, MVP, repository, PRD, requirements folder, or concept document. Use when the user asks whether a project is worth building, wants market demand research, competitor analysis, MVP scope reduction, development estimates, infrastructure and marketing costs, unit economics, financial scenarios, risks, validation experiments, or a GO / VALIDATE_FIRST / PIVOT / NO_GO recommendation. Work through CLI/project files, write only analysis artifacts, and do not modify product source code.
 - `clean-code-comments`: Remove excessive, redundant, or LLM-generated comments from source code in user-specified directories. Use when asked to clean up comments, reduce comment noise, shorten verbose documentation, or remove comments that merely restate self-explanatory code. Preserve intent, constraints, business rules, tooling directives, and non-obvious behavior. Do not use for general refactoring or documentation generation.
 - `code-review`: Pre-PR code review — find bugs, security issues, and logic errors in uncommitted changes, specific files, or a PR diff. Read-only, reports findings without fixing. Covers correctness, cross-method data flow, error handling, security, concurrency, architecture, performance, edge cases, tests.
-- `council`: Run any question, idea, or decision through a council of 5 AI advisors who independently analyze it, peer-review each other anonymously, and synthesize a final verdict. Based on Karpathy's LLM Council methodology. MANDATORY TRIGGERS: 'council this', 'run the council', 'war room this', 'pressure-test this', 'stress-test this', 'debate this'. STRONG TRIGGERS (use when combined with a real decision or tradeoff): 'should I X or Y', 'which option', 'what would you do', 'is this the right move', 'validate this', 'get multiple perspectives', 'I can't decide', 'I'm torn between'. Do NOT trigger on simple yes/no questions, factual lookups, or casual 'should I' without a meaningful tradeoff (e.g. 'should I use markdown' is not a council question). DO trigger when the user presents a genuine decision with stakes, multiple options, and context that suggests they want it pressure-tested from multiple angles.
+- `council`: Run any question, idea, or decision through a council of 5 AI advisors who independently analyze it, peer-review each other anonymously, and synthesize a final verdict. Based on Karpathy's LLM Council methodology. Use when the user says 'council this', 'run the council', 'war room this', 'pressure-test this', 'stress-test this', or 'debate this', or when a real decision has stakes and multiple defensible options. Do not trigger on factual lookups, simple yes/no questions, or casual low-stakes choices.
 - `create-memory`: Bootstrap durable project memory from a repository and its available instructions. Use when a project has no useful memory index, when memory needs initial creation, or when the user asks to document project context for future agents. Preview broad or destructive writes and keep the result platform-neutral.
 - `fix-pr`: Triage and fix actionable GitHub pull-request review feedback. Use when the user asks to address PR comments, fix review feedback, apply suggestions, or resolve requested changes. Preserve non-actionable comments in the report, make minimal edits, verify the result, and never commit or push unless explicitly asked.
 - `ingest-memory`: Import durable knowledge into an agent memory store from a URL, document, provider record, pasted text, project specification, or refreshed source. Use when the user asks to ingest, sync, refresh, or convert external knowledge into structured memory. Detect duplicates and preview risky writes.
@@ -23,7 +23,7 @@ This list is regenerated from `agent-plugins/skills/`.
 
 ## Connect To Codex
 
-Codex plugin manifest: `.codex-plugin/plugin.json` (version `7.0.0`).
+Codex plugin manifest: `.codex-plugin/plugin.json` (version `7.2.0`).
 
 Install from the Codex plugin marketplace:
 
@@ -43,7 +43,7 @@ python scripts/generate_skill_wrappers.py --clean
 
 ## Connect To Claude
 
-Claude plugin manifest: `.claude-plugin/plugin.json` (version `7.0.0`).
+Claude plugin manifest: `.claude-plugin/plugin.json` (version `7.2.0`).
 
 From inside Claude Code:
 
