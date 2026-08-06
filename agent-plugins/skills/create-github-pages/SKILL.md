@@ -1,0 +1,138 @@
+---
+name: create-github-pages
+description: Analyze a repository and create, modernize, or repair a polished GitHub Pages site using an appropriate documentation framework or lightweight static approach. Use when the user asks to build a GitHub Page, project website, documentation portal, wiki, landing page, or commit-triggered Pages deployment from repository content. Preserve existing documentation and branding, derive claims from repository evidence, make AI-authored refreshes opt-in, and verify the site build, links, responsive UX, accessibility basics, and deployment configuration.
+metadata:
+  trigger: Build a repository-aware GitHub Pages site with modern docs UX and safe deployment automation
+allowed-tools: Read, Grep, Glob, Write, Edit, MultiEdit, Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git show:*), Bash(git remote:*), Bash(rg:*), Bash(find:*), Bash(npm:*), Bash(npx:*), Bash(pnpm:*), Bash(yarn:*), Bash(bun:*), WebSearch, WebFetch
+---
+
+# AI GitHub Page Creator
+
+Turn repository evidence into a useful, maintainable GitHub Pages site. Optimize for readers who need to understand, evaluate, install, and use the project rather than for decorative novelty.
+
+## Operating contract
+
+- Inspect before editing. Read repository instructions, current changes, documentation, manifests, source layout, release metadata, existing site files, Pages workflows, `CNAME`, and branding assets.
+- Preserve user work and existing public URLs. Extend a viable site instead of replacing it without a reason.
+- Derive all project-specific claims, commands, compatibility statements, and examples from repository evidence. Mark unknowns as unknown; never invent metrics, testimonials, roadmaps, or API behavior.
+- Prefer one canonical source for each fact. Reuse or import existing Markdown when the chosen framework supports it; avoid hand-maintained duplicates that drift.
+- Treat automatic build and deployment from committed content as the default meaning of “update with commits.” Do not add automatic AI-authored content changes unless the user explicitly requests them.
+- Create local files and deployment configuration as requested. Do not enable repository settings, commit, push, publish, purchase a domain, or create external credentials without explicit authorization.
+- Keep dependencies proportionate to the site. Do not introduce a large framework for a single durable page unless its benefits are required.
+
+## Required references
+
+- Read [references/framework-selection.md](references/framework-selection.md) before choosing or changing the site stack.
+- Read [references/quality-and-deployment.md](references/quality-and-deployment.md) before implementation and again during final verification.
+
+## Workflow
+
+### 1. Establish repository truth
+
+Inspect the repository and record:
+
+- project type, primary languages, package manager, build system, and supported versions;
+- intended users and the first successful task they need to complete;
+- existing README, docs, examples, API references, changelog, contribution guide, license, screenshots, logos, and diagrams;
+- existing site framework, package scripts, deployment workflow, Pages configuration clues, custom domain, and public URL assumptions;
+- default branch, repository name, likely GitHub organization or owner, and whether the site is a user/organization site or a project site;
+- uncommitted changes and files that must not be overwritten.
+
+Use recent commit history only to understand active areas or documentation drift. Do not turn commit messages into public claims without corroborating them in the current tree.
+
+### 2. Define the content model
+
+Choose the smallest information architecture that answers the repository’s real user journeys. A typical software project may need:
+
+1. Home: value proposition, primary action, verified status signals, and links to source or releases.
+2. Getting started: prerequisites, installation, minimal working example, and next step.
+3. Guides: task-oriented workflows drawn from existing docs and examples.
+4. Reference: CLI, API, configuration, schemas, or concepts only when supported by source material.
+5. Project: contribution, license, security, changelog, or roadmap links as applicable.
+
+Omit empty sections. For a small repository, a single excellent page is better than a sparse multi-page site.
+
+### 3. Select the implementation
+
+Apply [references/framework-selection.md](references/framework-selection.md). Prefer the existing viable stack. For a new software, tool, or documentation site, default to a modern documentation SSG when search, navigation, or multiple pages justify it. Use a lightweight static or Jekyll approach for a durable single-page site.
+
+If framework or GitHub Actions syntax may have changed, consult current official documentation before writing configuration. Prefer official project and GitHub documentation over tutorials.
+
+State the selected approach and the evidence behind it before making broad structural changes. Include the content root, build command, output directory, base path strategy, and deployment method.
+
+### 4. Design from repository cues
+
+- Reuse existing logo, icon, screenshots, colors, and terminology when suitable.
+- Create a restrained design system: accessible color tokens, readable type scale, consistent spacing, clear focus states, and coherent light/dark themes.
+- Use framework-native components before adding custom client-side code.
+- Customize the template enough that the result explains this project specifically; remove stock pages, placeholder copy, demo links, and unused assets.
+- Keep global navigation concise. Put detailed hierarchy in the documentation sidebar or page table of contents.
+
+### 5. Implement content and UX
+
+Meet these requirements unless the chosen minimal format makes one irrelevant:
+
+- Keep a single H1 per page and use H2/H3 for a clear visual hierarchy.
+- Provide sticky navigation or a sticky table of contents on long documentation pages.
+- Enable instant client-side search without full-page reloads for multi-page documentation.
+- Ensure every rendered code block has an accessible one-click copy control, preferably through the framework’s native feature.
+- Render notes, tips, warnings, and cautions as accessible callouts. Support GitHub-style `> [!NOTE]` source syntax directly or map it during the build.
+- Make layouts responsive; allow wide tables and code samples to scroll horizontally instead of overflowing the viewport.
+- Provide descriptive link text, visible keyboard focus, sufficient color contrast, useful alternative text, and reduced-motion behavior for nonessential animation.
+- Add a source link or GitHub Corner only when it remains usable on touch, keyboard, and narrow screens and does not obscure navigation.
+- Avoid auto-playing media, scroll hijacking, excessive motion, and decorative components that delay the first useful content.
+
+### 6. Configure GitHub Pages delivery
+
+Create a least-privilege GitHub Actions workflow that builds and deploys the committed site when relevant files change. Follow current official Pages guidance and the rules in [references/quality-and-deployment.md](references/quality-and-deployment.md).
+
+The workflow must:
+
+- trigger from the intended default branch and allow manual dispatch;
+- use the repository lockfile and matching package manager;
+- run the production build rather than uploading source files for SSG projects;
+- upload the exact generated output directory and deploy it through the supported Pages mechanism;
+- declare only required permissions, serialize deployments safely, and use the Pages environment;
+- set the correct project-site base path while preserving custom-domain behavior;
+- use path filters only when they cannot suppress a required rebuild.
+
+If the repository already has a Pages workflow, modify it minimally and avoid creating competing deployments.
+
+### 7. Handle content refresh safely
+
+Prefer refresh mechanisms in this order:
+
+1. Build directly from canonical committed Markdown or generated API/reference artifacts.
+2. Add a deterministic synchronization or documentation-generation command that runs during build or CI.
+3. Add a scheduled or commit-triggered AI authoring workflow only when explicitly requested.
+
+For opt-in AI authoring, keep generation separate from deployment. Use least-privilege credentials, pin dependencies or actions appropriately, create a reviewable branch or pull request, prevent recursive workflow loops, constrain writable paths, and never publish generated claims without validation.
+
+### 8. Verify before handoff
+
+Run the production build with the repository’s selected package manager. Then apply every applicable check in [references/quality-and-deployment.md](references/quality-and-deployment.md).
+
+At minimum, verify:
+
+- clean build and expected output directory;
+- internal links, asset paths, and project-site base URLs;
+- navigation, search, callouts, and code-copy behavior;
+- desktop and narrow mobile layouts, including tables and code blocks;
+- keyboard navigation, visible focus, heading structure, contrast, and image alternatives;
+- workflow syntax, branch trigger, permissions, artifact path, environment, and custom-domain preservation;
+- final diff contains no placeholders, secrets, unrelated generated files, or overwritten user changes.
+
+If local rendering, browser inspection, or dependency installation is unavailable, report exactly which checks remain unverified and provide the commands needed to complete them.
+
+## Handoff
+
+Report:
+
+- selected framework and why it fits;
+- pages and repository sources used to create them;
+- important customization and preservation decisions;
+- build, preview, and validation commands;
+- deployment trigger, expected Pages URL/base path, and any repository-setting step the user must perform;
+- verified checks and remaining limitations.
+
+Do not claim the site is live unless deployment was authorized and confirmed.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI GitHub Page Creator"
+  short_description: "Build polished GitHub Pages from repositories"
+  default_prompt: "Use $create-github-pages to analyze this repository and build a polished, maintainable GitHub Pages site."
