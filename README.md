@@ -24,7 +24,7 @@ This list is regenerated from `agent-plugins/skills/`.
 
 ## Connect To Codex
 
-Codex plugin manifest: `.codex-plugin/plugin.json` (version `8.0.0+20260806141509`).
+Codex plugin manifest: `.codex-plugin/plugin.json` (version `8.0.0+codex.20260806141509`).
 
 Install from the Codex plugin marketplace:
 
