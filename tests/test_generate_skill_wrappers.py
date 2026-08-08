@@ -132,17 +132,18 @@ class GeneratorRegressionTests(unittest.TestCase):
         self.assertIn(".workflow-tools/scripts", manual)
         self.assertNotIn("TARGET: ${{ github.sha }}", manual)
 
-    def test_release_workflows_use_merge_trigger_and_plain_version_tags(self) -> None:
+    def test_release_workflow_uses_master_push_and_plain_version_tags(self) -> None:
         regenerate = (
             REPO_ROOT / ".github/workflows/regenerate-skills.yml"
         ).read_text(encoding="utf-8")
-        self.assertIn("  pull_request_target:\n", regenerate)
+        self.assertIn("  push:\n", regenerate)
         self.assertIn("    branches:\n      - master\n", regenerate)
-        self.assertIn("    types:\n      - closed\n", regenerate)
-        self.assertIn("if: github.event.pull_request.merged == true", regenerate)
         self.assertIn("  group: regenerate-skills-master\n", regenerate)
         self.assertIn("  cancel-in-progress: false\n", regenerate)
-        self.assertNotIn("\n  push:\n", regenerate)
+        self.assertIn("EVENT_BEFORE: ${{ github.event.before }}", regenerate)
+        self.assertIn("CURRENT_SHA: ${{ github.sha }}", regenerate)
+        self.assertNotIn("pull_request_target", regenerate)
+        self.assertNotIn("github.event.pull_request", regenerate)
         self.assertIn('tag="v${VERSION}"', regenerate)
         self.assertIn('--title "$tag"', regenerate)
         self.assertNotIn('tag="agent-plugins-v${VERSION}"', regenerate)

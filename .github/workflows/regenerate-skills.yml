@@ -1,11 +1,9 @@
 name: Regenerate skills
 
 on:
-  pull_request_target:
+  push:
     branches:
       - master
-    types:
-      - closed
 
 permissions:
   contents: write
@@ -16,7 +14,6 @@ concurrency:
 
 jobs:
   regenerate-skills:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
@@ -36,12 +33,18 @@ jobs:
         run: |
           python -c 'import json, os, pathlib; output = pathlib.Path(os.environ["GITHUB_OUTPUT"]); claude = json.loads(pathlib.Path(".claude-plugin/plugin.json").read_text(encoding="utf-8"))["version"]; codex = json.loads(pathlib.Path(".codex-plugin/plugin.json").read_text(encoding="utf-8"))["version"]; output.open("a", encoding="utf-8").write(f"claude_version={claude}\ncodex_version={codex}\n")'
 
-      - name: Check plugin version changes in merged pull request
+      - name: Check plugin version changes in pushed range
         id: incoming
         env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          EVENT_BEFORE: ${{ github.event.before }}
+          CURRENT_SHA: ${{ github.sha }}
         run: |
-          python - <<'PY'
+          base="$EVENT_BEFORE"
+          if [ -z "$base" ] || [[ "$base" =~ ^0+$ ]]; then
+            base="$(git rev-parse "$CURRENT_SHA^" 2>/dev/null || true)"
+          fi
+
+          BASE_SHA="$base" python - <<'PY'
           import json
           import os
           import pathlib
