@@ -1,10 +1,27 @@
-# Assessment contract
+# Standard and deep assessment contract
 
-Use this reference when running `$business-viability-assessment`.
+Read this reference only for explicitly requested standard or deep artifact assessments.
 
-## Inputs
+## Contents
 
-Analyze the files and directories requested by the user. Optional parameters may include:
+- [Inputs and scope](#inputs-and-scope)
+- [Project understanding](#project-understanding)
+- [Demand and competition](#demand-and-competition)
+- [Market size and pricing](#market-size-and-pricing)
+- [MVP and development effort](#mvp-and-development-effort)
+- [Infrastructure and go-to-market](#infrastructure-and-go-to-market)
+- [Unit economics and financial viability](#unit-economics-and-financial-viability)
+- [Risks and validation](#risks-and-validation)
+- [Evidence rules](#evidence-rules)
+- [Required artifacts](#required-artifacts)
+- [Financial model CSV](#financial-model-csv)
+- [Assessment JSON](#assessment-json)
+- [Verdict rules](#verdict-rules)
+- [Final quality check](#final-quality-check)
+
+## Inputs and scope
+
+Use user-supplied parameters. Otherwise label reasonable defaults and their confidence.
 
 ```yaml
 target_markets: []
@@ -22,34 +39,37 @@ constraints:
   preferred_cloud:
 ```
 
-When a parameter is absent, infer a reasonable assumption, label it, explain confidence, and continue.
+Accept any ISO 4217 currency code or a clearly identified user-defined unit. Use that currency consistently in prose, CSV values, and JSON. Do not substitute a currency symbol from the template.
 
-## Phase checklist
+Use the requested positive forecast horizon. Default to 36 months only when the user supplies no horizon.
 
-### 1. Project inspection
+Prioritize files named for analysis, research, concepts, requirements, specifications, proposals, business, markets, competitors, architecture, roadmaps, pricing, customers, personas, problems, solutions, and README content. Inspect source, configuration, schemas, API specifications, deployments, and infrastructure only as needed to understand scope and cost.
 
-Prioritize files whose names include: `analysis`, `research`, `concept`, `mvp`, `requirements`, `spec`, `proposal`, `business`, `market`, `competitor`, `architecture`, `roadmap`, `pricing`, `customer`, `persona`, `problem`, `solution`, `README`.
+Create `coverage-manifest.md`; do not claim every supplied file was read. Record:
 
-Also inspect source code, configuration, deployment files, schemas, API specs, and infrastructure definitions when they help estimate implementation effort or costs.
+- supplied roots and repository state;
+- selection and sampling rules;
+- inspected files and why they mattered;
+- ignored generated/vendor/cache/binary files;
+- inaccessible and out-of-scope files;
+- contradictions and unresolved gaps.
 
-Before judging the business, summarize:
+## Project understanding
 
-1. problem being solved;
-2. proposed product;
-3. target users and buyers;
-4. expected value proposition;
-5. planned MVP scope;
-6. revenue model, if present;
-7. technical architecture;
-8. important unresolved assumptions;
-9. contradictions between files;
-10. unnecessary features before core hypothesis validation.
+Summarize before judging:
 
-Treat project-file claims as hypotheses unless supported by evidence.
+1. problem;
+2. product;
+3. users, buyers, decision-makers, and beneficiaries;
+4. value proposition;
+5. planned MVP;
+6. revenue model;
+7. architecture;
+8. unresolved assumptions;
+9. contradictions;
+10. features that do not test the core hypothesis.
 
-### 2. Core business hypothesis
-
-Express the project as:
+Express the hypothesis as:
 
 ```text
 For [customer segment]
@@ -61,76 +81,68 @@ Customers are expected to pay [pricing hypothesis]
 through [revenue model].
 ```
 
-Identify separately: user, buyer, economic decision-maker, beneficiary, acquisition channel, trigger that causes search, existing workaround, switching cost, and reason the customer may refuse to pay. If multiple unrelated segments exist, analyze each separately.
+Identify the acquisition trigger, current workaround, switching cost, and reason a buyer may refuse to pay. Analyze unrelated segments separately.
 
-### 3. Market demand research
+## Demand and competition
 
-Use recent credible sources. Prefer official statistics, government or regulatory sources, public pricing pages, company reports, reputable research, marketplaces, app stores, search-demand indicators, customer reviews, relevant communities, job postings, competitor traffic, funding, customer counts, and revenue where credible.
+Use recent credible sources. Prefer official statistics, government or regulatory sources, public pricing pages, company reports, reputable research, marketplaces, app stores, customer reviews, relevant communities, job postings, and credible adoption or revenue evidence.
 
-For every important external claim record: source, publication or access date, geographic scope, what the source proves, and data limitations.
+For each material external claim, record the source, publication or access date, geography, what it supports, and its limitations.
 
 Separate:
 
-- direct evidence: paying competitors, search demand, repeated review complaints, manual employment, growing software category, meaningful competitor adoption;
-- indirect evidence: adjacent-industry growth, regulation, potential-user growth, enabling technical trends;
-- weak or missing evidence: where demand remains speculative.
+- **Direct evidence**: paying alternatives, repeated buyer complaints, search or procurement behavior, manual labor, credible adoption, and retention.
+- **Indirect evidence**: adjacent growth, regulation, enabling technology, or growth in potential users.
+- **Missing evidence**: willingness to pay, channel access, retention, or behavior that remains speculative.
 
-### 4. Competitive analysis
+Compare direct competitors, indirect competitors, manual processes, open-source options, internal processes, and doing nothing. Cover customer, use case, pricing, onboarding, integrations, strengths, weaknesses, positioning, switching barriers, adoption evidence, and differentiation.
 
-Identify direct competitors, indirect competitors, manual alternatives, open-source alternatives, internal company processes, and “do nothing.”
+Assess defensibility through proprietary data, workflow integration, distribution, brand/community, network effects, regulatory expertise, switching costs, operational efficiency, economics, UX, specialization, or speed. State when no durable advantage is visible.
 
-Create a comparison matrix covering target customer, core features, pricing, onboarding difficulty, integrations, strengths, weaknesses, positioning, switching barriers, adoption evidence, and differentiation.
+## Market size and pricing
 
-Assess defensibility through proprietary data, workflow integration, distribution, brand/community, network effects, regulatory expertise, switching costs, operational efficiency, better economics, better UX, niche specialization, or speed. State when no durable advantage is visible.
-
-### 5. Market sizing
-
-Calculate approximate TAM, SAM, and realistic SOM for years 1, 2, and 3.
-
-Use top-down and bottom-up approaches where possible. Bottom-up should weigh more heavily:
+Estimate TAM, SAM, and a realistic SOM for the modeled years. Use top-down and bottom-up evidence where possible, but weight bottom-up reachability more heavily:
 
 ```text
 reachable customers × realistic annual revenue per customer = obtainable annual revenue
 ```
 
-Show formulas and assumptions. Do not present TAM as expected revenue.
+Show formulas and assumptions. Never present TAM as expected revenue.
 
-### 6. Pricing and revenue model
+Evaluate only plausible pricing models. Recommend at most three. For each, estimate entry price, average revenue per customer, gross margin, purchase frequency, retention/churn, sales complexity, payment cost, support burden, advantages, and drawbacks.
 
-Evaluate plausible models: one-time purchase, subscription, usage-based, freemium, transaction fee, marketplace commission, paid implementation, services, enterprise contract, advertising/sponsorship, or hybrid.
+Distinguish:
 
-Recommend no more than three models. For each estimate entry price, average revenue per customer, gross margin, purchase frequency, churn/retention, sales complexity, payment-processing costs, support burden, pros, and cons.
+- price customers may accept;
+- price required for viable economics;
+- price supported by evidence.
 
-Compare pricing against real alternatives and competitors. Distinguish price customers may accept, price required for viable economics, and price supported by evidence.
+## MVP and development effort
 
-### 7. MVP scope review
-
-Find the smallest product able to test:
+Find the smallest product or manual service that tests:
 
 1. problem importance;
 2. willingness to try;
 3. repeated use;
 4. willingness to pay.
 
-Classify major planned features as required for MVP, useful but deferrable, post-MVP, unnecessary before validation, or dangerous scope expansion.
+Classify planned features as required now, deferrable, post-MVP, unnecessary before validation, or dangerous scope expansion. Prefer concierge or semi-manual operations when they test demand more cheaply.
 
-Recommend manual or semi-manual operations when they validate demand more cheaply than automation. Describe primary user flow, admin/operational flow, payment flow, minimum analytics, minimum security, required integrations, and manualizable activities.
+Describe the primary user flow, operational/admin flow, payment flow, minimum analytics, minimum security, required integrations, and manualizable work.
 
-### 8. Development effort
+Build a work breakdown with optimistic, realistic, and pessimistic person-hours, roles, dependencies, uncertainty, and explanation for applicable work: clarification, UX, backend, frontend, mobile, data, integrations, authentication, payments, admin, analytics, infrastructure, CI/CD, observability, security, testing, documentation, deployment, launch support, management, and contingency.
 
-Build a work breakdown structure with optimistic, realistic, and pessimistic person-hours, role, dependencies, uncertainty, and estimate explanation for: product clarification, UX/UI, backend, frontend, mobile if required, database, integrations, auth, payments, admin tools, analytics, infrastructure, CI/CD, observability, security, testing, docs, deployment, launch support, project management, and contingency.
+Model:
 
-Calculate:
+- solo experienced developer using AI tools, with founder time valued;
+- small product team;
+- agency or contractors, separating cash, economic cost, duration, and person-hours.
 
-- Scenario A: solo senior developer using AI tools, including founder time as economic cost;
-- Scenario B: small product team;
-- Scenario C: external agency or contractors, separating cash cost, economic cost, calendar duration, and person-hours.
+Do not apply one AI-productivity multiplier to every task. Use smaller improvements for requirements, architecture, debugging, integrations, security, validation, and coordination. Add at least 15% contingency for a clear conventional MVP and 25–40% for unclear requirements, unusual integrations, AI features, regulation, or unfamiliar technology.
 
-Do not assume AI tools reduce all work equally. Use smaller productivity improvements for architecture, requirements, debugging, security, integrations, validation, and coordination. Add contingency of at least 15% for clear conventional MVPs, and 25–40% for unclear requirements, unusual integrations, AI features, regulatory complexity, or unfamiliar technology.
+## Infrastructure and go-to-market
 
-### 9. Infrastructure costs
-
-Estimate monthly infrastructure for pilot, early, growth, and scale:
+Choose usage tiers that match the product. The following are defaults, not requirements:
 
 ```yaml
 pilot: 100 active users
@@ -139,90 +151,67 @@ growth: 10_000 active users
 scale: 100_000 active users
 ```
 
-Adjust tiers to better usage metrics when relevant: requests, uploaded files, generated tokens, transactions, tracked companies, monitored sources, processed jobs, storage volume.
+Replace active users with requests, files, tokens, transactions, monitored entities, jobs, or storage when more meaningful.
 
-Estimate application hosting, database, cache, object storage, backups, CDN, queues, email, SMS, payments, monitoring, logs, error tracking, domain/DNS, third-party APIs, AI models, search/vector DB, data collection, proxies/scraping infrastructure, security services, and support tools.
+Estimate applicable hosting, database, cache, object storage, backups, CDN, queues, email, SMS, payments, monitoring, logs, error tracking, domain/DNS, third-party APIs, AI models, search/vector storage, data collection, proxies, security, and support tools.
 
-Compare at least two approaches such as low-cost VPS/PaaS, major cloud, serverless, or self-hosted open-source components. Include fixed monthly cost, variable cost per active user or transaction, scaling trigger, expected tier costs, and dominant cost component. Use current public prices where possible; otherwise provide formulas and ranges.
+Compare at least two viable infrastructure approaches. Include fixed monthly cost, variable unit cost, scaling trigger, expected tier cost, and dominant cost. Use current public prices or show formulas and ranges.
 
-### 10. Marketing and sales costs
+Analyze only channels suited to the segment. For each, estimate setup effort, monthly cash, labor hours, time to results, lead volume, conversion assumptions, CAC range, risk, and a cheap test.
 
-Design a go-to-market strategy suited to the segment. Analyze only relevant channels: SEO, content, communities, social, paid search/social, influencers, affiliates, marketplaces, app stores, direct outreach, LinkedIn, partnerships, events, cold email, PLG, free tools, referral, ABM.
+Create lean-validation, realistic-launch, and accelerated-launch scenarios. Do not recommend paid acquisition before checking LTV support. For B2B, distinguish self-service, founder-led, outbound, and enterprise sales; include sales labor in CAC.
 
-For each relevant channel estimate setup effort, monthly cash budget, monthly labor hours, time to results, likely lead volume, conversion assumptions, CAC range, major risk, and cheap test.
+## Unit economics and financial viability
 
-Create launch-budget scenarios:
+Calculate applicable ARPU, MRR, ARR, gross margin, contribution margin, CAC, LTV, LTV/CAC, CAC payback, churn, retention, break-even customers and revenue, burn, runway, payback, and ROI.
 
-- Lean validation: smallest budget to test demand;
-- Realistic launch: credible budget to reach initial paying customers;
-- Accelerated launch: larger budget to acquire data/customers faster.
+Show formulas. Use finite-horizon or retention-curve LTV rather than an infinite-lifetime formula.
 
-Do not recommend paid acquisition before checking LTV support. For B2B, distinguish self-service, founder-led sales, outbound sales, and enterprise sales. Include sales labor in CAC.
+Model pessimistic, base, and optimistic scenarios for every month in `forecast_horizon_months`. Include customers, conversion, price, churn, gross margin, marketing, infrastructure, labor, revenue, profit/loss, cumulative cash requirement, break-even month, and outcomes at meaningful horizon checkpoints.
 
-### 11. Unit economics
+Separate founder time, contractors or salaries, infrastructure, marketing, software, legal/accounting, taxes when known, and contingency. If jurisdiction is unknown, report pre-tax economics.
 
-Calculate where applicable: ARPU, MRR, ARR, gross margin, contribution margin, CAC, LTV, LTV/CAC, CAC payback, monthly churn, annual retention, break-even customers, break-even revenue, burn, runway, payback period, and ROI.
+Determine launch cash, full economic MVP cost, pre-revenue operating cost, runway, break-even count, revenue needed for one developer and a small team, recovery time, attractive conditions, and stop conditions.
 
-Show formulas. Use ranges where evidence is weak. Do not use an LTV formula that assumes infinite lifetime.
+Run sensitivity analysis on the highest-impact variables. Identify the two or three assumptions that dominate the result.
 
-Model pessimistic, base, and optimistic scenarios with customers acquired per month, conversion, price, churn, gross margin, marketing, infrastructure, labor, monthly revenue, monthly profit/loss, cumulative cash requirement, break-even month, and result after 12, 24, and 36 months.
+## Risks and validation
 
-Separate founder time, contractor salaries, infrastructure, marketing, software subscriptions, legal/accounting, taxes where known, and contingency. If tax jurisdiction is unknown, calculate pre-tax economics and say so.
+Assess demand, willingness to pay, acquisition, sales cycle, competition, differentiation, technical complexity, third-party and platform dependencies, law/regulation, privacy/security, data access, AI cost and quality, scraping limits, operations, founder availability, support, and customer access.
 
-### 12. Financial viability
+For each material risk, provide probability, impact, evidence, mitigation, cheap experiment, and decision threshold.
 
-Determine minimum cash required to launch, full economic MVP cost, monthly operating cost before meaningful revenue, required runway, break-even customer count, revenue required for one full-time developer, revenue required for a small team, likely investment recovery time, conditions that make the project attractive, and stop conditions.
-
-Run sensitivity analysis on the highest-impact variables: price, conversion, retention, CAC, development cost, sales cycle, infrastructure cost, and frequency of use. Identify the two or three assumptions that dominate the result.
-
-### 13. Risk analysis
-
-Assess demand, willingness to pay, acquisition cost, sales cycle, competition, differentiation, technical complexity, third-party dependency, platform dependency, legal/regulatory constraints, privacy/security, data access, AI inference costs, model quality, scraping restrictions, operational workload, founder availability, support burden, and customer access.
-
-For each material risk provide probability, impact, evidence, mitigation, cheap validation experiment, and decision threshold.
-
-### 14. Validation plan
-
-Minimize wasted development. Prefer this sequence:
+Prefer this validation sequence when applicable:
 
 1. problem interviews;
-2. competitor and alternative analysis;
+2. alternatives research;
 3. landing page or offer;
 4. direct outreach;
 5. pricing test;
-6. concierge/manual prototype;
-7. paid pilot or pre-order;
+6. concierge prototype;
+7. paid pilot or preorder;
 8. narrow technical prototype;
 9. MVP;
-10. expanded product.
+10. expansion.
 
-For each experiment specify hypothesis, audience, execution method, cost, time required, success metric, minimum sample, pass threshold, fail threshold, and next decision.
+For each proposed experiment, specify hypothesis, audience, method, cost, duration, success metric, minimum sample, pass threshold, fail threshold, and next decision. Include explicit kill criteria.
 
-Include explicit kill criteria, such as low qualified problem confirmation, no pilot commitment, impossible CAC, required price above willingness to pay, impractical technical/regulatory dependency, or insufficient retention.
-
-## Evidence and uncertainty rules
-
-Follow these strictly:
+## Evidence rules
 
 1. Do not fabricate statistics, competitors, prices, behavior, or sources.
-2. Distinguish facts, calculations, assumptions, and opinions.
-3. Label every important assumption high, medium, or low confidence.
-4. Explain why each major assumption has that confidence.
-5. Prefer ranges over false precision.
-6. Use current prices and recent market information.
-7. Include dates for prices and market data.
-8. Cite external sources close to the relevant claim.
-9. Explain when sources refer to adjacent rather than identical markets.
-10. Do not treat competitor funding as proof of customer demand.
-11. Do not treat market size as proof that this product can acquire customers.
-12. Do not hide negative evidence.
-13. Do not make the final score more positive because the project is technically feasible.
-14. A technically interesting project may still be commercially weak.
-15. Missing evidence must reduce confidence.
+2. Distinguish evidence, calculation, assumption, and judgment.
+3. Label material assumptions `HIGH`, `MEDIUM`, or `LOW` confidence and explain why.
+4. Prefer ranges over false precision.
+5. Date current prices and market data.
+6. Cite sources near supported claims.
+7. Explain adjacent-market evidence.
+8. Do not treat funding, market size, or technical feasibility as demand proof.
+9. Preserve negative evidence.
+10. Reduce confidence when evidence is missing.
 
-## Required output files
+## Required artifacts
 
-For `standard` and `deep` assessments, create exactly these core artifacts under `analysis/business-viability/`:
+Create these files in the collision-safe report directory for standard and deep modes:
 
 ```text
 executive-summary.md
@@ -237,25 +226,20 @@ unit-economics.md
 risks-and-validation.md
 assumptions.md
 sources.md
+coverage-manifest.md
 financial-model.csv
 assessment.json
 ```
 
-When useful, create `analysis/business-viability/scripts/` with a small runnable script that regenerates the financial model. Prefer reproducible calculations over manually invented totals.
+For deep mode, also create a small runnable calculation script when the model contains derived totals or nontrivial scenario logic. Keep it inside the report directory and document its runtime and inputs.
 
-For `quick` assessments, create only:
-
-```text
-executive-summary.md
-assumptions.md
-sources.md
-```
-
-Mark quick outputs as preliminary and list the omitted standard artifacts.
+Do not overwrite a pre-existing report directory. If the user explicitly requests an update, inspect the existing report and preserve a reviewable diff.
 
 ## Financial model CSV
 
-Create 36 monthly projections. Recommended columns:
+Create one row for every scenario and month from 1 through `forecast_horizon_months`. Include at least `pessimistic`, `base`, and `optimistic` scenarios.
+
+Use these columns:
 
 ```text
 scenario
@@ -279,12 +263,42 @@ operating_profit
 cumulative_cash_flow
 ```
 
+Use plain numeric values in the configured currency; do not embed symbols or thousands separators. Document formulas and currency in `unit-economics.md` and `assessment.json`.
+
+Use these formulas for every scenario and month. Set prior-month active customers and cumulative cash flow to zero for month 1:
+
+```text
+active_customers[m] = active_customers[m-1] + new_customers[m] - churned_customers[m]
+revenue[m] = active_customers[m] × arpu[m]
+total_cost[m] = payment_fees[m]
+              + variable_infrastructure[m]
+              + fixed_infrastructure[m]
+              + marketing_cost[m]
+              + sales_cost[m]
+              + development_cost[m]
+              + support_cost[m]
+              + other_cost[m]
+gross_profit[m] = revenue[m] - payment_fees[m] - variable_infrastructure[m]
+operating_profit[m] = revenue[m] - total_cost[m]
+cumulative_cash_flow[m] = cumulative_cash_flow[m-1] + operating_profit[m]
+```
+
+Put refunds, taxes, one-time launch charges, or other modeled cash costs that are not represented by a dedicated column in `other_cost` and explain them in `unit-economics.md`. Keep customer-count and currency units consistent within a scenario.
+
+Calculate with full available precision before serialization. The validator accepts a derived value when it differs from the formula by at most an absolute `0.02` currency units or a relative `1e-9`, whichever tolerance is larger. Do not use the tolerance to conceal inconsistent rounding or formulas.
+
 ## Assessment JSON
 
-Use this approximate structure:
+Use this structure:
 
 ```json
 {
+  "meta": {
+    "mode": "standard",
+    "currency": "EUR",
+    "forecast_horizon_months": 36,
+    "generated_at_utc": ""
+  },
   "project": {
     "name": "",
     "summary": "",
@@ -303,37 +317,13 @@ Use this approximate structure:
     "overall_viability": 0
   },
   "estimates": {
-    "mvp_hours": {
-      "optimistic": 0,
-      "realistic": 0,
-      "pessimistic": 0
-    },
-    "mvp_cash_cost": {
-      "minimum": 0,
-      "realistic": 0,
-      "maximum": 0,
-      "currency": "EUR"
-    },
-    "monthly_infrastructure": {
-      "pilot": 0,
-      "early": 0,
-      "growth": 0,
-      "scale": 0
-    },
-    "marketing_budget": {
-      "lean_validation": 0,
-      "realistic_launch": 0,
-      "accelerated_launch": 0
-    },
-    "break_even": {
-      "customers": 0,
-      "monthly_revenue": 0,
-      "estimated_month": null
-    }
+    "mvp_hours": {"optimistic": 0, "realistic": 0, "pessimistic": 0},
+    "mvp_cash_cost": {"minimum": 0, "realistic": 0, "maximum": 0, "currency": "EUR"},
+    "break_even": {"customers": 0, "monthly_revenue": 0, "estimated_month": null}
   },
   "recommendation": {
-    "decision": "GO | VALIDATE_FIRST | PIVOT | NO_GO",
-    "confidence": "HIGH | MEDIUM | LOW",
+    "decision": "VALIDATE_FIRST",
+    "confidence": "LOW",
     "main_reasons": [],
     "critical_assumptions": [],
     "next_actions": [],
@@ -342,54 +332,42 @@ Use this approximate structure:
 }
 ```
 
-Scores must be 0–10 and supported by written evidence. Do not calculate the overall score as a naive average; commercial demand and willingness to pay must weigh more than technical feasibility.
+Replace example values with configured inputs. Keep scores from 0 to 10 and support each in prose. Use these anchors consistently:
 
-## Executive summary opening
+- `0–2`: absent, contradicted, or structurally poor;
+- `3–4`: weak and mostly assumed;
+- `5–6`: plausible with material gaps;
+- `7–8`: supported by multiple relevant signals;
+- `9–10`: unusually strong direct evidence.
 
-Begin `executive-summary.md` with:
-
-```markdown
-# Project viability assessment
-
-## Verdict
-
-**Decision:** GO / VALIDATE FIRST / PIVOT / NO-GO  
-**Confidence:** High / Medium / Low  
-**Commercial potential:** Low / Moderate / High / Very high  
-**MVP effort:** X–Y person-hours  
-**Estimated MVP cash cost:** €X–€Y  
-**Estimated full economic cost:** €X–€Y  
-**Pilot infrastructure:** approximately €X–€Y/month  
-**Initial marketing validation:** approximately €X–€Y  
-**Expected break-even:** month X, or not demonstrated  
-**Maximum cumulative cash requirement:** approximately €X
-```
-
-Then include a concise explanation, strongest evidence in favor, strongest evidence against, main financial conclusion, most dangerous unsupported assumption, cheapest next validation step, what must be true for success, and clear recommendation.
+Do not compute overall viability as a naive average. Explain the weighting in `executive-summary.md` or `unit-economics.md`.
 
 ## Verdict rules
 
-- `GO`: use only when there is meaningful evidence of demand, plausible acquisition, acceptable economics, and manageable implementation risk.
-- `VALIDATE_FIRST`: use when the project may be viable but willingness to pay, acquisition, retention, or market access remains insufficiently proven.
-- `PIVOT`: use when the underlying problem appears real but the proposed customer, scope, pricing, channel, or solution is unlikely to work.
-- `NO_GO`: use when realistic scenarios show weak demand, structurally poor economics, inaccessible customers, excessive risk, or a much better existing alternative.
+Use exactly one machine-stable enum in every artifact:
 
-Do not use `GO` merely because an MVP can be built.
+- `GO`: meaningful demand evidence, plausible acquisition, acceptable economics, and manageable implementation risk.
+- `VALIDATE_FIRST`: possible viability, but willingness to pay, acquisition, retention, or access remains insufficiently proven.
+- `PIVOT`: a real problem exists, but the proposed segment, scope, price, channel, or solution is unlikely to work.
+- `NO_GO`: realistic scenarios show weak demand, structurally poor economics, inaccessible buyers, excessive risk, or a clearly superior alternative.
+
+Do not use `GO` merely because an MVP is buildable.
+
+Begin `executive-summary.md` with the verdict enum, confidence, currency, horizon, MVP effort, cash and economic cost, pilot infrastructure, initial validation budget, break-even result, and maximum cumulative cash requirement. Use the configured currency code or symbol consistently.
 
 ## Final quality check
 
-Before completion, verify:
+Before handoff, verify:
 
-- all supplied project files were considered;
-- contradictions are documented;
-- important numbers have formulas;
-- current external prices have dates and sources;
-- assumptions are separated from evidence;
-- development effort includes testing and deployment;
-- founder time is not treated as free;
-- marketing labor is included;
-- pessimistic, base, and optimistic scenarios exist;
-- break-even is calculated;
-- cash cost and economic cost are separated;
-- conclusion contains explicit kill criteria;
-- recommendation follows from evidence rather than enthusiasm.
+- coverage is bounded and documented rather than called exhaustive;
+- contradictions and negative evidence remain visible;
+- formulas support important numbers;
+- prices and market data have dates and sources;
+- assumptions remain distinct from evidence;
+- testing, deployment, founder time, and marketing labor are included;
+- three financial scenarios span the configured horizon;
+- cash and economic cost are separated;
+- break-even and cumulative cash are calculated;
+- kill criteria and the cheapest next experiment are explicit;
+- currency and verdict enum are consistent across files;
+- the bundled validator passes for the report directory.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Review"
+  short_description: "Review code changes for confirmed defects"
+  default_prompt: "Use $code-review to inspect the requested code changes and report confirmed findings without editing files."

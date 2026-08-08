@@ -1,0 +1,85 @@
+[
+  {"id":"audit-docs-direct","skill":"audit-docs","category":"direct","prompt":"Audit the repository documentation for drift and broken links; report only.","expected_skills":["audit-docs"]},
+  {"id":"audit-docs-indirect","skill":"audit-docs","category":"indirect","prompt":"The ADR index may no longer match the ADR files. Check it without editing anything.","expected_skills":["audit-docs"]},
+  {"id":"audit-docs-incomplete","skill":"audit-docs","category":"incomplete","prompt":"Can you check whether these docs are stale?","expected_skills":["audit-docs"]},
+  {"id":"audit-docs-negative","skill":"audit-docs","category":"negative","prompt":"Rewrite the installation guide to be friendlier.","expected_skills":[]},
+  {"id":"audit-docs-overlap","skill":"audit-docs","category":"overlap","prompt":"Audit docs/ but exclude the agent memory folder, which has its own memory audit.","expected_skills":["audit-docs"]},
+
+  {"id":"audit-memory-direct","skill":"audit-memory","category":"direct","prompt":"Run a read-only audit of project memory and use a 45-day review threshold.","expected_skills":["audit-memory"]},
+  {"id":"audit-memory-indirect","skill":"audit-memory","category":"indirect","prompt":"Check whether the memory index, related links, and source freshness are still consistent.","expected_skills":["audit-memory"]},
+  {"id":"audit-memory-incomplete","skill":"audit-memory","category":"incomplete","prompt":"Is our agent memory healthy?","expected_skills":["audit-memory"]},
+  {"id":"audit-memory-negative","skill":"audit-memory","category":"negative","prompt":"Create project memory for this repository; none exists yet.","expected_skills":["create-memory"]},
+  {"id":"audit-memory-overlap","skill":"audit-memory","category":"overlap","prompt":"Audit the memory Markdown files for broken links, but do not run the general docs audit.","expected_skills":["audit-memory"]},
+
+  {"id":"business-direct","skill":"business-viability-assessment","category":"direct","prompt":"Assess whether this SaaS idea is commercially viable and give me a GO or NO_GO recommendation.","expected_skills":["business-viability-assessment"]},
+  {"id":"business-indirect","skill":"business-viability-assessment","category":"indirect","prompt":"Estimate demand, competitor pressure, unit economics, and the smallest useful MVP for this product concept.","expected_skills":["business-viability-assessment"]},
+  {"id":"business-incomplete","skill":"business-viability-assessment","category":"incomplete","prompt":"Is this project worth building?","expected_skills":["business-viability-assessment"]},
+  {"id":"business-negative","skill":"business-viability-assessment","category":"negative","prompt":"Implement the payment page described in the existing PRD.","expected_skills":[]},
+  {"id":"business-overlap","skill":"business-viability-assessment","category":"overlap","prompt":"Pressure-test the startup economics and market demand; use the specialist viability assessment, not a general council.","expected_skills":["business-viability-assessment"]},
+
+  {"id":"comments-direct","skill":"clean-code-comments","category":"direct","prompt":"Remove redundant LLM-style comments from src/ while preserving directives and business rules.","expected_skills":["clean-code-comments"]},
+  {"id":"comments-indirect","skill":"clean-code-comments","category":"indirect","prompt":"These files narrate every obvious line. Reduce the comment noise without refactoring code.","expected_skills":["clean-code-comments"]},
+  {"id":"comments-incomplete","skill":"clean-code-comments","category":"incomplete","prompt":"Can you clean up the comments in this file?","expected_skills":["clean-code-comments"]},
+  {"id":"comments-negative","skill":"clean-code-comments","category":"negative","prompt":"Refactor this parser and rename its public API.","expected_skills":[]},
+  {"id":"comments-overlap","skill":"clean-code-comments","category":"overlap","prompt":"Edit only redundant source comments; do not rewrite the README prose.","expected_skills":["clean-code-comments"]},
+
+  {"id":"review-direct","skill":"code-review","category":"direct","prompt":"Review my uncommitted diff for bugs and security issues. Do not fix anything.","expected_skills":["code-review"]},
+  {"id":"review-indirect","skill":"code-review","category":"indirect","prompt":"Before I open a PR, inspect the changed lines and tell me what can fail in production.","expected_skills":["code-review"]},
+  {"id":"review-incomplete","skill":"code-review","category":"incomplete","prompt":"Can you review these changes?","expected_skills":["code-review"]},
+  {"id":"review-negative","skill":"code-review","category":"negative","prompt":"Apply all unresolved reviewer suggestions on PR 42.","expected_skills":["fix-pr"]},
+  {"id":"review-overlap","skill":"code-review","category":"overlap","prompt":"The plan is already implemented; review the resulting diff rather than the plan document.","expected_skills":["code-review"]},
+
+  {"id":"council-direct","skill":"council","category":"direct","prompt":"Council this architecture decision in quick mode.","expected_skills":["council"]},
+  {"id":"council-indirect","skill":"council","category":"indirect","prompt":"Run a war room with independent viewpoints, peer critique, and a synthesized recommendation.","expected_skills":["council"]},
+  {"id":"council-incomplete","skill":"council","category":"incomplete","prompt":"Debate this decision for me.","expected_skills":["council"]},
+  {"id":"council-negative","skill":"council","category":"negative","prompt":"What is the capital of Italy?","expected_skills":[]},
+  {"id":"council-overlap","skill":"council","category":"overlap","prompt":"Explicitly council this implementation plan, even though plan review also applies.","expected_skills":["council"]},
+
+  {"id":"pages-direct","skill":"create-github-pages","category":"direct","prompt":"Build a polished GitHub Pages documentation site from this repository.","expected_skills":["create-github-pages"]},
+  {"id":"pages-indirect","skill":"create-github-pages","category":"indirect","prompt":"Modernize the repo website, preserve old public routes, and verify the Pages build.","expected_skills":["create-github-pages"]},
+  {"id":"pages-incomplete","skill":"create-github-pages","category":"incomplete","prompt":"Can you make a project site for this repo?","expected_skills":["create-github-pages"]},
+  {"id":"pages-negative","skill":"create-github-pages","category":"negative","prompt":"Deploy this private API service to Kubernetes.","expected_skills":[]},
+  {"id":"pages-overlap","skill":"create-github-pages","category":"overlap","prompt":"Create the repository documentation portal and its GitHub Pages deployment, not a generic hosted web app.","expected_skills":["create-github-pages"]},
+
+  {"id":"create-memory-direct","skill":"create-memory","category":"direct","prompt":"Bootstrap durable project memory; this repository has no memory index.","expected_skills":["create-memory"]},
+  {"id":"create-memory-indirect","skill":"create-memory","category":"indirect","prompt":"Future agents need a first structured record of this repository's architecture and conventions.","expected_skills":["create-memory"]},
+  {"id":"create-memory-incomplete","skill":"create-memory","category":"incomplete","prompt":"Set up project memory here.","expected_skills":["create-memory"]},
+  {"id":"create-memory-negative","skill":"create-memory","category":"negative","prompt":"Record what we changed today in the existing project memory.","expected_skills":["update-memory"]},
+  {"id":"create-memory-overlap","skill":"create-memory","category":"overlap","prompt":"There is no useful baseline, so bootstrap memory from the repository rather than importing an external document.","expected_skills":["create-memory"]},
+
+  {"id":"fix-pr-direct","skill":"fix-pr","category":"direct","prompt":"Address the actionable review comments on PR 42, but do not commit or push.","expected_skills":["fix-pr"]},
+  {"id":"fix-pr-indirect","skill":"fix-pr","category":"indirect","prompt":"The reviewer requested changes on my pull request. Triage each thread and implement only valid fixes.","expected_skills":["fix-pr"]},
+  {"id":"fix-pr-incomplete","skill":"fix-pr","category":"incomplete","prompt":"Can you fix the PR feedback?","expected_skills":["fix-pr"]},
+  {"id":"fix-pr-negative","skill":"fix-pr","category":"negative","prompt":"Review my local changes before I create a pull request; report only.","expected_skills":["code-review"]},
+  {"id":"fix-pr-overlap","skill":"fix-pr","category":"overlap","prompt":"Use the GitHub review threads as the source of work and edit the code; this is not a read-only diff review.","expected_skills":["fix-pr"]},
+
+  {"id":"ingest-direct","skill":"ingest-memory","category":"direct","prompt":"Ingest this URL into project memory with source provenance and a preview.","expected_skills":["ingest-memory"]},
+  {"id":"ingest-indirect","skill":"ingest-memory","category":"indirect","prompt":"Refresh the memory facts that came from this provider record and preserve its revision identity.","expected_skills":["ingest-memory"]},
+  {"id":"ingest-incomplete","skill":"ingest-memory","category":"incomplete","prompt":"Put this document into memory.","expected_skills":["ingest-memory"]},
+  {"id":"ingest-negative","skill":"ingest-memory","category":"negative","prompt":"Update existing memory with the durable decisions from today's local implementation work.","expected_skills":["update-memory"]},
+  {"id":"ingest-overlap","skill":"ingest-memory","category":"overlap","prompt":"The baseline exists; refresh only facts backed by this external specification, with provenance.","expected_skills":["ingest-memory"]},
+
+  {"id":"plan-direct","skill":"plan-review","category":"direct","prompt":"Review this implementation plan against the repository and give an approval verdict. Do not rewrite it.","expected_skills":["plan-review"]},
+  {"id":"plan-indirect","skill":"plan-review","category":"indirect","prompt":"Before coding begins, check whether every requirement, risk, and test is covered by the proposed steps.","expected_skills":["plan-review"]},
+  {"id":"plan-incomplete","skill":"plan-review","category":"incomplete","prompt":"Pressure-test this technical plan.","expected_skills":["plan-review"]},
+  {"id":"plan-negative","skill":"plan-review","category":"negative","prompt":"The feature is implemented. Find bugs in the actual changed lines.","expected_skills":["code-review"]},
+  {"id":"plan-overlap","skill":"plan-review","category":"overlap","prompt":"Use the specialist plan review for this implementation proposal; do not run a general council.","expected_skills":["plan-review"]},
+
+  {"id":"slop-direct","skill":"stop-slop","category":"direct","prompt":"Use stop-slop to rewrite this English paragraph while preserving every claim and citation.","expected_skills":["stop-slop"]},
+  {"id":"slop-indirect","skill":"stop-slop","category":"indirect","prompt":"This draft has canned AI transitions and repetitive rhetorical patterns. Make it sound natural without changing meaning.","expected_skills":["stop-slop"]},
+  {"id":"slop-incomplete","skill":"stop-slop","category":"incomplete","prompt":"Remove the AI writing tells from this.","expected_skills":["stop-slop"]},
+  {"id":"slop-negative","skill":"stop-slop","category":"negative","prompt":"Proofread this contract only for spelling; preserve its formal style exactly.","expected_skills":[]},
+  {"id":"slop-overlap","skill":"stop-slop","category":"overlap","prompt":"Review the prose for AI style patterns only; do not audit whether the documentation facts are current.","expected_skills":["stop-slop"]},
+
+  {"id":"update-memory-direct","skill":"update-memory","category":"direct","prompt":"Update the existing project memory with the durable decisions from this work session.","expected_skills":["update-memory"]},
+  {"id":"update-memory-indirect","skill":"update-memory","category":"indirect","prompt":"The implementation changed a stable architectural fact. Reconcile it with the current memory store.","expected_skills":["update-memory"]},
+  {"id":"update-memory-incomplete","skill":"update-memory","category":"incomplete","prompt":"Record today's durable changes in memory.","expected_skills":["update-memory"]},
+  {"id":"update-memory-negative","skill":"update-memory","category":"negative","prompt":"Import this external standards document into memory for the first time.","expected_skills":["ingest-memory"]},
+  {"id":"update-memory-overlap","skill":"update-memory","category":"overlap","prompt":"A memory baseline already exists; update it from current repository work rather than bootstrapping a new store.","expected_skills":["update-memory"]},
+
+  {"id":"wrap-direct","skill":"wrap-agent-skill","category":"direct","prompt":"Import this Codex skill into the repository's canonical agent-plugins tree and generate both distributions.","expected_skills":["wrap-agent-skill"]},
+  {"id":"wrap-indirect","skill":"wrap-agent-skill","category":"indirect","prompt":"Normalize this reusable Claude skill into a platform-neutral canonical package, then sync the wrappers.","expected_skills":["wrap-agent-skill"]},
+  {"id":"wrap-incomplete","skill":"wrap-agent-skill","category":"incomplete","prompt":"Add this external skill to the plugin.","expected_skills":["wrap-agent-skill"]},
+  {"id":"wrap-negative","skill":"wrap-agent-skill","category":"negative","prompt":"Install a curated Codex skill into my personal skills directory.","expected_skills":[]},
+  {"id":"wrap-overlap","skill":"wrap-agent-skill","category":"overlap","prompt":"The canonical skill already exists; sync its generated Claude and Codex copies without treating a stale wrapper as source truth.","expected_skills":["wrap-agent-skill"]}
+]

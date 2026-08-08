@@ -85,8 +85,17 @@ jobs:
           output.open("a", encoding="utf-8").write("\n".join(lines) + "\n")
           PY
 
+      - name: Validate canonical skill packages
+        run: python scripts/validate_skills.py
+
+      - name: Run regression and helper smoke tests
+        run: python -m unittest discover -s tests -v
+
       - name: Regenerate skill wrappers
         run: python scripts/generate_skill_wrappers.py --clean
+
+      - name: Verify generated distributions
+        run: python scripts/generate_skill_wrappers.py --check --clean --strict-links
 
       - name: Capture plugin versions after regeneration
         id: after
@@ -106,6 +115,14 @@ jobs:
           python - <<'PY'
           import os
           import pathlib
+          import sys
+
+          sys.path.insert(0, str(pathlib.Path("scripts").resolve()))
+          from generate_skill_wrappers import (
+              GenerationError,
+              combined_release_version,
+              version_core,
+          )
 
           values = {
               "incoming_claude": os.environ["INCOMING_CLAUDE"],
@@ -116,18 +133,20 @@ jobs:
               "after_codex": os.environ["AFTER_CODEX"],
           }
 
-          if values["after_claude"] != values["after_codex"]:
-              raise SystemExit(
-                  "Claude and Codex plugin versions must match before creating a combined release: "
-                  f"Claude {values['after_claude']}, Codex {values['after_codex']}"
+          try:
+              release_version = combined_release_version(
+                  values["after_claude"], values["after_codex"]
               )
+          except GenerationError as exc:
+              raise SystemExit(str(exc)) from exc
 
           def major_minor(version: str) -> tuple[int, int] | None:
               if version in {"", "none", "unknown"}:
                   return None
-              parts = version.split(".")
-              if len(parts) != 3 or not all(part.isdigit() for part in parts):
-                  raise SystemExit(f"Invalid plugin version: {version}")
+              try:
+                  parts = version_core(version, pathlib.Path("plugin.json")).split(".")
+              except GenerationError as exc:
+                  raise SystemExit(str(exc)) from exc
               return int(parts[0]), int(parts[1])
 
           def requires_release(previous: str, current: str) -> bool:
@@ -148,12 +167,12 @@ jobs:
           output = pathlib.Path(os.environ["GITHUB_OUTPUT"])
           output.write_text(
               f"needed={'true' if needed else 'false'}\n"
-              f"version={values['after_claude']}\n",
+              f"version={release_version}\n",
               encoding="utf-8",
           )
           print(
               f"Combined release: {'required' if needed else 'not required'} "
-              f"for version {values['after_claude']} "
+              f"for version {release_version} "
               "(patch-only changes do not release)."
           )
           PY

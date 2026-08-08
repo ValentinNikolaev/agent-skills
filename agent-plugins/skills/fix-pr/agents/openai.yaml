@@ -1,0 +1,4 @@
+interface:
+  display_name: "Fix PR Feedback"
+  short_description: "Address actionable pull request feedback"
+  default_prompt: "Use $fix-pr to triage GitHub pull-request feedback, apply minimal verified fixes, and preserve all unrequested local and external state."

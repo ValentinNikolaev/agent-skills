@@ -1,0 +1,7 @@
+interface:
+  display_name: "Update Memory"
+  short_description: "Maintain durable project memory"
+  default_prompt: "Use $update-memory to record durable facts learned during this completed project work."
+
+policy:
+  allow_implicit_invocation: true

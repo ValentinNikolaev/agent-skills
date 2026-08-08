@@ -32,7 +32,8 @@ Recommended layout:
 │       │   └── SKILL.md
 │       └── stop-slop/
 │           ├── SKILL.md
-│           ├── README.md
+│           ├── agents/
+│           │   └── openai.yaml
 │           └── references/
 │               ├── examples.md
 │               ├── phrases.md
@@ -45,7 +46,10 @@ Recommended layout:
     └── generate_skill_wrappers.py
 ```
 
-`agent-plugins/skills/` is the canonical source of truth. Files below `claude/skills/` and `codex/skills/` are generated output and should not be edited manually.
+Canonical skill definitions live under `agent-plugins/skills/`; centrally
+maintained resource overlays live under `agent-plugins/shared/`. Files below
+`claude/skills/` and `codex/skills/` are generated output and should not be
+edited manually.
 
 ## Generated skill format
 
@@ -71,7 +75,7 @@ This includes:
 - `references/`
 - `scripts/`
 - `assets/`
-- `README.md`
+- `agents/`
 - any other nested regular files and directories
 
 For example:
@@ -111,6 +115,13 @@ Relative links such as:
 
 continue to work without rewriting.
 
+Resources shared by several canonical skills live once under
+`agent-plugins/shared/`. The generator materializes the required shared file in
+each standalone distribution package. For example, the four memory skills all
+receive `scripts/validate_memory.py` from the single maintained source at
+`agent-plugins/shared/memory/validate_memory.py`; do not add canonical copies
+under the individual memory-skill directories.
+
 Symlinks inside canonical skills are rejected so the generated output remains portable across Windows, Linux, macOS, Git, and CI environments.
 
 ## Requirements
@@ -131,6 +142,9 @@ Generate selected skills:
 ```bash
 python scripts/generate_skill_wrappers.py code-review stop-slop
 ```
+
+Selected generation still rebuilds the root catalog from every canonical skill;
+it never truncates `README.md` to the selected names.
 
 Generate only Claude Code skills:
 
@@ -239,36 +253,33 @@ python scripts/generate_skill_wrappers.py --strict-links
 
 The link checker is intentionally conservative and is not a full Markdown parser.
 
-## Frontmatter policy
+## Frontmatter and metadata policy
 
-The YAML frontmatter is copied as raw text rather than parsed and regenerated.
-
-This preserves:
-
-- unknown or future fields
-- comments
-- field order
-- quoted and multiline scalar styles
-- platform-specific metadata already present in the canonical skill
-
-For example, fields such as these are retained unchanged:
+The generator copies YAML frontmatter as raw text, but repository validation
+requires the portable `name`/`description` schema supported by both target
+skill runtimes:
 
 ```yaml
 ---
 name: code-review
-description: Review code before a pull request.
-metadata:
-  trigger: Reviewing a change
-user-invocable: true
-effort: max
-allowed-tools: Read, Grep, Glob
-argument-hint: "[files, directory, or PR number]"
+description: Review implemented changes for confirmed defects before a pull request.
 ---
 ```
 
-The directory name should match the top-level frontmatter `name`. A mismatch produces a warning, or an error when `--strict-links` is enabled.
+Keep Codex UI metadata in `agents/openai.yaml`. Every skill provides quoted
+`display_name`, `short_description`, and `default_prompt` fields; the default
+prompt explicitly names the skill. Runtime permissions remain with the host's
+normal authorization policy rather than a mixed canonical allowlist.
 
-Because canonical frontmatter is copied to both platforms, keep it compatible with both Claude Code and Codex where possible. If the two platforms eventually require materially different schemas, add explicit platform overlay support to the generator rather than inferring transformations from field names.
+Run the repository validator before generation:
+
+```bash
+python scripts/validate_skills.py
+```
+
+The directory name must match the top-level frontmatter `name`. The validator
+also checks descriptions, UI metadata, bundled Python syntax, local links,
+reference navigation, shared memory resources, and activation fixtures.
 
 ## Plugin version and README policy
 
@@ -279,11 +290,18 @@ When generation changes either platform's generated skill tree, the matching plu
 
 For example, `0.1.0` becomes `1.0.0` for a major bump and `0.2.0` for a minor bump. Patch versions are reset to `0` because generated distributions are built from canonical skill changes rather than patch-level runtime fixes.
 
+Manifest versions use `MAJOR.MINOR.PATCH` with optional platform-specific build
+metadata. A major/minor bump preserves build metadata; prerelease versions are
+rejected because the release workflows publish stable combined releases. The
+workflows compare the numeric version core and use that core for shared tags and
+asset names. For a local regeneration where versions are managed separately, use
+`--no-version-bump`. That option never changes either manifest.
+
 The root `README.md` is regenerated after skill generation and included in `--check` drift detection.
 
 The push workflow creates one combined GitHub release when the shared Claude/Codex plugin version changes at the major or minor level. It checks both version changes made by regeneration and version changes already present in the incoming commit, so a locally regenerated and versioned change still produces a release even when the workflow has nothing new to commit. Patch-only changes such as `2.1.0` to `2.1.1` do not create a release. Combined releases use tags like `agent-plugins-v2.1.0`, include both Claude and Codex distribution archives, and contain release notes generated from the diff since the previous combined release.
 
-The manual release workflow in `.github/workflows/manual-release.yml` can be started from GitHub Actions with a branch or tag input. It verifies that generated distributions are current, checks that Claude and Codex versions match, skips patch-only versions and duplicate tags, and creates the same combined release with both distribution archives. It does not commit or regenerate files.
+The manual release workflow in `.github/workflows/manual-release.yml` can be started from GitHub Actions with a branch or tag input. It verifies that generated distributions are current, checks that the Claude and Codex numeric version cores match while allowing platform-specific build metadata, skips patch-only versions and duplicate tags, and creates the same combined release with both distribution archives. It does not commit or regenerate files.
 
 ## Command-line options
 
@@ -291,6 +309,7 @@ The manual release workflow in `.github/workflows/manual-release.yml` can be sta
 usage: generate_skill_wrappers.py [-h]
                                   [--repo-root REPO_ROOT]
                                   [--source-dir SOURCE_DIR]
+                                  [--shared-dir SHARED_DIR]
                                   [--claude-dir CLAUDE_DIR]
                                   [--codex-dir CODEX_DIR]
                                   [--platform {all,claude,codex}]
@@ -300,6 +319,7 @@ usage: generate_skill_wrappers.py [-h]
                                   [--force]
                                   [--strict-links]
                                   [--quiet]
+                                  [--no-version-bump]
                                   [--version]
                                   [SKILL ...]
 ```
@@ -316,6 +336,7 @@ usage: generate_skill_wrappers.py [-h]
 |---|---|
 | `--repo-root PATH` | Repository root. Defaults to the current working directory. |
 | `--source-dir PATH` | Canonical skills directory. Defaults to `agent-plugins/skills`. |
+| `--shared-dir PATH` | Canonical cross-skill resource directory. Defaults to `agent-plugins/shared`. |
 | `--claude-dir PATH` | Claude output directory. Defaults to `claude/skills`. |
 | `--codex-dir PATH` | Codex output directory. Defaults to `codex/skills`. |
 | `--platform all` | Generate both Claude and Codex skills. This is the default. |
@@ -327,9 +348,10 @@ usage: generate_skill_wrappers.py [-h]
 | `--force` | Permit replacement of an unmarked target directory. |
 | `--strict-links` | Treat source validation warnings as errors. |
 | `--quiet` | Print only errors and the final summary. |
+| `--no-version-bump` | Regenerate wrappers and README without modifying manifest versions. |
 | `--version` | Print the generator version. |
 
-`--check` cannot be combined with `--dry-run` or `--force`.
+`--check` cannot be combined with `--dry-run`, `--force`, or `--no-version-bump`.
 
 ## Custom directory layout
 
@@ -338,6 +360,7 @@ Paths can be overridden without modifying the script:
 ```bash
 python scripts/generate_skill_wrappers.py \
   --source-dir shared/skills \
+  --shared-dir shared/resources \
   --claude-dir distributions/claude/skills \
   --codex-dir distributions/codex/skills
 ```
@@ -442,9 +465,11 @@ Committing generated changes from GitHub Actions requires an explicit repository
      codex/skills
    ```
 
-4. Validate all skills:
+4. Validate canonical packages, tests, and generated copies:
 
    ```bash
+   python scripts/validate_skills.py
+   python -m unittest discover -s tests -v
    python scripts/generate_skill_wrappers.py \
      --check \
      --clean \
@@ -487,4 +512,6 @@ The utility deliberately:
 - compares complete directory trees in `--check` mode
 - supports deterministic CI validation
 
-The generated Claude and Codex trees are distribution artifacts. The canonical `agent-plugins/skills/` tree remains the only place where skill instructions and bundled resources should be maintained.
+The generated Claude and Codex trees are distribution artifacts. Maintain skill
+instructions and skill-specific resources under `agent-plugins/skills/`, and
+maintain declared cross-skill overlays under `agent-plugins/shared/`.

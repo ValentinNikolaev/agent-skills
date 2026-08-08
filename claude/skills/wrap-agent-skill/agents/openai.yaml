@@ -1,0 +1,4 @@
+interface:
+  display_name: "Wrap Agent Skill"
+  short_description: "Import and validate portable canonical agent skills"
+  default_prompt: "Use $wrap-agent-skill to safely import this reusable skill and generate its Claude and Codex copies."

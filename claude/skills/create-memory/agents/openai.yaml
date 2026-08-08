@@ -1,0 +1,7 @@
+interface:
+  display_name: "Create Memory"
+  short_description: "Bootstrap durable project memory"
+  default_prompt: "Use $create-memory to bootstrap a durable memory baseline for this project."
+
+policy:
+  allow_implicit_invocation: true

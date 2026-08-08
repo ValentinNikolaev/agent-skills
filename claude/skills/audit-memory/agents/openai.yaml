@@ -1,0 +1,7 @@
+interface:
+  display_name: "Audit Memory"
+  short_description: "Audit agent memory health read-only"
+  default_prompt: "Use $audit-memory to audit this memory store and report verified health issues without editing files."
+
+policy:
+  allow_implicit_invocation: true
