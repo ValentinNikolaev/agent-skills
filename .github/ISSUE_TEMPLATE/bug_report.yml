@@ -1,0 +1,105 @@
+name: Bug report
+description: Report a reproducible problem with a skill, generated package, or repository tool.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve the project. Search existing issues first. For a security vulnerability, stop here and follow the [security policy](https://github.com/ValentinNikolaev/llm-skills/security/policy) instead of filing a public issue.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      options:
+        - Canonical skill package
+        - Claude Code generated package
+        - Codex generated package
+        - Wrapper generator or validation
+        - Tests or activation cases
+        - Installation or marketplace metadata
+        - Release or GitHub Actions workflow
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: skill
+    attributes:
+      label: Skill name
+      description: If a skill is affected, provide its directory name.
+      placeholder: code-review
+
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      description: Provide the plugin version, release tag, or commit SHA where you observed the problem.
+      placeholder: 8.1.0 or abc1234
+    validations:
+      required: true
+
+  - type: dropdown
+    id: runtime
+    attributes:
+      label: Runtime
+      options:
+        - Claude Code
+        - Codex
+        - Both
+        - Not applicable
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Provide the smallest sequence that reliably reproduces the problem.
+      placeholder: |
+        1. Install or check out ...
+        2. Run or prompt ...
+        3. Observe ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include relevant OS, Python version, host/runtime version, and installation method.
+      placeholder: Windows 11; Python 3.12; Codex ...
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or additional context
+      description: Remove credentials, tokens, private prompts, and other sensitive data before posting.
+      render: shell
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched for an existing issue that describes this problem.
+          required: true
+        - label: I removed secrets and sensitive information from this report.
+          required: true
+        - label: I agree to follow the project's Code of Conduct.
+          required: true

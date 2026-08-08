@@ -1,5 +1,9 @@
 # Third-party notices
 
+Except where noted below, original content in this repository is distributed
+under the [MIT License](LICENSE). Third-party material remains subject to its
+respective terms; the repository license does not relicense that material.
+
 ## Stop Slop
 
 The `stop-slop` skill is adapted from

@@ -1,0 +1,71 @@
+name: Skill or feature request
+description: Propose a new skill or an improvement to existing project behavior.
+title: "[Enhancement]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the user problem before the implementation. Large or breaking proposals should be discussed before a pull request is opened.
+
+  - type: dropdown
+    id: request_type
+    attributes:
+      label: Request type
+      options:
+        - Improve an existing skill
+        - Add a new skill
+        - Improve generation or validation tooling
+        - Improve installation or marketplace metadata
+        - Improve release automation
+        - Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: Who needs this, and what can they not do reliably today?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Explain the desired behavior, scope, and any important constraints.
+    validations:
+      required: true
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Example prompts or workflow
+      description: For a skill proposal, include positive and negative activation examples when possible.
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Describe workarounds or smaller approaches you considered.
+
+  - type: dropdown
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Are you interested in implementing this change?
+      options:
+        - Yes
+        - Maybe, with guidance
+        - No
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched for an existing issue or skill that covers this request.
+          required: true
+        - label: I agree to follow the project's Code of Conduct.
+          required: true
