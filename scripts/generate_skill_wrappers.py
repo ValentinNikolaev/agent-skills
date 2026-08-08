@@ -39,6 +39,7 @@ import shutil
 import sys
 import tempfile
 from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 from typing import Iterable, Iterator, Sequence
 
@@ -827,7 +828,17 @@ def bump_version(version: str, bump: str, manifest_path: Path) -> str:
     raise GenerationError(f"Unsupported version bump type {bump!r}")
 
 
-def bump_plugin_manifest(repo_root: Path, platform: PlatformTarget, bump: str) -> str:
+def utc_build_timestamp() -> str:
+    """Return a compact UTC build timestamp suitable for SemVer metadata."""
+    return datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
+
+
+def bump_plugin_manifest(
+    repo_root: Path,
+    platform: PlatformTarget,
+    bump: str,
+    build_timestamp: str,
+) -> str:
     manifest_path = repo_root / f".{platform.key}-plugin" / "plugin.json"
     if not manifest_path.is_file():
         raise GenerationError(
@@ -843,8 +854,15 @@ def bump_plugin_manifest(repo_root: Path, platform: PlatformTarget, bump: str) -
     current_version = manifest.get("version")
     if not isinstance(current_version, str):
         raise GenerationError(f"Missing string version in {manifest_path}")
+    if not re.fullmatch(r"\d{14}", build_timestamp):
+        raise GenerationError(
+            f"Invalid UTC build timestamp {build_timestamp!r}; expected YYYYMMDDHHMMSS"
+        )
 
-    next_version = bump_version(current_version, bump, manifest_path)
+    next_core = version_core(
+        bump_version(current_version, bump, manifest_path), manifest_path
+    )
+    next_version = f"{next_core}+{platform.key}.{build_timestamp}"
     manifest["version"] = next_version
     manifest_path.write_text(
         json.dumps(manifest, indent=2, ensure_ascii=False) + "\n",
@@ -967,13 +985,16 @@ def run(argv: Sequence[str] | None = None) -> int:
 
         version_bumps: list[str] = []
         if not args.dry_run and not args.no_version_bump:
+            build_timestamp = utc_build_timestamp()
             for platform in platforms:
                 before = platform_snapshots_before[platform.key]
                 after = snapshot_tree(platform.root)
                 bump = compare_snapshots(before, after)
                 if not bump:
                     continue
-                next_version = bump_plugin_manifest(repo_root, platform, bump)
+                next_version = bump_plugin_manifest(
+                    repo_root, platform, bump, build_timestamp
+                )
                 version_bumps.append(f"{platform.key} {bump} -> {next_version}")
 
         readme_changed = update_readme(

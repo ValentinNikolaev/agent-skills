@@ -24,7 +24,7 @@ This list is regenerated from `agent-plugins/skills/`.
 
 ## Connect To Codex
 
-Codex plugin manifest: `.codex-plugin/plugin.json` (version `8.0.0+codex.20260806141509`).
+Codex plugin manifest: `.codex-plugin/plugin.json` (version `8.1.0+codex.20260808165924`).
 
 Install from the Codex plugin marketplace:
 
@@ -44,7 +44,7 @@ python scripts/generate_skill_wrappers.py --clean
 
 ## Connect To Claude
 
-Claude plugin manifest: `.claude-plugin/plugin.json` (version `8.0.0`).
+Claude plugin manifest: `.claude-plugin/plugin.json` (version `8.1.0+claude.20260808165924`).
 
 From inside Claude Code:
 

@@ -290,12 +290,14 @@ When generation changes either platform's generated skill tree, the matching plu
 
 For example, `0.1.0` becomes `1.0.0` for a major bump and `0.2.0` for a minor bump. Patch versions are reset to `0` because generated distributions are built from canonical skill changes rather than patch-level runtime fixes.
 
-Manifest versions use `MAJOR.MINOR.PATCH` with optional platform-specific build
-metadata. A major/minor bump preserves build metadata; prerelease versions are
-rejected because the release workflows publish stable combined releases. The
-workflows compare the numeric version core and use that core for shared tags and
-asset names. For a local regeneration where versions are managed separately, use
-`--no-version-bump`. That option never changes either manifest.
+Manifest versions use `MAJOR.MINOR.PATCH+VENDOR.TIMESTAMP`, with `claude` or
+`codex` as the vendor and a 14-digit UTC `YYYYMMDDHHMMSS` timestamp. Automatic
+major/minor bumps refresh both platform timestamps from the same generation run.
+Hyphen-prefixed prerelease identifiers are rejected because the release workflows
+publish stable combined releases. The workflows compare the numeric version core
+and use that core for shared `vMAJOR.MINOR.PATCH` tags and asset names. For a local
+regeneration where versions are managed separately, use `--no-version-bump`. That
+option never changes either manifest.
 
 The root `README.md` is regenerated after skill generation and included in `--check` drift detection.
 

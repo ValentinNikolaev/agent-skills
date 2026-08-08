@@ -83,7 +83,8 @@ class GeneratorRegressionTests(unittest.TestCase):
         )
         self.assertEqual(
             generator.combined_release_version(
-                "8.0.0", "8.0.0+codex.20260806141509"
+                "8.0.0+claude.20260806141509",
+                "8.0.0+codex.20260806141509",
             ),
             "8.0.0",
         )
@@ -91,6 +92,33 @@ class GeneratorRegressionTests(unittest.TestCase):
             generator.bump_version("2.4.9-rc.1", "minor", manifest)
         with self.assertRaises(generator.GenerationError):
             generator.combined_release_version("8.0.0", "8.1.0+codex.1")
+
+    def test_manifest_bumps_refresh_vendor_timestamp_metadata(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.write_manifest(root, "claude", "2.4.9+claude.20260101000000")
+            platform = generator.PlatformTarget(
+                key="claude",
+                label="Claude",
+                root=root / "claude" / "skills",
+            )
+
+            version = generator.bump_plugin_manifest(
+                root,
+                platform,
+                "minor",
+                "20260808165924",
+            )
+
+            self.assertEqual(version, "2.5.0+claude.20260808165924")
+            manifest = json.loads(
+                (root / ".claude-plugin" / "plugin.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            self.assertEqual(manifest["version"], version)
+            with self.assertRaises(generator.GenerationError):
+                generator.bump_plugin_manifest(root, platform, "minor", "20260808")
 
     def test_link_validation_ignores_code_examples(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
