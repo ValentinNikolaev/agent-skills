@@ -23,6 +23,19 @@ jobs:
           ref: ${{ inputs.ref }}
           fetch-depth: 0
 
+      - name: Capture checked-out release target
+        id: release_target
+        run: echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Check out current release-version tooling
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          path: .workflow-tools
+          sparse-checkout: scripts/generate_skill_wrappers.py
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -40,6 +53,12 @@ jobs:
           import pathlib
           import re
           import subprocess
+          import sys
+
+          sys.path.insert(
+              0, str(pathlib.Path(".workflow-tools/scripts").resolve())
+          )
+          from generate_skill_wrappers import GenerationError, combined_release_version
 
           manifests = {
               "claude": json.loads(
@@ -50,13 +69,12 @@ jobs:
               ),
           }
           versions = {platform: data.get("version") for platform, data in manifests.items()}
-          if versions["claude"] != versions["codex"]:
-              raise SystemExit(
-                  "Claude and Codex plugin versions must match: "
-                  f"Claude {versions['claude']}, Codex {versions['codex']}"
+          try:
+              version = combined_release_version(
+                  str(versions["claude"]), str(versions["codex"])
               )
-
-          version = versions["claude"]
+          except GenerationError as exc:
+              raise SystemExit(str(exc)) from exc
           match = re.fullmatch(r"(\d+)\.(\d+)\.(\d+)", str(version))
           if not match:
               raise SystemExit(f"Invalid plugin version: {version}")
@@ -127,7 +145,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           VERSION: ${{ steps.release.outputs.version }}
-          TARGET: ${{ github.sha }}
+          TARGET: ${{ steps.release_target.outputs.sha }}
         run: |
           tag="agent-plugins-v${VERSION}"
           python scripts/build_release_notes.py \

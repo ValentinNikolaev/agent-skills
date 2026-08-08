@@ -4,6 +4,28 @@ Use these examples when the correct treatment of a comment is unclear.
 
 The examples illustrate intent. Apply repository and language conventions before copying any pattern.
 
+## Contents
+
+- [Obvious narration](#obvious-narration)
+- [Redundant initialization comments](#redundant-initialization-comments)
+- [Redundant function documentation](#redundant-function-documentation)
+- [Redundant constant documentation](#redundant-constant-documentation)
+- [Comments describing transformations](#comments-describing-transformations)
+- [Preserve external behavior](#preserve-external-behavior)
+- [Replace implementation narration with rationale](#replace-implementation-narration-with-rationale)
+- [Shorten verbose rationale](#shorten-verbose-rationale)
+- [Preserve operation ordering](#preserve-operation-ordering)
+- [Preserve retry and idempotency context](#preserve-retry-and-idempotency-context)
+- [Preserve security constraints](#preserve-security-constraints)
+- [Preserve compatibility workarounds](#preserve-compatibility-workarounds)
+- [Preserve concurrency assumptions](#preserve-concurrency-assumptions)
+- [Decorative sections](#decorative-sections)
+- [Tooling directives](#tooling-directives)
+- [TODO markers](#todo-markers)
+- [Commented-out code](#commented-out-code)
+- [Mixed useful and redundant content](#mixed-useful-and-redundant-content)
+- [Final classification check](#final-classification-check)
+
 ## Obvious narration
 
 ### Go

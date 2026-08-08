@@ -1,269 +1,120 @@
 # Comment Cleanup Policy
 
-Use this reference when reviewing comments during the `clean-code-comments` workflow.
+Use this normative policy before classifying comments in edit or dry-audit mode.
 
-## Remove comments that restate code
+## Contents
 
-Remove a comment when it merely translates the adjacent code into natural language.
+- [Decision rule](#decision-rule)
+- [Remove narration](#remove-narration)
+- [Preserve non-obvious context](#preserve-non-obvious-context)
+- [Shorten or rewrite](#shorten-or-rewrite)
+- [Documentation comments](#documentation-comments)
+- [Tool-interpreted comments](#tool-interpreted-comments)
+- [TODO-style markers](#todo-style-markers)
+- [Commented-out code](#commented-out-code)
+- [Ambiguity](#ambiguity)
 
-Common cases include comments that:
+## Decision rule
 
-* repeat a function, method, field, variable, type, or constant name;
-* describe the next statement literally;
-* narrate obvious control flow;
-* explain standard language syntax;
-* repeat information already represented by types or signatures;
-* label a short and obvious block;
-* describe routine initialization, validation, iteration, assignment, or return operations;
-* contain generic statements without project-specific context;
-* appear to exist only because every declaration was mechanically documented.
+Read the comment with its code, repository rules, and relevant configuration. Ask whether it communicates useful information that a maintainer cannot recover quickly from the implementation.
 
-Examples of weak patterns:
+- If no, classify `remove`.
+- If yes but verbose, classify `shorten`.
+- If useful but inaccurate or unclear, classify `rewrite` only when the correct meaning is already evidenced nearby.
+- If it explains intent, a constraint, or non-obvious behavior accurately, classify `preserve`.
+- If it is externally managed or outside authorized scope, classify `skip`.
+- If meaning or tooling impact cannot be established, classify `question` and preserve it.
 
-```text
-Increment the counter.
-Return the result.
-Check whether the error is not nil.
-Create a new user.
-Initialize an empty list.
-Loop through all items.
-Set the default timeout.
-```
+Never invent facts, owners, issue IDs, deadlines, behavior, or rationale to justify retaining a comment.
 
-Remove decorative section headings such as:
+## Remove narration
 
-```text
-Initialization
-Validation
-Processing
-Handle error
-Return result
-```
+Remove comments that only translate adjacent code into natural language. Common cases:
 
-when the section is short and the code already makes its purpose clear.
+- repeating a symbol, type, signature, or literal value;
+- describing the next statement or standard syntax;
+- narrating obvious control flow, validation, iteration, assignment, or return;
+- labeling a short self-explanatory block;
+- repeating information enforced by types;
+- generic declaration documentation added mechanically;
+- decorative headings that do not improve navigation.
 
-## Preserve comments that explain why
+Do not use perceived “AI style” as evidence. Judge the information value.
 
-Preserve comments that communicate information not apparent from the local implementation.
+## Preserve non-obvious context
 
-This includes:
+Preserve accurate comments that explain:
 
-* business rules;
-* domain semantics;
-* external-system behavior;
-* compatibility requirements;
-* security constraints;
-* concurrency assumptions;
-* performance-sensitive decisions;
-* non-obvious invariants;
-* unusual operation ordering;
-* retry, timeout, or idempotency behavior;
-* required side effects;
-* migration constraints;
-* backward compatibility;
-* known platform, compiler, framework, or library limitations;
-* deliberate deviations from normal project patterns;
-* workarounds with a concrete reason;
-* data semantics not represented by types;
-* reasons an apparently simpler implementation is unsafe.
+- business or domain rules;
+- external-system behavior;
+- security or privacy constraints;
+- concurrency, ownership, ordering, retry, timeout, or idempotency requirements;
+- performance-sensitive decisions or resource bounds;
+- compatibility, migration, or platform limitations;
+- deliberate deviations from repository conventions;
+- non-obvious invariants, side effects, or data semantics;
+- why a simpler-looking implementation is unsafe.
 
-A useful comment should usually explain one of:
+Verify factual claims when practical. An obsolete rationale is not useful merely because it once explained “why.”
 
-* why this code exists;
-* why this approach was chosen;
-* why an obvious alternative is not used;
-* what external constraint must remain true;
-* what future maintainer could accidentally break.
+## Shorten or rewrite
 
-## Shorten verbose comments
+Shorten when useful rationale is mixed with history, repetition, filler, or line-by-line narration. Preserve the operative constraint and important qualifiers.
 
-Shorten a comment when it contains useful information but includes unnecessary narration, history, repetition, or implementation detail.
+Rewrite only when:
 
-Prefer one direct statement of the constraint or rationale.
+- the comment remains necessary;
+- current code or authoritative local documentation proves the intended meaning;
+- the edit does not strengthen, weaken, or broaden the contract.
 
-Verbose:
-
-```go
-// We need to sort the records by creation time here because the external
-// reporting API expects all records to be sent in chronological order,
-// otherwise the API can produce incorrect cumulative totals in its reports.
-```
-
-Better:
-
-```go
-// Reporting totals require records in chronological order.
-```
-
-Do not shorten a comment so aggressively that the reason or constraint becomes unclear.
+Remove rather than replace when code is already clear.
 
 ## Documentation comments
 
 Treat public API documentation separately from ordinary inline comments.
 
-Preserve documentation required by:
+Preserve documentation required by repository conventions, language ecosystems, configured linters, documentation generators, or public API policy. Improve it only when the implementation proves the correction.
 
-* repository conventions;
-* language ecosystems;
-* configured linters;
-* documentation generators;
-* public API standards.
-
-Required documentation should still add information.
-
-Weak:
-
-```go
-// UserService is a user service.
-```
-
-Better:
-
-```go
-// UserService manages registration and account lifecycle operations.
-```
-
-For private symbols, remove documentation that adds no context.
-
-Do not invent behavior merely to make a documentation comment sound useful. When no meaningful description is available and documentation is not mandatory, remove the comment.
+For private symbols, remove documentation that adds no context. For required public documentation that is redundant but cannot safely be improved, preserve and report it rather than breaking the documentation contract.
 
 ## Tool-interpreted comments
 
-Never remove or alter comments that may affect compilation, generation, linting, testing, documentation, or runtime behavior unless their semantics are fully understood.
+Never remove or alter a comment that may affect compilation, generation, formatting, linting, type checking, testing, coverage, documentation, dependency injection, ORM behavior, or runtime metadata unless its exact semantics and removal safety are proven.
 
-Examples include:
+Protected categories include:
 
-* build tags;
-* compiler directives;
-* formatter directives;
-* lint suppressions;
-* code-generation directives;
-* coverage directives;
-* test framework directives;
-* OpenAPI and Swagger annotations;
-* ORM annotations;
-* dependency injection annotations;
-* framework metadata;
-* shell directives;
-* editor directives;
-* structured docblocks;
-* generated-file markers;
-* license and copyright headers.
+- build tags, compiler pragmas, and shell directives;
+- formatter, lint, type-checker, test, and coverage directives;
+- code-generation instructions and generated-file markers;
+- OpenAPI, Swagger, ORM, framework, and structured docblock annotations;
+- license, copyright, and required attribution headers;
+- editor directives when repository policy retains them.
 
-Common examples:
-
-```go
-//go:build linux
-//go:generate mockgen ...
-//nolint:gocyclo
-```
-
-```typescript
-// eslint-disable-next-line
-// @ts-ignore
-// @ts-expect-error
-```
-
-```php
-/** @var User $user */
-/** @phpstan-ignore-next-line */
-```
-
-```python
-# noqa
-# type: ignore
-```
-
-```c
-#pragma once
-```
-
-An unfamiliar comment is not automatically redundant. Search nearby configuration or repository usage before modifying it.
+Search configuration and nearby usage for unfamiliar structured comments. Preserve first when uncertain.
 
 ## TODO-style markers
 
-Markers include:
+Markers include `TODO`, `FIXME`, `HACK`, `NOTE`, and `WORKAROUND`.
 
-* `TODO`
-* `FIXME`
-* `HACK`
-* `NOTE`
-* `WORKAROUND`
-
-Preserve them when they contain concrete and useful information.
-
-Useful:
-
-```go
-// TODO: Remove this fallback after all clients migrate to API v2.
-```
-
-Weak:
-
-```go
-// TODO: Fix this.
-```
-
-For vague markers:
-
-* remove them when they provide no actionable context and clearly have no current value;
-* shorten or clarify them only when the necessary information is already present nearby;
-* do not invent owners, issue numbers, deadlines, causes, or intended solutions.
+- Preserve a marker with a concrete constraint, migration condition, failure, or actionable next step.
+- Remove a marker that is clearly content-free and has no repository-specific value.
+- Shorten or clarify only from evidence already present nearby.
+- Do not fabricate an owner, ticket, deadline, cause, or solution.
 
 ## Commented-out code
 
-Commented-out code is not explanatory documentation.
+Remove commented-out code only when it is clearly obsolete, version control preserves its history, and it is not part of a fixture, sample, template, tutorial, or compatibility case.
 
-Remove it when:
+Preserve when repository conventions require it or a concrete explanation shows why it must remain temporarily. Do not uncomment, repair, or restore it during comment cleanup.
 
-* it is clearly obsolete;
-* version control already preserves its history;
-* no surrounding explanation shows that it is intentionally retained;
-* it is not part of a fixture, sample, template, or tutorial.
+## Ambiguity
 
-Preserve it when:
+Preserve and report a materially ambiguous comment when:
 
-* repository conventions require it;
-* it demonstrates an important compatibility case;
-* it belongs to a test fixture or documentation example;
-* a concrete comment explains why it must remain temporarily.
+- its tooling role is unknown;
+- its domain meaning cannot be established;
+- removal may hide a requirement or operational constraint;
+- authoritative rules conflict;
+- the file is externally managed or outside authorized scope.
 
-Do not uncomment, repair, or restore commented-out code as part of this task.
-
-## Parallel processing
-
-For large or heterogeneous target scopes, use sub-agents to process independent areas in parallel.
-
-Prefer partitioning by meaningful boundaries such as:
-
-* package, service, app, or module ownership;
-* language or framework;
-* generated versus handwritten code;
-* risk level or validation strategy.
-
-Top-level directories may be used as the default partition heuristic, but do not split mechanically.
-
-Merge tiny or tightly coupled folders.
-
-Further subdivide child directories only when a top-level area is itself large or has clearly independent subareas.
-
-The main agent remains responsible for:
-
-* discovering the full requested scope;
-* assigning non-overlapping work areas;
-* providing the shared comment policy to every sub-agent;
-* reviewing the combined diff for consistency;
-* rejecting unsafe or unrelated edits;
-* running or coordinating validation;
-* producing one final report.
-
-## Ambiguity rule
-
-Preserve a comment when:
-
-* its tooling role is uncertain;
-* its domain meaning cannot be established from the available context;
-* removing it may hide a requirement or operational constraint;
-* repository conventions conflict or are incomplete.
-
-Mention materially ambiguous preserved comments in the completion report without listing every minor case.
+Do not list every minor preserved comment. Report ambiguity when it affects cleanup coverage or future maintenance.

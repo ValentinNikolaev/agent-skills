@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plan Review"
+  short_description: "Validate implementation plans before coding"
+  default_prompt: "Use $plan-review to validate the supplied implementation plan and return an evidence-backed verdict without rewriting it."

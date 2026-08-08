@@ -1,0 +1,4 @@
+interface:
+  display_name: "Clean Code Comments"
+  short_description: "Remove redundant comments without behavior changes"
+  default_prompt: "Use $clean-code-comments to clean or audit comments in the supplied files and directories while preserving behavior and non-obvious context."

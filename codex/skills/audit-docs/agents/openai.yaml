@@ -1,0 +1,7 @@
+interface:
+  display_name: "Audit Docs"
+  short_description: "Audit documentation drift read-only"
+  default_prompt: "Use $audit-docs to audit this repository's documentation and report evidence-backed drift without editing files."
+
+policy:
+  allow_implicit_invocation: true

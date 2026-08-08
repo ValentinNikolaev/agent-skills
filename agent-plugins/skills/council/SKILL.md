@@ -1,468 +1,90 @@
 ---
 name: council
-description: "Run any question, idea, or decision through a council of 5 AI advisors who independently analyze it, peer-review each other anonymously, and synthesize a final verdict. Based on Karpathy's LLM Council methodology. Use when the user says 'council this', 'run the council', 'war room this', 'pressure-test this', 'stress-test this', or 'debate this', or when a real decision has stakes and multiple defensible options. Do not trigger on factual lookups, simple yes/no questions, or casual low-stakes choices."
-metadata:
-  trigger: Multi-perspective decision review
-user-invocable: true
-allowed-tools: Read, Grep, Glob
-argument-hint: "<question or decision>"
+description: Run a capacity-aware council of independent advisor passes, anonymized peer review, and a calibrated synthesis for consequential decisions with multiple defensible options. Use when the user explicitly says "council this," "run the council," "war room," "pressure-test," "stress-test," or "debate this," or when no specialist skill better fits a genuinely high-stakes tradeoff. Prefer specialist review skills unless Council is explicitly invoked. Do not use for factual lookups, routine creation, simple yes/no questions, or casual low-stakes choices.
 ---
 
+# Council
 
-# LLM Council
+Expose distinct reasoning, disagreement, and blind spots without treating model consensus as evidence.
 
+## Route deliberately
 
-You ask one AI a question, you get one answer. That answer might be great. It might be mid. You have no way to tell because you only saw one perspective.
+- Honor explicit Council phrases even when a specialist skill could also help.
+- Without an explicit Council phrase, prefer a narrower specialist workflow for implementation-plan review, code review, business viability, security, legal research, or other well-defined domains.
+- Answer factual lookups directly with sources. Do not manufacture debate around a fact.
 
+## Protect evidence and users
 
-The council fixes this. It runs your question through 5 independent advisors, each thinking from a fundamentally different angle. Then they review each other's work. Then a chairman synthesizes everything into a final recommendation that tells you where the advisors agree, where they clash, and what you should actually do.
+- Separate sourced facts, user-supplied facts, assumptions, interpretations, and unknowns.
+- Research current material claims with reliable primary sources when tools are available. Cite them near the synthesis.
+- Treat agreement among correlated AI passes only as convergence. Never label it independent confirmation or high confidence.
+- State uncertainty and evidence gaps. Make the recommendation conditional when the evidence warrants it.
+- For medical, legal, financial, security, or physical-safety decisions, keep the Council within decision support, identify professional review needs, and avoid pretending it replaces a qualified expert.
+- Do not invent user history, market facts, outcomes, or constraints.
 
+## Minimize context
 
-This is adapted from Andrej Karpathy's LLM Council. He dispatches queries to multiple models, has them peer-review each other anonymously, then a chairman produces the final answer. Use available parallel agent or model capabilities when the host provides them; otherwise simulate the council in one response with clearly separated advisor passes and a self-review pass.
+Use the user's message and explicitly referenced material first. Read workspace files only when the decision clearly concerns that workspace and the files are directly relevant.
 
+- Do not scan generic memory folders, prior transcripts, personal files, or unrelated project material by default.
+- Never pass credentials, tokens, private keys, personal identifiers, or irrelevant confidential material to advisor passes.
+- Summarize the minimum necessary context. Redact sensitive details that do not affect the decision.
+- Tell the user when missing context materially limits the result. Ask at most one necessary clarifying question.
 
----
+## Choose a capacity-aware mode
 
+- **Quick**: Use by default or when time, token budget, or parallel capacity is limited. Run three distinct advisor passes and one anonymized review pass.
+- **Full**: Use when the user requests a full Council or the decision warrants deeper deliberation. Run all five advisor styles and enough anonymized reviews to challenge every response.
 
-## when to run the council
+Read [references/advisors-and-prompts.md](references/advisors-and-prompts.md) for advisor definitions and prompt contracts. Read [references/example.md](references/example.md) only when an example helps frame the session.
 
+Run as many independent passes concurrently as the host safely supports. Queue the rest in bounded waves. Do not fail or simulate unavailable concurrency claims; use separated passes in the current model when subagents are unavailable.
 
-The council is for questions where being wrong is expensive.
+## Convene the session
 
+### 1. Frame neutrally
 
-Good council questions:
+Write one shared frame containing:
 
-- "Should I launch a $97 workshop or a $497 course?"
+1. the decision;
+2. supplied facts and relevant sourced facts;
+3. constraints and options;
+4. stakes and decision horizon;
+5. assumptions and unknowns;
+6. the requested output.
 
-- "Which of these 3 positioning angles is strongest?"
+Do not embed a preferred answer. Preserve meaningful uncertainty.
 
-- "I'm thinking of pivoting from X to Y. Am I crazy?"
+### 2. Run independent advisor passes
 
-- "Here's my landing page copy. What's weak?"
+Give each pass only its advisor style, the shared frame, and the response contract from the reference. Do not reveal other advisor outputs before the pass finishes. Ask for direct analysis, evidence needs, failure conditions, and a proposed action.
 
-- "Should I hire a VA or build an automation first?"
+### 3. Review anonymously
 
+Remove advisor names and label responses consistently as A, B, C, and so on. Give reviewers the shared frame and anonymized responses. Ask them to identify:
 
-Bad council questions:
+- the best-supported reasoning and why;
+- the largest unsupported leap or blind spot;
+- material facts or options everyone missed;
+- what evidence could change the recommendation.
 
-- "What's the capital of France?" (one right answer, no need for perspectives)
+Use bounded waves. One strong review may satisfy quick mode; full mode should challenge every response, but it need not spawn one new agent per response when capacity is constrained.
 
-- "Write me a tweet" (creation task, not a decision)
+### 4. Synthesize with calibration
 
-- "Summarize this article" (processing task, not judgment)
+Produce:
 
+1. **Where the Council Converges** — shared reasoning, explicitly not independent proof.
+2. **Where the Council Disagrees** — competing premises and why they differ.
+3. **Blind Spots and Evidence Gaps** — missing facts exposed by review.
+4. **Recommendation** — a clear answer, conditional when necessary.
+5. **First Action** — one concrete, reversible next step.
+6. **What Would Change the Verdict** — the decisive evidence or threshold.
 
-The council shines when there's genuine uncertainty and the cost of a bad call is high. If you already know the answer and just want validation, the council will likely tell you things you don't want to hear. That's the point.
+The synthesizer may reject the majority view when a minority argument has stronger evidence. Do not suppress genuine disagreement or force certainty.
 
+## Present and optionally save
 
----
+Return the verdict in chat with concise bullets and source links where research informed the decision. Mention the mode and any capacity fallback that materially reduced independence.
 
-
-## the five advisors
-
-
-Each advisor thinks from a different angle. They're not job titles or personas. They're thinking styles that naturally create tension with each other.
-
-
-### 1. The Contrarian
-
-Actively looks for what's wrong, what's missing, what will fail. Assumes the idea has a fatal flaw and tries to find it. If everything looks solid, digs deeper. The Contrarian is not a pessimist. They're the friend who saves you from a bad deal by asking the questions you're avoiding.
-
-
-### 2. The First Principles Thinker
-
-Ignores the surface-level question and asks "what are we actually trying to solve here?" Strips away assumptions. Rebuilds the problem from the ground up. Sometimes the most valuable council output is the First Principles Thinker saying "you're asking the wrong question entirely."
-
-
-### 3. The Expansionist
-
-Looks for upside everyone else is missing. What could be bigger? What adjacent opportunity is hiding? What's being undervalued? The Expansionist doesn't care about risk (that's the Contrarian's job). They care about what happens if this works even better than expected.
-
-
-### 4. The Outsider
-
-Has zero context about you, your field, or your history. Responds purely to what's in front of them. This is the most underrated advisor. Experts develop blind spots. The Outsider catches the curse of knowledge: things that are obvious to you but confusing to everyone else.
-
-
-### 5. The Executor
-
-Only cares about one thing: can this actually be done, and what's the fastest path to doing it? Ignores theory, strategy, and big-picture thinking. The Executor looks at every idea through the lens of "OK but what do you do Monday morning?" If an idea sounds brilliant but has no clear first step, the Executor will say so.
-
-
-**Why these five:** They create three natural tensions. Contrarian vs Expansionist (downside vs upside). First Principles vs Executor (rethink everything vs just do it). The Outsider sits in the middle keeping everyone honest by seeing what fresh eyes see.
-
-
----
-
-
-## how a council session works
-
-
-### step 1: frame the question (with context enrichment)
-
-
-When the user says "council this" (or any trigger phrase), do two things before framing:
-
-
-**A. Scan the workspace for context.** The user's question is often just the tip of the iceberg. Their local setup may contain files that would dramatically improve the council's output. Before framing, quickly scan for and read any relevant context files:
-
-
-- `CLAUDE.md`, `AGENTS.md`, `CODEX.md`, or equivalent instruction files in the project root or workspace
-
-- Any `memory/` folder (audience profiles, voice docs, business details, past decisions)
-
-- Any files the user explicitly referenced or attached
-
-- Recent council transcripts in this folder (to avoid re-counciling the same ground)
-
-- Any other context files that seem relevant to the specific question (e.g., if they're asking about pricing, look for revenue data, past launch results, audience research)
-
-
-Use `Glob` and quick `Read` calls to find these. Don't spend more than 30 seconds on this. You're looking for the 2-3 files that would give advisors the context they need to give specific, grounded advice instead of generic takes.
-
-
-**B. Frame the question.** Take the user's raw question AND the enriched context and reframe it as a clear, neutral prompt that all five advisors will receive. The framed question should include:
-
-
-1. The core decision or question
-
-2. Key context from the user's message
-
-3. Key context from workspace files (business stage, audience, constraints, past results, relevant numbers)
-
-4. What's at stake (why this decision matters)
-
-
-Don't add your own opinion. Don't steer it. But DO make sure each advisor has enough context to give a specific, grounded answer rather than generic advice.
-
-
-If the question is too vague ("council this: my business"), ask one clarifying question. Just one. Then proceed.
-
-
-Save the framed question for the transcript.
-
-
-### step 2: convene the council (5 advisors in parallel when available)
-
-
-Spawn all 5 advisors simultaneously when the host supports parallel sub-agents. If it does not, run the five advisor passes independently in the current model and keep the responses separated so earlier perspectives do not collapse into one blended answer. Each advisor gets:
-
-
-1. Their advisor identity and thinking style (from the descriptions above)
-
-2. The framed question
-
-3. A clear instruction: respond independently. Do not hedge. Do not try to be balanced. Lean fully into your assigned perspective. If you see a fatal flaw, say it. If you see massive upside, say it. Your job is to represent your angle as strongly as possible. The synthesis comes later.
-
-
-Each advisor should produce a response of 150-300 words. Long enough to be substantive, short enough to be scannable.
-
-
-**Sub-agent prompt template:**
-
-
-```
-
-You are [Advisor Name] on an LLM Council.
-
-
-Your thinking style: [advisor description from above]
-
-
-A user has brought this question to the council:
-
-
----
-
-[framed question]
-
----
-
-
-Respond from your perspective. Be direct and specific. Don't hedge or try to be balanced. Lean fully into your assigned angle. The other advisors will cover the angles you're not covering.
-
-
-Keep your response between 150-300 words. No preamble. Go straight into your analysis.
-
-```
-
-
-### step 3: peer review (5 reviewers in parallel when available)
-
-
-This is the step that makes the council more than just "ask 5 times." It's the core of Karpathy's insight.
-
-
-Collect all 5 advisor responses. Anonymize them as Response A through E (randomize which advisor maps to which letter so there's no positional bias).
-
-
-Spawn 5 new reviewers when parallel sub-agents are available, one for each advisor. Otherwise run five short anonymized review passes yourself. Each reviewer sees all 5 anonymized responses and answers three questions:
-
-
-1. Which response is the strongest and why? (pick one)
-
-2. Which response has the biggest blind spot and what is it?
-
-3. What did ALL responses miss that the council should consider?
-
-
-**Reviewer prompt template:**
-
-
-```
-
-You are reviewing the outputs of an LLM Council. Five advisors independently answered this question:
-
-
----
-
-[framed question]
-
----
-
-
-Here are their anonymized responses:
-
-
-**Response A:**
-
-[response]
-
-
-**Response B:**
-
-[response]
-
-
-**Response C:**
-
-[response]
-
-
-**Response D:**
-
-[response]
-
-
-**Response E:**
-
-[response]
-
-
-Answer these three questions. Be specific. Reference responses by letter.
-
-
-1. Which response is the strongest? Why?
-
-2. Which response has the biggest blind spot? What is it missing?
-
-3. What did ALL five responses miss that the council should consider?
-
-
-Keep your review under 200 words. Be direct.
-
-```
-
-
-### step 4: chairman synthesis
-
-
-This is the final step. One agent gets everything: the original question, all 5 advisor responses (now de-anonymized so you can see which advisor said what), and all 5 peer reviews.
-
-
-The chairman's job is to produce the final council output. It follows this structure:
-
-
-**COUNCIL VERDICT**
-
-
-1. **Where the council agrees** — the points that multiple advisors converged on independently. These are high-confidence signals.
-
-
-2. **Where the council clashes** — the genuine disagreements. Don't smooth these over. Present both sides and explain why reasonable advisors disagree.
-
-
-3. **Blind spots the council caught** — things that only emerged through the peer review round. Things individual advisors missed that other advisors flagged.
-
-
-4. **The recommendation** — a clear, actionable recommendation. Not "it depends." Not "consider both sides." A real answer. The chairman can disagree with the majority if the reasoning supports it.
-
-
-5. **The one thing you should do first** — a single concrete next step. Not a list of 10 things. One thing.
-
-
-**Chairman prompt template:**
-
-
-```
-
-You are the Chairman of an LLM Council. Your job is to synthesize the work of 5 advisors and their peer reviews into a final verdict.
-
-
-The question brought to the council:
-
----
-
-[framed question]
-
----
-
-
-ADVISOR RESPONSES:
-
-
-**The Contrarian:**
-
-[response]
-
-
-**The First Principles Thinker:**
-
-[response]
-
-
-**The Expansionist:**
-
-[response]
-
-
-**The Outsider:**
-
-[response]
-
-
-**The Executor:**
-
-[response]
-
-
-PEER REVIEWS:
-
-[all 5 peer reviews]
-
-
-Produce the council verdict using this exact structure:
-
-
-## Where the Council Agrees
-
-[Points multiple advisors converged on independently. These are high-confidence signals.]
-
-
-## Where the Council Clashes
-
-[Genuine disagreements. Present both sides. Explain why reasonable advisors disagree.]
-
-
-## Blind Spots the Council Caught
-
-[Things that only emerged through peer review. Things individual advisors missed that others flagged.]
-
-
-## The Recommendation
-
-[A clear, direct recommendation. Not "it depends." A real answer with reasoning.]
-
-
-## The One Thing to Do First
-
-[A single concrete next step. Not a list. One thing.]
-
-
-Be direct. Don't hedge. The whole point of the council is to give the user clarity they couldn't get from a single perspective.
-
-```
-
-
-### step 5: present the verdict in chat
-
-
-After the chairman synthesis is complete, present the full verdict directly in chat using markdown. Do NOT generate an HTML report or any files. The user reads it in the conversation.
-
-Format the output as:
-
-```
-## Council Verdict: {short topic}
-
-### Where the Council Agrees
-{content}
-
-### Where the Council Clashes
-{content}
-
-### Blind Spots the Council Caught
-{content}
-
-### The Recommendation
-{content}
-
-### The One Thing to Do First
-{content}
-```
-
-Keep it scannable. Use bullet points. Include the before/after examples where relevant.
-
-
-### step 6: save the transcript (optional)
-
-
-Only save a transcript if the user asks for it or if the question is significant enough to reference later. If saving, write to `council-transcript-[timestamp].md` in the project's `active/` directory.
-
-
----
-
-
-## example: counciling a product decision
-
-
-**User:** "Council this: I'm thinking of building a $297 course on Claude Code for beginners. My audience is mostly non-technical solopreneurs. Is this the right move?"
-
-
-**The Contrarian:** "The market is flooded with Claude courses right now. At $297, you're competing with free YouTube content. Your audience is non-technical, which means high support burden and refund risk. The people who would pay $297 are likely already past beginner level..."
-
-
-**The First Principles Thinker:** "What are you actually trying to achieve? If it's revenue, a course is one of the slowest paths. If it's authority, a free resource might do more. If it's building a customer base for higher-ticket offers, the price point and audience might be mismatched..."
-
-
-**The Expansionist:** "Beginner Claude for solopreneurs is a massive underserved market. Everyone's teaching advanced stuff. If you nail the beginner angle, you own the entry point to this entire space. The $297 might be low. What if this became a $997 program with community access..."
-
-
-**The Outsider:** "I don't know what Claude Code is. If I saw '$297 course on Claude Code for beginners,' I wouldn't know if this is for me. The name means nothing to someone outside your world. Your landing page needs to sell the outcome, not the tool..."
-
-
-**The Executor:** "A full course takes 4-8 weeks to produce properly. Before building anything, run a live workshop at $97 to 50 people. You validate demand, generate testimonials, and create the raw material for the course. If 50 people don't buy the workshop, 500 won't buy the course..."
-
-
-**Chairman's Verdict:**
-
-
-*Where the council agrees:* The beginner solopreneur angle has real demand, but the current framing (Claude Code course) is too tool-specific and won't resonate with non-technical buyers.
-
-
-*Where the council clashes:* Price. The Contrarian says $297 is too high given competition. The Expansionist says it's too low for the value. The resolution likely depends on how much support and community access is bundled.
-
-
-*Blind spots caught:* The Outsider's point that "Claude Code" means nothing to the target buyer is the single most important insight. Every advisor except the Outsider assumed the audience already knows what this is.
-
-
-*Recommendation:* Don't build the course yet. Validate with a lower-commitment offer first. But reframe entirely: sell the outcome (automate your business, get 10 hours back per week), not the tool.
-
-
-*One thing to do first:* Run a $97 live workshop called "How to automate your first business task with AI" to 50 people. Don't mention Claude Code in the title.
-
-
----
-
-
-## important notes
-
-
-- **Prefer spawning all 5 advisors in parallel.** If parallel agents are unavailable, keep each advisor pass independent and do not revise earlier passes while drafting later ones.
-
-- **Always anonymize for peer review.** If reviewers know which advisor said what, they'll defer to certain thinking styles instead of evaluating on merit.
-
-- **The chairman can disagree with the majority.** If 4 out of 5 advisors say "do it" but the reasoning of the 1 dissenter is strongest, the chairman should side with the dissenter and explain why.
-
-- **Don't council trivial questions.** If the user asks something with one right answer, just answer it. The council is for genuine uncertainty where multiple perspectives add value.
-
-- **The chat verdict matters.** Most users will scan the final answer, not read the full transcript. Make the markdown output clean, direct, and scannable.
+Do not create files by default. Save a transcript only when the user explicitly requests it and supplies the destination path. If the user requests a transcript without a path, ask for the path before writing. Preserve advisor labels, source links, evidence gaps, and the final synthesis in the transcript.

@@ -1,148 +1,141 @@
-# Structures to Avoid
+# Structural diagnostics
 
-## Binary Contrasts
+Use these patterns to detect mechanical prose. Do not ban a construction that is accurate, natural for the genre, or part of the author's deliberate voice.
 
-These create false drama. State the point directly.
+## Contents
 
-| Pattern | Problem |
-|---------|---------|
-| "Not because X. Because Y." / "Not because X, but because Y." | Telegraphed reversal |
-| "[X] isn't the problem. [Y] is." | Formulaic reframe |
-| "The answer isn't X. It's Y." | Predictable pivot |
-| "It feels like X. It's actually Y." | Setup/reveal cliche |
-| "The question isn't X. It's Y." | Rhetorical misdirection |
-| "Not X. But Y." / "not X, it's Y" / "isn't X, it's Y" | Mechanical contrast |
-| "It's not this. It's that." | Same formula, different words |
-| "stops being X and starts being Y" | False transformation arc |
-| "doesn't mean X, but actually Y" | Negation-then-assertion crutch |
-| "is about X but not Y" | False distinction |
-| "not just X but also Y" | Additive hedge |
+- [Binary pivots](#binary-pivots)
+- [Negative buildup](#negative-buildup)
+- [Dramatic fragmentation](#dramatic-fragmentation)
+- [Rhetorical setup](#rhetorical-setup)
+- [Source-label mirroring](#source-label-mirroring)
+- [Agency and passive voice](#agency-and-passive-voice)
+- [Distance and generalization](#distance-and-generalization)
+- [Sentence openings](#sentence-openings)
+- [Rhythm and punctuation](#rhythm-and-punctuation)
+- [Semantic guardrails](#semantic-guardrails)
 
-**Instead:** State Y directly. "The problem is Y." "Y matters here." Drop the negation entirely.
+## Binary pivots
 
-## Negative Listing
+Repeated setup-and-reversal patterns can feel templated:
 
-Listing what something is *not* before revealing what it *is*. A rhetorical striptease.
+| Pattern | Diagnostic question |
+| --- | --- |
+| "Not because X, but because Y" | Does X add necessary contrast? |
+| "X isn't the problem. Y is." | Is the distinction supported and useful? |
+| "The answer isn't X. It's Y." | Can the text state Y directly? |
+| "It feels like X. It's actually Y." | Does evidence justify correcting X? |
+| "Not just X, but also Y" | Would a direct compound sentence be clearer? |
 
-| Pattern | Problem |
-|---------|---------|
-| "Not a X... Not a Y... A Z." | Dramatic buildup through negation |
-| "It wasn't X. It wasn't Y. It was Z." | Same structure, past tense |
+Keep binary contrast when the distinction is substantively important. Reduce it when several paragraphs use the same reveal pattern or X exists only as rhetorical runway.
 
-**Instead:** State Z. The reader doesn't need the runway.
+## Negative buildup
 
-## Dramatic Fragmentation
+Lists of what something is not can delay the claim:
 
-Sentence fragments for emphasis read as manufactured profundity.
+```text
+Not X. Not Y. Z.
+It was not X or Y. It was Z.
+```
 
-| Pattern | Problem |
-|---------|---------|
-| "[Noun]. That's it. That's the [thing]." | Performative simplicity |
-| "X. And Y. And Z." | Staccato drama |
-| "This unlocks something. [Word]." | Artificial revelation |
+State Z earlier unless eliminating X and Y is necessary to prevent a real misunderstanding.
 
-**Instead:** Complete sentences. Trust content over presentation.
+## Dramatic fragmentation
 
-## Rhetorical Setups
+Repeated fragments and short sentences may manufacture emphasis:
 
-These announce insight rather than deliver it.
+```text
+Speed. Quality. Cost. Pick two.
+This unlocks something. Scale.
+X. And Y. And Z.
+```
 
-| Pattern | Problem |
-|---------|---------|
-| "What if [reframe]?" | Socratic posturing |
-| "Here's what I mean:" | Redundant preview |
-| "Think about it:" | Condescending prompt |
-| "And that's okay." | Unnecessary permission |
+Combine fragments when they create a metronomic or promotional rhythm. Keep fragments that reproduce speech, convey deliberate pacing, label UI elements, or fit the genre.
 
-**Instead:** Make the point. Let readers draw conclusions.
+## Rhetorical setup
 
-## Formulaic Constructions
+Review setups that announce insight before delivering it:
 
-| Pattern | Problem |
-|---------|---------|
-| "By the time X, I was Y." | Narrative template |
-| "X that isn't Y" | Indirect. Say "X is broken" |
+- "What if I told you...?"
+- "Here's what I mean"
+- "Think about it"
+- "And that's okay"
+- questions immediately answered with an obvious reveal
 
-## Source-Label Mirroring
+State the supported point directly when the question adds no reader value. Keep genuine questions in interviews, teaching, FAQs, and exploratory prose.
 
-Applications, outreach, proposals, and summaries often start by repeating labels from the source text. This reads like a mail merge.
+## Source-label mirroring
 
-| Pattern | Problem |
-|---------|---------|
-| "I would like to apply for the [exact job title] role in the [exact team] team." | Repeats the posting instead of making a case. |
-| "I am excited to apply for [title] at [company]." | Generic enthusiasm plus pasted labels. |
-| "My experience in [keyword], [keyword], and [keyword] makes me a fit." | Keyword stuffing instead of evidence. |
-| "Regarding your [document title/request], I wanted to..." | Prompt echo before content. |
-| "As a [title] with X years of experience..." | Resume-summary opener. Often safe, but bland as a first sentence. |
+Applications, outreach, proposals, and replies may begin by copying labels from the source:
 
-**Instead:** Start with a specific reason, proof point, or useful next move. If the exact role, team, company, or document title appears in the first sentence, ask whether the reader needs that label. Usually they don't.
+| Pattern | Better approach when context is already clear |
+| --- | --- |
+| "I would like to apply for [exact title]" | Start with verified fit or motivation. |
+| "I am excited to apply for [title] at [company]" | Name a specific, true reason for interest. |
+| "My experience in [keyword list] makes me a fit" | Use source-supported evidence. |
+| "Regarding [document title], I wanted to..." | Start with the useful response. |
 
-## False Agency
+Retain labels when multiple roles, teams, documents, or requests could otherwise be confused. Never replace them with invented evidence.
 
-Giving inanimate things human verbs. Complaints don't "become" fixes. Bets don't "live or die." Decisions don't "emerge." A person does something to make those things happen. AI loves this because it avoids naming the actor.
+## Agency and passive voice
 
-| Pattern | Problem |
-|---------|---------|
-| "a complaint becomes a fix" | The complaint did nothing. Someone fixed it. |
-| "a bet lives or dies in days" | Bets don't have lifespans. Someone kills the project or ships it. |
-| "the decision emerges" | Decisions don't emerge. Someone decides. |
-| "the culture shifts" | Cultures don't shift on their own. People change behavior. |
-| "the conversation moves toward" | Conversations don't move. Someone steers. |
-| "the data tells us" | Data sits there. Someone reads it and draws a conclusion. |
-| "the market rewards" | Markets don't reward. Buyers pay for things. |
+Prefer an active construction when the actor matters, is known, and the source supports naming it:
 
-**Instead:** Name the human. "The team fixed it that week" beats "the complaint becomes a fix." If no specific person fits, use "you" to put the reader in the seat.
+| Less direct | Possible revision |
+| --- | --- |
+| "The team decided after review" | Already active; keep it. |
+| "The decision was reached after review" | "The committee decided after review" if the source names the committee. |
+| "Mistakes were made" | Name the actor only when known and appropriate. |
 
-## Narrator-from-a-Distance
+Keep passive voice when:
 
-Floating above the scene instead of putting the reader in it.
+- the actor is unknown or irrelevant;
+- the object or result is the established topic;
+- scientific, legal, policy, or safety convention calls for it;
+- naming the actor would add an unsupported claim;
+- deliberate anonymity protects a person.
 
-| Pattern                   | Problem                 |
-|---------------------------|-------------------------|
-| "Nobody designed this."   | Disembodied observation |
-| "This happens because..." | Lecturer voice          |
-| "This is why..."          | Same                    |
-| "People tend to..."       | Armchair sociologist    |
+Inanimate subjects are not automatically wrong. Data can indicate, a contract can require, software can reject input, and a market can change. Revise only when the verb obscures who acted or overstates causality.
 
-**Instead:** Put the reader in the room. "You don't sit down one day and decide to..." beats "Nobody designed this."
+## Distance and generalization
 
-## Passive Voice
+Review vague constructions such as:
 
-Every sentence needs a subject doing something. Passive voice hides the actor and drains energy.
+- "People tend to..."
+- "Nobody designed this"
+- "This happens because..."
+- "The market rewards..."
 
-| Pattern                    | Fix                  |
-|----------------------------|----------------------|
-| "X was created"            | Name who created it  |
-| "It is believed that"      | Name who believes it |
-| "Mistakes were made"       | Name who made them   |
-| "The decision was reached" | Name who decided     |
+Replace them with supported actors, conditions, or evidence. Do not substitute `you` when the text should remain formal, inclusive, impersonal, or evidence-based.
 
-**Instead:** Find the actor. Put them at the front of the sentence.
+## Sentence openings
 
-## Sentence Starters to Avoid
+Repeated openings can reveal a template, but no opening word is inherently wrong.
 
-| Pattern                                                         | Fix                                             |
-|-----------------------------------------------------------------|-------------------------------------------------|
-| Sentences starting with What, When, Where, Which, Who, Why, How | Restructure. Lead with the subject or the verb. |
-| Paragraphs starting with "So"                                   | Start with content                              |
-| Sentences starting with "Look,"                                 | Remove                                          |
+- Vary repeated `What`, `When`, `Why`, or `How` constructions when they become formulaic.
+- Remove conversational `Look,` when it adds no tone or meaning.
+- Keep Wh-openers in questions, definitions, procedures, and natural prose.
+- Keep `So` when it expresses a real inference and suits the voice.
 
-Wh- openers become a crutch. "What makes this hard is..." becomes "The constraint is..." or better, name the specific constraint.
+## Rhythm and punctuation
 
-## Rhythm Patterns
+Evaluate rhythm across a paragraph rather than banning individual forms.
 
-| Pattern                        | Fix                                                 |
-|--------------------------------|-----------------------------------------------------|
-| Three-item lists               | Use two items or one                                |
-| Questions answered immediately | Let questions breathe or cut them                   |
-| Every paragraph ends punchily  | Vary endings                                        |
-| Em-dashes                      | Remove. Use commas or periods. No em dashes at all. |
-| Staccato fragmentation         | Don't stack short punchy sentences                  |
-| "Not always. Not perfectly."   | Hedging disguised as reassurance                    |
+- Vary sentence length when several sentences use the same cadence.
+- Keep three-item lists when there are three real items.
+- Keep an em dash when it marks interruption, apposition, or the author's cadence more clearly than alternatives.
+- Avoid stacking punch lines unless the genre and author intend that effect.
+- Keep paragraph-ending one-liners when they earn emphasis and are not repeated mechanically.
 
-## Word Patterns
+## Semantic guardrails
 
-| Pattern                                                                                               | Problem                                                    |
-|-------------------------------------------------------------------------------------------------------|------------------------------------------------------------|
-| Lazy extremes (every, always, never, everyone, everybody, nobody)                                     | False authority. Use specifics instead of sweeping claims. |
-| All adverbs (-ly words, "really," "just," "literally," "genuinely," "honestly," "simply," "actually") | Empty emphasis. See phrases.md for full list.              |
+Before restructuring:
+
+1. preserve negation, comparison, causality, chronology, and conditionals;
+2. preserve hedges, uncertainty, and quantifiers;
+3. preserve quoted and attributed wording;
+4. preserve actor anonymity when intentional;
+5. verify that an active rewrite does not invent an actor;
+6. verify that compression does not merge distinct claims.
+
+When uncertain, flag the pattern in review mode instead of rewriting it.

@@ -1,88 +1,49 @@
 ---
 name: update-memory
-description: Maintain existing agent memory after a work session, feature, fix, decision, or project milestone. Use when durable knowledge changed and the user asks to update, record, sync, or maintain project memory. Avoid speculative or temporary notes and preview ambiguous edits.
-metadata:
-  trigger: Updating existing project memory
-user-invocable: true
-allowed-tools: Read, Grep, Glob, Write, Edit, MultiEdit
-argument-hint: "[session-scope] [project-root] [memory-root]"
+description: Maintain an existing project-memory store with durable facts learned during completed project work, decisions, fixes, migrations, or milestones. Use only when a usable baseline already exists; do not use for initial bootstrap, primary ingestion or refresh of an external source, read-only auditing, temporary progress, or speculative notes.
 ---
 
 # Update Memory
 
-Maintain existing durable memory after project work. This is the maintenance member of the memory family:
+Record the smallest durable change supported by completed project work.
 
-- `create-memory` bootstraps the initial baseline
-- `ingest-memory` imports source material
-- `update-memory` records changes learned during work
-- `audit-memory` validates the resulting memory set
+## Load the Contract and Establish Context
 
-Keep the skills separate while applying the same file, link, and safety conventions.
-
-## Establish Context
-
-1. Resolve the project and memory roots from the user's arguments or current repository context.
-2. Locate the active `MEMORY.md` index and read the relevant memory files before editing.
-3. Gather available session evidence: the user's summary, decisions made, completed work, important failures, changed interfaces, tests, and follow-up constraints.
-4. When repository inspection is available, use focused `git diff`, `git log`, branch information, and changed files as supporting evidence. Treat git history as evidence, not as a substitute for user intent.
-5. Consider repository-local `memory/`, `.claude/memory/`, `.codex/memory/`, platform project memory, and global memory according to the selected scope. Do not silently update multiple roots.
-
-If the scope or target root is ambiguous, report the candidates and ask before writing.
+1. Read [references/memory-contract.md](references/memory-contract.md) completely before proposing edits.
+2. Resolve one project root and memory root from the user's request or current project. Ask for explicit consent before reading or writing any global store, sibling project, unrelated repository, or other root outside that project.
+3. Read the active `MEMORY.md` and relevant local files. If no useful baseline exists, route to `create-memory`.
+4. Gather evidence from the user's confirmed summary, adopted decisions, completed work, changed interfaces, tests, failures, and available focused repository diff or history. Treat repository state as evidence, not a substitute for user intent.
+5. Route a task whose primary purpose is importing or refreshing supplied external content to `ingest-memory`. When a source-backed conclusion arose incidentally during project work, record full structured provenance under the contract.
 
 ## Decide Whether to Write
 
-Write memory when the session produced a durable:
+Write only a durable architectural or product decision, workflow or integration constraint, recurring preference, resolved failure and prevention rule, shipped contract or migration, operational milestone, or source-backed fact needed later.
 
-- architectural or product decision
-- workflow or integration constraint
-- recurring user preference or correction
-- resolved failure whose cause and prevention matter later
-- shipped behavior, migration, contract, or operational milestone
-- source-backed fact that future work will need
+Skip temporary progress, unfinished experiments, routine implementation detail, information obvious from code or existing instructions, secrets, private data, raw logs or conversations, and unadopted ideas.
 
-Do not write for:
+Use this order:
 
-- temporary task progress or an unfinished experiment
-- information already obvious from code or existing instructions
-- routine implementation details with no future decision value
-- secrets, tokens, private data, raw logs, or full conversation transcripts
-- speculative ideas that were not adopted
+1. Update an existing focused file only when its durable truth changed.
+2. Propose one focused new file when durable knowledge is absent.
+3. Skip and explain temporary, redundant, unsupported, or uncertain material.
 
-Use this decision order:
+Preview file-level changes. Ask for confirmation when the root was inferred, cross-root access is involved, substantial text would be replaced, more than three files would be created, or relationships across multiple topics would change.
 
-1. If an existing memory file directly covers the topic, update it only when the durable truth changed.
-2. If the topic is durable but absent, propose a focused new file.
-3. If it is temporary, redundant, or uncertain, skip it and report why.
+## Update and Reconcile
 
-Preview the proposed file-level changes and ask for confirmation when edits are ambiguous, overwrite substantial existing text, create more than three files, change relationships across multiple topics, or use an inferred memory root. Small, clearly requested updates may proceed additively only when the target root and existing file are unambiguous.
+1. State the new durable fact and evidence in one sentence before editing.
+2. Search all local memory filenames, names, descriptions, source identities, and distinctive claims for duplicates or conflicts.
+3. Determine current truth from the strongest available evidence; do not automatically prefer existing text or newer text.
+4. Update the smallest focused section. Preserve dated historical context when it explains the current state, mark superseded details explicitly, and keep unresolved contradictions in a short `Conflicts` or `Open Questions` section.
+5. Follow the contract exactly. Preserve or add structured provenance, keep local `related` filenames symmetric, and update `last_updated` only when durable content changes.
+6. Update `MEMORY.md` only when a file or its purpose changes, using the exact contract grammar.
 
-## Family File Standard
+## Validate and Report
 
-Use or preserve this frontmatter shape:
+Run:
 
-```yaml
----
-name: short-kebab-case-name
-description: One sentence describing when this memory is useful.
-type: project
-related: []
-last_updated: YYYY-MM-DD
----
+```text
+python scripts/validate_memory.py <memory-root>
 ```
 
-Allowed types are `project`, `feedback`, and `reference`. Preserve an existing `source` field and its provenance. Preserve manual `related` entries, add reciprocal links when useful, and update `last_updated` only when the durable content changes.
-
-## Update Workflow
-
-1. Summarize the new durable fact in one sentence before editing.
-2. Compare it with the existing memory to avoid duplicate or contradictory statements.
-3. Update the smallest focused section or create one focused file. Retain useful historical context when it explains why the current state exists.
-4. Mark unresolved conflicts or superseded decisions explicitly instead of deleting context without explanation.
-5. Update `MEMORY.md` only when files or their purposes changed. Keep the index short and navigational.
-6. Verify every index entry and related link resolves within the selected memory root.
-
-For conflicts, use this merge order: preserve current durable truth, add the new evidence with date/source, mark superseded details explicitly, and leave unresolved contradictions in a short `Open Questions` or `Conflicts` section instead of silently choosing one side.
-
-## Report and Handoff
-
-Report the evidence used, files changed, facts skipped, conflicts, and any follow-up needed. Recommend `audit-memory` after cross-file edits or when the update changes the index, links, or source provenance.
+Fix only errors introduced within the approved scope. Report evidence used, files changed, facts skipped, duplicate or conflict decisions, validation results, and remaining limitations. Recommend `audit-memory` after cross-file, index, relationship, or provenance changes.

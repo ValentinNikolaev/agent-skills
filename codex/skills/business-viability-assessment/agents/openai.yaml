@@ -1,4 +1,4 @@
 interface:
   display_name: "Business Viability Assessment"
   short_description: "Assess product viability and unit economics"
-  default_prompt: "Use $business-viability-assessment to assess whether this project is worth building."
+  default_prompt: "Use $business-viability-assessment to assess whether this project is worth building without creating files unless I request them."

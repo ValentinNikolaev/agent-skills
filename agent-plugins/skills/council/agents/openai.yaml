@@ -1,0 +1,4 @@
+interface:
+  display_name: "Council"
+  short_description: "Stress-test consequential decisions from many angles"
+  default_prompt: "Use $council to pressure-test this decision and give me a calibrated recommendation."

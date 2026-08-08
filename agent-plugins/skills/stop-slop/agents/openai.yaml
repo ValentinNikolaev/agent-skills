@@ -1,0 +1,4 @@
+interface:
+  display_name: "Stop Slop"
+  short_description: "Remove formulaic AI patterns without changing meaning"
+  default_prompt: "Use $stop-slop to humanize this prose while preserving every fact, qualifier, citation, and protected span."

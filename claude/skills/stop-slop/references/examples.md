@@ -1,71 +1,99 @@
-# Before/After Examples
+# Before-and-after examples
 
-## Example 1: Throat-Clearing + Binary Contrast
+These examples preserve the facts available in each source. Bracketed text marks information the author must supply; it is not a claim.
 
-**Before:**
-> "Here's the thing: building products is hard. Not because the technology is complex. Because people are complex. Let that sink in."
-
-**After:**
-> "Building products is hard. Technology is manageable. People aren't."
-
-**Changes:** Removed opener, binary contrast structure, and emphasis crutch. Direct statements.
-
----
-
-## Example 2: Filler + Unnecessary Reassurance
+## 1. Throat-clearing
 
 **Before:**
-> "It turns out that most teams struggle with alignment. The uncomfortable truth is that nobody wants to admit they're confused. And that's okay."
+
+> Here's the thing: building products is hard because customer needs change during development.
 
 **After:**
-> "Teams struggle with alignment. Nobody admits confusion."
 
-**Changes:** Cut hedging ("most"), removed throat-clearing phrases, deleted permission-granting ending.
+> Building products is hard because customer needs change during development.
 
----
+**Why:** Remove the opener without changing the causal claim.
 
-## Example 3: Business Jargon Stack
+## 2. Preserve qualification
 
 **Before:**
-> "In today's fast-paced landscape, we need to lean into discomfort and navigate uncertainty with clarity. This matters because your competition isn't waiting."
+
+> It turns out that most teams in our survey struggled with alignment because some participants would not admit they were confused.
 
 **After:**
-> "Move faster. Your competition is."
 
-**Changes:** Eliminated jargon entirely. Core message in six words.
+> Most teams in our survey struggled with alignment because some participants would not admit confusion.
 
----
+**Why:** Remove throat-clearing while preserving `most`, `our survey`, and `some`.
 
-## Example 4: Dramatic Fragmentation
+## 3. Reduce jargon without adding evidence
 
 **Before:**
-> "Speed. Quality. Cost. You can only pick two. That's it. That's the tradeoff."
+
+> In today's fast-paced market, we need to lean into uncertainty and navigate launch risk with clarity.
 
 **After:**
-> "Pick two: speed, quality, or cost."
 
-**Changes:** Single sentence. No performative emphasis.
+> We need to address launch risk despite the uncertainty.
 
----
+**Why:** Replace jargon with plain language. Do not add claims about competitors, timing, or outcomes.
 
-## Example 5: Rhetorical Setup
+## 4. Combine dramatic fragments
 
 **Before:**
-> "What if I told you that the best teams don't optimize for productivity? Here's what I mean: they optimize for learning. Think about it."
+
+> Speed. Quality. Cost. The plan cannot maximize all three under the current budget.
 
 **After:**
-> "The best teams optimize for learning, not productivity."
 
-**Changes:** Direct claim. No rhetorical scaffolding.
+> The current budget cannot maximize speed, quality, and cost at the same time.
 
----
+**Why:** Combine fragments while preserving all three constraints.
 
-## Example 6: Job-Posting Echo
+## 5. Keep a useful contrast
 
 **Before:**
-> "I would like to apply for the Senior PHP/Laravel Developer role in the API Platform Team. I believe my background in Laravel, APIs, and backend development makes me a strong fit."
+
+> The failure came from missing permissions, not from an expired token.
 
 **After:**
-> "I build Laravel APIs that stay readable after they grow. In my last project, I cut response times, simplified queue handling, and helped the team ship without rewriting the platform."
 
-**Changes:** Removed the pasted title and team name. Replaced generic fit claims with concrete evidence.
+> The failure came from missing permissions, not from an expired token.
+
+**Why:** The contrast carries diagnostic meaning, so the binary structure is useful.
+
+## 6. Application opener without fabricated achievements
+
+**Before:**
+
+> I would like to apply for the Senior PHP/Laravel Developer role. I believe my background in Laravel, APIs, and backend development makes me a strong fit.
+
+**After when no evidence is supplied:**
+
+> I build Laravel APIs and backend systems. [Add one verified project result that demonstrates fit for this role.]
+
+**After when the source supplies a verified result:**
+
+> I build Laravel APIs and backend systems. On [verified project], I [verified result].
+
+**Why:** Avoid a form-letter opener without inventing metrics, employers, or accomplishments.
+
+## 7. Preserve protected text
+
+**Before:**
+
+> The API returns `403 Forbidden` when the caller lacks `reports:write`. Here's why that matters: clients must request the scope before retrying.
+
+**After:**
+
+> The API returns `403 Forbidden` when the caller lacks `reports:write`. Clients must request the scope before retrying.
+
+**Why:** Remove meta-commentary while preserving code spans, status, scope name, and required sequence.
+
+## 8. Review mode
+
+**Source:**
+
+> What if I told you the migration is not about speed, but about trust?
+
+**Finding:** The rhetorical setup and binary pivot may sound formulaic. `Trust` is also undefined. Ask the author for the specific trust failure before rewriting; do not invent one.

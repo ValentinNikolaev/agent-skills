@@ -1,0 +1,7 @@
+interface:
+  display_name: "Ingest Memory"
+  short_description: "Import source-backed durable memory"
+  default_prompt: "Use $ingest-memory to import this supplied source into durable memory with provenance."
+
+policy:
+  allow_implicit_invocation: true

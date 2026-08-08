@@ -1,144 +1,147 @@
-# Phrases to Remove
+# Phrase-level diagnostics
 
-## Throat-Clearing Openers
+Use these patterns as editing signals, not automatic bans. Preserve quoted text, defined terms, citations, deliberate voice, and words that carry factual or technical meaning.
 
-Remove these announcement phrases. State the content directly.
+## Contents
 
-- "Here's the thing:"
-- "Here's what [X]"
-- "Here's this [X]"
-- "Here's that [X]"
-- "Here's why [X]"
-- "The uncomfortable truth is"
-- "It turns out"
-- "The real [X] is"
-- "Let me be clear"
-- "The truth is,"
-- "I'll say it again:"
-- "I'm going to be honest"
-- "Can we talk about"
-- "Here's what I find interesting"
-- "Here's the problem though"
+- [Throat-clearing](#throat-clearing)
+- [Emphasis crutches](#emphasis-crutches)
+- [Business jargon](#business-jargon)
+- [Low-value modifiers](#low-value-modifiers)
+- [Meta-commentary](#meta-commentary)
+- [Application and outreach openers](#application-and-outreach-openers)
+- [Vague significance claims](#vague-significance-claims)
+- [Decision test](#decision-test)
 
-Any "here's what/this/that" construction is throat-clearing before the point. Cut it and state the point.
+## Throat-clearing
 
-## Emphasis Crutches
+Consider cutting an opener when the next clause already delivers the point:
 
-These add no meaning. Delete them.
+- "Here's the thing"
+- "Here's what..."
+- "Here's why..."
+- "The uncomfortable truth is..."
+- "It turns out..."
+- "Let me be clear..."
+- "The truth is..."
+- "I'm going to be honest..."
+- "Can we talk about..."
 
-- "Full stop." / "Period."
-- "Let that sink in."
-- "This matters because"
+Keep an orienting sentence when readers genuinely need context or the phrase is part of the author's voice.
+
+## Emphasis crutches
+
+Remove repeated emphasis that adds no information:
+
+- "Full stop" or "Period"
+- "Let that sink in"
 - "Make no mistake"
 - "Here's why that matters"
+- "I promise"
 
-## Business Jargon
+Keep emphasis when it communicates a real warning, legal force, quoted voice, or intentional tone.
 
-Replace with plain language.
+## Business jargon
 
-| Avoid                 | Use instead            |
-|-----------------------|------------------------|
-| Navigate (challenges) | Handle, address        |
-| Unpack (analysis)     | Explain, examine       |
-| Lean into             | Accept, embrace        |
-| Landscape (context)   | Situation, field       |
-| Game-changer          | Significant, important |
-| Double down           | Commit, increase       |
-| Deep dive             | Analysis, examination  |
-| Take a step back      | Reconsider             |
-| Moving forward        | Next, from now         |
-| Circle back           | Return to, revisit     |
-| On the same page      | Aligned, agreed        |
+Prefer plain language when it preserves meaning:
 
-## Empty Adverbs
+| Candidate | Possible alternative |
+| --- | --- |
+| navigate challenges | handle or address challenges |
+| unpack an analysis | explain or examine it |
+| lean into | accept, use, or commit to |
+| landscape | situation, market, or field |
+| game-changer | name the concrete effect |
+| double down | increase or recommit |
+| deep dive | analysis or detailed review |
+| take a step back | reconsider |
+| moving forward | next or from now on |
+| circle back | return to or revisit |
+| on the same page | aligned or agreed |
 
-Remove adverbs that soften, inflate, or repeat the sentence. Keep adverbs that carry technical meaning, legal precision, quoted text, or the author's deliberate voice.
+Do not replace established domain terminology with a less precise synonym.
 
-Specific offenders:
+## Low-value modifiers
 
-- "really"
-- "just"
-- "literally"
-- "genuinely"
-- "honestly"
-- "simply"
-- "actually"
-- "deeply"
-- "truly"
-- "fundamentally"
-- "inherently"
-- "inevitably"
-- "interestingly"
-- "importantly"
-- "crucially"
+Review modifiers that may soften, inflate, or repeat a claim:
 
-Also cut these filler phrases:
+- really
+- just
+- literally
+- genuinely
+- honestly
+- simply
+- actually
+- deeply
+- truly
+- fundamentally
+- inherently
+- inevitably
+- interestingly
+- importantly
+- crucially
+
+Keep them when they change scope, contrast, legal meaning, technical behavior, quotation, cadence, or author voice. Do not delete hedges such as `may`, `often`, `some`, or `most` when they constrain a claim.
+
+Also review common filler:
 
 - "At its core"
-- "In today's [X]"
+- "In today's..."
 - "It's worth noting"
 - "At the end of the day"
 - "When it comes to"
 - "In a world where"
 - "The reality is"
 
-## Meta-Commentary
+## Meta-commentary
 
-Remove self-referential asides. The essay should move, not announce its own structure.
+Cut self-announcement when the structure is already clear:
 
-- "Hint:"
-- "Plot twist:" / "Spoiler:"
-- "You already know this, but"
-- "But that's another post"
-- "X is a feature, not a bug"
-- "Dressed up as"
 - "The rest of this essay explains..."
 - "Let me walk you through..."
 - "In this section, we'll..."
 - "As we'll see..."
 - "I want to explore..."
+- "Plot twist" or "Spoiler"
+- "But that's another post"
 
-## Application and Outreach Openers
+Keep navigation that serves accessibility, long technical documents, teaching, or explicit document conventions.
 
-These sound like a form letter because they mirror labels from the job post, brief, or prompt. Cut the announcement and start with fit, evidence, or intent.
+## Application and outreach openers
+
+Review openers that merely echo the source:
 
 - "I would like to apply for the [role] role"
 - "I am writing to apply for the [role] position"
-- "I am excited to apply for the [role] role"
-- "I am interested in the [role] position"
-- "I came across your [role] opening"
-- "I believe I would be a strong fit for the [role]"
-- "for the [team] team"
-- "at [company]"
-- "with my background in [keyword list]"
+- "I am excited to apply for [role] at [company]"
+- "I believe I would be a strong fit"
+- "With my background in [keyword list]"
+- "Regarding your [document title/request]..."
 
-If the sentence contains a title plus a team or company, assume template echo. Replace it with one concrete reason the person fits or one sentence showing relevant experience.
+Start with verified fit, intent, or a useful next step when the recipient already knows the role or request. Keep the title, company, team, or document label when it prevents ambiguity.
 
-## Performative Emphasis
+Never invent an accomplishment to replace a generic opener. Use a placeholder such as `[add a verified result]` when concrete evidence is missing.
 
-False intimacy or manufactured sincerity:
+## Vague significance claims
 
-- "creeps in"
-- "I promise"
-- "They exist, I promise"
-
-## Telling Instead of Showing
-
-Announcing difficulty or significance rather than demonstrating it:
-
-- "This is genuinely hard"
-- "This is what leadership actually looks like"
-- "This is what X actually looks like"
-- "actually matters"
-
-## Vague Declaratives
-
-Sentences that announce importance without naming the specific thing. Kill these.
+Replace unsupported announcements with the specific supported consequence:
 
 - "The reasons are structural"
 - "The implications are significant"
 - "This is the deepest problem"
 - "The stakes are high"
 - "The consequences are real"
+- "This is what leadership actually looks like"
 
-If a sentence says something is important/deep/structural without showing the specific thing, cut it or replace it with the specific thing.
+If the source does not identify the consequence, flag the gap rather than inventing one.
+
+## Decision test
+
+For each candidate phrase, ask:
+
+1. Does removing it preserve the exact claim and tone?
+2. Does it serve navigation, precision, emphasis, genre, or voice?
+3. Is it the problem, or is repetition the problem?
+4. Can existing source evidence replace vagueness without adding a new fact?
+
+Edit only when the result improves clarity without semantic loss.

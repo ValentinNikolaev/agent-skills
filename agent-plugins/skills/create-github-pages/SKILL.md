@@ -1,138 +1,118 @@
 ---
 name: create-github-pages
-description: Analyze a repository and create, modernize, or repair a polished GitHub Pages site using an appropriate documentation framework or lightweight static approach. Use when the user asks to build a GitHub Page, project website, documentation portal, wiki, landing page, or commit-triggered Pages deployment from repository content. Preserve existing documentation and branding, derive claims from repository evidence, make AI-authored refreshes opt-in, and verify the site build, links, responsive UX, accessibility basics, and deployment configuration.
-metadata:
-  trigger: Build a repository-aware GitHub Pages site with modern docs UX and safe deployment automation
-allowed-tools: Read, Grep, Glob, Write, Edit, MultiEdit, Bash(git status:*), Bash(git diff:*), Bash(git log:*), Bash(git show:*), Bash(git remote:*), Bash(rg:*), Bash(find:*), Bash(npm:*), Bash(npx:*), Bash(pnpm:*), Bash(yarn:*), Bash(bun:*), WebSearch, WebFetch
+description: Create, modernize, or repair a repository-grounded GitHub Pages site, documentation portal, wiki, or landing page. Use when the user asks to build or improve a Pages site from repository content, or explicitly requests commit-driven Pages deployment. Preserve documentation, branding, public routes, and user changes; verify claims, build output, links, responsive UX, accessibility basics, dependencies, and any requested deployment configuration. Add deployment or AI-authored refresh automation only when the user requests it.
 ---
 
-# AI GitHub Page Creator
+# Create GitHub Pages
 
-Turn repository evidence into a useful, maintainable GitHub Pages site. Optimize for readers who need to understand, evaluate, install, and use the project rather than for decorative novelty.
+Build a useful, maintainable site from repository evidence.
 
 ## Operating contract
 
-- Inspect before editing. Read repository instructions, current changes, documentation, manifests, source layout, release metadata, existing site files, Pages workflows, `CNAME`, and branding assets.
-- Preserve user work and existing public URLs. Extend a viable site instead of replacing it without a reason.
-- Derive all project-specific claims, commands, compatibility statements, and examples from repository evidence. Mark unknowns as unknown; never invent metrics, testimonials, roadmaps, or API behavior.
-- Prefer one canonical source for each fact. Reuse or import existing Markdown when the chosen framework supports it; avoid hand-maintained duplicates that drift.
-- Treat automatic build and deployment from committed content as the default meaning of “update with commits.” Do not add automatic AI-authored content changes unless the user explicitly requests them.
-- Create local files and deployment configuration as requested. Do not enable repository settings, commit, push, publish, purchase a domain, or create external credentials without explicit authorization.
-- Keep dependencies proportionate to the site. Do not introduce a large framework for a single durable page unless its benefits are required.
+- Inspect repository instructions, current changes, documentation, manifests, source, site files, Pages workflows, `CNAME`, and branding before editing.
+- Preserve user work, canonical documentation, branding, and public URLs. Prefer improving a viable site over replacing it.
+- Derive commands, examples, compatibility, API behavior, status, and other project claims from current repository evidence.
+- Mark unknowns as unknown. Never invent metrics, testimonials, roadmaps, examples, or support claims.
+- Keep one canonical source for each fact. Import or generate from existing Markdown when possible; avoid unsynchronized copies.
+- Keep dependencies proportionate to the site.
+- Do not commit, push, publish, change repository settings, buy a domain, or create credentials without explicit authorization.
 
-## Required references
+## Read the references
 
-- Read [references/framework-selection.md](references/framework-selection.md) before choosing or changing the site stack.
-- Read [references/quality-and-deployment.md](references/quality-and-deployment.md) before implementation and again during final verification.
+- Read [references/framework-selection.md](references/framework-selection.md) before choosing or changing the stack.
+- Read [references/quality-and-deployment.md](references/quality-and-deployment.md) before implementation and during final verification.
 
-## Workflow
+## Establish repository truth
 
-### 1. Establish repository truth
+Record:
 
-Inspect the repository and record:
+- project type, languages, package manager, build system, and supported versions;
+- intended readers and their first successful task;
+- README, docs, examples, API references, changelog, contribution, security, license, screenshots, logos, and diagrams;
+- current site stack, package scripts, workflow, Pages clues, custom domain, routes, and public URL assumptions;
+- default branch, remote-derived owner/repository when available, and user/organization-site versus project-site base path;
+- uncommitted changes and protected files.
 
-- project type, primary languages, package manager, build system, and supported versions;
-- intended users and the first successful task they need to complete;
-- existing README, docs, examples, API references, changelog, contribution guide, license, screenshots, logos, and diagrams;
-- existing site framework, package scripts, deployment workflow, Pages configuration clues, custom domain, and public URL assumptions;
-- default branch, repository name, likely GitHub organization or owner, and whether the site is a user/organization site or a project site;
-- uncommitted changes and files that must not be overwritten.
+Use commit history only to understand active areas or drift. Corroborate public claims against the current tree.
 
-Use recent commit history only to understand active areas or documentation drift. Do not turn commit messages into public claims without corroborating them in the current tree.
+## Define the smallest useful site
 
-### 2. Define the content model
+Choose an information architecture that supports real reader journeys. Include only evidence-backed sections such as:
 
-Choose the smallest information architecture that answers the repository’s real user journeys. A typical software project may need:
+1. home and primary action;
+2. prerequisites, installation, and a minimal successful example;
+3. task-oriented guides;
+4. API, CLI, configuration, schema, or concept reference;
+5. contribution, security, license, changelog, and support links.
 
-1. Home: value proposition, primary action, verified status signals, and links to source or releases.
-2. Getting started: prerequisites, installation, minimal working example, and next step.
-3. Guides: task-oriented workflows drawn from existing docs and examples.
-4. Reference: CLI, API, configuration, schemas, or concepts only when supported by source material.
-5. Project: contribution, license, security, changelog, or roadmap links as applicable.
+Omit empty pages. Prefer one excellent page over a sparse multi-page site.
 
-Omit empty sections. For a small repository, a single excellent page is better than a sparse multi-page site.
+## Select implementation and dependencies
 
-### 3. Select the implementation
+Apply the framework reference. Preserve a healthy existing stack. Before adding or upgrading a framework, action, plugin, stylesheet, or runtime:
 
-Apply [references/framework-selection.md](references/framework-selection.md). Prefer the existing viable stack. For a new software, tool, or documentation site, default to a modern documentation SSG when search, navigation, or multiple pages justify it. Use a lightweight static or Jekyll approach for a durable single-page site.
+1. consult current official documentation and maintained-status evidence;
+2. verify compatibility with the repository runtime and package manager;
+3. inspect the lockfile and avoid introducing a second package manager;
+4. prefer frozen or lockfile-honoring installs;
+5. assess license, provenance, install scripts, external requests, and maintenance cost;
+6. explain material dependency or migration cost before broad changes.
 
-If framework or GitHub Actions syntax may have changed, consult current official documentation before writing configuration. Prefer official project and GitHub documentation over tutorials.
+State the chosen stack, content root, build command, output directory, base path, dependency changes, and delivery plan before broad restructuring.
 
-State the selected approach and the evidence behind it before making broad structural changes. Include the content root, build command, output directory, base path strategy, and deployment method.
+## Design and implement
 
-### 4. Design from repository cues
+- Reuse suitable repository logos, screenshots, colors, and terminology.
+- Create accessible color tokens, readable type, consistent spacing, visible focus, and coherent light/dark behavior.
+- Prefer framework-native components over custom client code.
+- Remove filler, demo links, empty pages, unused assets, and stock claims.
+- Keep global navigation concise; use sidebars or page tables of contents for detail.
+- Use one H1 per page and a logical heading hierarchy.
+- Add sticky navigation or a table of contents only when content length warrants it.
+- Add client-side search and accessible code-copy controls for multi-page technical docs when the selected stack supports them.
+- Render callouts with text or icons as well as color.
+- Prevent table, code, navigation, and media overflow at narrow widths.
+- Avoid autoplay, scroll hijacking, and nonessential motion.
 
-- Reuse existing logo, icon, screenshots, colors, and terminology when suitable.
-- Create a restrained design system: accessible color tokens, readable type scale, consistent spacing, clear focus states, and coherent light/dark themes.
-- Use framework-native components before adding custom client-side code.
-- Customize the template enough that the result explains this project specifically; remove stock pages, placeholder copy, demo links, and unused assets.
-- Keep global navigation concise. Put detailed hierarchy in the documentation sidebar or page table of contents.
+## Preserve routes during migrations
 
-### 5. Implement content and UX
+Before changing frameworks, content roots, or slugs:
 
-Meet these requirements unless the chosen minimal format makes one irrelevant:
+1. inventory existing public routes, anchors, assets, and `CNAME` behavior;
+2. map each old route to a preserved route, redirect, or documented intentional removal;
+3. keep a reviewable route/redirect manifest in the site configuration or project documentation when migration is material;
+4. test representative legacy deep links under the production base path.
 
-- Keep a single H1 per page and use H2/H3 for a clear visual hierarchy.
-- Provide sticky navigation or a sticky table of contents on long documentation pages.
-- Enable instant client-side search without full-page reloads for multi-page documentation.
-- Ensure every rendered code block has an accessible one-click copy control, preferably through the framework’s native feature.
-- Render notes, tips, warnings, and cautions as accessible callouts. Support GitHub-style `> [!NOTE]` source syntax directly or map it during the build.
-- Make layouts responsive; allow wide tables and code samples to scroll horizontally instead of overflowing the viewport.
-- Provide descriptive link text, visible keyboard focus, sufficient color contrast, useful alternative text, and reduced-motion behavior for nonessential animation.
-- Add a source link or GitHub Corner only when it remains usable on touch, keyboard, and narrow screens and does not obscure navigation.
-- Avoid auto-playing media, scroll hijacking, excessive motion, and decorative components that delay the first useful content.
+Do not claim URL preservation without this comparison.
 
-### 6. Configure GitHub Pages delivery
+## Configure delivery only when requested
 
-Create a least-privilege GitHub Actions workflow that builds and deploys the committed site when relevant files change. Follow current official Pages guidance and the rules in [references/quality-and-deployment.md](references/quality-and-deployment.md).
+Create or change a GitHub Pages workflow only when the user asks for deployment, commit-driven updates, CI repair, or delivery configuration. If site authoring alone was requested, leave deployment unchanged and explain the available next step.
 
-The workflow must:
+When requested, preserve a working workflow and follow the current official Pages custom-workflow pattern. Use the committed lockfile, least privileges, the real output directory, correct base path, one production owner, manual recovery, and safe concurrency.
 
-- trigger from the intended default branch and allow manual dispatch;
-- use the repository lockfile and matching package manager;
-- run the production build rather than uploading source files for SSG projects;
-- upload the exact generated output directory and deploy it through the supported Pages mechanism;
-- declare only required permissions, serialize deployments safely, and use the Pages environment;
-- set the correct project-site base path while preserving custom-domain behavior;
-- use path filters only when they cannot suppress a required rebuild.
+Create scheduled or commit-triggered AI authoring only when explicitly requested. Keep generation separate from deployment, constrain secrets and writable paths, prevent loops, control spend, validate output deterministically, and create reviewable changes instead of direct production writes.
 
-If the repository already has a Pages workflow, modify it minimally and avoid creating competing deployments.
+## Verify in two layers
 
-### 7. Handle content refresh safely
+### Static and build verification
 
-Prefer refresh mechanisms in this order:
+Always run every applicable check that the environment supports:
 
-1. Build directly from canonical committed Markdown or generated API/reference artifacts.
-2. Add a deterministic synchronization or documentation-generation command that runs during build or CI.
-3. Add a scheduled or commit-triggered AI authoring workflow only when explicitly requested.
+- production build, type/configuration checks, and link checks;
+- output directory, base-path assets, anchors, nested routes, not-found behavior, and legacy routes;
+- dependency and lockfile consistency;
+- workflow syntax, trigger, permissions, artifact path, environment, and custom-domain preservation when delivery changed;
+- final diff for placeholders, secrets, local paths, caches, unrelated churn, or overwritten user changes.
 
-For opt-in AI authoring, keep generation separate from deployment. Use least-privilege credentials, pin dependencies or actions appropriately, create a reviewable branch or pull request, prevent recursive workflow loops, constrain writable paths, and never publish generated claims without validation.
+### Rendered browser and accessibility verification
 
-### 8. Verify before handoff
+When browser or accessibility tooling is available, inspect desktop and narrow mobile layouts, navigation, search, callouts, code-copy feedback, keyboard order, focus, contrast, image alternatives, touch targets, zoom, and reduced motion.
 
-Run the production build with the repository’s selected package manager. Then apply every applicable check in [references/quality-and-deployment.md](references/quality-and-deployment.md).
-
-At minimum, verify:
-
-- clean build and expected output directory;
-- internal links, asset paths, and project-site base URLs;
-- navigation, search, callouts, and code-copy behavior;
-- desktop and narrow mobile layouts, including tables and code blocks;
-- keyboard navigation, visible focus, heading structure, contrast, and image alternatives;
-- workflow syntax, branch trigger, permissions, artifact path, environment, and custom-domain preservation;
-- final diff contains no placeholders, secrets, unrelated generated files, or overwritten user changes.
-
-If local rendering, browser inspection, or dependency installation is unavailable, report exactly which checks remain unverified and provide the commands needed to complete them.
+Do not claim rendered, interactive, or accessibility verification from source inspection alone. If the environment lacks rendering, browser control, dependency installation, or an audit tool, list the exact unverified checks and commands for completing them.
 
 ## Handoff
 
-Report:
+Report the selected stack and evidence, pages and source material, dependency changes, preserved and redirected routes, build and preview commands, static verification, rendered verification, delivery status, expected base path, repository-setting steps, and remaining limitations.
 
-- selected framework and why it fits;
-- pages and repository sources used to create them;
-- important customization and preservation decisions;
-- build, preview, and validation commands;
-- deployment trigger, expected Pages URL/base path, and any repository-setting step the user must perform;
-- verified checks and remaining limitations.
-
-Do not claim the site is live unless deployment was authorized and confirmed.
+Do not claim the site is live unless publication was authorized and confirmed.

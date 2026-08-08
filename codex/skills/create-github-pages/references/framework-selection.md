@@ -2,6 +2,8 @@
 
 Choose from repository evidence, existing tooling, content scale, and maintenance needs. Do not select a framework solely because it is fashionable.
 
+Before selecting any named option, verify its current maintained status, supported runtime, GitHub Pages guidance, and relevant feature documentation from official sources. Treat this matrix as a decision aid, not evidence that a dependency is still suitable.
+
 ## Decision order
 
 1. Keep an existing healthy site stack when it can satisfy the request without disproportionate work.
@@ -21,6 +23,14 @@ Choose from repository evidence, existing tooling, content scale, and maintenanc
 | Plain HTML/CSS with a classless stylesheet | A single landing page is sufficient and no Markdown build pipeline is needed. | Documentation must remain Markdown-native or needs automatic navigation/search. | Lowest build complexity and full control over a small site. |
 
 Water.css, Pico CSS, Sakura, and similar stylesheets can provide polished native-element defaults. Load them through the actual HTML template, Jekyll layout, or framework head configuration. Do not claim that an arbitrary stylesheet line at the top of a Markdown file will work without a renderer that preserves and places it correctly.
+
+Before adding a stylesheet, framework, plugin, or script:
+
+- verify its license and provenance;
+- prefer a maintained package pinned through the repository lockfile or a reviewed self-hosted asset;
+- document unavoidable external requests and their privacy implications;
+- use integrity controls when loading immutable third-party assets from a remote origin;
+- inspect install scripts and avoid an additional package manager.
 
 ## Content scale heuristic
 
