@@ -1,19 +1,29 @@
 name: Regenerate skills
 
 on:
-  push:
+  pull_request_target:
+    branches:
+      - master
+    types:
+      - closed
 
 permissions:
   contents: write
 
+concurrency:
+  group: regenerate-skills-master
+  cancel-in-progress: false
+
 jobs:
   regenerate-skills:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
         with:
+          ref: master
           fetch-depth: 0
 
       - name: Set up Python
@@ -26,18 +36,12 @@ jobs:
         run: |
           python -c 'import json, os, pathlib; output = pathlib.Path(os.environ["GITHUB_OUTPUT"]); claude = json.loads(pathlib.Path(".claude-plugin/plugin.json").read_text(encoding="utf-8"))["version"]; codex = json.loads(pathlib.Path(".codex-plugin/plugin.json").read_text(encoding="utf-8"))["version"]; output.open("a", encoding="utf-8").write(f"claude_version={claude}\ncodex_version={codex}\n")'
 
-      - name: Check plugin version changes in incoming commit
+      - name: Check plugin version changes in merged pull request
         id: incoming
         env:
-          EVENT_BEFORE: ${{ github.event.before }}
-          CURRENT_SHA: ${{ github.sha }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
-          base="$EVENT_BEFORE"
-          if [ -z "$base" ] || [[ "$base" =~ ^0+$ ]]; then
-            base="$(git rev-parse "$CURRENT_SHA^" 2>/dev/null || true)"
-          fi
-
-          BASE_SHA="$base" python - <<'PY'
+          python - <<'PY'
           import json
           import os
           import pathlib
@@ -183,7 +187,7 @@ jobs:
           if git diff --quiet -- README.md claude/skills codex/skills .claude-plugin/plugin.json .codex-plugin/plugin.json; then
             echo "No generated skill changes to commit."
             echo "changed=false" >> "$GITHUB_OUTPUT"
-            echo "sha=${GITHUB_SHA}" >> "$GITHUB_OUTPUT"
+            echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
@@ -210,7 +214,7 @@ jobs:
           VERSION: ${{ steps.release.outputs.version }}
           TARGET: ${{ steps.commit.outputs.sha }}
         run: |
-          tag="agent-plugins-v${VERSION}"
+          tag="v${VERSION}"
           if gh release view "$tag" >/dev/null 2>&1; then
             echo "Release $tag already exists."
             exit 0
@@ -222,7 +226,7 @@ jobs:
             --output release-notes.md
           gh release create "$tag" \
             --target "$TARGET" \
-            --title "Agent plugins ${VERSION}" \
+            --title "$tag" \
             --notes-file release-notes.md \
             "agent-plugins-claude-${VERSION}.tar.gz" \
             "agent-plugins-codex-${VERSION}.tar.gz"

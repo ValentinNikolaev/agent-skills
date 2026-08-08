@@ -755,9 +755,10 @@ def render_repo_readme(repo_root: Path, skills: Sequence[SourceSkill]) -> str:
         "resource overlays in `agent-plugins/shared/`. The `claude/skills/` and "
         "`codex/skills/` trees are generated distribution copies.\n\n"
         "The GitHub workflow in `.github/workflows/regenerate-skills.yml` regenerates "
-        "all skills on push and commits generated updates when needed.\n"
+        "all skills after a pull request is merged into `master` and commits generated "
+        "updates when needed.\n"
         "Run `.github/workflows/manual-release.yml` from GitHub Actions to create "
-        "one combined release with Claude and Codex distribution archives.\n"
+        "one combined `vX.Y.Z` release with Claude and Codex distribution archives.\n"
     )
 
 

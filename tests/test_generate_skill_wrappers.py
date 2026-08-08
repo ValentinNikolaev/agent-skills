@@ -5,11 +5,13 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS_DIR = REPO_ROOT / "scripts"
 sys.path.insert(0, str(SCRIPTS_DIR))
 
+import build_release_notes as release_notes  # noqa: E402
 import generate_skill_wrappers as generator  # noqa: E402
 
 
@@ -129,6 +131,53 @@ class GeneratorRegressionTests(unittest.TestCase):
         self.assertIn("steps.release_target.outputs.sha", manual)
         self.assertIn(".workflow-tools/scripts", manual)
         self.assertNotIn("TARGET: ${{ github.sha }}", manual)
+
+    def test_release_workflows_use_merge_trigger_and_plain_version_tags(self) -> None:
+        regenerate = (
+            REPO_ROOT / ".github/workflows/regenerate-skills.yml"
+        ).read_text(encoding="utf-8")
+        self.assertIn("  pull_request_target:\n", regenerate)
+        self.assertIn("    branches:\n      - master\n", regenerate)
+        self.assertIn("    types:\n      - closed\n", regenerate)
+        self.assertIn("if: github.event.pull_request.merged == true", regenerate)
+        self.assertIn("  group: regenerate-skills-master\n", regenerate)
+        self.assertIn("  cancel-in-progress: false\n", regenerate)
+        self.assertNotIn("\n  push:\n", regenerate)
+        self.assertIn('tag="v${VERSION}"', regenerate)
+        self.assertIn('--title "$tag"', regenerate)
+        self.assertNotIn('tag="agent-plugins-v${VERSION}"', regenerate)
+
+        manual = (REPO_ROOT / ".github/workflows/manual-release.yml").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("        default: master\n", manual)
+        self.assertIn('tag = f"v{version}"', manual)
+        self.assertIn('tag="v${VERSION}"', manual)
+        self.assertIn('--title "$tag"', manual)
+        self.assertIn('"agent-plugins-v*"', manual)
+        self.assertNotIn('tag="agent-plugins-v${VERSION}"', manual)
+
+    def test_combined_release_notes_accept_new_and_legacy_tag_history(self) -> None:
+        with mock.patch.object(
+            release_notes, "run_git", return_value="v9.0.0"
+        ) as run_git:
+            self.assertEqual(
+                release_notes.previous_release_tag("all", "HEAD"), "v9.0.0"
+            )
+
+        run_git.assert_called_once_with(
+            [
+                "describe",
+                "--tags",
+                "--match",
+                "v*",
+                "--match",
+                "agent-plugins-v*",
+                "--abbrev=0",
+                "HEAD^",
+            ],
+            check=False,
+        )
 
     def test_shared_memory_validator_is_injected_into_standalone_packages(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

@@ -79,10 +79,18 @@ jobs:
           if not match:
               raise SystemExit(f"Invalid plugin version: {version}")
           current = tuple(int(part) for part in match.groups())
-          tag = f"agent-plugins-v{version}"
+          tag = f"v{version}"
 
           existing_tags = subprocess.run(
-              ["git", "tag", "--merged", "HEAD", "--list", "agent-plugins-v*"],
+              [
+                  "git",
+                  "tag",
+                  "--merged",
+                  "HEAD",
+                  "--list",
+                  "v*",
+                  "agent-plugins-v*",
+              ],
               check=True,
               capture_output=True,
               text=True,
@@ -90,7 +98,7 @@ jobs:
           tagged_versions = []
           for existing_tag in existing_tags:
               existing_match = re.fullmatch(
-                  r"agent-plugins-v(\d+)\.(\d+)\.(\d+)", existing_tag
+                  r"(?:agent-plugins-)?v(\d+)\.(\d+)\.(\d+)", existing_tag
               )
               if existing_match:
                   tagged_versions.append(
@@ -147,7 +155,7 @@ jobs:
           VERSION: ${{ steps.release.outputs.version }}
           TARGET: ${{ steps.release_target.outputs.sha }}
         run: |
-          tag="agent-plugins-v${VERSION}"
+          tag="v${VERSION}"
           python scripts/build_release_notes.py \
             --platform all \
             --version "$VERSION" \
@@ -155,7 +163,7 @@ jobs:
             --output release-notes.md
           gh release create "$tag" \
             --target "$TARGET" \
-            --title "Agent plugins ${VERSION}" \
+            --title "$tag" \
             --notes-file release-notes.md \
             "agent-plugins-claude-${VERSION}.tar.gz" \
             "agent-plugins-codex-${VERSION}.tar.gz"

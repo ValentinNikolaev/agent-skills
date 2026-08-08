@@ -71,5 +71,5 @@ See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for retained license and pr
 
 Edit skill definitions in `agent-plugins/skills/<skill-name>/` and shared resource overlays in `agent-plugins/shared/`. The `claude/skills/` and `codex/skills/` trees are generated distribution copies.
 
-The GitHub workflow in `.github/workflows/regenerate-skills.yml` regenerates all skills on push and commits generated updates when needed.
-Run `.github/workflows/manual-release.yml` from GitHub Actions to create one combined release with Claude and Codex distribution archives.
+The GitHub workflow in `.github/workflows/regenerate-skills.yml` regenerates all skills after a pull request is merged into `master` and commits generated updates when needed.
+Run `.github/workflows/manual-release.yml` from GitHub Actions to create one combined `vX.Y.Z` release with Claude and Codex distribution archives.

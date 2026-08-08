@@ -32,9 +32,16 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
 
 
 def previous_release_tag(platform: str, target: str) -> str | None:
-    pattern = "agent-plugins-v*" if platform == "all" else f"{platform}-v*"
+    patterns = (
+        ("v*", "agent-plugins-v*")
+        if platform == "all"
+        else (f"{platform}-v*",)
+    )
+    match_args = [
+        argument for pattern in patterns for argument in ("--match", pattern)
+    ]
     tag = run_git(
-        ["describe", "--tags", "--match", pattern, "--abbrev=0", f"{target}^"],
+        ["describe", "--tags", *match_args, "--abbrev=0", f"{target}^"],
         check=False,
     )
     return tag or None
