@@ -81,5 +81,11 @@
   {"id":"wrap-indirect","skill":"wrap-agent-skill","category":"indirect","prompt":"Normalize this reusable Claude skill into a platform-neutral canonical package, then sync the wrappers.","expected_skills":["wrap-agent-skill"]},
   {"id":"wrap-incomplete","skill":"wrap-agent-skill","category":"incomplete","prompt":"Add this external skill to the plugin.","expected_skills":["wrap-agent-skill"]},
   {"id":"wrap-negative","skill":"wrap-agent-skill","category":"negative","prompt":"Install a curated Codex skill into my personal skills directory.","expected_skills":[]},
-  {"id":"wrap-overlap","skill":"wrap-agent-skill","category":"overlap","prompt":"The canonical skill already exists; sync its generated Claude and Codex copies without treating a stale wrapper as source truth.","expected_skills":["wrap-agent-skill"]}
+  {"id":"wrap-overlap","skill":"wrap-agent-skill","category":"overlap","prompt":"The canonical skill already exists; sync its generated Claude and Codex copies without treating a stale wrapper as source truth.","expected_skills":["wrap-agent-skill"]},
+
+  {"id":"cover-letter-direct","skill":"write-cover-letter","category":"direct","prompt":"Use my resume and this job description to draft a truthful, tailored cover letter for the role.","expected_skills":["write-cover-letter"]},
+  {"id":"cover-letter-indirect","skill":"write-cover-letter","category":"indirect","prompt":"Map the employer's top responsibilities to my verified achievements, research why this company, and turn the strongest matches into a one-page application letter.","expected_skills":["write-cover-letter"]},
+  {"id":"cover-letter-incomplete","skill":"write-cover-letter","category":"incomplete","prompt":"Help me write a cover letter for this position.","expected_skills":["write-cover-letter"]},
+  {"id":"cover-letter-negative","skill":"write-cover-letter","category":"negative","prompt":"Rewrite my resume summary and bullet points for this role; I do not need a cover letter.","expected_skills":[]},
+  {"id":"cover-letter-overlap","skill":"write-cover-letter","category":"overlap","prompt":"Tailor my existing cover letter to this posting while preserving my voice and verified facts; this is application targeting, not a generic AI-style cleanup.","expected_skills":["write-cover-letter"]}
 ]

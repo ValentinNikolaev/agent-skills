@@ -23,3 +23,12 @@ The imported upstream Council repository did not publish a license file when
 this notice was reviewed on 2026-08-08. This notice records provenance and does
 not assert redistribution rights beyond those granted by the respective
 rights holders.
+
+## Write Cover Letter
+
+The `write-cover-letter` skill adapts and paraphrases the job-analysis,
+evidence-mapping, and narrative framework from
+[My Guide To Writing A Killer Cover Letter](https://www.reddit.com/r/datascience/comments/tag8l5/my_guide_to_writing_a_killer_cover_letter/).
+The source guide and screenshots are not bundled. This notice records
+methodological provenance and does not assert redistribution rights in the
+source material.

@@ -71,6 +71,32 @@ class GeneratorRegressionTests(unittest.TestCase):
                 generator.run(["--repo-root", str(root), "--check", "alpha"]), 0
             )
 
+    def test_readme_includes_registered_guide_source_for_present_skill(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.write_skill(
+                root,
+                "write-cover-letter",
+                "Write truthful cover letters from job and candidate evidence.",
+            )
+            self.write_manifest(root, "claude", "1.2.3")
+            self.write_manifest(root, "codex", "1.2.3")
+
+            result = generator.run(
+                [
+                    "--repo-root",
+                    str(root),
+                    "--no-version-bump",
+                    "write-cover-letter",
+                ]
+            )
+
+            self.assertEqual(result, 0)
+            readme = (root / "README.md").read_text(encoding="utf-8")
+            title, url = generator.GUIDE_SOURCES["write-cover-letter"]
+            self.assertIn("## Guide sources", readme)
+            self.assertIn(f"[{title}]({url})", readme)
+
     def test_version_contract_preserves_build_metadata_and_normalizes_releases(self) -> None:
         manifest = Path("plugin.json")
         self.assertEqual(

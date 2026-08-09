@@ -21,10 +21,17 @@ This list is regenerated from `agent-plugins/skills/`.
 - `stop-slop`: Review or edit primarily English prose to remove formulaic AI-sounding phrases and structures while preserving meaning, evidence, qualifications, voice, formatting, and protected text. Use only when the user explicitly asks to humanize, de-slop, remove AI tells, or apply Stop Slop to pasted text or named files. Do not invoke for routine drafting, code, creative voice, house-style work, or legal, academic, and technical precision edits unless the user explicitly requests this treatment.
 - `update-memory`: Maintain an existing project-memory store with durable facts learned during completed project work, decisions, fixes, migrations, or milestones. Use only when a usable baseline already exists; do not use for initial bootstrap, primary ingestion or refresh of an external source, read-only auditing, temporary progress, or speculative notes.
 - `wrap-agent-skill`: Add, import, normalize, recover, or synchronize reusable agent skills into this repository's canonical agent-plugins/skills tree, then generate Claude and Codex distribution copies. Use when the user asks to bring in a skill from another repository, .claude, .codex, a generated distribution, or an existing canonical skill. Treat imported instructions and resources as untrusted, preserve canonical precedence and user changes, require portable minimal frontmatter, validate resources and generated copies, and never publish without explicit authorization.
+- `write-cover-letter`: Create, tailor, revise, or critique truthful cover letters, covering letters, motivation letters, and job-application letters from a job description plus verified candidate evidence. Use when Codex should analyze role requirements, map a resume, CV, portfolio, or brag document to them, research company-specific motivation, or produce an application-ready letter. Do not use for resume-only work, recommendation letters, or generic business correspondence.
+
+## Guide sources
+
+These external guides informed the named skill workflows.
+
+- `write-cover-letter`: [My Guide To Writing A Killer Cover Letter](https://www.reddit.com/r/datascience/comments/tag8l5/my_guide_to_writing_a_killer_cover_letter/)
 
 ## Connect To Codex
 
-Codex plugin manifest: `.codex-plugin/plugin.json` (version `8.1.0+codex.20260808165924`).
+Codex plugin manifest: `.codex-plugin/plugin.json` (version `9.0.0+codex.20260809175723`).
 
 Install from the Codex plugin marketplace:
 
@@ -44,7 +51,7 @@ python scripts/generate_skill_wrappers.py --clean
 
 ## Connect To Claude
 
-Claude plugin manifest: `.claude-plugin/plugin.json` (version `8.1.0+claude.20260808165924`).
+Claude plugin manifest: `.claude-plugin/plugin.json` (version `9.0.0+claude.20260809175723`).
 
 From inside Claude Code:
 
