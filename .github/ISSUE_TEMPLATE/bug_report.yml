@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for helping improve the project. Search existing issues first. For a security vulnerability, stop here and follow the [security policy](https://github.com/ValentinNikolaev/llm-skills/security/policy) instead of filing a public issue.
+        Thanks for helping improve the project. Search existing issues first. For a security vulnerability, stop here and follow the [security policy](https://github.com/ValentinNikolaev/agent-skills/security/policy) instead of filing a public issue.
 
   - type: dropdown
     id: area

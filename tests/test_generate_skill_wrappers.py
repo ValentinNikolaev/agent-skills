@@ -94,8 +94,34 @@ class GeneratorRegressionTests(unittest.TestCase):
             self.assertEqual(result, 0)
             readme = (root / "README.md").read_text(encoding="utf-8")
             title, url = generator.GUIDE_SOURCES["write-cover-letter"]
-            self.assertIn("## Guide sources", readme)
+            self.assertIn("### Guide sources", readme)
             self.assertIn(f"[{title}]({url})", readme)
+
+    def test_readme_prioritizes_onboarding_and_uses_one_codex_install_path(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.write_skill(root, "code-review", "Review code changes.")
+            self.write_manifest(root, "claude", "1.2.3")
+            self.write_manifest(root, "codex", "1.2.3")
+
+            result = generator.run(
+                ["--repo-root", str(root), "--no-version-bump", "code-review"]
+            )
+
+            self.assertEqual(result, 0)
+            readme = (root / "README.md").read_text(encoding="utf-8")
+            self.assertLess(
+                readme.index("## Quick start"), readme.index("## Skill catalog")
+            )
+            self.assertIn(
+                "codex plugin add agent-plugins@valentin-agent-plugins", readme
+            )
+            self.assertNotIn("<marketplace-name>", readme)
+            self.assertIn(
+                "[`code-review`](agent-plugins/skills/code-review/SKILL.md)", readme
+            )
+            self.assertIn("## Getting help", readme)
+            self.assertIn("## License and provenance", readme)
 
     def test_version_contract_preserves_build_metadata_and_normalizes_releases(self) -> None:
         manifest = Path("plugin.json")

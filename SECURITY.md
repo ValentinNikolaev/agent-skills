@@ -16,10 +16,10 @@ Do not disclose a suspected vulnerability in a public issue, pull request,
 discussion, or social media post.
 
 Use GitHub's private vulnerability reporting from the repository's
-[Security advisories page](https://github.com/ValentinNikolaev/llm-skills/security/advisories).
+[Security advisories page](https://github.com/ValentinNikolaev/agent-skills/security/advisories).
 If the **Report a vulnerability** button is unavailable, email
 [valeinikolaev@gmail.com](mailto:valeinikolaev@gmail.com) with the subject
-`[llm-skills security]`.
+`[agent-skills security]`.
 
 Include as much of the following as possible:
 
