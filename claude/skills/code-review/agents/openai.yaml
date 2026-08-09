@@ -1,4 +1,4 @@
 interface:
   display_name: "Code Review"
-  short_description: "Review code changes for confirmed defects"
-  default_prompt: "Use $code-review to inspect the requested code changes and report confirmed findings without editing files."
+  short_description: "Review changes with actionable test gaps"
+  default_prompt: "Use $code-review to inspect these changes, report confirmed findings and missing test scenarios, and defer costly optional checks until I approve them."

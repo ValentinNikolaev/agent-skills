@@ -429,6 +429,7 @@ def validate_repository(repo_root: Path) -> list[str]:
     errors.extend(validate_activation_cases(repo_root, (skill.name for skill in skills)))
     for required_notice in (
         repo_root / "THIRD_PARTY_NOTICES.md",
+        source_root / "code-review" / "LICENSE.addyosmani-agent-skills",
         source_root / "stop-slop" / "LICENSE",
     ):
         if not required_notice.is_file():

@@ -11,7 +11,7 @@ This list is regenerated from `agent-plugins/skills/`.
 - `audit-memory`: Audit an existing agent memory store read-only for schema or index drift, broken or one-way local relationships, review-due content, source freshness, duplicate or conflicting facts, and advisory capacity limits. Use only for memory-health verification; do not create, import, refresh, or edit memory, and route ordinary repository documentation audits to audit-docs.
 - `business-viability-assessment`: Assess the commercial and financial viability of a software product, startup idea, MVP, repository, PRD, requirements folder, or concept. Use when the user asks whether a project is worth building or wants demand, competitors, MVP scope, development and operating costs, unit economics, scenarios, risks, validation experiments, or a GO, VALIDATE_FIRST, PIVOT, or NO_GO verdict. Default to a quick advisory answer in chat; create analysis files only when the user explicitly requests artifacts.
 - `clean-code-comments`: Remove or shorten redundant source-code comments without changing behavior. Use for explicit comment cleanup or dry audits of user-specified files and directories; do not use for general refactoring, documentation generation, or generated-output cleanup.
-- `code-review`: Review code changes and report evidence-backed defects without editing. Use for uncommitted changes, path-filtered diffs, or pull-request diffs; use plan-review for implementation plans and fix-pr for GitHub review-comment remediation.
+- `code-review`: Review code changes and report evidence-backed defects, actionable test gaps, and verification limits without editing. Use for uncommitted changes, path-filtered diffs, or pull-request diffs; use plan-review for implementation plans and fix-pr for GitHub review-comment remediation.
 - `council`: Run a capacity-aware council of independent advisor passes, anonymized peer review, and a calibrated synthesis for consequential decisions with multiple defensible options. Use when the user explicitly says "council this," "run the council," "war room," "pressure-test," "stress-test," or "debate this," or when no specialist skill better fits a genuinely high-stakes tradeoff. Prefer specialist review skills unless Council is explicitly invoked. Do not use for factual lookups, routine creation, simple yes/no questions, or casual low-stakes choices.
 - `create-github-pages`: Create, modernize, or repair a repository-grounded GitHub Pages site, documentation portal, wiki, or landing page. Use when the user asks to build or improve a Pages site from repository content, or explicitly requests commit-driven Pages deployment. Preserve documentation, branding, public routes, and user changes; verify claims, build output, links, responsive UX, accessibility basics, dependencies, and any requested deployment configuration. Add deployment or AI-authored refresh automation only when the user requests it.
 - `create-memory`: Bootstrap the first useful durable project-memory baseline from the current repository and its instructions when no usable memory index exists. Use for initial repository memory creation only; do not use to import an external source, record routine facts from ongoing work, audit an existing store, or replace a healthy baseline.
@@ -31,7 +31,7 @@ These external guides informed the named skill workflows.
 
 ## Connect To Codex
 
-Codex plugin manifest: `.codex-plugin/plugin.json` (version `9.0.0+codex.20260809175723`).
+Codex plugin manifest: `.codex-plugin/plugin.json` (version `10.0.0+codex.20260809202055`).
 
 Install from the Codex plugin marketplace:
 
@@ -51,7 +51,7 @@ python scripts/generate_skill_wrappers.py --clean
 
 ## Connect To Claude
 
-Claude plugin manifest: `.claude-plugin/plugin.json` (version `9.0.0+claude.20260809175723`).
+Claude plugin manifest: `.claude-plugin/plugin.json` (version `10.0.0+claude.20260809202055`).
 
 From inside Claude Code:
 

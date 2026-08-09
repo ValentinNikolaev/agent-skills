@@ -55,6 +55,49 @@ class SkillPackageTests(unittest.TestCase):
         )
         self.assertEqual(redundant, [])
 
+    def test_code_review_preserves_actionable_coverage_and_cost_gate(self) -> None:
+        skill_dir = (
+            REPO_ROOT
+            / "agent-plugins"
+            / "skills"
+            / "code-review"
+        )
+        skill = (skill_dir / "SKILL.md").read_text(encoding="utf-8")
+
+        for required in (
+            "Every `partial` or `uncovered` status must map to at least one missing-test item.",
+            "Do not report only that coverage is incomplete.",
+            "the potential impact on findings, confidence, or merge verdict",
+            "Ask one bundled approval question at the very end",
+            "Do not run token-, context-, time-, network-, or compute-intensive extensions",
+        ):
+            with self.subTest(required=required):
+                self.assertIn(required, skill)
+
+        self.assertLess(
+            skill.index("## Complete the baseline review first"),
+            skill.index("## Offer high-cost checks only after the baseline report"),
+        )
+
+        for reference in (
+            "accessibility-checklist.md",
+            "definition-of-done.md",
+            "observability-checklist.md",
+            "performance-checklist.md",
+            "security-checklist.md",
+            "testing-patterns.md",
+        ):
+            with self.subTest(reference=reference):
+                self.assertIn(f"references/{reference}", skill)
+                self.assertTrue((skill_dir / "references" / reference).is_file())
+
+        upstream_license = skill_dir / "LICENSE.addyosmani-agent-skills"
+        self.assertTrue(upstream_license.is_file())
+        self.assertIn(
+            "Copyright (c) 2025 Addy Osmani",
+            upstream_license.read_text(encoding="utf-8"),
+        )
+
     def test_frontmatter_rejects_unparsed_top_level_syntax(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             skill_dir = Path(temporary) / "fixture"

@@ -1,14 +1,50 @@
 # Conditional Review Checks
 
-Read only the sections that match the changed languages or infrastructure.
+Read only the sections that match the changed languages or change patterns.
 
 ## Contents
 
+- [Tests and verification](#tests-and-verification)
+- [Readability and architecture](#readability-and-architecture)
+- [Dependencies and lockfiles](#dependencies-and-lockfiles)
+- [Web UI and accessibility](#web-ui-and-accessibility)
 - [Go](#go)
 - [Queues and retrying workers](#queues-and-retrying-workers)
 - [Multi-system writes](#multi-system-writes)
 - [Dependency injection and registries](#dependency-injection-and-registries)
 - [External services and fallbacks](#external-services-and-fallbacks)
+
+## Tests and verification
+
+- Prefer behavior assertions over implementation-detail assertions that break during safe refactors.
+- For a bug fix, identify the regression test that fails without the fix and passes with it; if absent, name the exact missing scenario.
+- Check happy path, the highest-risk edge case, and meaningful error or partial-failure behavior introduced by the change.
+- Mock system boundaries such as databases, clocks, filesystems, and remote services; do not mock the business logic under test without a repository-specific reason.
+- Check that asynchronous failures are awaited and asserted rather than silently swallowed.
+- Distinguish `not run`, `unknown`, and `not covered`; they are different claims.
+
+## Readability and architecture
+
+- Check whether a new conditional was bolted onto an unrelated flow or whether repeated conditionals reveal a missing model, state, policy, or dispatcher.
+- Check whether a refactor actually removes branches or concepts instead of moving the same complexity behind another layer.
+- Keep feature-specific logic in the module that owns the concept; do not normalize leakage into shared utilities.
+- Search for an existing canonical helper before accepting a near-duplicate.
+- Question pass-through wrappers, gratuitous optional types or casts, and abstractions with no demonstrated use.
+- When the change creates unreachable or obsolete code, list the exact elements and impact. Do not propose unrelated cleanup.
+
+## Dependencies and lockfiles
+
+- Confirm a new dependency is needed instead of an existing project or standard-library facility.
+- Review manifest and lockfile changes together. Check unexpected transitive additions, source or registry changes, install scripts, and hand-edited lockfile patterns.
+- For an upgrade, identify behavior and migration risk from repository evidence first. Offer external changelog or advisory research as a high-cost follow-up when it could change the verdict.
+- Do not run installs, audits, or lifecycle scripts merely to inspect the diff. Require the normal authorization and cost gate.
+- Treat a green install as insufficient evidence; relevant behavior still needs tests.
+
+## Web UI and accessibility
+
+- Check native semantics, keyboard reachability, visible focus, form labels and errors, heading order, image alternatives, and focus behavior for dialogs or dynamic content touched by the change.
+- Check authorization and validation on the server even when the UI hides or disables an action.
+- Treat automated accessibility tools, browser audits, screen-reader passes, screenshots, and visual regression suites as high-cost follow-ups unless the user already requested them.
 
 ## Go
 
@@ -50,3 +86,4 @@ Do not assume one platform's convention, such as returning `nil` or an error, ap
 - Check empty successful responses as well as explicit errors.
 - Verify that logs and metrics contain operation and entity metadata without raw user content, credentials, prompts, payment data, or response bodies.
 - Confirm metric names match their expressions, units, cardinality, and boolean polarity.
+- Treat model or tool output as untrusted input; check permission enforcement, output validation, and token, rate, and loop bounds.

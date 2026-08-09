@@ -32,3 +32,16 @@ evidence-mapping, and narrative framework from
 The source guide and screenshots are not bundled. This notice records
 methodological provenance and does not assert redistribution rights in the
 source material.
+
+## Code Review
+
+The `code-review` skill adapts and paraphrases review-ordering, structural
+quality, verification-story, dependency-review, and conditional checklist
+ideas from Addy Osmani's
+[`agent-skills`](https://github.com/addyosmani/agent-skills/tree/7676817c12a1317454ae3898a0c5c1eacf5dd3d5),
+including `skills/code-review-and-quality/SKILL.md` and the repository-level
+references. The upstream work is distributed under the MIT License. Its
+license text is retained as the scoped third-party file
+`agent-plugins/skills/code-review/LICENSE.addyosmani-agent-skills` and in
+generated distribution copies. Original repository-authored portions remain
+covered by the repository's root [MIT License](LICENSE).
