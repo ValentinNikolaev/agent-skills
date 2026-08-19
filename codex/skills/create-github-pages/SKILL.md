@@ -27,6 +27,17 @@ Build a useful, maintainable site from repository evidence.
 - Read [references/framework-selection.md](references/framework-selection.md) before choosing or changing the stack.
 - Read [references/quality-and-deployment.md](references/quality-and-deployment.md) before implementation and during final verification.
 
+## Coordinate the Pages specialists
+
+Keep repository truth, framework choice, routes, build behavior, and deployment in this orchestrator. Apply the bundled specialist whose deliverable matches the work:
+
+- Use `github-pages-content-architecture` when the task requires a content inventory, reader journeys, page hierarchy, navigation labels, documentation copy, or local-search behavior.
+- Use `github-pages-visual-system` when the task requires visual tokens, branding, typography, spacing, layout, themes, or responsive implementation.
+- Use `audit-github-pages-ux` for a read-only audit of a rendered production-equivalent Pages build.
+- Use `improve-github-pages` when an existing site needs a staged audit, approval menu, and full or partial remediation rather than immediate implementation.
+
+For a full site build, apply content architecture before visual implementation and run the rendered audit after the production build. Do not copy specialist instructions into this skill or move deployment ownership into a specialist.
+
 ## Establish repository truth
 
 Record:
@@ -68,7 +79,7 @@ State the chosen stack, content root, build command, output directory, base path
 ## Design and implement
 
 - Reuse suitable repository logos, screenshots, colors, and terminology.
-- Create accessible color tokens, readable type, consistent spacing, visible focus, and coherent light/dark behavior.
+- Apply the Pages visual-system specialist for accessible tokens, readable type, consistent spacing, visible focus, and coherent light/dark behavior.
 - Prefer framework-native components over custom client code.
 - Remove filler, demo links, empty pages, unused assets, and stock claims.
 - Keep global navigation concise; use sidebars or page tables of contents for detail.
@@ -112,7 +123,7 @@ Always run every applicable check that the environment supports:
 
 ### Rendered browser and accessibility verification
 
-When browser or accessibility tooling is available, inspect desktop and narrow mobile layouts, navigation, search, callouts, code-copy feedback, keyboard order, focus, contrast, image alternatives, touch targets, zoom, and reduced motion.
+When browser or accessibility tooling is available, apply the rendered Pages UX audit to representative desktop and narrow mobile journeys.
 
 Do not claim rendered, interactive, or accessibility verification from source inspection alone. If the environment lacks rendering, browser control, dependency installation, or an audit tool, list the exact unverified checks and commands for completing them.
 

@@ -45,3 +45,14 @@ license text is retained as the scoped third-party file
 `agent-plugins/skills/code-review/LICENSE.addyosmani-agent-skills` and in
 generated distribution copies. Original repository-authored portions remain
 covered by the repository's root [MIT License](LICENSE).
+
+## GitHub Pages design skills
+
+The `github-pages-content-architecture`, `github-pages-visual-system`, and
+`audit-github-pages-ux` skills adapt and substantially rewrite selected design,
+content-architecture, accessibility, responsive-layout, and visual-critique
+guidance from MC Dean's
+[`Owl-Listener/designer-skills`](https://github.com/Owl-Listener/designer-skills).
+The upstream work is distributed under the MIT License. Its license text is
+retained as `LICENSE.designer-skills` in each canonical skill and generated
+distribution copy.

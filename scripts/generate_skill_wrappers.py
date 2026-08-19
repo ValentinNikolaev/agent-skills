@@ -85,7 +85,11 @@ README_SKILL_GROUPS = (
     (
         "Writing and publishing",
         {
+            "audit-github-pages-ux": "Audit rendered GitHub Pages experiences.",
             "create-github-pages": "Build or repair repository-grounded GitHub Pages sites.",
+            "github-pages-content-architecture": "Structure Pages content around reader tasks.",
+            "github-pages-visual-system": "Design accessible visual systems for Pages sites.",
+            "improve-github-pages": "Propose and apply approved Pages improvements.",
             "stop-slop": "Humanize prose while preserving meaning and evidence.",
             "write-cover-letter": "Create truthful, evidence-backed cover letters.",
         },
