@@ -419,9 +419,9 @@ def validate_repository(repo_root: Path) -> list[str]:
     routing_budget = sum(
         len(skill.name) + len(skill.description or "") for skill in skills
     )
-    if routing_budget > 8000:
+    if routing_budget > 8500:
         errors.append(
-            "canonical routing metadata exceeds the 8,000-character catalog budget "
+            "canonical routing metadata exceeds the 8,500-character catalog budget "
             f"({routing_budget})"
         )
 

@@ -83,6 +83,12 @@ README_SKILL_GROUPS = (
         },
     ),
     (
+        "Interface design",
+        {
+            "console-ux-design": "Design usable, automation-safe console commands.",
+        },
+    ),
+    (
         "Writing and publishing",
         {
             "audit-github-pages-ux": "Audit rendered GitHub Pages experiences.",
