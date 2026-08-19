@@ -1,5 +1,16 @@
 # GitHub Pages approval and remediation contract
 
+## Contents
+
+- [Phase 1 evidence](#phase-1-evidence)
+- [Wiki evidence](#wiki-evidence)
+- [Audit scope](#audit-scope)
+- [Design opportunity evidence](#design-opportunity-evidence)
+- [Proposal format](#proposal-format)
+- [Approval states](#approval-states)
+- [Implementation controls](#implementation-controls)
+- [Handoff](#handoff)
+
 ## Phase 1 evidence
 
 Use the strongest available evidence in this order:
@@ -34,7 +45,19 @@ Cover only areas supported by the site and request:
 - keyboard order, labels, alternatives, reduced motion, feedback, and interactive states;
 - base-path assets, anchors, nested routes, legacy links, dependencies, and performance issues when they affect the experience.
 
-Do not manufacture a redesign merely because the current site is simple. Preserve a coherent existing system when targeted fixes solve the demonstrated problems.
+Do not propose arbitrary novelty. Simplicity is not itself a defect, but a generic or under-expressive visual system may justify an enhancement when a more distinctive direction would improve project identity, comprehension, trust, or reader engagement. Preserve a coherent existing system when targeted fixes or restrained refinement provide the stronger outcome.
+
+## Design opportunity evidence
+
+Run design exploration separately from defect discovery so usable but visually under-realized sites still receive a fair assessment. Consider:
+
+- whether the framework's default theme obscures the project's identity;
+- whether hierarchy, typography, composition, imagery, or interaction undersell the content;
+- whether repository logos, diagrams, screenshots, terminology, domain metaphors, or other maintained assets support a distinctive direction;
+- whether restrained, distinctive, and bold directions offer materially different reader outcomes;
+- whether current external references reveal a transferable pattern that fits the repository rather than a fashion to copy.
+
+An opportunity needs repository or reader-task support, but it does not need a broken interaction. Generate alternatives as exploration, then report only the strongest viable directions. Label external references and distinguish observed patterns from the proposed adaptation.
 
 ## Proposal format
 
@@ -52,6 +75,17 @@ Assign stable IDs such as `GP-01` and do not renumber them after presentation. F
 Group proposals into quick corrections, visual/content improvements, and structural changes when that makes selection easier. Offer alternatives only for a real design choice; state a recommendation and tradeoff instead of presenting cosmetic variants without judgment.
 
 For color proposals, show semantic roles such as background, surface, text, muted text, border, action, focus, code, success, warning, and danger. Derive them from repository branding when possible and include contrast evidence for actual rendered pairings. Avoid introducing remote fonts, trackers, hosted assets, or analytics as visual improvements.
+
+For bold visual proposals, also include:
+
+- **Boldness:** restrained, distinctive, or bold;
+- **Current ceiling:** what the present design communicates well and what it fails to express;
+- **Concept:** one coherent visual direction rather than a bag of component tweaks;
+- **Repository evidence:** the assets, vocabulary, product behavior, audience, or domain cues supporting it;
+- **System impact:** affected color, type, spacing, grid, components, imagery, motion, and responsive rules;
+- **Preview plan:** the smallest representative mockup or rendered slice needed before full implementation.
+
+End Phase 1 with a compact coverage matrix for reader journeys, content, navigation, visual hierarchy, typography, color and themes, spacing and layout, imagery and branding, responsive behavior, accessibility, and interactions. Use `defect`, `opportunity`, `healthy`, `not applicable`, or `not verified`, and give a short reason. The matrix is an accountability record, not a source of forced proposals.
 
 ## Approval states
 

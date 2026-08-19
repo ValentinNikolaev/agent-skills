@@ -17,6 +17,8 @@ Do not treat “looks good,” “interesting,” or a request for explanation a
 
 ## Coordinate the Pages family
 
+Treat the first three applicable specialists as required Phase 1 passes, not optional hand-offs. Read and apply their instructions so each concern contributes to the shared proposal set or coverage matrix.
+
 - Apply `audit-github-pages-ux` to collect rendered evidence and prioritize defects.
 - Apply `github-pages-content-architecture` to content, hierarchy, labels, navigation, and local search proposals.
 - Apply `github-pages-visual-system` to color, typography, spacing, themes, branding, and responsive proposals or implementation.
@@ -34,7 +36,19 @@ Establish the repository, production-equivalent build, expected Pages base path,
 
 When rendering is possible, inspect representative desktop and narrow-mobile journeys in every supported theme. Clearly separate rendered evidence from source-only inference.
 
-Present a prioritized change set with stable IDs. Each proposal must include observed evidence, the concrete change, expected reader benefit, affected scope, risk, and verification. Show color or theme changes as semantic token mappings and rendered-use examples rather than an unexplained palette.
+After the defect audit, run a separate design-opportunity pass even when the current site is usable and technically sound. Treat a generic framework theme, weak project identity, undifferentiated hierarchy, underused repository assets, or a presentation that explains the project without expressing its character as possible enhancement evidence rather than defects. Explore restrained refinement, a distinctive repository-grounded direction, and a bold direction that materially changes the site's visual character. Discard arbitrary or weakly supported ideas; do not require an existing usability failure before recommending a strong enhancement.
+
+When external browsing is available and useful, inspect a small set of current, relevant reference sites for transferable patterns. Cite the exact sources, explain why each pattern fits this repository and its readers, and propose an adaptation rather than imitation. Keep this research read-only and report when it was unavailable or unnecessary.
+
+Present the result in three parts:
+
+1. **Confirmed issues:** demonstrated usability, accessibility, content, navigation, responsive, or visual defects.
+2. **Design opportunities:** viable improvements to identity, hierarchy, typography, color, spacing, layout, imagery, interaction, or responsive expression that need not repair a defect.
+3. **Coverage matrix:** mark every applicable audit area as `defect`, `opportunity`, `healthy`, `not applicable`, or `not verified`, with a short reason. Never let a checked area disappear merely because no change is recommended.
+
+Within **Design opportunities**, include a **Bold proposals** subsection containing the strongest one to three repository-grounded visual directions when viable. If none survives the evidence and risk filters, say so explicitly and explain why. Do not manufacture a fixed count of cosmetic variants.
+
+Give every actionable confirmed issue and design opportunity one stable `GP-` ID and one shared approval state. Each proposal must include observed evidence or current ceiling, the concrete change or concept, expected reader benefit, affected scope, risk, and verification. Bold proposals must also state boldness, repository evidence, the visual-system impact, and a preview plan. Show color or theme changes as semantic token mappings and rendered-use examples rather than an unexplained palette.
 
 End with an explicit approval prompt such as:
 
