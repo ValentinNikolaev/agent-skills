@@ -46,13 +46,17 @@ license text is retained as the scoped third-party file
 generated distribution copies. Original repository-authored portions remain
 covered by the repository's root [MIT License](LICENSE).
 
-## GitHub Pages design skills
+## Designer Skills
 
 The `github-pages-content-architecture`, `github-pages-visual-system`, and
-`audit-github-pages-ux` skills adapt and substantially rewrite selected design,
-content-architecture, accessibility, responsive-layout, and visual-critique
-guidance from MC Dean's
-[`Owl-Listener/designer-skills`](https://github.com/Owl-Listener/designer-skills).
+`audit-github-pages-ux` skills, along with `console-ux-design`, adapt and
+substantially rewrite selected design, content-architecture, accessibility,
+responsive-layout, visual-critique, information-architecture, interaction,
+writing, and validation guidance from MC Dean's
+[`Owl-Listener/designer-skills`](https://github.com/Owl-Listener/designer-skills/tree/20e34c4a587e5eb09fcdf8351fa97b3ad761b31e).
+The console skill translates those selected principles into command-line-native
+contracts and removes web-, mobile-, and graphical-interface implementation
+guidance.
 The upstream work is distributed under the MIT License. Its license text is
 retained as `LICENSE.designer-skills` in each canonical skill and generated
 distribution copy.

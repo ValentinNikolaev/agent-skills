@@ -54,6 +54,10 @@ Use business-viability-assessment to assess this product idea.
 - [`business-viability-assessment`](agent-plugins/skills/business-viability-assessment/SKILL.md) — Assess demand, costs, economics, risks, and viability.
 - [`council`](agent-plugins/skills/council/SKILL.md) — Pressure-test consequential decisions with independent advisor passes.
 
+### Interface design
+
+- [`console-ux-design`](agent-plugins/skills/console-ux-design/SKILL.md) — Design usable, automation-safe console commands.
+
 ### Writing and publishing
 
 - [`audit-github-pages-ux`](agent-plugins/skills/audit-github-pages-ux/SKILL.md) — Audit rendered GitHub Pages experiences.
