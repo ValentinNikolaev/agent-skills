@@ -1,0 +1,5 @@
+interface:
+  display_name: "Console UX Design"
+  short_description: "Design usable, automation-safe console UX"
+  default_prompt: "Use $console-ux-design to design or improve this command-line experience for both terminal users and automation."
+
