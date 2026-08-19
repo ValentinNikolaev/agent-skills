@@ -56,7 +56,11 @@ Use business-viability-assessment to assess this product idea.
 
 ### Writing and publishing
 
+- [`audit-github-pages-ux`](agent-plugins/skills/audit-github-pages-ux/SKILL.md) — Audit rendered GitHub Pages experiences.
 - [`create-github-pages`](agent-plugins/skills/create-github-pages/SKILL.md) — Build or repair repository-grounded GitHub Pages sites.
+- [`github-pages-content-architecture`](agent-plugins/skills/github-pages-content-architecture/SKILL.md) — Structure Pages content around reader tasks.
+- [`github-pages-visual-system`](agent-plugins/skills/github-pages-visual-system/SKILL.md) — Design accessible visual systems for Pages sites.
+- [`improve-github-pages`](agent-plugins/skills/improve-github-pages/SKILL.md) — Propose and apply approved Pages improvements.
 - [`stop-slop`](agent-plugins/skills/stop-slop/SKILL.md) — Humanize prose while preserving meaning and evidence.
 - [`write-cover-letter`](agent-plugins/skills/write-cover-letter/SKILL.md) — Create truthful, evidence-backed cover letters.
 

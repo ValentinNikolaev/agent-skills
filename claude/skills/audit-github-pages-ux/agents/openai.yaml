@@ -1,0 +1,4 @@
+interface:
+  display_name: "Audit GitHub Pages UX"
+  short_description: "Audit rendered GitHub Pages user experience"
+  default_prompt: "Use $audit-github-pages-ux to audit this rendered Pages build and report prioritized findings without editing it."
