@@ -1,0 +1,5 @@
+/claude/skills/** text=auto eol=lf
+/codex/skills/** text=auto eol=lf
+/README.md text eol=lf
+/.claude-plugin/plugin.json text eol=lf
+/.codex-plugin/plugin.json text eol=lf

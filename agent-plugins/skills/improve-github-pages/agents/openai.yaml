@@ -1,4 +1,4 @@
 interface:
   display_name: "Improve GitHub Pages"
   short_description: "Propose and apply approved Pages improvements"
-  default_prompt: "Use $improve-github-pages to audit this existing Pages site, propose prioritized changes, and wait for my approval before editing."
+  default_prompt: "Use $improve-github-pages to audit this existing Pages site, explore bold repository-grounded design opportunities beyond defects, present prioritized proposals with coverage, and wait for my approval before editing."
