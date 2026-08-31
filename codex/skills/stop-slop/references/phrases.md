@@ -7,8 +7,10 @@ Use these patterns as editing signals, not automatic bans. Preserve quoted text,
 - [Throat-clearing](#throat-clearing)
 - [Emphasis crutches](#emphasis-crutches)
 - [Business jargon](#business-jargon)
+- [Copula inflation and shallow add-ons](#copula-inflation-and-shallow-add-ons)
 - [Low-value modifiers](#low-value-modifiers)
 - [Meta-commentary](#meta-commentary)
+- [Chatbot residue](#chatbot-residue)
 - [Application and outreach openers](#application-and-outreach-openers)
 - [Vague significance claims](#vague-significance-claims)
 - [Decision test](#decision-test)
@@ -61,6 +63,18 @@ Prefer plain language when it preserves meaning:
 
 Do not replace established domain terminology with a less precise synonym.
 
+## Copula inflation and shallow add-ons
+
+Review ornate substitutes for `is` or `has` when they add ceremony rather than meaning:
+
+- `serves as` or `stands as`;
+- `boasts`, `features`, or `offers` when the sentence only means `has`;
+- `marks` or `represents` when the text has not established a real change or category.
+
+Use the simpler verb only when it preserves the claim. Keep the stronger verb when service, representation, availability, or a transition is the actual point.
+
+Also review trailing participial clauses built around words such as `highlighting`, `underscoring`, `reflecting`, `showcasing`, or `ensuring`. Cut or rewrite the tail when it merely announces importance or repeats the sentence. Keep it when it supplies real causality, process, attribution, or a separate fact.
+
 ## Low-value modifiers
 
 Review modifiers that may soften, inflate, or repeat a claim:
@@ -106,6 +120,17 @@ Cut self-announcement when the structure is already clear:
 - "But that's another post"
 
 Keep navigation that serves accessibility, long technical documents, teaching, or explicit document conventions.
+
+## Chatbot residue
+
+Standalone prose may retain a conversational wrapper that belongs to the assistant response rather than the artifact:
+
+- `Certainly` or `Of course` before the content;
+- `Here is...` when the reader already has the artifact;
+- `I hope this helps` after the final point;
+- `Would you like me to...` or `Let me know if...` inside copied prose.
+
+Remove the wrapper only when the text is meant to stand alone. Keep ordinary greetings, offers, and sign-offs when the artifact is itself a message and the relationship calls for them.
 
 ## Application and outreach openers
 

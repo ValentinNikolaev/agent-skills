@@ -1,11 +1,20 @@
 ---
 name: stop-slop
-description: Review or edit primarily English prose to remove formulaic AI-sounding phrases and structures while preserving meaning, evidence, qualifications, voice, formatting, and protected text. Use only when the user explicitly asks to humanize, de-slop, remove AI tells, or apply Stop Slop to pasted text or named files. Do not invoke for routine drafting, code, creative voice, house-style work, or legal, academic, and technical precision edits unless the user explicitly requests this treatment.
+description: Review or edit primarily English prose to remove formulaic AI-sounding phrases and structures while preserving meaning, evidence, qualifications, voice, formatting, and protected text. Use when the user explicitly asks to humanize, de-slop, remove AI tells, apply Stop Slop, or evade an AI-text detector; redirect detector-evasion requests toward ordinary quality editing without authorship or score promises. Do not invoke for routine drafting, standalone voice matching, code, creative voice, house-style work, or legal, academic, and technical precision edits unless the user explicitly requests Stop Slop treatment.
 ---
 
 # Stop Slop
 
 Remove formulaic writing without replacing the author's meaning or voice with another formula.
+
+## Keep editing separate from detection
+
+Treat `AI-sounding` as shorthand for formulaic prose, not an authorship verdict.
+
+- Do not infer who wrote a passage, assign an AI probability, or promise that a rewrite will pass a detector.
+- Do not optimize against detector scores or manufacture statistical irregularity.
+- Do not inject typos, random synonyms, forced fragments, slang, anecdotes, dialogue, opinions, or personal experience to make text appear human-authored.
+- If the user asks to beat a detector, explain this boundary briefly and offer an ordinary edit for clarity, specificity, rhythm, and voice.
 
 ## Preserve meaning before style
 
@@ -14,11 +23,14 @@ Treat semantic integrity as the highest-priority rule.
 - Keep claims, numbers, names, dates, causal relationships, uncertainty, modality, and scope unchanged.
 - Never add achievements, examples, evidence, metrics, credentials, or experience that the source does not contain.
 - Preserve citations and source attribution.
+- Preserve source-supported unusual details, mixed feelings, and unresolved tension when they carry the author's voice.
 - Do not strengthen `may`, `some`, or `most` into universal claims.
 - Do not remove legally, technically, or academically necessary qualifications.
 - When a stronger rewrite needs missing facts, use an explicit placeholder or ask for them.
 
 If a style heuristic conflicts with accuracy, genre, author intent, or readability, ignore the heuristic.
+
+Separate formulaic delivery from weak substance. A rewrite cannot create originality, evidence, or earned authority that the source lacks; flag that gap instead of disguising it with style.
 
 ## Protect immutable spans
 
@@ -48,11 +60,17 @@ When the operation is unclear, prefer review for named files and rewrite for pas
 
 For legal, academic, technical, policy, accessibility, or compliance prose, remain conservative even in strict mode.
 
+## Match voice from evidence
+
+Within an explicitly requested Stop Slop edit, read [references/voice.md](references/voice.md) when the user asks for their voice or supplies representative writing samples.
+
+Let explicit voice instructions and repeated sample evidence override generic style heuristics when they remain appropriate for the target genre. Without a sample, preserve the target's existing register, strongest specific language, and deliberate quirks instead of choosing a preset persona. Never transfer facts, biography, opinions, anecdotes, quotations, or experiences from a voice sample into the target.
+
 ## Apply genre-aware heuristics
 
 Read [references/phrases.md](references/phrases.md) when phrase-level patterns are relevant. Read [references/structures.md](references/structures.md) when rhythm or organization is the problem. Read [references/examples.md](references/examples.md) only when an example helps resolve ambiguity.
 
-Treat every listed pattern as a diagnostic signal, not an automatic ban.
+Treat every listed pattern as a diagnostic signal, not an automatic ban. Look for clusters, repetition, and mismatch with the genre or supplied voice; one word or punctuation mark is weak evidence.
 
 1. Cut throat-clearing that delays the point.
 2. Replace vague importance claims with the specific consequence already supported by the source.
@@ -63,6 +81,10 @@ Treat every listed pattern as a diagnostic signal, not an automatic ban.
 7. Preserve meaningful adverbs, transitions, emphasis, and em dashes when they carry precision or voice.
 8. Avoid mirroring job titles, team names, document headings, or prompts as empty openers; retain them when the reader needs the context.
 9. Replace generic claims of fit or impact with verified evidence already present, not fabricated specifics.
+10. Remove revision residue such as redundant heading restatements, unraised objections, or fake alternatives when they add no information; preserve real objections, options, and change history where the genre needs them.
+11. Keep one stable name for a referent instead of cycling through synonyms merely to avoid repetition.
+12. Repair an awkward sentence or paragraph around its actual point instead of swapping each flagged word for a stock substitute.
+13. After editing, scan for secondary convergence: a new opener, connector, sentence shape, or cadence that now repeats because it replaced the old formula.
 
 ## Respect language and voice
 
@@ -77,10 +99,12 @@ Before delivery:
 1. Compare every factual claim, number, name, date, qualifier, and citation with the source.
 2. Confirm protected spans and formatting remain intact.
 3. Check that no placeholder became a fact and no example was invented.
-4. Read the result for genre fit, coherent rhythm, and preserved author voice.
-5. Remove only patterns that materially improved the text.
+4. If a voice sample was used, confirm that its habits transferred but its facts and persona did not.
+5. Read the result aloud or simulate a careful read for genre fit, coherent rhythm, and preserved author voice.
+6. Re-scan the finished passage for repeated replacement formulas and manufactured authenticity.
+7. Remove only patterns that materially improved the text.
 
-For review mode, return findings with examples and suggested revisions. For rewrite mode, return the revised prose and briefly disclose any material structural change. For file-edit mode, summarize edited files and verification.
+For review mode, return prioritized findings with exact excerpts and suggested revisions; add locations for long or file-based inputs, and distinguish style patterns from substance gaps. For rewrite mode, return the revised prose and briefly disclose any material structural change. For file-edit mode, summarize edited files and verification.
 
 ## License
 

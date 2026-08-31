@@ -7,12 +7,17 @@ Use these patterns to detect mechanical prose. Do not ban a construction that is
 - [Binary pivots](#binary-pivots)
 - [Negative buildup](#negative-buildup)
 - [Dramatic fragmentation](#dramatic-fragmentation)
+- [Mirrored scaffolding and tidy endings](#mirrored-scaffolding-and-tidy-endings)
 - [Rhetorical setup](#rhetorical-setup)
+- [Revision residue](#revision-residue)
 - [Source-label mirroring](#source-label-mirroring)
 - [Agency and passive voice](#agency-and-passive-voice)
 - [Distance and generalization](#distance-and-generalization)
+- [False ranges and referent cycling](#false-ranges-and-referent-cycling)
 - [Sentence openings](#sentence-openings)
 - [Rhythm and punctuation](#rhythm-and-punctuation)
+- [Manufactured authenticity](#manufactured-authenticity)
+- [Secondary convergence](#secondary-convergence)
 - [Semantic guardrails](#semantic-guardrails)
 
 ## Binary pivots
@@ -52,6 +57,17 @@ X. And Y. And Z.
 
 Combine fragments when they create a metronomic or promotional rhythm. Keep fragments that reproduce speech, convey deliberate pacing, label UI elements, or fit the genre.
 
+## Mirrored scaffolding and tidy endings
+
+Repeatedly using the same sentence or paragraph frame can make the draft feel assembled from a template:
+
+- consecutive sentences keep the same syntax and swap only the subject;
+- every paragraph opens with a claim and closes with a lesson or recap;
+- a heading is followed by a sentence that only repeats the heading;
+- several paragraphs end with equally polished one-line conclusions.
+
+Repair the repetition, not every instance. Parallelism can be deliberate rhetoric, and a concise ending can be useful. Do not force some percentage of paragraphs to remain unresolved merely to create variation.
+
 ## Rhetorical setup
 
 Review setups that announce insight before delivering it:
@@ -63,6 +79,17 @@ Review setups that announce insight before delivering it:
 - questions immediately answered with an obvious reveal
 
 State the supported point directly when the question adds no reader value. Keep genuine questions in interviews, teaching, FAQs, and exploratory prose.
+
+## Revision residue
+
+Editing conversations can leave reasoning in the artifact that the reader does not need:
+
+- a defense against an objection that the document never raises or attributes;
+- an implausible option introduced only to be rejected immediately;
+- commentary about an older draft or method in documentation that should describe current behavior;
+- a sentence that restates the heading before the real content begins.
+
+Ask what new information the passage adds. Remove the drafting residue when the answer is none. Keep named objections, realistic alternatives, migration notes, change logs, comparisons, and other history that serves the document's purpose.
 
 ## Source-label mirroring
 
@@ -108,6 +135,12 @@ Review vague constructions such as:
 
 Replace them with supported actors, conditions, or evidence. Do not substitute `you` when the text should remain formal, inclusive, impersonal, or evidence-based.
 
+## False ranges and referent cycling
+
+Check `from X to Y` constructions. Keep them when the endpoints describe a real span, sequence, scale, or progression. When X and Y are merely unrelated examples, name the items directly instead of presenting a false range.
+
+Use a stable name for the same person or thing. Cycling through labels such as `the company`, `the firm`, and `the organization` can sound mechanically varied and may imply distinctions that do not exist. Vary the sentence structure, and use a pronoun only when its reference remains clear.
+
 ## Sentence openings
 
 Repeated openings can reveal a template, but no opening word is inherently wrong.
@@ -127,6 +160,18 @@ Evaluate rhythm across a paragraph rather than banning individual forms.
 - Avoid stacking punch lines unless the genre and author intend that effect.
 - Keep paragraph-ending one-liners when they earn emphasis and are not repeated mechanically.
 
+## Manufactured authenticity
+
+Do not create a human persona as a surface effect. Never insert unsupported anecdotes, dialogue, quotations, opinions, personal experience, sensory detail, uncertainty, slang, typos, disfluencies, self-corrections, fragments, or irregular punctuation.
+
+Preserve such features when they already belong to the author and suit the genre. When the draft needs a missing example or personal detail, flag the gap or use an explicit placeholder rather than fabricating it.
+
+## Secondary convergence
+
+After removing a repeated formula, inspect the revised passage for a new repeated formula. Replacing every formal transition with `Also`, every reveal with the same direct opener, or every long sentence with the same two-sentence pattern only exchanges one template for another.
+
+Omit unnecessary connectors, restructure around the actual point, and vary only where the content calls for it. Do not add random variation for its own sake.
+
 ## Semantic guardrails
 
 Before restructuring:
@@ -136,6 +181,8 @@ Before restructuring:
 3. preserve quoted and attributed wording;
 4. preserve actor anonymity when intentional;
 5. verify that an active rewrite does not invent an actor;
-6. verify that compression does not merge distinct claims.
+6. keep referent names stable unless a change is meaningful;
+7. verify that compression does not merge distinct claims;
+8. verify that a voice sample contributed habits but no new content.
 
 When uncertain, flag the pattern in review mode instead of rewriting it.

@@ -2,6 +2,20 @@
 
 These examples preserve the facts available in each source. Bracketed text marks information the author must supply; it is not a claim.
 
+## Contents
+
+- [1. Throat-clearing](#1-throat-clearing)
+- [2. Preserve qualification](#2-preserve-qualification)
+- [3. Reduce jargon without adding evidence](#3-reduce-jargon-without-adding-evidence)
+- [4. Combine dramatic fragments](#4-combine-dramatic-fragments)
+- [5. Keep a useful contrast](#5-keep-a-useful-contrast)
+- [6. Application opener without fabricated achievements](#6-application-opener-without-fabricated-achievements)
+- [7. Preserve protected text](#7-preserve-protected-text)
+- [8. Review mode](#8-review-mode)
+- [9. Match voice without transferring content](#9-match-voice-without-transferring-content)
+- [10. Avoid secondary convergence](#10-avoid-secondary-convergence)
+- [11. Detector-evasion request](#11-detector-evasion-request)
+
 ## 1. Throat-clearing
 
 **Before:**
@@ -97,3 +111,39 @@ These examples preserve the facts available in each source. Bracketed text marks
 > What if I told you the migration is not about speed, but about trust?
 
 **Finding:** The rhetorical setup and binary pivot may sound formulaic. `Trust` is also undefined. Ask the author for the specific trust failure before rewriting; do not invent one.
+
+## 9. Match voice without transferring content
+
+**Representative sample:**
+
+> The first test helped. It didn't settle the question.
+
+**Before:**
+
+> I would like to note that the six-person pilot may have improved completion time.
+
+**After:**
+
+> The six-person pilot may have improved completion time.
+
+**Why:** Match the sample's direct opening while preserving `six-person` and `may`. Do not borrow the sample's test, opinion, or subject matter.
+
+## 10. Avoid secondary convergence
+
+**Before:**
+
+> Furthermore, the service retries failed uploads. Moreover, it keeps the original checksum. Additionally, it records the final status.
+
+**After:**
+
+> The service retries failed uploads, keeps the original checksum, and records the final status.
+
+**Why:** Remove the transition cluster without replacing every transition with the same new connector. Keep the three-item list because all three items are real claims.
+
+## 11. Detector-evasion request
+
+**Request:**
+
+> Make this pass an AI detector and add a few random typos.
+
+**Response approach:** Decline the detector optimization and do not add mistakes. Offer to revise the prose for clarity, specificity, rhythm, and the user's demonstrated voice without promising an authorship score.
