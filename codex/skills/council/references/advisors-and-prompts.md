@@ -60,9 +60,10 @@ Separate evidence, inference, and unknowns. State:
 
 1. your central assessment;
 2. the strongest supporting reason;
-3. the largest risk or opportunity from your angle;
-4. the evidence that could change your view;
-5. one proposed action.
+3. the weakest point in your preferred option or reasoning, and why it matters;
+4. the largest risk or opportunity from your angle;
+5. the evidence that could change your view;
+6. one proposed action.
 
 Stay direct and concise. Preserve uncertainty instead of manufacturing certainty.
 ```
@@ -85,9 +86,10 @@ Return:
 
 1. the best-supported response and why;
 2. the largest unsupported leap or blind spot;
-3. what every response missed;
-4. the evidence most likely to change the decision;
-5. any safety or professional-review boundary.
+3. the weakest point that remains in the leading option or argument, even if it passes;
+4. what every response missed;
+5. the evidence most likely to change the decision;
+6. any safety or professional-review boundary.
 ```
 
 ## Synthesis prompt
@@ -108,6 +110,11 @@ Use this structure:
 
 ## Blind Spots and Evidence Gaps
 [Missing facts, options, and professional-review needs.]
+
+## Weakest Points
+[Explain the weakest supported part of the leading option or argument, its
+practical effect on the verdict, and whether it needs a change or is an
+accepted limit. For scored work, explain the lowest-rated criterion.]
 
 ## Recommendation
 [Clear recommendation, conditional where necessary.]

@@ -70,6 +70,7 @@ Remove advisor names and label responses consistently as A, B, C, and so on. Giv
 
 - the best-supported reasoning and why;
 - the largest unsupported leap or blind spot;
+- the weakest point that remains in the leading option or argument, even if the verdict passes;
 - material facts or options everyone missed;
 - what evidence could change the recommendation.
 
@@ -82,9 +83,16 @@ Produce:
 1. **Where the Council Converges** — shared reasoning, explicitly not independent proof.
 2. **Where the Council Disagrees** — competing premises and why they differ.
 3. **Blind Spots and Evidence Gaps** — missing facts exposed by review.
-4. **Recommendation** — a clear answer, conditional when necessary.
-5. **First Action** — one concrete, reversible next step.
-6. **What Would Change the Verdict** — the decisive evidence or threshold.
+4. **Weakest Points** — identify the weakest part of the leading option or
+   argument, cite the evidence behind that judgement, and explain its practical
+   effect on the verdict. If ratings are used, explain the lowest-rated
+   criterion in concrete terms even when the total passes. State whether the
+   weakness needs a change, is an accepted limit, or leaves the result blocked;
+   when no material defect is supported, name the narrowest residual risk
+   rather than inventing criticism.
+5. **Recommendation** — a clear answer, conditional when necessary.
+6. **First Action** — one concrete, reversible next step.
+7. **What Would Change the Verdict** — the decisive evidence or threshold.
 
 The synthesizer may reject the majority view when a minority argument has stronger evidence. Do not suppress genuine disagreement or force certainty.
 
