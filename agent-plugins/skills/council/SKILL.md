@@ -1,6 +1,6 @@
 ---
 name: council
-description: Run a capacity-aware council of independent advisor passes, anonymized peer review, and a calibrated synthesis for consequential decisions with multiple defensible options. Use when the user explicitly says "council this," "run the council," "war room," "pressure-test," "stress-test," or "debate this," or when no specialist skill better fits a genuinely high-stakes tradeoff. Prefer specialist review skills unless Council is explicitly invoked. Do not use for factual lookups, routine creation, simple yes/no questions, or casual low-stakes choices.
+description: Run independent advisor passes and anonymized peer review for a consequential choice. Use when the user requests a council, debate, or stress test; prefer specialist reviews otherwise.
 ---
 
 # Council

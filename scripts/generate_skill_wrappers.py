@@ -63,7 +63,18 @@ README_SKILL_GROUPS = (
             "clean-code-comments": "Remove redundant comments without changing behavior.",
             "code-review": "Review changes for bugs, regressions, and test gaps.",
             "fix-pr": "Implement actionable pull-request review feedback.",
-            "plan-review": "Validate implementation plans before coding begins.",
+            "plan-review": "Validate implementation plans and revisions.",
+            "review-arch": "Assess system boundaries and architecture tradeoffs.",
+            "review-spec": "Review proposed specifications and revisions.",
+            "verify-impl": "Trace specification requirements to implementation evidence.",
+        },
+    ),
+    (
+        "Engineering checks",
+        {
+            "monitor-ci": "Follow required GitHub Actions jobs to a verified outcome.",
+            "prove-checks": "Verify that a green check could detect the claimed failure.",
+            "vet-dependency": "Assess a library against project contracts and maintenance evidence.",
         },
     ),
     (

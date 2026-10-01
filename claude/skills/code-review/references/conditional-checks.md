@@ -8,7 +8,6 @@ Read only the sections that match the changed languages or change patterns.
 - [Readability and architecture](#readability-and-architecture)
 - [Dependencies and lockfiles](#dependencies-and-lockfiles)
 - [Web UI and accessibility](#web-ui-and-accessibility)
-- [Go](#go)
 - [Queues and retrying workers](#queues-and-retrying-workers)
 - [Multi-system writes](#multi-system-writes)
 - [Dependency injection and registries](#dependency-injection-and-registries)
@@ -45,15 +44,6 @@ Read only the sections that match the changed languages or change patterns.
 - Check native semantics, keyboard reachability, visible focus, form labels and errors, heading order, image alternatives, and focus behavior for dialogs or dynamic content touched by the change.
 - Check authorization and validation on the server even when the UI hides or disables an action.
 - Treat automated accessibility tools, browser audits, screen-reader passes, screenshots, and visual regression suites as high-cost follow-ups unless the user already requested them.
-
-## Go
-
-- Read `go.mod` before applying version-specific language or standard-library rules.
-- Check asymmetric nil handling: guarding or logging pointer presence at one access and dereferencing the same value later without a guard.
-- Verify goroutine exit conditions, wait semantics, channel ownership, closure, mutex coverage, and deferred unlocks.
-- When a test claims complete registry or map coverage, require an existence check such as `value, ok := registry[key]`; a zero value from naked indexing does not prove the key exists.
-- Check error wrapping against local conventions. Do not require wrapping when a sentinel identity or established boundary intentionally needs the original error.
-- When method signatures or interfaces change, search implementations, consumers, dependency wiring, mocks, and expectations.
 
 ## Queues and retrying workers
 

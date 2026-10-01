@@ -1,0 +1,4 @@
+interface:
+  display_name: "Architecture Review"
+  short_description: "Review system boundaries and tradeoffs"
+  default_prompt: "Use $review-arch to assess this system architecture against its stated goals and constraints."

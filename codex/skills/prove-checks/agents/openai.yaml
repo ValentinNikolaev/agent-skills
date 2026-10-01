@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prove Checks"
+  short_description: "Check whether a green result detects failure"
+  default_prompt: "Use $prove-checks to verify that this passing check exercised its target and could detect the claimed defect."
