@@ -46,6 +46,17 @@ license text is retained as the scoped third-party file
 generated distribution copies. Original repository-authored portions remain
 covered by the repository's root [MIT License](LICENSE).
 
+The `debugging-and-error-recovery`, `planning-and-task-breakdown`,
+`test-driven-development`, `write-spec`, `deprecation-and-migration`,
+`code-simplification`, `api-and-interface-design`, and `write-adr` skills adapt
+the corresponding workflows in Addy Osmani's [`agent-skills` at commit
+`2686b620fc1fed2e8f60c704839c766b8594c6b6`](https://github.com/addyosmani/agent-skills/tree/2686b620fc1fed2e8f60c704839c766b8594c6b6).
+`write-spec` adapts `spec-driven-development`; `write-adr` adapts the ADR part
+of `documentation-and-adrs`. These are condensed, platform-neutral rewrites
+with repository-specific routing and verification boundaries, not verbatim
+copies. The upstream MIT license is retained in each of the eight canonical
+skill packages and their generated distribution copies.
+
 ## Serghei Iakovlev's .agents
 
 The `review-spec`, `review-arch`, `verify-impl`, `prove-checks`, `monitor-ci`,

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deprecation and Migration"
+  short_description: "Move live consumers across contract changes"
+  default_prompt: "Use $deprecation-and-migration to inventory consumers, design safe phases, and verify the proposed transition."

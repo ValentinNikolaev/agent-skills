@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: Review changed code for defects and test gaps without edits. Use for local diffs or PRs; not plans, specs, or reviewer feedback.
+description: Review changed code for defects and test gaps without edits. Use for local diffs, PRs, or a diff pasted in chat; not plans, specs, or reviewer feedback.
 ---
 
 # Code Review
@@ -12,6 +12,7 @@ Approve changes that preserve or improve overall code health without blocking on
 ## Route exclusively
 
 - Use this skill only when code already changed or a diff exists.
+- A diff pasted in chat is reviewable input when the user asks for a code review. A pasted diff supplied for another task, such as writing a commit message, does not by itself trigger this skill.
 - Use `plan-review` when the primary artifact is an implementation plan, even if related code already exists.
 - Use `review-spec` to judge a proposed specification or revision, `review-arch` for system-level structure, and `verify-impl` for requirement-by-requirement spec conformance.
 - Use `fix-pr` when the user asks to apply or triage GitHub review comments.

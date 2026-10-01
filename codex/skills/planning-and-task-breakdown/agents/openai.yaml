@@ -1,0 +1,4 @@
+interface:
+  display_name: "Planning and Task Breakdown"
+  short_description: "Create ordered, verifiable implementation steps"
+  default_prompt: "Use $planning-and-task-breakdown to turn the stated requirements into an ordered plan with dependencies and acceptance checks."

@@ -62,6 +62,7 @@ README_SKILL_GROUPS = (
             "audit-docs": "Find broken references, stale indexes, and documentation drift.",
             "clean-code-comments": "Remove redundant comments without changing behavior.",
             "code-review": "Review changes for bugs, regressions, and test gaps.",
+            "code-simplification": "Simplify code while preserving behavior and contracts.",
             "fix-pr": "Implement actionable pull-request review feedback.",
             "plan-review": "Validate implementation plans and revisions.",
             "review-arch": "Assess system boundaries and architecture tradeoffs.",
@@ -75,6 +76,16 @@ README_SKILL_GROUPS = (
             "monitor-ci": "Follow required GitHub Actions jobs to a verified outcome.",
             "prove-checks": "Verify that a green check could detect the claimed failure.",
             "vet-dependency": "Assess a library against project contracts and maintenance evidence.",
+        },
+    ),
+    (
+        "Engineering workflows",
+        {
+            "debugging-and-error-recovery": "Find the cause of observed failures and verify fixes.",
+            "deprecation-and-migration": "Move live consumers across contract changes safely.",
+            "planning-and-task-breakdown": "Create ordered implementation steps with acceptance checks.",
+            "test-driven-development": "Implement behavior through a focused red-green loop.",
+            "write-spec": "Draft testable requirements for a proposed change.",
         },
     ),
     (
@@ -96,6 +107,7 @@ README_SKILL_GROUPS = (
     (
         "Interface design",
         {
+            "api-and-interface-design": "Design stable API and module contracts.",
             "console-ux-design": "Design usable, automation-safe console commands.",
         },
     ),
@@ -109,6 +121,7 @@ README_SKILL_GROUPS = (
             "improve-github-pages": "Propose and apply approved Pages improvements.",
             "stop-slop": "Humanize prose while preserving meaning and evidence.",
             "write-cover-letter": "Create truthful, evidence-backed cover letters.",
+            "write-adr": "Record architecture decisions and their consequences.",
         },
     ),
     (

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Write ADR"
+  short_description: "Record architecture choices and consequences"
+  default_prompt: "Use $write-adr to document the stated architecture decision, alternatives, consequences, and evidence."

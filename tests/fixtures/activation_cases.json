@@ -175,5 +175,57 @@
   {"id":"console-ux-negative-web-mobile","skill":"console-ux-design","category":"negative","prompt":"Redesign the responsive web and native mobile checkout screens, including DOM accessibility, touch targets, CSS breakpoints, and gesture behavior.","expected_skills":[]},
   {"id":"console-ux-negative-terminal-theme","skill":"console-ux-design","category":"negative","prompt":"Create a color palette, font configuration, and background theme for my terminal emulator.","expected_skills":[]},
   {"id":"console-ux-negative-full-screen-tui","skill":"console-ux-design","category":"negative","prompt":"Build a full-screen terminal dashboard with mouse support, movable panes, keyboard focus, and continuous screen redraws.","expected_skills":[]},
-  {"id":"console-ux-negative-shell-logic","skill":"console-ux-design","category":"negative","prompt":"Fix the quoting and conditional logic bug in this Bash script; its command syntax, output, and user experience must remain unchanged.","expected_skills":[]}
+  {"id":"console-ux-negative-shell-logic","skill":"console-ux-design","category":"negative","prompt":"Fix the quoting and conditional logic bug in this Bash script; its command syntax, output, and user experience must remain unchanged.","expected_skills":[]},
+
+  {"id":"review-inline-diff","skill":"code-review","category":"direct","prompt":"Review this diff pasted below for defects before I merge it. Report findings only.","expected_skills":["code-review"]},
+  {"id":"review-inline-diff-negative","skill":"code-review","category":"negative","prompt":"Write a commit message for this pasted diff. Do not review the code.","expected_skills":[]},
+
+  {"id":"debug-direct","skill":"debugging-and-error-recovery","category":"direct","prompt":"Reproduce and fix this failing integration test, then verify the original case.","expected_skills":["debugging-and-error-recovery"]},
+  {"id":"debug-indirect","skill":"debugging-and-error-recovery","category":"indirect","prompt":"The build started failing after the last change. Find the cause and repair it.","expected_skills":["debugging-and-error-recovery"]},
+  {"id":"debug-incomplete","skill":"debugging-and-error-recovery","category":"incomplete","prompt":"Why does this runtime path fail? Please fix it.","expected_skills":["debugging-and-error-recovery"]},
+  {"id":"debug-negative","skill":"debugging-and-error-recovery","category":"negative","prompt":"Review this passing code diff for potential defects; do not edit it.","expected_skills":["code-review"]},
+  {"id":"debug-overlap","skill":"debugging-and-error-recovery","category":"overlap","prompt":"The CI job is complete and failed. Diagnose the failing test and fix its root cause rather than only reporting the run status.","expected_skills":["debugging-and-error-recovery"]},
+
+  {"id":"breakdown-direct","skill":"planning-and-task-breakdown","category":"direct","prompt":"Turn this approved spec into ordered implementation tasks with dependencies and acceptance checks.","expected_skills":["planning-and-task-breakdown"]},
+  {"id":"breakdown-indirect","skill":"planning-and-task-breakdown","category":"indirect","prompt":"We know the requirements but need a practical sequence of verifiable work before coding.","expected_skills":["planning-and-task-breakdown"]},
+  {"id":"breakdown-incomplete","skill":"planning-and-task-breakdown","category":"incomplete","prompt":"Plan the implementation of this feature.","expected_skills":["planning-and-task-breakdown"]},
+  {"id":"breakdown-negative","skill":"planning-and-task-breakdown","category":"negative","prompt":"Review the implementation plan I already wrote and report gaps without rewriting it.","expected_skills":["plan-review"]},
+  {"id":"breakdown-overlap","skill":"planning-and-task-breakdown","category":"overlap","prompt":"The spec is final; create implementation steps now, not another spec review.","expected_skills":["planning-and-task-breakdown"]},
+
+  {"id":"tdd-direct","skill":"test-driven-development","category":"direct","prompt":"Implement this new validation rule test-first: show the failing assertion, then make it pass.","expected_skills":["test-driven-development"]},
+  {"id":"tdd-indirect","skill":"test-driven-development","category":"indirect","prompt":"Fix the reproducible parser bug by first adding a regression case that fails on the old behavior.","expected_skills":["test-driven-development"]},
+  {"id":"tdd-incomplete","skill":"test-driven-development","category":"incomplete","prompt":"Build this behavior using a red-green-refactor cycle.","expected_skills":["test-driven-development"]},
+  {"id":"tdd-negative","skill":"test-driven-development","category":"negative","prompt":"This test already passes. Prove its assertion would fail for the reported defect without changing production code.","expected_skills":["prove-checks"]},
+  {"id":"tdd-unknown-cause-negative","skill":"test-driven-development","category":"negative","prompt":"A runtime failure appeared, but we do not know its cause. Reproduce and diagnose it before choosing a fix.","expected_skills":["debugging-and-error-recovery"]},
+  {"id":"tdd-overlap","skill":"test-driven-development","category":"overlap","prompt":"The existing check is green, but now implement the missing edge behavior with a new failing test and code change.","expected_skills":["test-driven-development"]},
+
+  {"id":"write-spec-direct","skill":"write-spec","category":"direct","prompt":"Draft a testable feature specification with inputs, failures, scope, and acceptance criteria.","expected_skills":["write-spec"]},
+  {"id":"write-spec-indirect","skill":"write-spec","category":"indirect","prompt":"We have a rough feature idea; turn it into explicit requirements before anyone plans implementation.","expected_skills":["write-spec"]},
+  {"id":"write-spec-incomplete","skill":"write-spec","category":"incomplete","prompt":"Write the PRD for this change.","expected_skills":["write-spec"]},
+  {"id":"write-spec-negative","skill":"write-spec","category":"negative","prompt":"Review this completed specification for contradictions without rewriting it.","expected_skills":["review-spec"]},
+  {"id":"write-spec-overlap","skill":"write-spec","category":"overlap","prompt":"The current behavior is known; draft the future contract and acceptance examples, not a code conformance report.","expected_skills":["write-spec"]},
+
+  {"id":"migration-direct","skill":"deprecation-and-migration","category":"direct","prompt":"Plan the staged migration from this live API to its replacement, including consumer and rollback gates.","expected_skills":["deprecation-and-migration"]},
+  {"id":"migration-indirect","skill":"deprecation-and-migration","category":"indirect","prompt":"We need to remove an old database column without breaking instances deployed on the prior version.","expected_skills":["deprecation-and-migration"]},
+  {"id":"migration-incomplete","skill":"deprecation-and-migration","category":"incomplete","prompt":"Safely retire this feature and move its users.","expected_skills":["deprecation-and-migration"]},
+  {"id":"migration-negative","skill":"deprecation-and-migration","category":"negative","prompt":"Simplify this private helper without changing its API or any stored data.","expected_skills":["code-simplification"]},
+  {"id":"migration-overlap","skill":"deprecation-and-migration","category":"overlap","prompt":"The replacement library has already been selected; now move live consumers and stored data safely rather than vetting packages.","expected_skills":["deprecation-and-migration"]},
+
+  {"id":"simplify-direct","skill":"code-simplification","category":"direct","prompt":"Refactor this working function to remove redundant branches while preserving behavior.","expected_skills":["code-simplification"]},
+  {"id":"simplify-indirect","skill":"code-simplification","category":"indirect","prompt":"This module has needless indirection. Make it easier to understand without changing its public contract.","expected_skills":["code-simplification"]},
+  {"id":"simplify-incomplete","skill":"code-simplification","category":"incomplete","prompt":"Simplify the implementation of this code.","expected_skills":["code-simplification"]},
+  {"id":"simplify-negative","skill":"code-simplification","category":"negative","prompt":"Remove only redundant source comments; leave executable code unchanged.","expected_skills":["clean-code-comments"]},
+  {"id":"simplify-overlap","skill":"code-simplification","category":"overlap","prompt":"The review found unnecessary abstraction. Apply a behavior-preserving refactor rather than returning another read-only finding.","expected_skills":["code-simplification"]},
+
+  {"id":"api-design-direct","skill":"api-and-interface-design","category":"direct","prompt":"Design the public API contract for this endpoint, including errors and compatibility behavior.","expected_skills":["api-and-interface-design"]},
+  {"id":"api-design-indirect","skill":"api-and-interface-design","category":"indirect","prompt":"Two services need a stable event schema and retry semantics before either team implements it.","expected_skills":["api-and-interface-design"]},
+  {"id":"api-design-incomplete","skill":"api-and-interface-design","category":"incomplete","prompt":"Define the module interface for this feature.","expected_skills":["api-and-interface-design"]},
+  {"id":"api-design-negative","skill":"api-and-interface-design","category":"negative","prompt":"Review this implemented endpoint diff for defects without redesigning its API.","expected_skills":["code-review"]},
+  {"id":"api-design-overlap","skill":"api-and-interface-design","category":"overlap","prompt":"We have a service boundary decision; specify its request and response contract now rather than auditing the whole architecture.","expected_skills":["api-and-interface-design"]},
+
+  {"id":"adr-direct","skill":"write-adr","category":"direct","prompt":"Write an ADR recording the accepted architecture decision, alternatives, and consequences.","expected_skills":["write-adr"]},
+  {"id":"adr-indirect","skill":"write-adr","category":"indirect","prompt":"Capture why we chose this storage boundary so future maintainers can revisit the tradeoff.","expected_skills":["write-adr"]},
+  {"id":"adr-incomplete","skill":"write-adr","category":"incomplete","prompt":"Document this architecture decision.","expected_skills":["write-adr"]},
+  {"id":"adr-negative","skill":"write-adr","category":"negative","prompt":"Audit the existing ADR index for broken links and stale pointers; report only.","expected_skills":["audit-docs"]},
+  {"id":"adr-overlap","skill":"write-adr","category":"overlap","prompt":"The architecture choice is already accepted. Record its rationale rather than reviewing whether the choice is sound.","expected_skills":["write-adr"]}
 ]

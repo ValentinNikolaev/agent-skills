@@ -1,0 +1,4 @@
+interface:
+  display_name: "Write Specification"
+  short_description: "Draft testable feature requirements and scope"
+  default_prompt: "Use $write-spec to draft a testable specification from the supplied goal and repository evidence."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test-Driven Development"
+  short_description: "Build behavior with a verified red-green loop"
+  default_prompt: "Use $test-driven-development to add a focused failing test, implement the behavior, and verify the test turns green."

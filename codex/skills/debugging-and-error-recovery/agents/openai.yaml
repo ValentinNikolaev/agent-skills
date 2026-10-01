@@ -1,0 +1,4 @@
+interface:
+  display_name: "Debugging and Error Recovery"
+  short_description: "Diagnose failures and verify focused fixes"
+  default_prompt: "Use $debugging-and-error-recovery to reproduce the reported failure, find its cause, fix it, and verify the original scenario."

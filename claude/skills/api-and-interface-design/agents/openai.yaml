@@ -1,0 +1,4 @@
+interface:
+  display_name: "API and Interface Design"
+  short_description: "Design stable and testable public contracts"
+  default_prompt: "Use $api-and-interface-design to define the requested interface, its failure behavior, compatibility, and tests."

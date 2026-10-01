@@ -39,6 +39,7 @@ Use business-viability-assessment to assess this product idea.
 - [`audit-docs`](agent-plugins/skills/audit-docs/SKILL.md) — Find broken references, stale indexes, and documentation drift.
 - [`clean-code-comments`](agent-plugins/skills/clean-code-comments/SKILL.md) — Remove redundant comments without changing behavior.
 - [`code-review`](agent-plugins/skills/code-review/SKILL.md) — Review changes for bugs, regressions, and test gaps.
+- [`code-simplification`](agent-plugins/skills/code-simplification/SKILL.md) — Simplify code while preserving behavior and contracts.
 - [`fix-pr`](agent-plugins/skills/fix-pr/SKILL.md) — Implement actionable pull-request review feedback.
 - [`plan-review`](agent-plugins/skills/plan-review/SKILL.md) — Validate implementation plans and revisions.
 - [`review-arch`](agent-plugins/skills/review-arch/SKILL.md) — Assess system boundaries and architecture tradeoffs.
@@ -50,6 +51,14 @@ Use business-viability-assessment to assess this product idea.
 - [`monitor-ci`](agent-plugins/skills/monitor-ci/SKILL.md) — Follow required GitHub Actions jobs to a verified outcome.
 - [`prove-checks`](agent-plugins/skills/prove-checks/SKILL.md) — Verify that a green check could detect the claimed failure.
 - [`vet-dependency`](agent-plugins/skills/vet-dependency/SKILL.md) — Assess a library against project contracts and maintenance evidence.
+
+### Engineering workflows
+
+- [`debugging-and-error-recovery`](agent-plugins/skills/debugging-and-error-recovery/SKILL.md) — Find the cause of observed failures and verify fixes.
+- [`deprecation-and-migration`](agent-plugins/skills/deprecation-and-migration/SKILL.md) — Move live consumers across contract changes safely.
+- [`planning-and-task-breakdown`](agent-plugins/skills/planning-and-task-breakdown/SKILL.md) — Create ordered implementation steps with acceptance checks.
+- [`test-driven-development`](agent-plugins/skills/test-driven-development/SKILL.md) — Implement behavior through a focused red-green loop.
+- [`write-spec`](agent-plugins/skills/write-spec/SKILL.md) — Draft testable requirements for a proposed change.
 
 ### Project memory
 
@@ -65,6 +74,7 @@ Use business-viability-assessment to assess this product idea.
 
 ### Interface design
 
+- [`api-and-interface-design`](agent-plugins/skills/api-and-interface-design/SKILL.md) — Design stable API and module contracts.
 - [`console-ux-design`](agent-plugins/skills/console-ux-design/SKILL.md) — Design usable, automation-safe console commands.
 
 ### Writing and publishing
@@ -76,6 +86,7 @@ Use business-viability-assessment to assess this product idea.
 - [`improve-github-pages`](agent-plugins/skills/improve-github-pages/SKILL.md) — Propose and apply approved Pages improvements.
 - [`stop-slop`](agent-plugins/skills/stop-slop/SKILL.md) — Humanize prose while preserving meaning and evidence.
 - [`write-cover-letter`](agent-plugins/skills/write-cover-letter/SKILL.md) — Create truthful, evidence-backed cover letters.
+- [`write-adr`](agent-plugins/skills/write-adr/SKILL.md) — Record architecture decisions and their consequences.
 
 ### Skill development
 
