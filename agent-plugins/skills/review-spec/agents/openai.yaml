@@ -1,0 +1,4 @@
+interface:
+  display_name: "Specification Review"
+  short_description: "Review proposed specifications and revisions"
+  default_prompt: "Use $review-spec to assess this specification's readiness for implementation without editing it."

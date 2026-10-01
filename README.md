@@ -40,7 +40,16 @@ Use business-viability-assessment to assess this product idea.
 - [`clean-code-comments`](agent-plugins/skills/clean-code-comments/SKILL.md) — Remove redundant comments without changing behavior.
 - [`code-review`](agent-plugins/skills/code-review/SKILL.md) — Review changes for bugs, regressions, and test gaps.
 - [`fix-pr`](agent-plugins/skills/fix-pr/SKILL.md) — Implement actionable pull-request review feedback.
-- [`plan-review`](agent-plugins/skills/plan-review/SKILL.md) — Validate implementation plans before coding begins.
+- [`plan-review`](agent-plugins/skills/plan-review/SKILL.md) — Validate implementation plans and revisions.
+- [`review-arch`](agent-plugins/skills/review-arch/SKILL.md) — Assess system boundaries and architecture tradeoffs.
+- [`review-spec`](agent-plugins/skills/review-spec/SKILL.md) — Review proposed specifications and revisions.
+- [`verify-impl`](agent-plugins/skills/verify-impl/SKILL.md) — Trace specification requirements to implementation evidence.
+
+### Engineering checks
+
+- [`monitor-ci`](agent-plugins/skills/monitor-ci/SKILL.md) — Follow required GitHub Actions jobs to a verified outcome.
+- [`prove-checks`](agent-plugins/skills/prove-checks/SKILL.md) — Verify that a green check could detect the claimed failure.
+- [`vet-dependency`](agent-plugins/skills/vet-dependency/SKILL.md) — Assess a library against project contracts and maintenance evidence.
 
 ### Project memory
 

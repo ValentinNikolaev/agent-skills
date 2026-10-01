@@ -1,0 +1,4 @@
+interface:
+  display_name: "Vet Dependency"
+  short_description: "Check library compatibility and maintenance"
+  default_prompt: "Use $vet-dependency to evaluate this library against the project's required version and behavior."

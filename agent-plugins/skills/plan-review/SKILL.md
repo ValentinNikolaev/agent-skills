@@ -1,6 +1,6 @@
 ---
 name: plan-review
-description: Validate an implementation plan before coding and return an evidence-backed APPROVE, REVISE, or BLOCKED verdict without rewriting it. Use for technical plan critique; use code-review for implemented diffs and fix-pr for GitHub review-comment remediation.
+description: Review an implementation plan for feasibility and gaps without edits. Use review-spec for designs and code-review for diffs.
 ---
 
 # Plan Review
@@ -9,8 +9,10 @@ Review an implementation plan against requirements, repository evidence, archite
 
 ## Route exclusively
 
-- Use this skill only before implementation, when the primary artifact is a plan.
-- Use `code-review` when code has changed or the user supplies a diff.
+- Use this skill when the primary artifact is an implementation plan, including a plan revised during ongoing work.
+- Use `code-review` when the primary request is to inspect changed code or a diff.
+- Use `review-spec` when the primary artifact is a specification or design proposal rather than an ordered plan.
+- Use `review-arch` for system architecture without an implementation plan, and `verify-impl` for completed code against a spec.
 - Use `fix-pr` when the user asks to triage or apply GitHub pull-request feedback.
 - If no plan can be identified in the request, conversation, or supplied file, ask for it instead of inventing one.
 
@@ -67,7 +69,7 @@ Priority meanings:
 
 - `P0`: the plan enables an immediate safety, security, or irreversible-loss hazard.
 - `P1`: a blocker likely to make implementation incorrect, unsafe, or unrecoverable.
-- `P2`: a material risk or missing behavior that should be resolved before coding.
+- `P2`: a material risk or missing behavior to resolve before executing the affected plan steps.
 - `P3`: a small evidence-backed improvement.
 
 Map report sections consistently: `P0` and `P1` open findings are Blockers; `P2` findings are Warnings; `P3` findings are Suggestions. Questions retain the priority of the risk they could reveal.

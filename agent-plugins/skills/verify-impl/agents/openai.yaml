@@ -1,0 +1,4 @@
+interface:
+  display_name: "Implementation Verification"
+  short_description: "Trace specification requirements to code"
+  default_prompt: "Use $verify-impl to compare this implementation with the authoritative specification requirement by requirement."

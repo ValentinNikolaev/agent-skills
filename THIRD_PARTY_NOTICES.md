@@ -46,6 +46,19 @@ license text is retained as the scoped third-party file
 generated distribution copies. Original repository-authored portions remain
 covered by the repository's root [MIT License](LICENSE).
 
+## Serghei Iakovlev's .agents
+
+The `review-spec`, `review-arch`, `verify-impl`, `prove-checks`, `monitor-ci`,
+and `vet-dependency` skills adapt the workflows in
+[sergeyklay/.agents](https://github.com/sergeyklay/.agents/tree/d33b2b78562c7a488415bcd99ced8d7de027784a/.agents/skills),
+by Serghei Iakovlev. The `code-review` and `fix-pr` skills also incorporate
+selected verification, Go and TypeScript testing, and feedback-triage ideas
+from that source. The upstream work is distributed under the Apache License,
+Version 2.0. Its license and NOTICE are retained with the six new canonical
+skills, `code-review`, and `fix-pr`, and in their generated distribution copies. The
+adaptations are changed from the source and omit its project-specific paths,
+mandatory file outputs, and external-service requirements.
+
 ## Designer Skills
 
 The `github-pages-content-architecture`, `github-pages-visual-system`, and

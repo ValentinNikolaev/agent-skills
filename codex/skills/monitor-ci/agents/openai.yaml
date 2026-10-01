@@ -1,0 +1,4 @@
+interface:
+  display_name: "Monitor CI"
+  short_description: "Track a GitHub Actions run and required jobs"
+  default_prompt: "Use $monitor-ci to follow this GitHub Actions run and report the verified outcome of its required jobs."
