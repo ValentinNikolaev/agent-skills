@@ -84,3 +84,19 @@ guidance.
 The upstream work is distributed under the MIT License. Its license text is
 retained as `LICENSE.designer-skills` in each canonical skill and generated
 distribution copy.
+
+## Garden Skills
+
+The `github-pages-visual-system` skill adapts and substantially rewrites selected
+design-calibration, existing-UI redesign, direction-exploration, composition
+critique, and contextual failure-pattern guidance from ConardLi's
+[`garden-skills` web-design-engineer at commit
+`7a6d5a72e4f44bb4cc0c23c01b3d97205c723b68`](https://github.com/ConardLi/garden-skills/tree/7a6d5a72e4f44bb4cc0c23c01b3d97205c723b68/skills/web-design-engineer).
+The adaptation uses a small Pages-specific direction library rather than
+copying the upstream brand recipes, code templates, CDN dependencies, or
+mandatory confirmation checkpoints. Adjacent Pages skills link to these
+canonical references; they do not duplicate the adapted material.
+The upstream work is distributed under the MIT License. Its license text is
+retained as `LICENSE.garden-skills` in the canonical visual-system package and
+its generated distribution copies. Brand references in the upstream material
+are not treated as official design specifications or rights to brand assets.

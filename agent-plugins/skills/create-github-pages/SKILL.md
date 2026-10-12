@@ -27,7 +27,7 @@ Build a useful, maintainable site from repository evidence.
 Keep repository truth, framework choice, routes, build behavior, and deployment in this orchestrator. Apply the bundled specialist whose deliverable matches the work:
 
 - Use `github-pages-content-architecture` when the task requires a content inventory, reader journeys, page hierarchy, navigation labels, documentation copy, or local-search behavior.
-- Use `github-pages-visual-system` when the task requires visual tokens, branding, typography, spacing, layout, themes, or responsive implementation.
+- Use `github-pages-visual-system` when the task requires visual direction, extension or redesign, tokens, branding, typography, spacing, layout, themes, or responsive implementation. Its [direction and redesign reference](../github-pages-visual-system/references/design-direction-and-redesign.md) supplies the brief, change mode, and early preview procedure; keep them inside the authorized scope.
 - Use `audit-github-pages-ux` for a read-only audit of a rendered production-equivalent Pages build.
 - Use `improve-github-pages` when an existing site needs a staged audit, approval menu, and full or partial remediation rather than immediate implementation.
 

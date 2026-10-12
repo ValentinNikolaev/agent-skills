@@ -38,6 +38,8 @@ When rendering is possible, inspect representative desktop and narrow-mobile jou
 
 After the defect audit, run a separate design-opportunity pass even when the current site is usable and technically sound. Treat a generic framework theme, weak project identity, undifferentiated hierarchy, underused repository assets, or a presentation that explains the project without expressing its character as possible enhancement evidence rather than defects. Explore restrained refinement, a distinctive repository-grounded direction, and a bold direction that materially changes the site's visual character. Discard arbitrary or weakly supported ideas; do not require an existing usability failure before recommending a strong enhancement.
 
+Use the visual specialist's [direction and redesign procedure](../github-pages-visual-system/references/design-direction-and-redesign.md) and [Pages direction library](../github-pages-visual-system/references/pages-design-directions.md) to make these alternatives concrete. State the change mode, protected contracts, and consequences for composition, density, assets, and motion. Keep Phase 1 previews read-only and attach them to the shared proposals; the library does not add another approval sequence after the selected work is authorized.
+
 When external browsing is available and useful, inspect a small set of current, relevant reference sites for transferable patterns. Cite the exact sources, explain why each pattern fits this repository and its readers, and propose an adaptation rather than imitation. Keep this research read-only and report when it was unavailable or unnecessary.
 
 Present the result in three parts:

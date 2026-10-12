@@ -19,6 +19,8 @@ Evaluate the rendered Pages experience against repository evidence and real read
 
 Read [references/rendered-pages-audit.md](references/rendered-pages-audit.md) before performing the audit.
 
+For visual coherence and repeated composition patterns, use the visual specialist's [composition critique](../github-pages-visual-system/references/design-critique.md) as a supplemental pass on the same rendered evidence. Keep usability defects, supported design opportunities, and subjective preferences distinct. This pass does not replace the audit checklist or authorize edits.
+
 ## Audit representative journeys
 
 Cover the smallest set that represents the public site:
