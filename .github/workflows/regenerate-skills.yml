@@ -99,7 +99,7 @@ jobs:
         run: python -m unittest discover -s tests -v
 
       - name: Regenerate skill wrappers
-        run: python scripts/generate_skill_wrappers.py --clean
+        run: python scripts/generate_skill_wrappers.py --clean --no-version-bump
 
       - name: Verify generated distributions
         run: python scripts/generate_skill_wrappers.py --check --clean --strict-links
@@ -140,6 +140,10 @@ jobs:
               "after_codex": os.environ["AFTER_CODEX"],
           }
 
+          for platform in ("claude", "codex"):
+              if values[f"before_{platform}"] != values[f"after_{platform}"]:
+                  raise SystemExit("CI must preserve the committed plugin versions.")
+
           try:
               release_version = combined_release_version(
                   values["after_claude"], values["after_codex"]
@@ -166,10 +170,7 @@ jobs:
           incoming_change = requires_release(
               values["incoming_claude"], values["after_claude"]
           ) or requires_release(values["incoming_codex"], values["after_codex"])
-          regeneration_change = requires_release(
-              values["before_claude"], values["after_claude"]
-          ) or requires_release(values["before_codex"], values["after_codex"])
-          needed = incoming_change or regeneration_change
+          needed = incoming_change
 
           output = pathlib.Path(os.environ["GITHUB_OUTPUT"])
           output.write_text(

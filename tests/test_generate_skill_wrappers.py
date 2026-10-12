@@ -1,8 +1,13 @@
 from __future__ import annotations
 
 import json
+import os
+import re
+import shlex
+import subprocess
 import sys
 import tempfile
+import textwrap
 import unittest
 from pathlib import Path
 from unittest import mock
@@ -172,6 +177,124 @@ class GeneratorRegressionTests(unittest.TestCase):
             with self.assertRaises(generator.GenerationError):
                 generator.bump_plugin_manifest(root, platform, "minor", "20260808")
 
+    def test_local_generation_then_ci_preserves_release_version(self) -> None:
+        workflow = (REPO_ROOT / ".github/workflows/regenerate-skills.yml").read_text(
+            encoding="utf-8"
+        )
+        command = re.search(
+            r"- name: Regenerate skill wrappers\s+run: python ([^\n]+)", workflow
+        )
+        self.assertIsNotNone(command)
+        ci_arguments = shlex.split(command.group(1))[1:]
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.write_skill(root, "alpha", "Generate the alpha fixture.")
+            for platform in ("claude", "codex"):
+                self.write_manifest(root, platform, "1.2.3")
+            self.assertEqual(generator.run(["--repo-root", str(root)]), 0)
+            versions = {
+                platform: (root / f".{platform}-plugin/plugin.json").read_bytes()
+                for platform in ("claude", "codex")
+            }
+            # CI may repair stale wrappers, but must retain the prepared release.
+            target = root / "codex/skills/alpha/SKILL.md"
+            target.write_text(
+                target.read_text(encoding="utf-8") + "\nStale CI artifact.\n",
+                encoding="utf-8",
+            )
+            for _ in range(2):
+                self.assertEqual(
+                    generator.run(["--repo-root", str(root), *ci_arguments]), 0
+                )
+                for platform, expected in versions.items():
+                    self.assertEqual(
+                        (root / f".{platform}-plugin/plugin.json").read_bytes(),
+                        expected,
+                    )
+            self.assertNotIn("Stale CI artifact", target.read_text(encoding="utf-8"))
+            self.assertEqual(generator.run(["--repo-root", str(root), "--check"]), 0)
+
+    def test_text_resource_line_endings_do_not_change_release_versions(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.write_skill(root, "alpha", "Generate portable resource fixtures.")
+            skill = root / "agent-plugins/skills/alpha"
+            resources = {
+                "references/example.md": b"# Example\r\n\r\nPortable text.\r\n",
+                "agents/openai.yaml": b'interface:\r\n  display_name: "Alpha"\r\n',
+                "LICENSE.fixture": b"License text\r\nSecond line\r\n",
+            }
+            for relative, content in resources.items():
+                path = skill / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(content)
+            binary = b"\x89PNG\r\n\x1a\n\x00\xff\r\n"
+            asset = skill / "assets/example.png"
+            asset.parent.mkdir()
+            asset.write_bytes(binary)
+            for platform in ("claude", "codex"):
+                self.write_manifest(root, platform, "1.2.3")
+            self.assertEqual(generator.run(["--repo-root", str(root)]), 0)
+            versions = {}
+            for platform in ("claude", "codex"):
+                versions[platform] = (
+                    root / f".{platform}-plugin/plugin.json"
+                ).read_bytes()
+                target = root / platform / "skills/alpha"
+                for relative, content in resources.items():
+                    self.assertEqual(
+                        (target / relative).read_bytes(), content.replace(b"\r\n", b"\n")
+                    )
+                    self.assertEqual((skill / relative).read_bytes(), content)
+                self.assertEqual((target / "assets/example.png").read_bytes(), binary)
+            for relative, content in resources.items():
+                (skill / relative).write_bytes(content.replace(b"\r\n", b"\n"))
+            self.assertEqual(generator.run(["--repo-root", str(root)]), 0)
+            for platform, expected in versions.items():
+                self.assertEqual(
+                    (root / f".{platform}-plugin/plugin.json").read_bytes(), expected
+                )
+            self.assertEqual(generator.run(["--repo-root", str(root), "--check"]), 0)
+
+    def test_ci_releases_prepared_version_and_rejects_a_second_increment(self) -> None:
+        workflow = (REPO_ROOT / ".github/workflows/regenerate-skills.yml").read_text(
+            encoding="utf-8"
+        )
+        step = workflow.split("      - name: Determine combined release\n", 1)[1]
+        step = step.split("      - name: Commit regenerated skills\n", 1)[0]
+        match = re.search(r"python - <<'PY'\n(.*?)\n          PY", step, re.DOTALL)
+        self.assertIsNotNone(match)
+        code = textwrap.dedent(match.group(1))
+        scenarios = (
+            ("1.0.0", "1.1.0", "1.1.0", "true"),
+            ("1.1.0", "1.1.0", "1.1.0", "false"),
+            ("1.1.0", "1.1.1", "1.1.1", "false"),
+            ("1.0.0", "1.1.0", "1.2.0", None),
+        )
+        with tempfile.TemporaryDirectory() as temporary:
+            for index, (incoming, before, after, needed) in enumerate(scenarios):
+                with self.subTest(incoming=incoming, before=before, after=after):
+                    output = Path(temporary) / f"output-{index}"
+                    environment = dict(os.environ, GITHUB_OUTPUT=str(output))
+                    for platform in ("CLAUDE", "CODEX"):
+                        environment[f"INCOMING_{platform}"] = incoming
+                        environment[f"BEFORE_{platform}"] = before
+                        environment[f"AFTER_{platform}"] = after
+                    result = subprocess.run(
+                        [sys.executable, "-c", code], cwd=REPO_ROOT,
+                        env=environment, capture_output=True, text=True, timeout=15,
+                    )
+                    if needed is None:
+                        self.assertNotEqual(result.returncode, 0)
+                        self.assertIn("CI must preserve", result.stderr)
+                        self.assertFalse(output.exists())
+                    else:
+                        self.assertEqual(result.returncode, 0, result.stderr)
+                        self.assertEqual(
+                            output.read_text(encoding="utf-8"),
+                            f"needed={needed}\nversion={after}\n",
+                        )
+
     def test_link_validation_ignores_code_examples(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             skill_dir = Path(temporary) / "fixture"
@@ -271,7 +394,9 @@ class GeneratorRegressionTests(unittest.TestCase):
             shared = root / "agent-plugins" / "shared" / "memory"
             shared.mkdir(parents=True)
             validator = "#!/usr/bin/env python3\nprint('shared fixture')\n"
-            (shared / "validate_memory.py").write_text(validator, encoding="utf-8")
+            (shared / "validate_memory.py").write_bytes(
+                validator.replace("\n", "\r\n").encode("utf-8")
+            )
             self.write_manifest(root, "claude", "1.2.3")
             self.write_manifest(root, "codex", "1.2.3")
 
@@ -294,7 +419,7 @@ class GeneratorRegressionTests(unittest.TestCase):
                     / "scripts"
                     / "validate_memory.py"
                 )
-                self.assertEqual(generated.read_text(encoding="utf-8"), validator)
+                self.assertEqual(generated.read_bytes(), validator.encode("utf-8"))
 
     def test_custom_shared_directory_is_independent_of_source_directory(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

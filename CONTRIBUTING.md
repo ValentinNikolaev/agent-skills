@@ -73,8 +73,11 @@ python scripts/generate_skill_wrappers.py --check --clean --strict-links
 ```
 
 Generation updates both platform distributions, refreshes the root catalog, and
-may update plugin versions. Include those generated changes in the same pull
-request as the canonical edit. Do not manually edit generated version fields.
+prepares plugin versions locally. Include those generated changes and manifests
+in the same pull request as the canonical edit. Local generation is the only
+version-increment owner; CI regenerates with `--no-version-bump` and publishes
+the committed version. For further preview or repair passes within that prepared
+release, also use `--no-version-bump`. Do not manually edit generated version fields.
 
 If your change does not touch a skill package, run the commands that apply and
 explain any omitted check in the pull request.

@@ -70,6 +70,12 @@ The Codex copy receives the same warning with `Codex` as the platform name.
 
 The utility copies the complete canonical skill directory, not only `SKILL.md`.
 
+Generated UTF-8 text resources use LF line endings, including licenses, UI
+metadata, references, and shared Python helpers. Canonical sources are left
+unchanged. Binary assets are copied byte-for-byte. This keeps Windows and Linux
+generation consistent with the generated-tree Git attributes and prevents
+line-ending-only drift from triggering version increments.
+
 This includes:
 
 - `references/`
@@ -301,7 +307,7 @@ option never changes either manifest.
 
 The root `README.md` is regenerated after skill generation and included in `--check` drift detection.
 
-The automatic workflow runs whenever `master` is updated, whether by a direct push or by merging a pull request, and creates one combined GitHub release when the shared Claude/Codex plugin version changes at the major or minor level. It checks both version changes made by regeneration and version changes already present in the pushed commit range, so a locally regenerated and versioned change still produces a release even when the workflow has nothing new to commit. Patch-only changes such as `2.1.0` to `2.1.1` do not create a release. Combined releases use tags and titles like `v2.1.0`, include both Claude and Codex distribution archives, and contain release notes generated from the diff since the previous combined release. Legacy `agent-plugins-v*` tags remain valid comparison points for release-note history.
+The automatic workflow runs whenever `master` is updated, whether by a direct push or by merging a pull request, and creates one combined GitHub release when the committed shared Claude/Codex plugin version changes at the major or minor level in the pushed commit range. Regeneration uses `--no-version-bump`, and the workflow fails if either committed plugin version changes during CI. A locally regenerated and versioned change produces a release even when the workflow has nothing new to commit. Patch-only changes such as `2.1.0` to `2.1.1` do not create a release. Combined releases use tags and titles like `v2.1.0`, include both Claude and Codex distribution archives, and contain release notes generated from the diff since the previous combined release. Legacy `agent-plugins-v*` tags remain valid comparison points for release-note history.
 
 The manual release workflow in `.github/workflows/manual-release.yml` can be started from GitHub Actions with a branch or tag input. It verifies that generated distributions are current, checks that the Claude and Codex numeric version cores match while allowing platform-specific build metadata, skips patch-only versions and duplicate tags, and creates the same combined release with both distribution archives. It does not commit or regenerate files.
 
@@ -350,7 +356,7 @@ usage: generate_skill_wrappers.py [-h]
 | `--force` | Permit replacement of an unmarked target directory. |
 | `--strict-links` | Treat source validation warnings as errors. |
 | `--quiet` | Print only errors and the final summary. |
-| `--no-version-bump` | Regenerate wrappers and README without modifying manifest versions. |
+| `--no-version-bump` | Regenerate without modifying prepared manifest versions; required in CI and for further preview or repair passes within a prepared release. |
 | `--version` | Print the generator version. |
 
 `--check` cannot be combined with `--dry-run`, `--force`, or `--no-version-bump`.
@@ -377,6 +383,12 @@ python /path/to/generate_skill_wrappers.py \
 ```
 
 ## GitHub Actions
+
+Local generation is the only owner of plugin version increments. Commit the
+prepared manifests together with canonical and generated changes. CI may repair
+generated output but must use `--no-version-bump`; the release workflow publishes
+the committed version and never increments it again. The manual release workflow
+also uses the committed manifests without regeneration or version changes.
 
 ### Verify generated skills are committed
 
@@ -436,7 +448,7 @@ jobs:
           python-version: "3.12"
 
       - name: Generate skills
-        run: python scripts/generate_skill_wrappers.py --clean --strict-links
+        run: python scripts/generate_skill_wrappers.py --clean --strict-links --no-version-bump
 
       - name: Show generated changes
         run: git diff -- claude/skills codex/skills
