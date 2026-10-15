@@ -7,7 +7,7 @@ respective terms; the repository license does not relicense that material.
 ## PHP, Python, and TypeScript review references
 
 The `code-review` references `review-php.md` and `review-python.md`, along with
-selected module-resolution and resource-management checks in
+selected type-safety, async, module, resource-management, and testing checks in
 `review-typescript.md`, adapt and substantially rewrite selected topics from
 [`awesome-skills/code-review-skill` at commit
 `4850184dfd7765ea7b3c5c4e9b6cf8e0815ee7cb`](https://github.com/awesome-skills/code-review-skill/tree/4850184dfd7765ea7b3c5c4e9b6cf8e0815ee7cb),

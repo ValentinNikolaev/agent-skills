@@ -1,5 +1,41 @@
 [
   {
+    "id": "typescript-asserted-input",
+    "language": "typescript",
+    "context": "Node.js with erasable TypeScript syntax; this new helper receives untrusted parsed JSON. Only finite numeric amounts may be incremented; a string amount must produce invalid.",
+    "source": "function increment(input: unknown): number | string {\n    const data = input as { amount: number };\n    return data.amount + 1;\n}\nconsole.log(increment(JSON.parse('{\"amount\":\"7\"}')));\n",
+    "observed_stdout": "71\n",
+    "expected_findings": ["The type assertion does not validate JSON, so a string is concatenated instead of rejecting invalid input."],
+    "location_line": 2
+  },
+  {
+    "id": "typescript-validated-input",
+    "language": "typescript",
+    "context": "Node.js with erasable TypeScript syntax; this new helper receives untrusted parsed JSON. Only finite numeric amounts may be incremented; a string amount must produce invalid.",
+    "source": "function increment(input: unknown): number | string {\n    if (typeof input !== 'object' || input === null || !('amount' in input)) return 'invalid';\n    const amount = input.amount;\n    if (typeof amount !== 'number' || !Number.isFinite(amount)) return 'invalid';\n    return amount + 1;\n}\nconsole.log(increment(JSON.parse('{\"amount\":\"7\"}')));\n",
+    "observed_stdout": "invalid\n",
+    "expected_findings": [],
+    "location_line": null
+  },
+  {
+    "id": "typescript-unawaited-callbacks",
+    "language": "typescript",
+    "context": "Node.js with erasable TypeScript syntax; count must wait for all two async jobs and return 2. Each job increments completed after an awaited microtask.",
+    "source": "async function count(): Promise<number> {\n    let completed = 0;\n    [1, 2].forEach(async () => {\n        await Promise.resolve();\n        completed += 1;\n    });\n    return completed;\n}\nconsole.log(await count());\n",
+    "observed_stdout": "0\n",
+    "expected_findings": ["forEach does not await its async callbacks, so count returns before the required jobs finish."],
+    "location_line": 3
+  },
+  {
+    "id": "typescript-awaited-callbacks",
+    "language": "typescript",
+    "context": "Node.js with erasable TypeScript syntax; count must wait for all two async jobs and return 2. Each job increments completed after an awaited microtask.",
+    "source": "async function count(): Promise<number> {\n    let completed = 0;\n    await Promise.all([1, 2].map(async () => {\n        await Promise.resolve();\n        completed += 1;\n    }));\n    return completed;\n}\nconsole.log(await count());\n",
+    "observed_stdout": "2\n",
+    "expected_findings": [],
+    "location_line": null
+  },
+  {
     "id": "python-default-shared",
     "language": "python",
     "context": "Python 3.10+; collect() must return only the current call's item. This is a new helper in a diff. No callers supply items.",

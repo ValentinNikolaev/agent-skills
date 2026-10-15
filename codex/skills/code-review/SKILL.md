@@ -60,7 +60,7 @@ Read [references/conditional-checks.md](references/conditional-checks.md) only f
 Load only the language references needed by changed behavior and its tests:
 
 - Go: [references/review-go.md](references/review-go.md).
-- TypeScript or TSX: [references/review-typescript.md](references/review-typescript.md).
+- TypeScript (`.ts`, `.tsx`, `.mts`, `.cts`), declarations, or related module/build configuration: [references/review-typescript.md](references/review-typescript.md).
 - Python: [references/review-python.md](references/review-python.md).
 - PHP or PHP-backed templates: [references/review-php.md](references/review-php.md).
 

@@ -1,13 +1,16 @@
 """Keep the raw review examples executable and their controls discriminating.
 
 These checks validate evaluation inputs, not model routing or review quality.
-Only the repository-owned Python examples run, in isolated subprocesses.
+Only repository-owned examples run, in isolated subprocesses. Optional Node
+execution strips TypeScript types; it does not claim to type-check the examples.
 """
 
 import json
 from pathlib import Path
+import shutil
 import subprocess
 import sys
+import tempfile
 import unittest
 
 
@@ -51,6 +54,34 @@ class LanguageReviewExampleTests(unittest.TestCase):
                 )
                 self.assertEqual(result.returncode, 0, result.stderr)
                 self.assertEqual(result.stdout, case["observed_stdout"])
+
+    def test_typescript_examples_exhibit_the_recorded_runtime_behavior(self):
+        node = shutil.which("node")
+        if node is None:
+            self.skipTest("Node.js is unavailable; TypeScript runtime examples were not run")
+        version = subprocess.run(
+            [node, "--version"], check=True, capture_output=True, text=True, timeout=10
+        ).stdout.strip()
+        parts = tuple(int(part) for part in version.lstrip("v").split(".")[:2])
+        if parts < (22, 6):
+            self.skipTest("Node.js 22.6+ type stripping is required; examples were not run")
+        with tempfile.TemporaryDirectory() as directory:
+            for case in self.examples:
+                if case["language"] != "typescript":
+                    continue
+                with self.subTest(case=case["id"]):
+                    path = Path(directory) / (case["id"] + ".mts")
+                    path.write_text(case["source"], encoding="utf-8")
+                    result = subprocess.run(
+                        [node, "--experimental-strip-types", str(path)],
+                        check=False,
+                        capture_output=True,
+                        text=True,
+                        timeout=10,
+                        cwd=directory,
+                    )
+                    self.assertEqual(result.returncode, 0, result.stderr)
+                    self.assertEqual(result.stdout, case["observed_stdout"])
 
 
 if __name__ == "__main__":
