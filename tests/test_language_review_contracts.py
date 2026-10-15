@@ -6,6 +6,7 @@ execution strips TypeScript types; it does not claim to type-check the examples.
 """
 
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -54,6 +55,44 @@ class LanguageReviewExampleTests(unittest.TestCase):
                 )
                 self.assertEqual(result.returncode, 0, result.stderr)
                 self.assertEqual(result.stdout, case["observed_stdout"])
+
+    def test_go_review_topics_have_matched_controls(self):
+        cases = [case for case in self.examples if case["language"] == "go"]
+        topics = {"doc-contract", "alternate-paths", "callback-lifecycle", "numeric-conversion", "map-order"}
+        self.assertEqual({case["review_topic"] for case in cases}, topics)
+        for topic in topics:
+            with self.subTest(topic=topic):
+                pair = [case for case in cases if case["review_topic"] == topic]
+                self.assertEqual(len(pair), 2)
+                self.assertEqual(sum(bool(case["expected_findings"]) for case in pair), 1)
+                self.assertEqual(pair[0]["context"], pair[1]["context"])
+                for case in pair:
+                    self.assertEqual(case["verification"], "static" if topic == "map-order" else "runtime")
+                    self.assertEqual("observed_stdout" in case, case["verification"] == "runtime")
+
+    def test_go_examples_exhibit_the_recorded_behavior(self):
+        go = shutil.which("go")
+        if go is None:
+            self.skipTest("Go is unavailable; runtime examples were not run")
+        cases = [case for case in self.examples if case["language"] == "go" and case["verification"] == "runtime"]
+        self.assertTrue(cases, "expected executable Go review examples")
+        with tempfile.TemporaryDirectory() as directory:
+            environment = os.environ.copy()
+            environment.update({
+                "GOTOOLCHAIN": "local", "GOWORK": "off", "GOENV": "off",
+                "GO111MODULE": "off", "GOPROXY": "off", "GOSUMDB": "off", "GOFLAGS": "",
+                "GOCACHE": str(Path(directory) / "build-cache"),
+            })
+            for case in cases:
+                with self.subTest(case=case["id"]):
+                    path = Path(directory) / (case["id"] + ".go")
+                    path.write_text(case["source"], encoding="utf-8")
+                    result = subprocess.run(
+                        [go, "run", str(path)], check=False, capture_output=True,
+                        text=True, timeout=60, cwd=directory, env=environment,
+                    )
+                    self.assertEqual(result.returncode, 0, result.stderr)
+                    self.assertEqual(result.stdout, case["observed_stdout"])
 
     def test_typescript_examples_exhibit_the_recorded_runtime_behavior(self):
         node = shutil.which("node")

@@ -13,6 +13,14 @@ Apply these checks only to changed Go behavior and nearby tests. The repository'
 - Follow slice backing arrays and map references across copies, returned values, caches, and goroutine boundaries. An `append` can mutate storage still observed elsewhere; a copied slice header is not an independent buffer. Report aliasing only when the shared mutation affects a reachable contract.
 - Trace resource ownership on success, early return, and partial failure. Check deferred argument evaluation, defers accumulating inside long loops, response-body closure, and database rows' final iteration error where those paths changed.
 
+## Contracts and alternate execution paths
+
+- Check behavioral promises in changed doc-comments against the implementation and delegated operations. Ownership, concurrent use, repeated calls, errors, and side effects are caller-visible contracts. Cite the promise and the contradicting path together; do not infer a defect from missing locks or a comment's wording alone.
+- When two implementations of an operation must preserve the same result, compare them using equivalent inputs and state. Inspect cache hits/misses, retries, and buffered/direct execution for lost fields, different error outcomes, and duplicated or omitted effects. Respect intentional differences such as documented freshness or delivery guarantees.
+- Follow a callback from registration to its actual invocation sites. Establish whether it is called at all, retried, reused, or invoked concurrently, then check captured state and effects against that lifecycle. Registration alone proves neither execution nor a single invocation.
+- For explicit numeric conversions, establish the reachable input range, destination width/sign, supported architectures, and rounding requirements. Report narrowing, sign changes, or truncation only when an allowed input produces a wrong value; an existing range check can make the conversion sound.
+- Check whether a result depends on the traversal order of a map. When selection, output, or precedence must be stable, require the code to establish that order or an order-independent reduction. Do not flag order-insensitive aggregation, or claim an observed failure from a random run that happened to pass.
+
 ## Cancellation and bounded work
 
 - Follow the incoming context through HTTP, database, retry, and goroutine boundaries. Check that cancel functions are called or ownership is explicitly transferred. A fresh `Background` or `WithoutCancel` needs a justified lifetime, shutdown owner, and bound; detaching cancellation does not create those guarantees.
@@ -45,4 +53,4 @@ Inspect `go.mod`, `go.work`, build tags, generated files, and the toolchain actu
 
 Selected lifecycle, context, safety, database, testing, and telemetry checks are adapted from [Samber's Go skills](https://github.com/samber/cc-skills-golang/tree/8e899e20ff0cd4dc524af3993e4c62d8ee8c5717/skills); version-aware API and bounded-concurrency guidance also adapts [spf13's Go skill](https://github.com/spf13/go-skills/blob/9ac6eca43161163bb21621a520a57df50d5ad464/go/SKILL.md). See the package's scoped MIT licenses and repository third-party notices.
 
-Go references: [testing package](https://pkg.go.dev/testing), [race detector](https://go.dev/doc/articles/race_detector).
+Go references: [testing package](https://pkg.go.dev/testing), [race detector](https://go.dev/doc/articles/race_detector), [numeric conversions](https://go.dev/ref/spec#Conversions), [map iteration](https://go.dev/ref/spec#For_statements).

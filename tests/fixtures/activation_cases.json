@@ -264,5 +264,9 @@
   {"id":"adr-indirect","skill":"write-adr","category":"indirect","prompt":"Capture why we chose this storage boundary so future maintainers can revisit the tradeoff.","expected_skills":["write-adr"]},
   {"id":"adr-incomplete","skill":"write-adr","category":"incomplete","prompt":"Document this architecture decision.","expected_skills":["write-adr"]},
   {"id":"adr-negative","skill":"write-adr","category":"negative","prompt":"Audit the existing ADR index for broken links and stale pointers; report only.","expected_skills":["audit-docs"]},
-  {"id":"adr-overlap","skill":"write-adr","category":"overlap","prompt":"The architecture choice is already accepted. Record its rationale rather than reviewing whether the choice is sound.","expected_skills":["write-adr"]}
+  {"id":"adr-overlap","skill":"write-adr","category":"overlap","prompt":"The architecture choice is already accepted. Record its rationale rather than reviewing whether the choice is sound.","expected_skills":["write-adr"]},
+
+  {"id":"review-go-contract-paths","skill":"code-review","category":"direct","prompt":"Review this Go diff for doc-comment contract violations, cache/retry path differences, and callback state reused between attempts. Report defects without editing.","expected_skills":["code-review"]},
+  {"id":"review-go-numeric-map","skill":"code-review","category":"direct","prompt":"Inspect these changed Go helpers for reachable narrowing-conversion errors and a minimum-key selection that depends on map traversal order.","expected_skills":["code-review"]},
+  {"id":"review-go-contract-design-negative","skill":"code-review","category":"negative","prompt":"Review this proposed Go API specification's ownership and retry guarantees before implementation; no code or diff exists.","expected_skills":["review-spec"]}
 ]

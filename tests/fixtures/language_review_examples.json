@@ -90,5 +90,123 @@
     "source": "<?php\nfunction allows(string $supplied, string $stored): bool {\n    return $stored !== '' && hash_equals($stored, $supplied);\n}\n",
     "expected_findings": [],
     "location_line": null
+  },
+  {
+    "id": "go-doc-contract-defect",
+    "language": "go",
+    "review_topic": "doc-contract",
+    "verification": "runtime",
+    "context": "Snapshot promises independently owned labels; callers may edit its result without modifying stored labels.",
+    "source": "package main\n\nimport \"fmt\"\n\ntype Labels struct { values []string }\n\n// Snapshot returns an independent copy of the stored labels.\nfunc (l *Labels) Snapshot() []string {\n    return l.values\n}\n\nfunc main() {\n    labels := &Labels{values: []string{\"keep\"}}\n    result := labels.Snapshot()\n    result[0] = \"changed\"\n    fmt.Println(labels.values[0])\n}\n",
+    "observed_stdout": "changed\n",
+    "expected_findings": [
+      "Snapshot returns shared storage despite its ownership promise, so editing the result changes the stored labels."
+    ],
+    "location_line": 9
+  },
+  {
+    "id": "go-doc-contract-control",
+    "language": "go",
+    "review_topic": "doc-contract",
+    "verification": "runtime",
+    "context": "Snapshot promises independently owned labels; callers may edit its result without modifying stored labels.",
+    "source": "package main\n\nimport \"fmt\"\n\ntype Labels struct { values []string }\n\n// Snapshot returns an independent copy of the stored labels.\nfunc (l *Labels) Snapshot() []string {\n    return append([]string(nil), l.values...)\n}\n\nfunc main() {\n    labels := &Labels{values: []string{\"keep\"}}\n    result := labels.Snapshot()\n    result[0] = \"changed\"\n    fmt.Println(labels.values[0])\n}\n",
+    "observed_stdout": "keep\n",
+    "expected_findings": [],
+    "location_line": null
+  },
+  {
+    "id": "go-alternate-paths-defect",
+    "language": "go",
+    "review_topic": "alternate-paths",
+    "verification": "runtime",
+    "context": "Both fetch paths must return the same record when the cache and source contain the same snapshot, including its Region field.",
+    "source": "package main\n\nimport \"fmt\"\n\ntype Record struct { ID int; Region string }\nvar snapshot = Record{ID: 42, Region: \"west\"}\n\nfunc fetch(cached bool) Record {\n    if cached {\n        return Record{ID: snapshot.ID}\n    }\n    return snapshot\n}\n\nfunc main() {\n    fmt.Printf(\"%s|%s\\n\", fetch(false).Region, fetch(true).Region)\n}\n",
+    "observed_stdout": "west|\n",
+    "expected_findings": [
+      "The cache path omits Region although both paths must preserve the same record fields."
+    ],
+    "location_line": 10
+  },
+  {
+    "id": "go-alternate-paths-control",
+    "language": "go",
+    "review_topic": "alternate-paths",
+    "verification": "runtime",
+    "context": "Both fetch paths must return the same record when the cache and source contain the same snapshot, including its Region field.",
+    "source": "package main\n\nimport \"fmt\"\n\ntype Record struct { ID int; Region string }\nvar snapshot = Record{ID: 42, Region: \"west\"}\n\nfunc fetch(cached bool) Record {\n    if cached {\n        return snapshot\n    }\n    return snapshot\n}\n\nfunc main() {\n    fmt.Printf(\"%s|%s\\n\", fetch(false).Region, fetch(true).Region)\n}\n",
+    "observed_stdout": "west|west\n",
+    "expected_findings": [],
+    "location_line": null
+  },
+  {
+    "id": "go-callback-lifecycle-defect",
+    "language": "go",
+    "review_topic": "callback-lifecycle",
+    "verification": "runtime",
+    "context": "retry invokes the supplied callback twice. Each attempt must independently sum the same values and return 5 rather than retain a previous attempt's accumulation.",
+    "source": "package main\n\nimport \"fmt\"\n\nfunc retry(operation func() int) int {\n    operation()\n    return operation()\n}\n\nfunc main() {\n    total := 0\n    operation := func() int {\n        for _, value := range []int{2, 3} {\n            total += value\n        }\n        return total\n    }\n    fmt.Println(retry(operation))\n}\n",
+    "observed_stdout": "10\n",
+    "expected_findings": [
+      "The reused callback retains total between attempts, so the second invocation returns 10 instead of 5."
+    ],
+    "location_line": 11
+  },
+  {
+    "id": "go-callback-lifecycle-control",
+    "language": "go",
+    "review_topic": "callback-lifecycle",
+    "verification": "runtime",
+    "context": "retry invokes the supplied callback twice. Each attempt must independently sum the same values and return 5 rather than retain a previous attempt's accumulation.",
+    "source": "package main\n\nimport \"fmt\"\n\nfunc retry(operation func() int) int {\n    operation()\n    return operation()\n}\n\nfunc main() {\n    operation := func() int {\n        total := 0\n        for _, value := range []int{2, 3} {\n            total += value\n        }\n        return total\n    }\n    fmt.Println(retry(operation))\n}\n",
+    "observed_stdout": "5\n",
+    "expected_findings": [],
+    "location_line": null
+  },
+  {
+    "id": "go-numeric-conversion-defect",
+    "language": "go",
+    "review_topic": "numeric-conversion",
+    "verification": "runtime",
+    "context": "compactID accepts a uint64 ID and must return ok=false when it cannot be represented exactly as uint32. Input may include 2^32+9 on any supported architecture.",
+    "source": "package main\n\nimport \"fmt\"\n\nfunc compactID(value uint64) (uint32, bool) {\n    return uint32(value), true\n}\n\nfunc main() {\n    fmt.Println(compactID((uint64(1) << 32) + 9))\n}\n",
+    "observed_stdout": "9 true\n",
+    "expected_findings": [
+      "Converting the allowed out-of-range ID truncates it to 9 while incorrectly reporting successful exact conversion."
+    ],
+    "location_line": 6
+  },
+  {
+    "id": "go-numeric-conversion-control",
+    "language": "go",
+    "review_topic": "numeric-conversion",
+    "verification": "runtime",
+    "context": "compactID accepts a uint64 ID and must return ok=false when it cannot be represented exactly as uint32. Input may include 2^32+9 on any supported architecture.",
+    "source": "package main\n\nimport \"fmt\"\n\nfunc compactID(value uint64) (uint32, bool) {\n    if value > uint64(^uint32(0)) {\n        return 0, false\n    }\n    return uint32(value), true\n}\n\nfunc main() {\n    fmt.Println(compactID((uint64(1) << 32) + 9))\n}\n",
+    "observed_stdout": "0 false\n",
+    "expected_findings": [],
+    "location_line": null
+  },
+  {
+    "id": "go-map-order-defect",
+    "language": "go",
+    "review_topic": "map-order",
+    "verification": "static",
+    "context": "smallestID must select the smallest key for every non-empty map, regardless of traversal order, and return ok=false for an empty map. This pair is inspected statically; no random run is evidence of failure or order independence.",
+    "source": "package main\n\nfunc smallestID(ids map[int]struct{}) (int, bool) {\n    for id := range ids {\n        return id, true\n    }\n    return 0, false\n}\n",
+    "expected_findings": [
+      "Returning the first visited key depends on unspecified map order and does not establish the minimum-key contract."
+    ],
+    "location_line": 5
+  },
+  {
+    "id": "go-map-order-control",
+    "language": "go",
+    "review_topic": "map-order",
+    "verification": "static",
+    "context": "smallestID must select the smallest key for every non-empty map, regardless of traversal order, and return ok=false for an empty map. This pair is inspected statically; no random run is evidence of failure or order independence.",
+    "source": "package main\n\nfunc smallestID(ids map[int]struct{}) (int, bool) {\n    best, found := 0, false\n    for id := range ids {\n        if !found || id < best {\n            best, found = id, true\n        }\n    }\n    return best, found\n}\n",
+    "expected_findings": [],
+    "location_line": null
   }
 ]
