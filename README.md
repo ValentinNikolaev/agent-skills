@@ -98,6 +98,8 @@ Use business-viability-assessment to assess this product idea.
 - [`fastapi-development`](agent-plugins/skills/fastapi-development/SKILL.md) — Implement FastAPI APIs and streaming; not diff review or generic Python.
 - [`go-benchmark`](agent-plugins/skills/go-benchmark/SKILL.md) — Measure and compare Go benchmarks or profiles; not PR review or optimization.
 - [`go-security-audit`](agent-plugins/skills/go-security-audit/SKILL.md) — Audit Go security across named trust boundaries; not PR review or fixes.
+- [`linkedin-featured-proof`](agent-plugins/skills/linkedin-featured-proof/SKILL.md) — Plan or create LinkedIn Featured case studies, PDFs, and PNG proof cards from verified work; not profile rewrites or feed content.
+- [`linkedin-profile-optimizer`](agent-plugins/skills/linkedin-profile-optimizer/SKILL.md) — Audit or rewrite LinkedIn profiles and role keywords from verified evidence; not CVs, letters, feed posts, or asset files.
 - [`php-modernization`](agent-plugins/skills/php-modernization/SKILL.md) — Modernize PHP runtimes, types, or tooling with scoped previews and compatibility checks; not diff review.
 - [`typescript-type-design`](agent-plugins/skills/typescript-type-design/SKILL.md) — Implement and test advanced TypeScript types and inference; not diff review or runtime validation.
 - [`uv-project-workflow`](agent-plugins/skills/uv-project-workflow/SKILL.md) — Manage uv dependencies, locks, environments and CI; not unrequested migrations.

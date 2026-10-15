@@ -1,0 +1,4 @@
+interface:
+  display_name: "LinkedIn Profile Optimizer"
+  short_description: "Ground LinkedIn positioning and search relevance in evidence"
+  default_prompt: "Use $linkedin-profile-optimizer to audit or rewrite the requested LinkedIn sections using current career evidence, target roles, and my voice."

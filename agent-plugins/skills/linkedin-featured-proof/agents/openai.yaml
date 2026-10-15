@@ -1,0 +1,4 @@
+interface:
+  display_name: "LinkedIn Featured Proof"
+  short_description: "Create verified case studies and LinkedIn Featured assets"
+  default_prompt: "Use $linkedin-featured-proof to prepare the requested LinkedIn proof assets from verified work, with readable exports and public-use checks."

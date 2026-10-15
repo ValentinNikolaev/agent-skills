@@ -4,6 +4,37 @@ Except where noted below, original content in this repository is distributed
 under the [MIT License](LICENSE). Third-party material remains subject to its
 respective terms; the repository license does not relicense that material.
 
+## LinkedIn profile and Featured proof workflows
+
+The `linkedin-profile-optimizer` and `linkedin-featured-proof` skills adapt and
+substantially rewrite selected profile-section audit and goal-dependent Featured
+selection guidance from [sergebulaev/linkedin-skills at commit
+`261240ac5c4da8b4465cbd364d14ce52ffed12ce`](https://github.com/sergebulaev/linkedin-skills/tree/261240ac5c4da8b4465cbd364d14ce52ffed12ce/skills/linkedin-profile-optimizer).
+Upstream is MIT, copyright 2026 Sergey Bulaev. Its complete license is retained as
+`LICENSE.linkedin-skills` in both canonical packages and their generated copies.
+
+The profile skill also adapts and substantially rewrites cross-source consistency,
+career-throughline, first-person prose, and public-proof guidance from
+[`sickn33/agentic-awesome-skills` at commit
+`a3072641b750a1fb2f6ce695a5f984ea3d4c3ec1`](https://github.com/sickn33/agentic-awesome-skills/blob/a3072641b750a1fb2f6ce695a5f984ea3d4c3ec1/skills/linkedin-profile-optimizer/SKILL.md),
+the redirect target of the supplied `antigravity-awesome-skills` repository.
+Upstream is MIT, copyright 2026 Antigravity User. Its complete license is retained
+as `LICENSE.agentic-awesome-skills` in that canonical package and generated copies.
+
+The adaptations remove unsupported algorithm and conversion promises, outdated
+limits, mandatory metrics/skill counts, forced pacing, and source-specific tool
+dependencies. They add evidence provenance and status checks, optional
+job-intelligence integration, current taxonomy verification, explicit scope,
+privacy-aware proof selection, and export verification. No upstream scripts,
+assets, integrations, or personal candidate records are bundled.
+
+The supplied `cyalcala/linkedin-profile-optimizer-skill` was inspected at
+`5d909e74f0767668bd06abfce8ed64658aaa0f91`; no license was found. Its text,
+scripts, templates, and assets are not redistributed. The requested capabilities
+are independently implemented using the user's requirements and primary platform
+sources. The supplied VitaeContext playbook URL returned 404 on 2026-10-15 and
+provided no verified material. Attribution does not imply endorsement.
+
 ## TypeScript type design, Zod, and focused workflow improvements
 
 The `typescript-type-design` skill adapts and substantially rewrites selected
