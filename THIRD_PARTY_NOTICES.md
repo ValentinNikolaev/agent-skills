@@ -4,6 +4,87 @@ Except where noted below, original content in this repository is distributed
 under the [MIT License](LICENSE). Third-party material remains subject to its
 respective terms; the repository license does not relicense that material.
 
+## TypeScript type design, Zod, and focused workflow improvements
+
+The `typescript-type-design` skill adapts and substantially rewrites selected
+generic-inference, conditional/mapped-type, discriminated-union, and type-test
+topics from Seth Hobson's
+[`wshobson/agents` at commit `044b4b21f083948e69ec878a7b07c8d0951a6ffa`](https://github.com/wshobson/agents/tree/044b4b21f083948e69ec878a7b07c8d0951a6ffa/plugins/javascript-typescript/skills/typescript-advanced-types),
+specifically `SKILL.md` and `references/details.md`. The adaptation replaces
+assertion-based stubs and non-enforcing type-test examples with checked examples;
+it does not copy broad developer roles or model settings. The upstream MIT
+license, copyright 2024 Seth Hobson, is retained as `LICENSE.wshobson-agents` in
+the canonical package and generated distributions.
+
+The `zod` skill adapts and substantially rewrites selected boundary-validation,
+schema composition, input/output inference, error, codec, and migration topics
+from
+[`secondsky/claude-skills` at commit `88378361314f558fb719aec0af9fd898ab36f0b2`](https://github.com/secondsky/claude-skills/tree/88378361314f558fb719aec0af9fd898ab36f0b2/plugins/zod/skills/zod),
+including `SKILL.md` and selected references. Examples are rewritten; upstream
+installation/configuration templates, performance claims, package manifests, and
+unverified API examples are not imported. The upstream MIT license, copyright
+2025 Claude Skills Maintainers, is retained as
+`LICENSE.secondsky-claude-skills` in the canonical package and generated copies.
+
+The alternative-contract guidance in `api-and-interface-design` and the
+observation/anti-tautology guidance in `test-driven-development` adapt and
+substantially rewrite selected topics from
+[`mattpocock/skills` at commit `49dd158d1076134a641b33efb035946536778336`](https://github.com/mattpocock/skills/tree/49dd158d1076134a641b33efb035946536778336),
+specifically `skills/engineering/codebase-design/DESIGN-IT-TWICE.md`,
+`skills/engineering/tdd/SKILL.md`, `tests.md`, and `mocking.md`. The local
+workflows retain optional delegation, proportional clarification, refactoring,
+and evidence-based verification. They do not import hooks or the upstream
+review orchestrator. The MIT license, copyright 2026 Matt Pocock, is retained as
+`LICENSE.mattpocock-skills` in both canonical skills and their generated copies.
+
+No text or scripts from SpillwaveSolutions/mastering-typescript-skill are
+included in these adaptations.
+
+## FastAPI development and review
+
+The `fastapi-development` skill and `code-review/references/review-fastapi.md`
+adapt and substantially rewrite the official FastAPI skill and its references at
+[commit `0b919816378eaa773df7ce4204414c712c9fdbea`](https://github.com/fastapi/fastapi/tree/0b919816378eaa773df7ce4204414c712c9fdbea/fastapi/.agents/skills/fastapi).
+Upstream is MIT, copyright 2018 Sebastián Ramírez. Its complete license is
+retained as `LICENSE.fastapi` in both affected canonical packages and generated
+copies. Changes add version gates, separate implementation from read-only
+review, preserve the chosen stack, distinguish public schemas and resource
+lifetimes, and make verification limits explicit. No upstream scripts,
+telemetry configuration or installations are bundled. Attribution does not
+imply endorsement.
+
+## Python async checks and uv workflow
+
+The `uv-project-workflow` skill and selected queue, semaphore and lifecycle
+checks in `code-review/references/review-python.md` adapt and substantially
+rewrite [wshobson/agents at commit
+`044b4b21f083948e69ec878a7b07c8d0951a6ffa`](https://github.com/wshobson/agents/tree/044b4b21f083948e69ec878a7b07c8d0951a6ffa/plugins/python-development/skills),
+specifically `uv-package-manager` and `async-python-patterns` and their references.
+Upstream is MIT, copyright 2024 Seth Hobson. Its full license is retained as
+`LICENSE.wshobson-agents` in each affected package and generated copies. Changes
+correct command roles, separate lock freshness from frozen consumption,
+preserve existing package managers, and distinguish cancellation requests,
+worker completion, queue bookkeeping and actual resource bounds. Runtime
+controls are repository-authored; no upstream scripts, CI, installers or
+mandatory tool configuration are bundled.
+
+## Claude API integration
+
+The `claude-api` skill and its references adapt and substantially rewrite
+[Anthropic's `skills/claude-api` at commit
+`dbd4588f9e1033efb41dad4bef2f7947c8993d44`](https://github.com/anthropics/skills/tree/dbd4588f9e1033efb41dad4bef2f7947c8993d44/skills/claude-api),
+including selected Python/TypeScript API/tool-use and live-source guidance.
+Upstream material is Apache-2.0. The complete license is retained as
+`LICENSE.anthropic-skills`, with an adaptation notice in
+`NOTICE.anthropic-skills`, in the canonical and generated packages. Modified
+documents identify the adaptation. Changes narrow activation and initial
+language coverage, separate API/Tool Runner/Managed Agents/Agent SDK, verify
+release-matched bindings, preserve helper versus wire parameter differences,
+and replace fixed model/cost mandates with project policy. No upstream
+scripts, updater, model/pricing catalog, credentials or managed provisioning
+are bundled. No content from the archived, unlicensed xiaolai repository is
+redistributed. Attribution does not imply endorsement.
+
 ## PHP, Python, and TypeScript review references
 
 The `code-review` references `review-php.md` and `review-python.md`, along with

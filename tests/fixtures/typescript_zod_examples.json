@@ -1,0 +1,21 @@
+[
+  {
+    "id": "typescript-enforced-inference",
+    "skill": "typescript-type-design",
+    "reference": "references/type-contracts.md",
+    "runtime_assertions": "assert.equal(subject.first([]), undefined);\nassert.equal(subject.first([7, 8]), 7);\nassert.equal(subject.describeEvent('saved', { id: 'a' }), 'a');\nassert.equal(subject.describeEvent('removed', { count: 2 }), '2');",
+    "expected_stdout": "typescript-enforced-inference:ok\n"
+  },
+  {
+    "id": "zod-parsing-boundary",
+    "skill": "zod",
+    "reference": "references/parsing-contracts.md",
+    "runtime_assertions": "const input = { name: ' Alice ', age: '20', email: 'alice@example.com' };\nassert.equal(subject.parseUserJson('{').kind, 'invalid-json');\nassert.equal(subject.parseUserJson('{}').kind, 'invalid-data');\nassert.deepEqual(subject.parseUserJson(JSON.stringify(input)), { kind: 'valid', data: { name: 'Alice', age: 20, email: 'alice@example.com', role: 'member' } });\nassert.equal(subject.UserSchema.safeParse({ ...input, extra: true }).success, false);\nassert.equal(subject.UserSchema.safeParse({ ...input, name: '   ' }).success, false);\nassert.equal(subject.UserSchema.safeParse({ ...input, age: 16 }).success, false, 'underage input must be rejected');\nconst parsed = subject.UserSchema.parse(input);\nassert.equal(parsed.name, 'Alice');\nassert.equal(input.name, ' Alice ');\nassert.equal(input.age, '20');\nassert.deepEqual(subject.DefaultsSchema.parse({}), { name: 'Anonymous' });\nassert.equal(subject.CountsSchema.safeParse({ a: '2' }).success, false);\nassert.deepEqual(subject.CountsSchema.parse({ a: 2 }), { a: 2 });\nassert.equal((await subject.UsernameSchema.safeParseAsync('available')).success, true);\nassert.equal((await subject.UsernameSchema.safeParseAsync('taken')).success, false);\nconst iso = '2024-01-15T10:30:00.000Z';\nconst date = subject.DateCodec.decode(iso);\nassert.equal(date instanceof Date, true);\nassert.equal(subject.DateCodec.encode(date), iso);\nassert.equal(subject.DateCodec.safeDecode('not-a-date').success, false);\nassert.equal(subject.DateCodec.safeEncode(new Date(NaN)).success, false);\nassert.throws(() => subject.UserSchema.transform(() => { throw new Error('callback failure'); }).safeParse(input), /callback failure/);",
+    "runtime_negative_control": {
+      "original": ".int().min(18)",
+      "replacement": ".int().min(0)",
+      "expected_failure": "underage input must be rejected"
+    },
+    "expected_stdout": "zod-parsing-boundary:ok\n"
+  }
+]

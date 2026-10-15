@@ -1,0 +1,4 @@
+interface:
+  display_name: "TypeScript Type Design"
+  short_description: "Implement and verify TypeScript type contracts"
+  default_prompt: "Use $typescript-type-design to implement the requested types and verify accepted calls, rejected calls, and inference with the project's compiler."

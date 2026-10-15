@@ -20,8 +20,12 @@ Selected topics are adapted from awesome-skills/code-review-skill at commit `485
 - Follow cancellation and timeouts through callers and cleanup. Preserve cancellation propagation after cleanup unless the repository deliberately defines suppression. Do not claim `except Exception` catches `asyncio.CancelledError` on modern Python: it derives from `BaseException`.
 - Distinguish `asyncio.gather` failure behavior from `TaskGroup` sibling cancellation. Check supported Python versions before suggesting `TaskGroup`; do not replace one with the other without checking partial-result semantics.
 - Check queue acknowledgement and worker termination on success, failure, cancellation, and exhausted input. A bounded queue alone does not bound the number of tasks created around it.
+- A call to `cancel()` requests cancellation; verify that the owner subsequently awaits termination and observes failures/cleanup. Do not equate a requested shutdown with released resources.
+- For a worker failure, distinguish queue bookkeeping from business acknowledgement, retry or durable delivery. A local `queue.join()` can hang when `task_done()` is skipped, but adding it unconditionally is not proof that failed work succeeded; inspect the supervisor and delivery policy.
+- Distinguish active operations, created tasks, queued input and retained results. A semaphore limits simultaneous entry, not task creation or requests per second; trace the actual resource bound before claiming backpressure.
 - Check context managers, `finally`, transaction ownership, temporary files, and generator close paths. A returned stream must not depend on a resource already closed by its producer.
 - For shared state, verify synchronization and the actual interpreter/build and library guarantees. Do not infer race freedom from the GIL or one passing test. Treat process-pool startup and serialization assumptions as platform-dependent.
+- For CPU-heavy offloading, check whether code releases the GIL or uses a free-threaded/alternative runtime. `to_thread()` can keep the event loop responsive but does not universally provide CPU parallelism or cancellable work; a process pool has its own startup, serialization and shutdown costs.
 
 ## Exceptions and security
 
@@ -40,3 +44,5 @@ Selected topics are adapted from awesome-skills/code-review-skill at commit `485
 - Use the main review's proportional negative-control rule for regression claims. Broad profiling, coverage generation, dependency scans, and mutation campaigns remain separate costly checks.
 
 Primary references: [Python asyncio tasks](https://docs.python.org/3/library/asyncio-task.html), [unittest.mock: where to patch](https://docs.python.org/3/library/unittest.mock.html#where-to-patch), [pytest-asyncio modes](https://pytest-asyncio.readthedocs.io/en/stable/concepts.html).
+
+Selected queue, semaphore and task-lifecycle topics also adapt and substantially rewrite [wshobson's async-python-patterns](https://github.com/wshobson/agents/tree/044b4b21f083948e69ec878a7b07c8d0951a6ffa/plugins/python-development/skills/async-python-patterns), MIT, copyright 2024 Seth Hobson; see `LICENSE.wshobson-agents`. Evaluation examples are repository-authored controls, not bundled upstream scripts.

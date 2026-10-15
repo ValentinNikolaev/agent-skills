@@ -22,6 +22,18 @@ EXAMPLES = ROOT / "tests" / "fixtures" / "language_review_examples.json"
 class LanguageReviewExampleTests(unittest.TestCase):
     def setUp(self):
         self.examples = json.loads(EXAMPLES.read_text(encoding="utf-8"))
+        self.examples += json.loads((EXAMPLES.parent / "python_async_review_examples.json").read_text(encoding="utf-8"))
+
+    def test_async_topics_have_matching_defects_and_controls(self):
+        cases = [case for case in self.examples if case.get("review_topic", "").startswith("async-")]
+        self.assertEqual({case["review_topic"] for case in cases}, {"async-shutdown", "async-queue", "async-task-bound"})
+        for topic in {case["review_topic"] for case in cases}:
+            pair = [case for case in cases if case["review_topic"] == topic]
+            with self.subTest(topic=topic):
+                self.assertEqual(len(pair), 2)
+                self.assertEqual(pair[0]["context"], pair[1]["context"])
+                self.assertEqual(sum(bool(case["expected_findings"]) for case in pair), 1)
+                self.assertNotEqual(pair[0]["observed_stdout"], pair[1]["observed_stdout"])
 
     def test_each_language_has_a_defect_and_a_clean_control(self):
         for language in {case["language"] for case in self.examples}:

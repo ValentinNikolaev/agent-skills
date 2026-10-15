@@ -1,0 +1,156 @@
+[
+  {
+    "id": "fastapi-existing-stack",
+    "skill": "fastapi-development",
+    "prompt": "Add a GET /health endpoint to an existing FastAPI service. Its pyproject chooses Poetry, SQLAlchemy and Python 3.10; keep the existing stack. Only a local ASGI test is requested.",
+    "must_preserve": [
+      "Poetry",
+      "SQLAlchemy",
+      "Python 3.10"
+    ],
+    "must_verify": [
+      "installed FastAPI/Pydantic versions",
+      "public response and status"
+    ],
+    "must_not_do": [
+      "migrate to uv",
+      "replace ORM",
+      "enable telemetry"
+    ]
+  },
+  {
+    "id": "fastapi-stream-version-gap",
+    "skill": "fastapi-development",
+    "prompt": "Implement SSE for this existing FastAPI application. The installed dependency version is not yet known. The stream reads a request-owned resource and clients may disconnect.",
+    "must_preserve": [
+      "requested SSE protocol"
+    ],
+    "must_verify": [
+      "installed native SSE API availability",
+      "resource lifetime through stream consumption",
+      "disconnect/cancellation test limits"
+    ],
+    "must_not_do": [
+      "assume upstream main is installed",
+      "silently upgrade FastAPI",
+      "claim a buffered test proves deployed streaming"
+    ]
+  },
+  {
+    "id": "fastapi-diff-only",
+    "skill": "code-review",
+    "prompt": "Review this FastAPI diff without edits. It returns an internal model including token; the public contract says only name is exposed. It uses working RootModel code elsewhere.",
+    "must_preserve": [
+      "read-only scope",
+      "working unrelated RootModel"
+    ],
+    "must_verify": [
+      "actual serialized response path"
+    ],
+    "must_not_do": [
+      "implement a fix",
+      "report RootModel as deprecated"
+    ]
+  },
+  {
+    "id": "claude-python-helper",
+    "skill": "claude-api",
+    "prompt": "Implement typed output in our Python Anthropic API client. Installed declarations show messages.parse(*, output_format: type[BaseModel], ...). Our configured model must remain unchanged. We authorize offline tests only.",
+    "must_preserve": [
+      "parse helper output_format parameter",
+      "configured model",
+      "offline test boundary"
+    ],
+    "must_verify": [
+      "installed helper signature",
+      "wire output_config.format distinction",
+      "refusal/truncation handling"
+    ],
+    "must_not_do": [
+      "blanket rename output_format in helpers",
+      "send a paid API probe",
+      "hardcode a premium model"
+    ]
+  },
+  {
+    "id": "claude-agent-sdk-separate",
+    "skill": null,
+    "prompt": "Build a coding agent using @anthropic-ai/claude-agent-sdk query(), built-in file tools and permission hooks. Do not use the Messages API Tool Runner.",
+    "must_preserve": [
+      "Claude Agent SDK product"
+    ],
+    "must_verify": [
+      "official Agent SDK bindings"
+    ],
+    "must_not_do": [
+      "substitute Tool Runner",
+      "claim a loop helper is a sandbox"
+    ]
+  },
+  {
+    "id": "claude-other-provider",
+    "skill": null,
+    "prompt": "Implement structured output in an existing OpenAI client; preserve provider-neutral interfaces. Do not switch providers.",
+    "must_preserve": [
+      "OpenAI client",
+      "provider-neutral interface"
+    ],
+    "must_verify": [
+      "the selected provider contract"
+    ],
+    "must_not_do": [
+      "activate Claude API implementation",
+      "add Anthropic calls"
+    ]
+  },
+  {
+    "id": "uv-freshness-gate",
+    "skill": "uv-project-workflow",
+    "prompt": "Our uv project's CI currently runs uv sync --frozen. Make stale pyproject.toml/uv.lock fail CI, preserving the selected uv and Python versions. No broad upgrade is requested.",
+    "must_preserve": [
+      "uv version policy",
+      "Python version policy"
+    ],
+    "must_verify": [
+      "lock freshness gate",
+      "selected groups and extras"
+    ],
+    "must_not_do": [
+      "treat frozen as a freshness check",
+      "upgrade all packages"
+    ]
+  },
+  {
+    "id": "uv-review-only",
+    "skill": "code-review",
+    "prompt": "Review this uv.lock and pyproject.toml diff for unexpected sources and transitive additions. Do not install anything or change files.",
+    "must_preserve": [
+      "read-only scope"
+    ],
+    "must_verify": [
+      "owning project/source boundary",
+      "manifest and lock diff together"
+    ],
+    "must_not_do": [
+      "uv sync",
+      "uv add",
+      "change lockfile"
+    ]
+  },
+  {
+    "id": "uv-poetry-no-migration",
+    "skill": null,
+    "prompt": "Run the configured targeted unit test for a Poetry Python project. We did not ask to change package managers.",
+    "must_preserve": [
+      "Poetry workflow"
+    ],
+    "must_verify": [
+      "configured test command"
+    ],
+    "must_not_do": [
+      "migrate to uv",
+      "create uv.lock",
+      "install uv"
+    ]
+  }
+]

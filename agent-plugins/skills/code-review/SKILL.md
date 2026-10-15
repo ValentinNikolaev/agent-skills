@@ -57,9 +57,12 @@ Load only the language references needed by changed behavior and its tests:
 - Go: [references/review-go.md](references/review-go.md).
 - TypeScript (`.ts`, `.tsx`, `.mts`, `.cts`), declarations, or related module/build configuration: [references/review-typescript.md](references/review-typescript.md).
 - Python: [references/review-python.md](references/review-python.md).
+- FastAPI endpoints, dependencies, response models, or streaming changes: also read [references/review-fastapi.md](references/review-fastapi.md) after establishing the installed FastAPI/Pydantic versions.
 - PHP or PHP-backed templates: [references/review-php.md](references/review-php.md).
 
 In a mixed-language change, apply each reference to its own files and trace cross-language contracts once. These references refine the same evidence and severity rules; they are not separate verdicts or a request to apply one language's conventions to another. Language presence alone does not authorize a framework audit, dependency installation, formatter fix, or migration.
+
+Use `fastapi-development` for requested FastAPI implementation, `claude-api` for requested Claude API integration, and `uv-project-workflow` for requested uv environment/dependency work. A diff using those technologies remains a read-only review here; do not invoke an implementation workflow to inspect it.
 
 Load detailed references only when the changed paths make them relevant and local repository guidance does not already answer the question:
 

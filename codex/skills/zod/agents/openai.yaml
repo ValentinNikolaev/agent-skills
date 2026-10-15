@@ -1,0 +1,4 @@
+interface:
+  display_name: "Zod Schemas and Parsing"
+  short_description: "Build version-aware Zod validation boundaries"
+  default_prompt: "Use $zod to implement the requested schema and parsing boundary, verify input/output and failure behavior, and preserve the installed version's contracts."

@@ -82,6 +82,17 @@ release, also use `--no-version-bump`. Do not manually edit generated version fi
 If your change does not touch a skill package, run the commands that apply and
 explain any omitted check in the pull request.
 
+### Optional TypeScript and Zod example checks
+
+`tests/test_typescript_zod_examples.py` compiles and executes the rewritten skill
+examples, including failing controls. Set `SKILL_TYPESCRIPT_MODULES` to an existing
+`node_modules` directory containing TypeScript 5.9.3 and Zod 4.4.3, with `node` on
+PATH, then run `python -m unittest discover -s tests -p test_typescript_zod_examples.py -v`
+or the full suite. The checks use disposable directories and never install packages
+or contact the network. Without configured tools, executable checks report skips;
+fixture structure checks still run. Other versions require an explicit compatibility
+evaluation. These tests validate examples, not model routing or skill effectiveness.
+
 ## Pull Requests
 
 Keep each pull request focused on one change. In the pull request description:

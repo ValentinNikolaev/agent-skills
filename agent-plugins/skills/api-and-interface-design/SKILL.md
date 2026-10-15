@@ -1,6 +1,6 @@
 ---
 name: api-and-interface-design
-description: Design a stable API or module contract before implementation. Use for interface decisions; not diff review or a system-wide architecture audit.
+description: Design API or module contracts before implementation; not diff review or system-wide architecture review.
 ---
 
 # API and Interface Design
@@ -20,6 +20,19 @@ Design an interface consumers can use, validate, and evolve. Adapted from Addy O
 3. For a changed interface, inventory observable old behavior and compatibility obligations. Prefer additive evolution when consumers may be deployed independently; document intentional breaks and migration requirements.
 4. Address pagination, partial updates, idempotency, duplicate in-flight requests, timeouts, retries, and authorization only when the operation needs them. Specify the outcome of each relevant edge case rather than importing a generic pattern.
 5. Compare at least one simpler contract that meets the same requirements. Identify naming or versioning choices that create ambiguity for consumers.
+
+## Compare alternative interfaces when the decision warrants it
+
+For a consequential or explicitly requested interface exploration, compare materially different shapes before implementing. Keep the ordinary one-contract path for routine changes.
+
+1. Fix the same consumer scenarios, invariants, compatibility obligations, and dependency constraints for all alternatives.
+2. Sketch a minimal surface, a shape optimized for the common caller, and a more flexible shape only when flexibility serves a real requirement. Show a normal call and a failure call for each; name what complexity the module hides from callers.
+3. Compare ease of correct use, misuse, lifecycle ownership, testability through the interface, change locality, implementation cost, and compatibility. More methods or fewer lines alone do not determine quality. A thin adapter can still earn its place at a real integration boundary.
+4. Recommend one shape or a justified combination and state the deciding scenario. Do not implement an exploration-only request.
+
+Use independent design passes only when requested or authorized by the applicable workflow. Parallel agents are optional; respect the project budget and do not require three or more agents for every contract decision. Keep project terminology rather than imposing a new glossary.
+
+This comparison guidance adapts Matt Pocock's [Design It Twice](https://github.com/mattpocock/skills/blob/49dd158d1076134a641b33efb035946536778336/skills/engineering/codebase-design/DESIGN-IT-TWICE.md), under the bundled `LICENSE.mattpocock-skills`.
 
 ## Go contracts, when applicable
 

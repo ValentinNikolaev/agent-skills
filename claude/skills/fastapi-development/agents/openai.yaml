@@ -1,0 +1,4 @@
+interface:
+  display_name: "FastAPI Development"
+  short_description: "Implement version-aware FastAPI behavior"
+  default_prompt: "Use $fastapi-development to implement the requested FastAPI behavior, preserve the installed stack, and verify its public contract and resource lifetime."

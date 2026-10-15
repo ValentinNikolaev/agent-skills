@@ -1,0 +1,14 @@
+This package adapts selected material from Anthropic's skills repository,
+skills/claude-api, at commit dbd4588f9e1033efb41dad4bef2f7947c8993d44:
+https://github.com/anthropics/skills/tree/dbd4588f9e1033efb41dad4bef2f7947c8993d44/skills/claude-api
+
+Upstream material is distributed under Apache License 2.0, retained in
+LICENSE.anthropic-skills. This is a substantially rewritten adaptation by
+Valentin Nikolaev, 2026. Modified documents identify the adaptation.
+
+Changes include narrower routing and Python/TypeScript authoring scope,
+separate API/Tool Runner/Managed Agents/Agent SDK boundaries, release-matched
+binding verification, helper/wire parameter distinctions, project-defined
+model/cost choices, and explicit authorization and verification limits.
+No upstream updater, scripts, model catalog, credentials or provisioning
+configuration are bundled. Attribution does not imply endorsement.

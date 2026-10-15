@@ -1,0 +1,4 @@
+interface:
+  display_name: "uv Project Workflow"
+  short_description: "Manage uv projects with explicit lock and environment effects"
+  default_prompt: "Use $uv-project-workflow to make the requested uv project change, preserve dependency policy, and verify lock consistency and application behavior."

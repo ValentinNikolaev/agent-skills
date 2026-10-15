@@ -1,0 +1,74 @@
+[
+  {
+    "id": "python-shutdown-defect",
+    "language": "python",
+    "review_topic": "async-shutdown",
+    "context": "Python 3.10+ asyncio; stop() must return only after its worker terminates and asynchronous cleanup releases the resource. Events establish startup; no timing assumption is needed.",
+    "source": "import asyncio\n\nasync def stop():\n    started = asyncio.Event()\n    released = asyncio.Event()\n    async def worker():\n        try:\n            started.set()\n            await asyncio.Event().wait()\n        finally:\n            await asyncio.sleep(0)\n            released.set()\n    task = asyncio.create_task(worker())\n    await started.wait()\n    task.cancel()\n    return task.done(), released.is_set()\n",
+    "probe": "print(asyncio.run(stop()))",
+    "observed_stdout": "(False, False)\n",
+    "expected_findings": [
+      "Cancellation is requested but shutdown returns before task termination and asynchronous cleanup."
+    ],
+    "location_line": 15
+  },
+  {
+    "id": "python-shutdown-control",
+    "language": "python",
+    "review_topic": "async-shutdown",
+    "context": "Python 3.10+ asyncio; stop() must return only after its worker terminates and asynchronous cleanup releases the resource. Events establish startup; no timing assumption is needed.",
+    "source": "import asyncio\n\nasync def stop():\n    started = asyncio.Event()\n    released = asyncio.Event()\n    async def worker():\n        try:\n            started.set()\n            await asyncio.Event().wait()\n        finally:\n            await asyncio.sleep(0)\n            released.set()\n    task = asyncio.create_task(worker())\n    await started.wait()\n    task.cancel()\n    await asyncio.gather(task, return_exceptions=True)\n    return task.done(), released.is_set()\n",
+    "probe": "print(asyncio.run(stop()))",
+    "observed_stdout": "(True, True)\n",
+    "expected_findings": [],
+    "location_line": null
+  },
+  {
+    "id": "python-queue-defect",
+    "language": "python",
+    "review_topic": "async-queue",
+    "context": "Python 3.10+ asyncio; the supervisor observes the item error separately. The local queue's join must finish once processing terminates, including failure; task_done is bookkeeping, not a success/durable-delivery acknowledgement.",
+    "source": "import asyncio\n\nasync def worker(queue):\n    await queue.get()\n    raise ValueError(\"failed item\")\n    queue.task_done()\n",
+    "probe": "async def probe():\n    queue = asyncio.Queue()\n    queue.put_nowait(\"item\")\n    result = await asyncio.gather(worker(queue), return_exceptions=True)\n    assert isinstance(result[0], ValueError)\n    joined = asyncio.create_task(queue.join())\n    await asyncio.sleep(0)\n    print(\"joined\" if joined.done() else \"unfinished\")\n    joined.cancel()\n    await asyncio.gather(joined, return_exceptions=True)\nasyncio.run(probe())",
+    "observed_stdout": "unfinished\n",
+    "expected_findings": [
+      "The failed worker skips local task_done bookkeeping, leaving queue.join unfinished even though the supervisor observed the error."
+    ],
+    "location_line": 6
+  },
+  {
+    "id": "python-queue-control",
+    "language": "python",
+    "review_topic": "async-queue",
+    "context": "Python 3.10+ asyncio; the supervisor observes the item error separately. The local queue's join must finish once processing terminates, including failure; task_done is bookkeeping, not a success/durable-delivery acknowledgement.",
+    "source": "import asyncio\n\nasync def worker(queue):\n    await queue.get()\n    try:\n        raise ValueError(\"failed item\")\n    finally:\n        queue.task_done()\n",
+    "probe": "async def probe():\n    queue = asyncio.Queue()\n    queue.put_nowait(\"item\")\n    result = await asyncio.gather(worker(queue), return_exceptions=True)\n    assert isinstance(result[0], ValueError)\n    joined = asyncio.create_task(queue.join())\n    await asyncio.sleep(0)\n    print(\"joined\" if joined.done() else \"unfinished\")\n    joined.cancel()\n    await asyncio.gather(joined, return_exceptions=True)\nasyncio.run(probe())",
+    "observed_stdout": "joined\n",
+    "expected_findings": [],
+    "location_line": null
+  },
+  {
+    "id": "python-task-bound-defect",
+    "language": "python",
+    "review_topic": "async-task-bound",
+    "context": "Python 3.10+ asyncio; at most two application worker Tasks may be created for eight items. The small fixed input queue is allowed. The task-creation bound is separate from the number of active operations.",
+    "source": "import asyncio\n\nasync def peak_tasks():\n    gate = asyncio.Event()\n    semaphore = asyncio.Semaphore(2)\n    async def work():\n        async with semaphore:\n            await gate.wait()\n    tasks = [asyncio.create_task(work()) for _ in range(8)]\n    peak = len(tasks)\n    gate.set()\n    await asyncio.gather(*tasks)\n    return peak\n",
+    "probe": "print(asyncio.run(peak_tasks()))",
+    "observed_stdout": "8\n",
+    "expected_findings": [
+      "The semaphore bounds active entry but the comprehension still creates eight worker Tasks, exceeding the explicit task-creation budget."
+    ],
+    "location_line": 9
+  },
+  {
+    "id": "python-task-bound-control",
+    "language": "python",
+    "review_topic": "async-task-bound",
+    "context": "Python 3.10+ asyncio; at most two application worker Tasks may be created for eight items. The small fixed input queue is allowed. The task-creation bound is separate from the number of active operations.",
+    "source": "import asyncio\n\nasync def peak_tasks():\n    queue = asyncio.Queue()\n    for item in range(8):\n        queue.put_nowait(item)\n    async def work():\n        while True:\n            try:\n                queue.get_nowait()\n            except asyncio.QueueEmpty:\n                return\n            try:\n                await asyncio.sleep(0)\n            finally:\n                queue.task_done()\n    tasks = [asyncio.create_task(work()) for _ in range(2)]\n    peak = len(tasks)\n    await asyncio.gather(*tasks)\n    await queue.join()\n    return peak\n",
+    "probe": "print(asyncio.run(peak_tasks()))",
+    "observed_stdout": "2\n",
+    "expected_findings": [],
+    "location_line": null
+  }
+]

@@ -1,0 +1,46 @@
+[
+  {
+    "id": "fastapi-public-response-leaks",
+    "topic": "response-filter",
+    "context": "A new GET /me endpoint must expose only name; token is internal. Review the changed decorator and handler.",
+    "source": "from fastapi import FastAPI\nfrom pydantic import BaseModel\n\napp = FastAPI()\nclass PublicUser(BaseModel):\n    name: str\nclass InternalUser(PublicUser):\n    token: str\n\n@app.get(\"/me\", response_model=InternalUser)\ndef me():\n    return {\"name\": \"Ada\", \"token\": \"secret\"}\n",
+    "probe": "from fastapi.testclient import TestClient\nwith TestClient(app) as client:\n    print(sorted(client.get(\"/me\").json()))\n",
+    "observed_stdout": "['name', 'token']\n",
+    "expected_findings": [
+      "The public response model includes the internal token field."
+    ],
+    "location_line": 11
+  },
+  {
+    "id": "fastapi-public-response-filtered",
+    "topic": "response-filter",
+    "context": "A new GET /me endpoint must expose only name; token is internal. Review the changed decorator and handler.",
+    "source": "from fastapi import FastAPI\nfrom pydantic import BaseModel\n\napp = FastAPI()\nclass PublicUser(BaseModel):\n    name: str\nclass InternalUser(PublicUser):\n    token: str\n\n@app.get(\"/me\", response_model=PublicUser)\ndef me():\n    return {\"name\": \"Ada\", \"token\": \"secret\"}\n",
+    "probe": "from fastapi.testclient import TestClient\nwith TestClient(app) as client:\n    print(sorted(client.get(\"/me\").json()))\n",
+    "observed_stdout": "['name']\n",
+    "expected_findings": [],
+    "location_line": null
+  },
+  {
+    "id": "fastapi-stream-resource-closed",
+    "topic": "stream-lifetime",
+    "context": "The returned StreamingResponse must keep its file open while its body iterator is consumed. This probe tests producer lifetime only, not ASGI disconnect or proxy buffering.",
+    "source": "import io\nfrom fastapi.responses import StreamingResponse\n\ndef response():\n    with io.StringIO(\"payload\") as handle:\n        return StreamingResponse(iter(lambda: handle.read(4), \"\"))\n",
+    "probe": "import asyncio\nasync def probe():\n    try:\n        print(\"\".join([chunk async for chunk in response().body_iterator]))\n    except ValueError as exc:\n        if \"closed file\" not in str(exc):\n            raise\n        print(\"closed-before-consumption\")\nasyncio.run(probe())\n",
+    "observed_stdout": "closed-before-consumption\n",
+    "expected_findings": [
+      "The file closes before StreamingResponse consumes its iterator."
+    ],
+    "location_line": 6
+  },
+  {
+    "id": "fastapi-stream-resource-owned",
+    "topic": "stream-lifetime",
+    "context": "The returned StreamingResponse must keep its file open while its body iterator is consumed. This probe tests producer lifetime only, not ASGI disconnect or proxy buffering.",
+    "source": "import io\nfrom fastapi.responses import StreamingResponse\n\ndef chunks():\n    with io.StringIO(\"payload\") as handle:\n        while chunk := handle.read(4):\n            yield chunk\n\ndef response():\n    return StreamingResponse(chunks())\n",
+    "probe": "import asyncio\nasync def probe():\n    try:\n        print(\"\".join([chunk async for chunk in response().body_iterator]))\n    except ValueError as exc:\n        if \"closed file\" not in str(exc):\n            raise\n        print(\"closed-before-consumption\")\nasyncio.run(probe())\n",
+    "observed_stdout": "payload\n",
+    "expected_findings": [],
+    "location_line": null
+  }
+]

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Claude API Integration"
+  short_description: "Build Claude integrations with verified SDK contracts"
+  default_prompt: "Use $claude-api to implement the requested Anthropic integration with verified SDK bindings, explicit tool boundaries, and observed tests."
