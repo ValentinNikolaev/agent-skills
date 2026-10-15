@@ -34,6 +34,7 @@ Mark missing facts and compatibility constraints instead of inventing them.
 - Read [references/command-contract.md](references/command-contract.md) when defining taxonomy, names, signatures, discoverability, automation behavior, streams, formats, exit codes, aliases, or deprecation.
 - Read [references/runtime-interaction-and-output.md](references/runtime-interaction-and-output.md) when defining prompts, confirmation, progress, errors, recovery, text layout, color, verbosity, localization, accessibility, or cancellation.
 - Read [references/validation.md](references/validation.md) when planning implementation handoff, acceptance criteria, transcripts, tests, or final verification.
+- Read [references/go-cli-contracts.md](references/go-cli-contracts.md) only when the project actually uses Cobra or Viper; detect the installed version before translating the console contract into its APIs.
 
 Read all three for a new command family or an end-to-end redesign. Keep framework-specific syntax in examples and map the resulting contract to the project's actual framework only after inspecting its version and conventions.
 

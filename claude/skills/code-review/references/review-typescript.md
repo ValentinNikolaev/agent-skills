@@ -10,6 +10,10 @@ Apply these checks only to changed TypeScript or TSX behavior and nearby tests. 
 - Follow promises across callers, handlers, and cleanup. Check omitted `await`, rejected promises, cancellation, stale state, and errors transformed into success where the changed path makes them relevant.
 - When public types or exports change, search consumers and runtime serializers as well as the compiler-visible call sites. Type compatibility does not establish wire-format compatibility.
 - In UI or server frameworks, trace the actual client/server boundary, permission check, and side effect. Apply framework-specific rules only after identifying the installed version and local pattern.
+- When module configuration changes, reconcile `package.json` type/exports, file extensions, compiler module resolution, emitted files, and the deployed loader. `tsconfig` paths do not rewrite emitted imports or guarantee runtime aliases work.
+- For published packages, inspect import/require/types conditions, subpaths, wildcard exports, and consumers using supported loaders. A wildcard can expose an internal path; separate declaration-file success from loading the emitted JavaScript.
+- For decorators and explicit resource management, verify compiler options, framework expectations, runtime support, and sync/async cleanup on normal and exceptional exits. Do not recommend new syntax solely because the compiler accepts it.
+- For client caches, inspect keys and invalidation across tenant/user changes, mutations, and stale requests. Demonstrate a reachable data leak or stale result using the installed framework's semantics before reporting it; do not require a particular query library.
 
 ## Tests
 
@@ -24,3 +28,5 @@ Apply these checks only to changed TypeScript or TSX behavior and nearby tests. 
 Use documented targeted type-check and test commands when they materially verify a finding. A green type check cannot prove runtime validation or UI behavior. Treat a skipped test and a test filter that matched nothing as unrun, not a pass.
 
 TypeScript references: [narrowing and exhaustiveness](https://www.typescriptlang.org/docs/handbook/2/narrowing.html), [`noUncheckedIndexedAccess`](https://www.typescriptlang.org/tsconfig/noUncheckedIndexedAccess.html).
+
+Module and resource-management topics adapt selected ideas from awesome-skills/code-review-skill, `reference/typescript.md`, at commit `4850184dfd7765ea7b3c5c4e9b6cf8e0815ee7cb`; see `LICENSE.awesome-skills`. Primary references: [TypeScript module resolution](https://www.typescriptlang.org/docs/handbook/modules/reference.html), [Node.js package exports](https://nodejs.org/api/packages.html#subpath-patterns).

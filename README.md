@@ -92,6 +92,12 @@ Use business-viability-assessment to assess this product idea.
 
 - [`wrap-agent-skill`](agent-plugins/skills/wrap-agent-skill/SKILL.md) — Import and normalize reusable skills across platforms.
 
+### More skills
+
+- [`go-benchmark`](agent-plugins/skills/go-benchmark/SKILL.md) — Measure and compare Go benchmarks or profiles; not PR review or optimization.
+- [`go-security-audit`](agent-plugins/skills/go-security-audit/SKILL.md) — Audit Go security across named trust boundaries; not PR review or fixes.
+- [`php-modernization`](agent-plugins/skills/php-modernization/SKILL.md) — Modernize PHP runtimes, types, or tooling with scoped previews and compatibility checks; not diff review.
+
 ## How it works
 
 Canonical skill definitions live in [`agent-plugins/skills/`](agent-plugins/skills/). The generator creates complete platform distributions under [`codex/skills/`](codex/skills/) and [`claude/skills/`](claude/skills/). Shared resources live in [`agent-plugins/shared/`](agent-plugins/shared/).

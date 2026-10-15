@@ -24,6 +24,12 @@ Read repository instructions, tests, callers, public contracts, and the reason f
 3. Apply one coherent transformation at a time. Use repository tooling for mechanical changes that exceed safe manual review.
 4. Run focused tests or equivalent checks after each meaningful step, then the normal gate for the affected area. Inspect the diff for unrelated changes.
 
+## Go refactors, when applicable
+
+For Go renames or package moves, inspect implementations, method sets, embeddings, build tags, generated contracts, and callers before changing a symbol. Prefer an available version-identified semantic tool such as gopls for a non-trivial rename; review its proposed edits and retain a search/manual fallback when it is unavailable. Do not install tooling or upgrade Go/dependencies automatically. Keep the supported build configurations and focused package tests as evidence; a green default build does not establish every build-tag or external-consumer contract. Use `go-benchmark` only when performance measurement is explicitly requested, not to justify a readability refactor by assumption.
+
+These Go-specific checks adapt [Samber's refactoring guidance](https://github.com/samber/cc-skills-golang/blob/8e899e20ff0cd4dc524af3993e4c62d8ee8c5717/skills/golang-refactoring/SKILL.md), under the bundled `LICENSE.samber-cc-skills-golang`.
+
 ## Report
 
 State what complexity was removed, why the old structure existed when known, which contracts were checked, commands and results observed, and remaining behavior limits. Revert or revise a change that makes the code harder to understand or cannot be supported by proportionate verification.

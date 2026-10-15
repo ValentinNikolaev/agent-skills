@@ -1,0 +1,4 @@
+interface:
+  display_name: "Go Benchmark"
+  short_description: "Measure Go performance with comparable evidence"
+  default_prompt: "Use $go-benchmark to measure the named Go workload or compare benchmark results, recording the environment, uncertainty, and correctness limits."

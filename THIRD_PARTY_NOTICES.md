@@ -4,6 +4,70 @@ Except where noted below, original content in this repository is distributed
 under the [MIT License](LICENSE). Third-party material remains subject to its
 respective terms; the repository license does not relicense that material.
 
+## PHP, Python, and TypeScript review references
+
+The `code-review` references `review-php.md` and `review-python.md`, along with
+selected module-resolution and resource-management checks in
+`review-typescript.md`, adapt and substantially rewrite selected topics from
+[`awesome-skills/code-review-skill` at commit
+`4850184dfd7765ea7b3c5c4e9b6cf8e0815ee7cb`](https://github.com/awesome-skills/code-review-skill/tree/4850184dfd7765ea7b3c5c4e9b6cf8e0815ee7cb),
+specifically `reference/php.md`, `reference/python.md`, and
+`reference/typescript.md`. The upstream work is distributed under MIT,
+copyright 2025 awesome-skills. Its license is retained as
+`agent-plugins/skills/code-review/LICENSE.awesome-skills` and in both generated
+copies. The adaptation omits the upstream general reviewer, scripts, mandatory
+tools, formatter changes, coverage thresholds, and project-wide tool runs.
+
+## Go workflows and conditional references
+
+The Go checks in `code-review`, the `go-security-audit` and `go-benchmark`
+skills, and selected conditional Go guidance in `review-arch`,
+`code-simplification`, `debugging-and-error-recovery`, `vet-dependency`, and
+`console-ux-design` adapt and substantially rewrite selected workflows and
+references from Samuel Berthe's
+[`samber/cc-skills-golang` at commit
+`8e899e20ff0cd4dc524af3993e4c62d8ee8c5717`](https://github.com/samber/cc-skills-golang/tree/8e899e20ff0cd4dc524af3993e4c62d8ee8c5717).
+The selected topics include security, benchmarks/performance, concurrency,
+context, safety, errors, testing, database access, observability, refactoring,
+troubleshooting, dependencies, design patterns, and command-line interfaces.
+The upstream MIT license is retained as `LICENSE.samber-cc-skills-golang` in
+each affected canonical package and both generated copies. The adaptations
+omit automatic delegation, installations, fixes during audit, mandatory
+numeric scoring, production access, and external workflow configuration.
+
+The Go checks in `code-review`, the Go specification reference in
+`review-spec`, and selected conditional guidance in `api-and-interface-design`,
+`deprecation-and-migration`, and `console-ux-design` also adapt and substantially
+rewrite Steve Francia's
+[`spf13/go-skills` at commit
+`9ac6eca43161163bb21621a520a57df50d5ad464`](https://github.com/spf13/go-skills/tree/9ac6eca43161163bb21621a520a57df50d5ad464),
+including its Go, specification review, Cobra/Viper, and release-compatibility
+guidance. The upstream MIT license is retained as `LICENSE.spf13-go-skills` in
+each affected canonical package and generated copies. The adaptations replace
+global project-layout preferences and tool mandates with version- and
+repository-dependent checks. No material from the unlicensed Teetsh source is
+bundled. Attribution does not imply endorsement by upstream maintainers.
+
+## PHP modernization
+
+The `php-modernization` skill body and its
+`references/compatibility-and-tools.md` adapt and substantially rewrite
+Netresearch DTT GmbH's
+[`php-modernization-skill` at commit
+`8df68546e8d9fa00e4530e9c26e73adcc3322834`](https://github.com/netresearch/php-modernization-skill/tree/8df68546e8d9fa00e4530e9c26e73adcc3322834),
+including its skill definition and selected migration, typing, immutability,
+and tooling references. Upstream content is licensed under
+[CC-BY-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/), copyright
+2025-2026 Netresearch DTT GmbH. These adapted documents remain under
+CC-BY-SA-4.0 rather than the root MIT license. The upstream license notice and
+an adaptation notice are retained as `LICENSE.netresearch-content` and
+`NOTICE.netresearch` in the canonical skill and generated copies. Changes
+include scoped preview/apply, version-dependent framework checks, explicit
+execution side effects, and incomplete-verification states. Original UI
+metadata remains under the repository MIT license. No upstream scripts,
+Composer plugin, installer, or workflows are bundled. Attribution does not
+imply endorsement.
+
 ## Stop Slop
 
 The `stop-slop` skill is adapted from

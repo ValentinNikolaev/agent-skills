@@ -1,0 +1,4 @@
+interface:
+  display_name: "Go Security Audit"
+  short_description: "Trace bounded Go security risks with evidence"
+  default_prompt: "Use $go-security-audit to audit the named Go trust boundaries and report confirmed risks, defenses, and coverage limits without editing code."

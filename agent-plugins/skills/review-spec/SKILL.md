@@ -22,6 +22,8 @@ Review a proposed design or requirements document before it becomes an implement
 3. Inspect only the code, interfaces, and configuration needed to verify material claims about the current system. Do not turn this into an unrelated repository audit.
 4. Separate explicit requirements, design decisions, assumptions, and open questions. An assumed business priority is not a fact.
 
+For a specification targeting Go, read [references/go-spec-checks.md](references/go-spec-checks.md). Apply its language and CLI checks only where the design uses those boundaries; keep the same readiness verdict and evidence rules.
+
 ## Evaluate the spec
 
 Check the dimensions that apply:

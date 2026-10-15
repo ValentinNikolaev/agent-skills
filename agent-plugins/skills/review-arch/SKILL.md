@@ -35,6 +35,12 @@ For each consequential decision, assess:
 
 Ground each finding in a file, diagram, decision record, requirement, or observed runtime behavior. Trace the consequence through a plausible scenario and check for mitigations. Do not infer operational needs solely from a methodology or demand every quality attribute be maximized. If a key priority is unknown, present the conditional alternatives and the decision needed.
 
+## Go lifecycle, when applicable
+
+For Go systems, trace ownership of background goroutines, shared state, connections, and shutdown across package boundaries. Check whether fan-out, queued work, retries, and partial failures remain bounded under the stated load. Judge flat packages, `internal/`, architectural layers, and DI containers by their observed dependency/lifecycle cost; none is a defect by name. Reuse the same scenario-based evidence standard instead of requiring a particular Go architecture.
+
+Selected Go lifecycle considerations adapt [Samber's design-pattern guidance](https://github.com/samber/cc-skills-golang/blob/8e899e20ff0cd4dc524af3993e4c62d8ee8c5717/skills/golang-design-patterns/SKILL.md), under the bundled `LICENSE.samber-cc-skills-golang`.
+
 ## Report
 
 Return the reviewed boundary and evidence, then a verdict of `SOUND`, `CONCERNS`, or `BLOCKED`. `BLOCKED` means essential context is unavailable. Group evidence-backed findings as critical risks, significant concerns, and observations; give each the triggering scenario, impact, and smallest useful decision or experiment. Include sound decisions worth preserving, open questions, and verification limits. A structural concern does not automatically block a small code change; state what decision it affects.

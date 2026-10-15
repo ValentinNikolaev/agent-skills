@@ -1,0 +1,16 @@
+PHP modernization content adaptation
+
+Source: https://github.com/netresearch/php-modernization-skill
+Revision: 8df68546e8d9fa00e4530e9c26e73adcc3322834
+Copyright (c) 2025-2026 Netresearch DTT GmbH
+License: Creative Commons Attribution-ShareAlike 4.0 International
+License URL: https://creativecommons.org/licenses/by-sa/4.0/
+
+The SKILL.md body and references/compatibility-and-tools.md adapt and
+substantially rewrite upstream instructions and selected migration,
+immutability, typing, and tool-safety topics. Changes include portable
+routing, version-dependent framework rules, scoped preview/apply, preservation
+of parallel work, explicit side effects, and incomplete-verification states.
+These adapted documents remain under CC-BY-SA-4.0. Original UI metadata is
+covered by the repository MIT license. No upstream scripts are bundled.
+Attribution does not imply endorsement by Netresearch DTT GmbH.

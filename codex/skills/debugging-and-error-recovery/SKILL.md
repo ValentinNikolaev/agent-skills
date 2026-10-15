@@ -32,6 +32,12 @@ Find the cause of an observed failure, make the smallest justified correction, a
 3. Make the smallest fix that addresses the cause. Preserve unrelated user work and avoid masking the failure with skipped tests, swallowed errors, or looser assertions.
 4. Add or adjust a regression check when the behavior is testable at reasonable cost. Confirm the check fails for the original defect in an isolated copy or equivalent controlled input when practical; an unrelated compile failure does not count.
 
+## Go diagnostics, when applicable
+
+For Go failures, first record the resolved module/workspace, actual toolchain, GOOS/GOARCH, build tags, CGO settings, and selected package/test. Confirm the edited file participates in that build before blaming or clearing caches. Choose diagnostics for the observed symptom: stack dumps for blocked goroutines, a targeted supported race run for a contested access, or an existing debugger/profile for a localized path. Inspect diagnostic side effects and protect private data; do not expose a profiling endpoint, install tools, or run a repository-wide race/fuzz campaign automatically. A race-free run only covers executed paths. Use `go-benchmark` for a subsequent controlled performance experiment rather than treating a profile alone as proof of improvement.
+
+These Go-specific diagnostics adapt [Samber's troubleshooting guidance](https://github.com/samber/cc-skills-golang/blob/8e899e20ff0cd4dc524af3993e4c62d8ee8c5717/skills/golang-troubleshooting/SKILL.md), under the bundled `LICENSE.samber-cc-skills-golang`.
+
 ## Verify and report
 
 Run the focused check and the original scenario, then any broader checks needed for the changed boundary. Distinguish observed passes, skips, unrun checks, and unverifiable behavior. Do not require a full suite merely because one exists; follow the repository's normal gates and the risk of this fix.

@@ -26,6 +26,12 @@ Design an interface consumers can use, validate, and evolve. Adapted from Addy O
 4. Address pagination, partial updates, idempotency, duplicate in-flight requests, timeouts, retries, and authorization only when the operation needs them. Specify the outcome of each relevant edge case rather than importing a generic pattern.
 5. Compare at least one simpler contract that meets the same requirements. Identify naming or versioning choices that create ambiguity for consumers.
 
+## Go contracts, when applicable
+
+For Go APIs, check the supported toolchain and actual consumers before choosing interfaces or generics. Define interfaces around a consumer's required capabilities when that keeps the contract smaller; avoid an interface or generic abstraction that adds no required variation. Check typed-nil/error semantics and resource ownership at the boundary. Adding a method to an exported interface can break downstream implementations even when your own code still builds; separate that compatibility obligation from a local refactor.
+
+These Go-specific considerations adapt [spf13's Go API guidance](https://github.com/spf13/go-skills/blob/9ac6eca43161163bb21621a520a57df50d5ad464/go/SKILL.md), under the bundled `LICENSE.spf13-go-skills`; they do not prescribe a universal package layout.
+
 ## Make it testable
 
 Give representative valid, invalid, and failure examples. Identify contract tests or probes at the actual boundary, including serialization and compatibility when relevant. Verify claims against the installed framework or protocol version and local implementation pattern. Return the proposed contract, consumer assumptions, alternatives, acceptance evidence, and unresolved decisions. Do not claim runtime compatibility from type checking alone.

@@ -10,6 +10,21 @@ Apply these checks only to changed Go behavior and nearby tests. The repository'
 - For shared state, inspect all relevant accesses and synchronization, including tests. A passing non-race test does not establish race freedom.
 - On changed interfaces or method signatures, search implementations, callers, registrations, mocks, and generated interfaces before declaring them updated or broken.
 - Check map lookups that purport to prove membership: the zero value alone is insufficient when the `ok` result matters.
+- Follow slice backing arrays and map references across copies, returned values, caches, and goroutine boundaries. An `append` can mutate storage still observed elsewhere; a copied slice header is not an independent buffer. Report aliasing only when the shared mutation affects a reachable contract.
+- Trace resource ownership on success, early return, and partial failure. Check deferred argument evaluation, defers accumulating inside long loops, response-body closure, and database rows' final iteration error where those paths changed.
+
+## Cancellation and bounded work
+
+- Follow the incoming context through HTTP, database, retry, and goroutine boundaries. Check that cancel functions are called or ownership is explicitly transferred. A fresh `Background` or `WithoutCancel` needs a justified lifetime, shutdown owner, and bound; detaching cancellation does not create those guarantees.
+- Identify both the number of active workers and the amount of queued work under untrusted or large input. `WaitGroup.Go` handles bookkeeping, not a concurrency limit or error propagation. Use it only on a supported Go version; do not reject a justified worker pool or mutex because another idiom exists.
+- For channels, trace cancellation while blocked on either send or receive. Check who observes worker errors and who drains or stops work after the first failure. A buffer alone does not establish a shutdown path.
+
+## Database and production boundaries
+
+- Follow a transaction through every return and check which operations actually use the transaction rather than the outer pool. Check commit errors, rollback handling, cancellation, and the isolation/locking contract relevant to the changed operation.
+- Check query parameters and driver-specific placeholders rather than assuming one SQL dialect. Trace tenant or authorization scope from trusted identity to the actual query. Do not flag safe SQL fragments solely because concatenation occurs.
+- For changed HTTP services, inspect request/body limits, configured timeouts, streaming behavior, and graceful shutdown against the real deployment. Avoid imposing arbitrary timeout values or a blanket ban on wildcard bind addresses.
+- For telemetry, inspect context propagation, goroutine ownership, and shutdown/flush behavior. Check metric units and cardinality; do not put raw user input, credentials, or unbounded identifiers into labels or logs.
 
 ## Tests
 
@@ -19,9 +34,15 @@ Apply these checks only to changed Go behavior and nearby tests. The repository'
 - Keep `t.Fatal` and `t.FailNow` in the test goroutine. For HTTP handlers or background goroutines, return an error through a channel or another observable the test can assert.
 - For HTTP adapter tests, inspect the request actually sent and the response/error contract. `httptest` may test the boundary without calling a live service; label skipped integration work as unrun, not passed.
 - When a test claims all registry entries or cases are covered, verify membership and counts instead of accepting zero values or vacuous loops.
+- Prefer deterministic coordination for concurrent tests; arbitrary sleeps and a green race-detector run do not prove that the contested order occurred. Consider `testing/synctest` only when the project's Go version supports it and its model fits the code.
+- Do not require or forbid testify, leak detectors, table-driven tests, or mocks as a universal rule. Apply the project's existing conventions and judge whether the assertion distinguishes the intended behavior.
 
 ## Verification
 
 Prefer the repository's narrow package test command. Suggest a targeted race-detector run when changed concurrency creates a plausible race and the environment supports it; it has substantial runtime cost and only observes paths executed by the test. Do not infer race freedom from one green run.
+
+Inspect `go.mod`, `go.work`, build tags, generated files, and the toolchain actually used before recommending newer APIs. Keep a whole-system security audit in `go-security-audit` and reproducible performance measurement in `go-benchmark`; neither runs automatically as part of this diff review. A style modernization or generic optimization claim is not a defect without a concrete failure or measured contract violation.
+
+Selected lifecycle, context, safety, database, testing, and telemetry checks are adapted from [Samber's Go skills](https://github.com/samber/cc-skills-golang/tree/8e899e20ff0cd4dc524af3993e4c62d8ee8c5717/skills); version-aware API and bounded-concurrency guidance also adapts [spf13's Go skill](https://github.com/spf13/go-skills/blob/9ac6eca43161163bb21621a520a57df50d5ad464/go/SKILL.md). See the package's scoped MIT licenses and repository third-party notices.
 
 Go references: [testing package](https://pkg.go.dev/testing), [race detector](https://go.dev/doc/articles/race_detector).

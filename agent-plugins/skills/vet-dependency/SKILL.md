@@ -19,6 +19,12 @@ Evaluate a named package before adopting, replacing, or dropping it. Use current
 2. Resolve the package through registry or module metadata to the published artifact and declared source repository. Verify tags, subdirectories, forks, and redirects before attributing repository activity to the artifact. If the source repository cannot be established, mark maintenance evidence unknown rather than substituting a search result.
 3. Check the exact published version against the required contract. Prefer source code, package metadata, generated API surfaces, and a small isolated probe over README claims. If a search finds nothing, verify that the searched release is indexed or inspect the artifact directly before claiming absence.
 
+## Go modules, when applicable
+
+For Go candidates, resolve the module path, package subdirectory, exact version, required Go version, and applicable major-version suffix. Inspect `go.mod`, `go.sum`, `go.work`, and `replace`/`exclude`/`retract` directives when relevant. A local fork selected by `replace` is not the published artifact that downstream consumers resolve; describe both explicitly. Check the selected module graph rather than assuming requested direct versions are the entire build. Distinguish checksum integrity, known advisories, affected build conditions, and vulnerable-symbol reachability. Use installed lookup tools only as optional evidence sources; official module/package metadata is a fallback, not a reason to install godig or register a hosted MCP server. Do not run `go get` or `go mod tidy` as part of read-only vetting.
+
+These module-specific considerations adapt [Samber's dependency-management](https://github.com/samber/cc-skills-golang/blob/8e899e20ff0cd4dc524af3993e4c62d8ee8c5717/skills/golang-dependency-management/SKILL.md) and package-lookup guidance, under the bundled `LICENSE.samber-cc-skills-golang`.
+
 ## Measure maintenance and fit
 
 Inspect recent releases, issue and pull-request handling, compatibility work, and the project's own upgrade constraints. Distinguish an inactive maintainer from a quiet mature project; stars and last-push timestamps alone do not settle maintenance. Check whether support for the required version is released, pending in an unanswered PR, or absent. Record dates and links because these facts change.

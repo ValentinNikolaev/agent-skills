@@ -1,0 +1,4 @@
+interface:
+  display_name: "PHP Modernization"
+  short_description: "Modernize PHP with scoped compatibility checks"
+  default_prompt: "Use $php-modernization to assess or implement this scoped PHP upgrade, preview changes, and report compatibility evidence and missing checks."

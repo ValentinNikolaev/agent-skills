@@ -1,0 +1,58 @@
+[
+  {
+    "id": "python-default-shared",
+    "language": "python",
+    "context": "Python 3.10+; collect() must return only the current call's item. This is a new helper in a diff. No callers supply items.",
+    "source": "def collect(item, items=[]):\n    items.append(item)\n    return items\n",
+    "probe": "print(collect('first')); print(collect('second'))",
+    "observed_stdout": "['first']\n['first', 'second']\n",
+    "expected_findings": ["The mutable default persists across calls and mixes independent results."],
+    "location_line": 1
+  },
+  {
+    "id": "python-default-isolated",
+    "language": "python",
+    "context": "Python 3.10+; collect() must return only the current call's item. This is a new helper in a diff. No callers supply items.",
+    "source": "def collect(item, items=None):\n    if items is None:\n        items = []\n    items.append(item)\n    return items\n",
+    "probe": "print(collect('first')); print(collect('second'))",
+    "observed_stdout": "['first']\n['second']\n",
+    "expected_findings": [],
+    "location_line": null
+  },
+  {
+    "id": "python-cancellation-swallowed",
+    "language": "python",
+    "context": "Python 3.10+ asyncio; worker cancellation must propagate to the caller, which distinguishes cancellation from successful completion.",
+    "source": "import asyncio\n\nasync def worker():\n    try:\n        raise asyncio.CancelledError()\n    except asyncio.CancelledError:\n        return 'done'\n",
+    "probe": "async def probe():\n    try:\n        print(await worker())\n    except asyncio.CancelledError:\n        print('cancelled')\nasyncio.run(probe())",
+    "observed_stdout": "done\n",
+    "expected_findings": ["Cancellation is converted into a successful result despite the caller contract."],
+    "location_line": 7
+  },
+  {
+    "id": "python-cancellation-propagated",
+    "language": "python",
+    "context": "Python 3.10+ asyncio; worker cancellation must propagate to the caller, which distinguishes cancellation from successful completion.",
+    "source": "import asyncio\n\nasync def worker():\n    try:\n        raise asyncio.CancelledError()\n    except asyncio.CancelledError:\n        raise\n",
+    "probe": "async def probe():\n    try:\n        print(await worker())\n    except asyncio.CancelledError:\n        print('cancelled')\nasyncio.run(probe())",
+    "observed_stdout": "cancelled\n",
+    "expected_findings": [],
+    "location_line": null
+  },
+  {
+    "id": "php-token-loose",
+    "language": "php",
+    "context": "PHP 8.2; $supplied is untrusted. Only the exact non-empty stored token grants access. Stored and supplied tokens may both be different numeric-looking strings such as 0e123 and 0e456. This pure helper has no other guards.",
+    "source": "<?php\nfunction allows(string $supplied, string $stored): bool {\n    return $supplied == $stored;\n}\n",
+    "expected_findings": ["Loose numeric-string comparison allows distinct tokens to compare equal and grants access."],
+    "location_line": 3
+  },
+  {
+    "id": "php-token-exact",
+    "language": "php",
+    "context": "PHP 8.2; $supplied is untrusted. Only the exact non-empty stored token grants access. Stored and supplied tokens may both be different numeric-looking strings such as 0e123 and 0e456. This pure helper has no other guards. Constant-time comparison is intentional.",
+    "source": "<?php\nfunction allows(string $supplied, string $stored): bool {\n    return $stored !== '' && hash_equals($stored, $supplied);\n}\n",
+    "expected_findings": [],
+    "location_line": null
+  }
+]

@@ -31,6 +31,12 @@ Move consumers from an existing contract to a replacement without assuming remov
 3. Define notices or migration instructions for affected consumers and a measurable removal gate. Do not equate a zero-result repository search with zero external use.
 4. Separate destructive removal from the replacement rollout when coexistence or rollback requires it. Verify the resolved target and ownership before any deletion or move.
 
+## Published Go modules, when applicable
+
+For published Go modules, inventory exported symbols, interface implementations, import paths, required Go versions, and observable error/serialization behavior. Adding a method to an exported interface can break downstream implementations; a local green build is insufficient. Account for semantic import versioning and path-specific exceptions when planning a new major module. Check the published artifact without relying on local `replace` directives or workspace state. An existing version-pinned API compatibility tool can supplement consumer evidence but does not prove behavioral compatibility. Published tags must remain immutable; a retraction advises module tooling about a bad version rather than deleting cached copies or migrating users automatically. Keep tagging, pushing, and GoReleaser publication outside a planning or inspection request.
+
+These Go compatibility checks adapt [spf13's release guidance](https://github.com/spf13/go-skills/blob/9ac6eca43161163bb21621a520a57df50d5ad464/go-release/SKILL.md), under the bundled `LICENSE.spf13-go-skills`.
+
 ## Verify and report
 
 Test or inspect the old/new compatibility combinations that actually occur in deployment. Record the consumer inventory, phase sequence, data and rollback evidence, tests run, removal condition, and unresolved external dependencies. Do not claim the migration is complete until the observed consumer and data conditions meet the stated gate.
