@@ -300,6 +300,9 @@ observations, not golden rewrites or proof of authorship.
 [`humanizer_hypotheses.json`](../tests/fixtures/humanizer_hypotheses.json) keeps
 promising intermediate operations, counterevidence and pending cross-text checks
 separate from confirmed canonical editing rules.
+[`humanizer_comment_followups.json`](../tests/fixtures/humanizer_comment_followups.json)
+retains detailed evaluator questions, recommendations and exact neutral rechecks
+of the previous twenty comments, including unchanged controls and failed edits.
 
 ## Plugin version and README policy
 

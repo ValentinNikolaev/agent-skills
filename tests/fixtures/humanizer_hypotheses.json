@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-23T20:43:53.808989+00:00",
+  "updated_at": "2026-10-23T21:07:55.988979+00:00",
   "policy": "Intermediate observations remain hypotheses until successful reuse on other texts supports their scope and the council selects them. A local benefit and a whole-text pass are recorded separately.",
   "hypotheses": [
     {
@@ -295,6 +295,586 @@
         "whole_text": "No whole-text success; no confirmed AI-style benefit from the one-word correction.",
         "next_validation": "Use a different passage with an additive-particle/subset ambiguity, pre-register the referent and exact edit, and obtain direct clarity feedback plus meaning review before moving beyond proposed."
       }
+    },
+    {
+      "id": "H6",
+      "status": "proposed",
+      "operation": "Keep an earned compact contrast, technical parallelism, or concise closing when both sides do distinct explanatory work.",
+      "experiment_operation_id": "F1",
+      "scope": "Known cases in the previous20 follow-up; see source/voice constraints and exact variants in humanizer_comment_followups.json.",
+      "draft_rule_or_example": {
+        "id": "F1",
+        "operation": "Keep an earned compact contrast, technical parallelism, or concise closing when both sides do distinct explanatory work.",
+        "status": "promising_judgement_not_a_new_rewrite_rule",
+        "devised_by": [
+          "case-001",
+          "case-002",
+          "case-004",
+          "case-011",
+          "case-012",
+          "case-015",
+          "case-017",
+          "case-020"
+        ],
+        "source_voice_counters": [
+          "Case-001 “really” preserves the concession that the chain can work while a shell proves neither CVE.",
+          "Case-005 exploitation evidence and patch urgency must remain distinct despite a balanced finish.",
+          "Unchanged controls were part of the 13/20 fresh outcome; new evaluator wording, not an edit, can explain status change."
+        ],
+        "related_existing_hypothesis": "Consistent with current skill smallest-effective-edit and voice preservation; no H1–H5 promotion.",
+        "other_text_validation": "Use a held-out technical reply with an earned contrast and an apparently tidy finish; compare preservation and reader perception before claiming a transferable keep criterion.",
+        "advisor_support_notes": [
+          "case-002 detail: “I don’t see a worthwhile edit.”",
+          "case-012 detail: “the two conditional sentences distinguish two reasons for the same observable activity”",
+          "case-015 detail: “the contrast and shorthand earn their place.”"
+        ]
+      },
+      "claimed_local_effect": "A provisional judgement with actual whole-text results attached; isolated causal benefit and transfer are not established.",
+      "evidence": [
+        {
+          "case_id": "case-001",
+          "input_sha256": "9e5d7a4c130c4eaec81b34f663a413df17d8f4225cd04e436fccd471473e127f",
+          "version": "after-detailed-feedback",
+          "evidence_kind": "literal whole-text review; local effect not isolated",
+          "literal_excerpt": "with no strong AI-like stylistic cues",
+          "url": "https://chatgpt.com/c/6adbca40-4c8c-83ed-9705-83dd9ee69582",
+          "whole_text_criterion_met": true,
+          "verdict": "met"
+        },
+        {
+          "case_id": "case-002",
+          "input_sha256": "7fa1208506e6265176855ddb82fbfe9a59d15fca5d3a621d702db03f6f691e84",
+          "version": "after-detailed-feedback",
+          "evidence_kind": "literal whole-text review; local effect not isolated",
+          "literal_excerpt": "it doesn’t feel like an imposed template",
+          "url": "https://chatgpt.com/c/6adbca41-fa44-83eb-bcb6-8e8db59e016f",
+          "whole_text_criterion_met": true,
+          "verdict": "met"
+        },
+        {
+          "case_id": "case-004",
+          "input_sha256": "1563c75d475c98850a358115fd7f6a034669010121c0928dc249cf7e3f47f562",
+          "version": "after-detailed-feedback",
+          "evidence_kind": "literal whole-text review; local effect not isolated",
+          "literal_excerpt": "with no strong AI-like stylistic pattern",
+          "url": "https://chatgpt.com/c/6adbca44-6b00-83eb-abd0-c0615c6c178f",
+          "whole_text_criterion_met": true,
+          "verdict": "met"
+        },
+        {
+          "case_id": "case-011",
+          "input_sha256": "b3198a338aef83ed215d79057c75b1f4a098ff531ff4c99798fb8ed673489b37",
+          "version": "after-detailed-feedback",
+          "evidence_kind": "literal whole-text review; local effect not isolated",
+          "literal_excerpt": "isn’t a distinctive sign of AI authorship",
+          "url": "https://chatgpt.com/c/6adbca82-8708-83eb-b891-b81baa3cd498",
+          "whole_text_criterion_met": true,
+          "verdict": "met"
+        },
+        {
+          "case_id": "case-012",
+          "input_sha256": "c5056e79adc8229c81b27f3b01e910c8f08a932663e02b9ee0f137a430371723",
+          "version": "after-detailed-feedback",
+          "evidence_kind": "literal whole-text review; local effect not isolated",
+          "literal_excerpt": "rather than conspicuously formulaic",
+          "url": "https://chatgpt.com/c/6adbca85-aebc-83ed-8e3e-290402a6f8d8",
+          "whole_text_criterion_met": true,
+          "verdict": "met"
+        },
+        {
+          "case_id": "case-015",
+          "input_sha256": "d382d1de6e050dfddc7e99f7c500779d87073eff674f7e39dbf9ddda9b971660",
+          "version": "after-detailed-feedback",
+          "evidence_kind": "literal whole-text review; local effect not isolated",
+          "literal_excerpt": "it carries the actual argument rather than adding a decorative closing",
+          "url": "https://chatgpt.com/c/6adbca8e-8b20-83eb-a63c-042569956f83",
+          "whole_text_criterion_met": true,
+          "verdict": "met"
+        },
+        {
+          "case_id": "case-017",
+          "input_sha256": "4fd00208f5abb98fa19f240755b092a0e1113dd968e3cc8750319d95f5d97279",
+          "version": "after-detailed-feedback",
+          "evidence_kind": "literal whole-text review; local effect not isolated",
+          "literal_excerpt": "There’s no strong stylistic reason to flag it as AI-generated",
+          "url": "https://chatgpt.com/c/6adbcad9-379c-83eb-8236-20941779bbc2",
+          "whole_text_criterion_met": true,
+          "verdict": "met"
+        },
+        {
+          "case_id": "case-020",
+          "input_sha256": "9f85cda822ffc49b70c053b391f16d2e02e9310d4aba2da3d42c234dda99a21d",
+          "version": "after-detailed-feedback",
+          "evidence_kind": "literal whole-text review; local effect not isolated",
+          "literal_excerpt": "it doesn’t feel like an empty template",
+          "url": "https://chatgpt.com/c/6adbcb0a-5360-83eb-a8b4-567086b4f66b",
+          "whole_text_criterion_met": true,
+          "verdict": "met"
+        }
+      ],
+      "counterevidence": [
+        "Case-001 “really” preserves the concession that the chain can work while a shell proves neither CVE.",
+        "Case-005 exploitation evidence and patch urgency must remain distinct despite a balanced finish.",
+        "Unchanged controls were part of the 13/20 fresh outcome; new evaluator wording, not an edit, can explain status change."
+      ],
+      "next_validation": "Use a held-out technical reply with an earned contrast and an apparently tidy finish; compare preservation and reader perception before claiming a transferable keep criterion.",
+      "validated_other_texts": [],
+      "canonical_promotion": false,
+      "council_decision": "Same initial council selected the provisional observation. Promising is limited to case003 connective and case016 actor-preserving wording; no permanent rule or readiness claim.",
+      "experiment_file": "humanizer_comment_followups.json"
+    },
+    {
+      "id": "H7",
+      "status": "promising",
+      "operation": "Turn one of two consecutive crafted finishes into an explanatory connective while retaining both the general inference and recipient-specific application.",
+      "experiment_operation_id": "F2",
+      "scope": "Known cases in the previous20 follow-up; see source/voice constraints and exact variants in humanizer_comment_followups.json.",
+      "draft_rule_or_example": {
+        "id": "F2",
+        "operation": "Turn one of two consecutive crafted finishes into an explanatory connective while retaining both the general inference and recipient-specific application.",
+        "status": "promising_local_unvalidated",
+        "devised_by": [
+          "case-003"
+        ],
+        "source_voice_counters": [
+          "The WAF/filter versus PHP-bug distinction, Cloudflare attribution, “may,” and session-poisoning application all remain.",
+          "The fresh review still called the ending crafted; no response isolates the connective as the cause of its changed verdict.",
+          "Do not narrow “progress on the exploit” to a working exploit without source support."
+        ],
+        "related_existing_hypothesis": "Adjacent to H3’s consolidation of repeated reasoning, but this case retains both distinct steps; do not merge it into H3 as confirmed.",
+        "other_text_validation": "On another reply with two earned but similarly polished finishes, preregister one connective change and obtain explicit local feedback on stacked rhetoric plus a meaning check.",
+        "advisor_support_notes": [
+          "case-003 detail: “The slightly rehearsed impression comes from giving both steps a crafted finish.”",
+          "case-003 detail recommended “, since someone may be learning the filter rather than the PHP bug.”",
+          "case-003 fresh review: “no strong stylistic reason to label it AI-generated”"
+        ]
+      },
+      "claimed_local_effect": "A provisional judgement with actual whole-text results attached; isolated causal benefit and transfer are not established.",
+      "evidence": [
+        {
+          "case_id": "case-003",
+          "input_sha256": "e0b65570fe5e266f2d5da6d0e51813b4201a988651b8e9953033f8cce389e0b5",
+          "version": "after-detailed-feedback",
+          "evidence_kind": "literal whole-text review; local effect not isolated",
+          "literal_excerpt": "no strong stylistic reason to label it AI-generated",
+          "url": "https://chatgpt.com/c/6adbca43-1b34-83eb-b52c-3b91202f1079",
+          "whole_text_criterion_met": true,
+          "verdict": "met"
+        }
+      ],
+      "counterevidence": [
+        "The WAF/filter versus PHP-bug distinction, Cloudflare attribution, “may,” and session-poisoning application all remain.",
+        "The fresh review still called the ending crafted; no response isolates the connective as the cause of its changed verdict.",
+        "Do not narrow “progress on the exploit” to a working exploit without source support."
+      ],
+      "next_validation": "On another reply with two earned but similarly polished finishes, preregister one connective change and obtain explicit local feedback on stacked rhetoric plus a meaning check.",
+      "validated_other_texts": [],
+      "canonical_promotion": false,
+      "council_decision": "Same initial council selected the provisional observation. Promising is limited to case003 connective and case016 actor-preserving wording; no permanent rule or readiness claim.",
+      "experiment_file": "humanizer_comment_followups.json"
+    },
+    {
+      "id": "H8",
+      "status": "proposed",
+      "operation": "Replace a false “but” between complementary safeguards with a plain continuation and direct predicate.",
+      "experiment_operation_id": "F3",
+      "scope": "Known cases in the previous20 follow-up; see source/voice constraints and exact variants in humanizer_comment_followups.json.",
+      "draft_rule_or_example": {
+        "id": "F3",
+        "operation": "Replace a false “but” between complementary safeguards with a plain continuation and direct predicate.",
+        "status": "counterevidenced_as_whole_text_remedy",
+        "devised_by": [
+          "case-009"
+        ],
+        "source_voice_counters": [
+          "The revised passage still repeats interpretation after the idempotent-provider example, so a local connective did not resolve its whole-text cadence.",
+          "Keep one-order/one-charge guarantees, two attempts with the same idempotency key as a possibility, and the payment-effect check.",
+          "Round-two consolidation still drew explicit AI-like feedback; the evaluator suggests a pause but says concrete contrasts are substantive. Do not claim a pass or promote a PO/checks wording rule."
+        ],
+        "related_existing_hypothesis": "H3-adjacent only in the broad sense of avoiding redundant framing; not evidence H3 works.",
+        "other_text_validation": "On another passage where two safeguards are complementary, isolate connective/predicate edits while holding the rest fixed; seek direct local feedback.",
+        "advisor_support_notes": [
+          "case-009 detail: “Their relationship is simpler: agreement establishes the expected behaviour; checks must reveal whether a failure threatens it.”",
+          "case-009 detail recommends “The executable checks also need to make clear…”",
+          "case-009 fresh review: “some formulaic polish, especially in its final two paragraphs”",
+          "case-009 round2: “Its strongest AI-like effect is the sustained polish and density, especially in the final paragraph.”"
+        ]
+      },
+      "claimed_local_effect": "A provisional judgement with actual whole-text results attached; isolated causal benefit and transfer are not established.",
+      "evidence": [
+        {
+          "case_id": "case-009",
+          "input_sha256": "f42aa60deef0eaec7ebe086ed0e7f70b44e2a14a6e4432f8b237dc22c2a82f8d",
+          "version": "round2",
+          "evidence_kind": "literal whole-text review; local effect not isolated",
+          "literal_excerpt": "Its strongest AI-like effect is the sustained polish and density, especially in the final paragraph.",
+          "url": "https://chatgpt.com/c/6adbcbb0-7014-83eb-a41d-be39398cf35c",
+          "whole_text_criterion_met": false,
+          "verdict": "not_met"
+        }
+      ],
+      "counterevidence": [
+        "The revised passage still repeats interpretation after the idempotent-provider example, so a local connective did not resolve its whole-text cadence.",
+        "Keep one-order/one-charge guarantees, two attempts with the same idempotency key as a possibility, and the payment-effect check.",
+        "Round-two consolidation still drew explicit AI-like feedback; the evaluator suggests a pause but says concrete contrasts are substantive. Do not claim a pass or promote a PO/checks wording rule."
+      ],
+      "next_validation": "On another passage where two safeguards are complementary, isolate connective/predicate edits while holding the rest fixed; seek direct local feedback.",
+      "validated_other_texts": [],
+      "canonical_promotion": false,
+      "council_decision": "Same initial council selected the provisional observation. Promising is limited to case003 connective and case016 actor-preserving wording; no permanent rule or readiness claim.",
+      "experiment_file": "humanizer_comment_followups.json"
+    },
+    {
+      "id": "H9",
+      "status": "proposed",
+      "operation": "Remove a restated small-versus-large takeaway and unpack one overloaded remedy sentence without dropping alternatives or caveats.",
+      "experiment_operation_id": "F4",
+      "scope": "Known cases in the previous20 follow-up; see source/voice constraints and exact variants in humanizer_comment_followups.json.",
+      "draft_rule_or_example": {
+        "id": "F4",
+        "operation": "Remove a restated small-versus-large takeaway and unpack one overloaded remedy sentence without dropping alternatives or caveats.",
+        "status": "proposed_with_whole_text_counterevidence",
+        "devised_by": [
+          "case-010"
+        ],
+        "source_voice_counters": [
+          "The revised text still has multiple necessary contrasts and a polished “quietly increasing” close; candidate failed the strict gate.",
+          "Keep the hour-long cross-service signal, aggregate failure rate, no blanket serialisation, version-label causation limit and rollback uncertainty.",
+          "No basis to remove “quietly” as a generalized instruction; it carries unnoticed accumulation."
+        ],
+        "related_existing_hypothesis": "H3 is similarly about consolidating repetition, but this case provides counterevidence against whole-text success.",
+        "other_text_validation": "Use another analytical passage with a demonstrably repeated takeaway; compare the exact removed span and its uncertainty, and seek explicit local repetition feedback.",
+        "advisor_support_notes": [
+          "case-010 detail: “The preceding sentence already explains that several changes leave several candidate causes.”",
+          "case-010 detail recommends separating “keep unrelated changes flowing” from isolated exposure or version-linked observations.",
+          "case-010 fresh review: “some stylistic effects often associated with AI writing”"
+        ]
+      },
+      "claimed_local_effect": "A provisional judgement with actual whole-text results attached; isolated causal benefit and transfer are not established.",
+      "evidence": [
+        {
+          "case_id": "case-010",
+          "input_sha256": "b541fd524683d5715bfe7af7cdf97465f4e21e1211690d3d887aa9c9e52cc452",
+          "version": "after-detailed-feedback",
+          "evidence_kind": "literal whole-text review; local effect not isolated",
+          "literal_excerpt": "some stylistic effects often associated with AI writing",
+          "url": "https://chatgpt.com/c/6adbca7f-1ea0-83ed-892e-9ce9abd34089",
+          "whole_text_criterion_met": false,
+          "verdict": "not_met"
+        }
+      ],
+      "counterevidence": [
+        "The revised text still has multiple necessary contrasts and a polished “quietly increasing” close; candidate failed the strict gate.",
+        "Keep the hour-long cross-service signal, aggregate failure rate, no blanket serialisation, version-label causation limit and rollback uncertainty.",
+        "No basis to remove “quietly” as a generalized instruction; it carries unnoticed accumulation."
+      ],
+      "next_validation": "Use another analytical passage with a demonstrably repeated takeaway; compare the exact removed span and its uncertainty, and seek explicit local repetition feedback.",
+      "validated_other_texts": [],
+      "canonical_promotion": false,
+      "council_decision": "Same initial council selected the provisional observation. Promising is limited to case003 connective and case016 actor-preserving wording; no permanent rule or readiness claim.",
+      "experiment_file": "humanizer_comment_followups.json"
+    },
+    {
+      "id": "H10",
+      "status": "proposed",
+      "operation": "Name an implicit referent already supplied by the passage without inventing a metric or source.",
+      "experiment_operation_id": "F5",
+      "scope": "Known cases in the previous20 follow-up; see source/voice constraints and exact variants in humanizer_comment_followups.json.",
+      "draft_rule_or_example": {
+        "id": "F5",
+        "operation": "Name an implicit referent already supplied by the passage without inventing a metric or source.",
+        "status": "proposed_clarity_only",
+        "devised_by": [
+          "case-013",
+          "case-014"
+        ],
+        "source_voice_counters": [
+          "Both revised texts met in a fresh check, but this does not establish that adding the referent caused the result.",
+          "Adding “from them/users” repeats a noun and may sound heavier; “useful” remains intentionally open.",
+          "Other source roles must not be collapsed merely to remove repetition."
+        ],
+        "related_existing_hypothesis": "Current preserve-referent/actor rule; not H1–H5 style success.",
+        "other_text_validation": "Test on other passages with a genuinely ambiguous response source, including cases where repetition worsens rhythm; assess referent clarity separately from AI-style gate.",
+        "advisor_support_notes": [
+          "case-013 detail: “get a useful response from them” makes explicit that the response comes from users.",
+          "case-014 detail: “the next useful response from users” identifies whose response matters.",
+          "case-013 fresh review: “a clarity issue rather than an AI-specific pattern”",
+          "case-014 fresh review: “That’s ordinary explanatory writing here”"
+        ]
+      },
+      "claimed_local_effect": "A provisional judgement with actual whole-text results attached; isolated causal benefit and transfer are not established.",
+      "evidence": [
+        {
+          "case_id": "case-013",
+          "input_sha256": "e4501111a5cbb34332043cf3cbe17752132e0cb816ad07fa2436836f7f3a4f94",
+          "version": "after-detailed-feedback",
+          "evidence_kind": "literal whole-text review; local effect not isolated",
+          "literal_excerpt": "a clarity issue rather than an AI-specific pattern",
+          "url": "https://chatgpt.com/c/6adbca88-1f94-83ed-be29-05fd72ecff47",
+          "whole_text_criterion_met": true,
+          "verdict": "met"
+        },
+        {
+          "case_id": "case-014",
+          "input_sha256": "d433fdf704887053611802dc48946c27047a41b1f23efdea1ecf209b9567a6d7",
+          "version": "after-detailed-feedback",
+          "evidence_kind": "literal whole-text review; local effect not isolated",
+          "literal_excerpt": "That’s ordinary explanatory writing here",
+          "url": "https://chatgpt.com/c/6adbca8b-68d8-83ed-b578-8a0842706ce4",
+          "whole_text_criterion_met": true,
+          "verdict": "met"
+        }
+      ],
+      "counterevidence": [
+        "Both revised texts met in a fresh check, but this does not establish that adding the referent caused the result.",
+        "Adding “from them/users” repeats a noun and may sound heavier; “useful” remains intentionally open.",
+        "Other source roles must not be collapsed merely to remove repetition."
+      ],
+      "next_validation": "Test on other passages with a genuinely ambiguous response source, including cases where repetition worsens rhythm; assess referent clarity separately from AI-style gate.",
+      "validated_other_texts": [],
+      "canonical_promotion": false,
+      "council_decision": "Same initial council selected the provisional observation. Promising is limited to case003 connective and case016 actor-preserving wording; no permanent rule or readiness claim.",
+      "experiment_file": "humanizer_comment_followups.json"
+    },
+    {
+      "id": "H11",
+      "status": "proposed",
+      "operation": "Keep distinct human evaluation roles explicit where a pronoun could merge them.",
+      "experiment_operation_id": "F6",
+      "scope": "Known cases in the previous20 follow-up; see source/voice constraints and exact variants in humanizer_comment_followups.json.",
+      "draft_rule_or_example": {
+        "id": "F6",
+        "operation": "Keep distinct human evaluation roles explicit where a pronoun could merge them.",
+        "status": "proposed_role_clarity_with_local_counterevidence",
+        "devised_by": [
+          "case-018"
+        ],
+        "source_voice_counters": [
+          "The earlier reviewer reading examples and the human judging a concrete finding need not be the same actor.",
+          "Reject the fresh suggestion “give them a concrete finding” unless context proves the referent is identical; it could silently merge roles.",
+          "The edited case met, but the review calls this a clarity edit, not correction of a distinctive AI cue."
+        ],
+        "related_existing_hypothesis": "Actor-preservation contract; no H1–H5 promotion.",
+        "other_text_validation": "Use a different passage with two evaluators and compare explicit roles versus pronouns; measure referent accuracy and naturalness before preferring either wording.",
+        "advisor_support_notes": [
+          "case-018 detail: “the shift from the precise role ‘the reviewer’ to the generic ‘a person’” is the local issue.",
+          "case-018 fresh review: “repeating ‘the reviewer’ and ‘a human reviewer’ in the same sentence” is more noticeable."
+        ]
+      },
+      "claimed_local_effect": "A provisional judgement with actual whole-text results attached; isolated causal benefit and transfer are not established.",
+      "evidence": [
+        {
+          "case_id": "case-018",
+          "input_sha256": "89bf85267a3a2b2f07b883ade57e7c1a49dfcabb43f06ad62e88b81208bc9edf",
+          "version": "after-detailed-feedback",
+          "evidence_kind": "literal whole-text review; local effect not isolated",
+          "literal_excerpt": "a clarity edit, not a correction of a distinctive AI pattern",
+          "url": "https://chatgpt.com/c/6adbcb04-ce14-83eb-91c3-d5d38921ce9a",
+          "whole_text_criterion_met": true,
+          "verdict": "met"
+        }
+      ],
+      "counterevidence": [
+        "The earlier reviewer reading examples and the human judging a concrete finding need not be the same actor.",
+        "Reject the fresh suggestion “give them a concrete finding” unless context proves the referent is identical; it could silently merge roles.",
+        "The edited case met, but the review calls this a clarity edit, not correction of a distinctive AI cue."
+      ],
+      "next_validation": "Use a different passage with two evaluators and compare explicit roles versus pronouns; measure referent accuracy and naturalness before preferring either wording.",
+      "validated_other_texts": [],
+      "canonical_promotion": false,
+      "council_decision": "Same initial council selected the provisional observation. Promising is limited to case003 connective and case016 actor-preserving wording; no permanent rule or readiness claim.",
+      "experiment_file": "humanizer_comment_followups.json"
+    },
+    {
+      "id": "H12",
+      "status": "rejected",
+      "operation": "Proposed variants that delete corrective/timing emphasis or shorten persistence wording: removing really/proprio or replacing lascia visibili with mostra. These were rejected on meaning/voice grounds before a new external test.",
+      "experiment_operation_id": "F7",
+      "scope": "Known cases in the previous20 follow-up; see source/voice constraints and exact variants in humanizer_comment_followups.json.",
+      "draft_rule_or_example": {
+        "id": "F7",
+        "operation": "Reject a tiny emphasis deletion when the particle carries persistence, timing or concession.",
+        "status": "rejected_for_these_cases",
+        "devised_by": [
+          "case-001",
+          "case-006",
+          "case-007",
+          "case-008"
+        ],
+        "source_voice_counters": [
+          "Case-006 and case-007 originals were retained; their fresh outcomes were unresolved, not evidence that rejected micro-edits would help.",
+          "For case-008 the structural revision remained unresolved; do not confuse it with a proved one-word fix."
+        ],
+        "related_existing_hypothesis": "Counterexample to mechanical word deletion; compatible with current voice and meaning preservation.",
+        "other_text_validation": "If testing a particle on another text, prestate its semantic function and compare exact variants; do not promote a blanket deletion rule.",
+        "advisor_support_notes": [
+          "case-001 detail: “really” is “useful corrective emphasis”.",
+          "case-006 detail: “lascia visibili” carries the idea of maintaining visibility against erasure.",
+          "case-007 detail: deleting “proprio” loses emphasis on the particularly delicate moment.",
+          "case-008 detail: deleting “proprio” is “una preferenza stilistica marginale”."
+        ]
+      },
+      "claimed_local_effect": "A provisional judgement with actual whole-text results attached; isolated causal benefit and transfer are not established.",
+      "evidence": [
+        {
+          "case_id": "case-001",
+          "input_sha256": "9e5d7a4c130c4eaec81b34f663a413df17d8f4225cd04e436fccd471473e127f",
+          "version": "after-detailed-feedback",
+          "evidence_kind": "literal whole-text review; local effect not isolated",
+          "literal_excerpt": "with no strong AI-like stylistic cues",
+          "url": "https://chatgpt.com/c/6adbca40-4c8c-83ed-9705-83dd9ee69582",
+          "whole_text_criterion_met": true,
+          "verdict": "met"
+        },
+        {
+          "case_id": "case-006",
+          "input_sha256": "f1909c3b93946b5a1bf7038d894150d7414d89f2f76724276573d671fe7993ce",
+          "version": "after-detailed-feedback",
+          "evidence_kind": "literal whole-text review; local effect not isolated",
+          "literal_excerpt": "Gli elementi che possono dare un’impressione più costruita sono:",
+          "url": "https://chatgpt.com/c/6adbca47-7a28-83ed-b396-f5c1f3cabd48",
+          "whole_text_criterion_met": false,
+          "verdict": "unresolved"
+        },
+        {
+          "case_id": "case-007",
+          "input_sha256": "a1cdf0007ae06cf4edaa18c236ddceefcb3560ad79de304f4695339620771ee1",
+          "version": "after-detailed-feedback",
+          "evidence_kind": "literal whole-text review; local effect not isolated",
+          "literal_excerpt": "I punti che possono dare una lieve impressione di costruzione sono:",
+          "url": "https://chatgpt.com/c/6adbca49-f2d8-83ed-a543-b24a43d09325",
+          "whole_text_criterion_met": false,
+          "verdict": "unresolved"
+        },
+        {
+          "case_id": "case-008",
+          "input_sha256": "7206cad0eea1c1dfe169fd3e240f185ccbfc935a4c598ab607157cf00b742391",
+          "version": "round2",
+          "evidence_kind": "literal whole-text review; local effect not isolated",
+          "literal_excerpt": "I dettagli che possono dare un’impressione più costruita sono:",
+          "url": "https://chatgpt.com/c/6adbcbae-0ff4-83ed-94b5-84d5c10dcbe5",
+          "whole_text_criterion_met": false,
+          "verdict": "unresolved"
+        }
+      ],
+      "counterevidence": [
+        "Case-006 and case-007 originals were retained; their fresh outcomes were unresolved, not evidence that rejected micro-edits would help.",
+        "For case-008 the structural revision remained unresolved; do not confuse it with a proved one-word fix."
+      ],
+      "next_validation": "If testing a particle on another text, prestate its semantic function and compare exact variants; do not promote a blanket deletion rule.",
+      "validated_other_texts": [],
+      "canonical_promotion": false,
+      "council_decision": "Same initial council selected the provisional observation. Promising is limited to case003 connective and case016 actor-preserving wording; no permanent rule or readiness claim.",
+      "experiment_file": "humanizer_comment_followups.json"
+    },
+    {
+      "id": "H13",
+      "status": "promising",
+      "operation": "Express a process-triggered new risk decision in plain language while keeping its decision-maker unspecified; do not silently resolve an ambiguous approval-path referent.",
+      "experiment_operation_id": "F8",
+      "scope": "Known cases in the previous20 follow-up; see source/voice constraints and exact variants in humanizer_comment_followups.json.",
+      "draft_rule_or_example": {
+        "id": "F8",
+        "operation": "Do not turn an unspecified trigger into the recipient’s personal action, or decide an ambiguous “there” without source support.",
+        "status": "scope_risk_rejected_for_original;_round_two_local_result_needs_separate_gate_audit",
+        "devised_by": [
+          "case-016",
+          "case-019"
+        ],
+        "source_voice_counters": [
+          "Case-016 original asks whether widened rollout triggers a risk decision without fixing the actor; active “you” narrows that.",
+          "Case-019 source angle favors the no-human-approval path but the utterance itself leaves some referent ambiguity; root kept the original.",
+          "Round-two wording avoids active “you” and was received as clear, but “Does that prompt another decision about the risk?” was called slightly wordy. This does not validate shifting an unspecified process trigger to the recipient."
+        ],
+        "related_existing_hypothesis": "Current actor, referent and scope preservation; not H1–H5 validation.",
+        "other_text_validation": "On a new source with an explicit decision owner or approval-path referent, test a direct wording change; reject if it chooses an actor/meaning absent from source.",
+        "advisor_support_notes": [
+          "case-016 detail proposes “do you reassess the risk at that point?” but notes it “addresses the recipient’s practice more directly” than the original process question.",
+          "case-019 detail notes “there” could refer to the risk tier or approval path.",
+          "case-016 round2: “It doesn’t feel like an imposed template” and “I’d keep it as written.”"
+        ]
+      },
+      "claimed_local_effect": "A provisional judgement with actual whole-text results attached; isolated causal benefit and transfer are not established.",
+      "evidence": [
+        {
+          "case_id": "case-016",
+          "input_sha256": "31eed0f523d3c6991498bd6cdc9708d2d1a00fb271a9834ddeee9d0e6c4275ba",
+          "version": "round2",
+          "evidence_kind": "literal whole-text review; local effect not isolated",
+          "literal_excerpt": "Shortening the ending would be optional copyediting, not a meaningful fix for an AI-like pattern.",
+          "url": "https://chatgpt.com/c/6adbcbb3-26a0-83ed-a213-32c7f5cf43f4",
+          "whole_text_criterion_met": true,
+          "verdict": "met"
+        },
+        {
+          "case_id": "case-019",
+          "input_sha256": "fb7ae569ddd5475a66f02dbf5adb6d479d8a4504517a665a51a2e59d0c0c866b",
+          "version": "after-detailed-feedback",
+          "evidence_kind": "literal whole-text review; local effect not isolated",
+          "literal_excerpt": "not a meaningful AI cue by itself",
+          "url": "https://chatgpt.com/c/6adbcb07-a600-83eb-8368-553af36fffd2",
+          "whole_text_criterion_met": true,
+          "verdict": "met"
+        }
+      ],
+      "counterevidence": [
+        "Case-016 original asks whether widened rollout triggers a risk decision without fixing the actor; active “you” narrows that.",
+        "Case-019 source angle favors the no-human-approval path but the utterance itself leaves some referent ambiguity; root kept the original.",
+        "Round-two wording avoids active “you” and was received as clear, but “Does that prompt another decision about the risk?” was called slightly wordy. This does not validate shifting an unspecified process trigger to the recipient."
+      ],
+      "next_validation": "On a new source with an explicit decision owner or approval-path referent, test a direct wording change; reject if it chooses an actor/meaning absent from source.",
+      "validated_other_texts": [],
+      "canonical_promotion": false,
+      "council_decision": "Same initial council selected the provisional observation. Promising is limited to case003 connective and case016 actor-preserving wording; no permanent rule or readiness claim.",
+      "experiment_file": "humanizer_comment_followups.json"
+    },
+    {
+      "id": "H14",
+      "status": "proposed",
+      "operation": "Restructure a source-driven argument only when a local cue remains after honest preservation and the new order does not append authority or fabricate evidence.",
+      "experiment_operation_id": "F9",
+      "scope": "Known cases in the previous20 follow-up; see source/voice constraints and exact variants in humanizer_comment_followups.json.",
+      "draft_rule_or_example": {
+        "id": "F9",
+        "operation": "Restructure a source-driven argument only when a local cue remains after honest preservation and the new order does not append authority or fabricate evidence.",
+        "status": "round_two_constructed_impression_unresolved",
+        "devised_by": [
+          "case-008"
+        ],
+        "source_voice_counters": [
+          "First-person “aggiungo/do,” terminal and extra attempts, broad relevant conditions, independent evaluator, supplier update framing, Google DeepMind attribution and correct-but-stale report must all survive.",
+          "The evaluator calls the request → example → research order normal unless repeated across many comments, but still names a constructed impression; separate gate audit must classify it. The proposed “dopo la prova” → “dopo il test” is clarity only."
+        ],
+        "related_existing_hypothesis": "H4 is about embedding a required fact and is unsupported in a different post; this is a separate structural hypothesis, not evidence for H4.",
+        "other_text_validation": "Freeze a different source with a genuinely overpackaged example→authority→proposal→warning order; compare a source-faithful reordered version and explicitly assess whether it creates a new template.",
+        "advisor_support_notes": [
+          "case-008 fresh recheck: “The cumulative impression comes from its orderly progression: a concrete example, a research reference, a proposed safeguard, and a consequence.”",
+          "case-008 detail: “Cercare di appiattire la chiusa… offrirebbe poco vantaggio.”",
+          "case-008 round2: «I dettagli che possono dare un’impressione più costruita sono»; the closing DeepMind reference gives «una struttura ordinata»."
+        ]
+      },
+      "claimed_local_effect": "A provisional judgement with actual whole-text results attached; isolated causal benefit and transfer are not established.",
+      "evidence": [
+        {
+          "case_id": "case-008",
+          "input_sha256": "7206cad0eea1c1dfe169fd3e240f185ccbfc935a4c598ab607157cf00b742391",
+          "version": "round2",
+          "evidence_kind": "literal whole-text review; local effect not isolated",
+          "literal_excerpt": "I dettagli che possono dare un’impressione più costruita sono:",
+          "url": "https://chatgpt.com/c/6adbcbae-0ff4-83ed-94b5-84d5c10dcbe5",
+          "whole_text_criterion_met": false,
+          "verdict": "unresolved"
+        }
+      ],
+      "counterevidence": [
+        "First-person “aggiungo/do,” terminal and extra attempts, broad relevant conditions, independent evaluator, supplier update framing, Google DeepMind attribution and correct-but-stale report must all survive.",
+        "The evaluator calls the request → example → research order normal unless repeated across many comments, but still names a constructed impression; separate gate audit must classify it. The proposed “dopo la prova” → “dopo il test” is clarity only."
+      ],
+      "next_validation": "Freeze a different source with a genuinely overpackaged example→authority→proposal→warning order; compare a source-faithful reordered version and explicitly assess whether it creates a new template.",
+      "validated_other_texts": [],
+      "canonical_promotion": false,
+      "council_decision": "Same initial council selected the provisional observation. Promising is limited to case003 connective and case016 actor-preserving wording; no permanent rule or readiness claim.",
+      "experiment_file": "humanizer_comment_followups.json"
     }
   ],
   "final_council_audit": {
