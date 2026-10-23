@@ -14,6 +14,11 @@ no upload or benchmark. The request covers that text and service only; do not
 send surrounding private documents, voice files, samples, or project context.
 Follow any stricter project permission or publication rules.
 
+Complete the internal edit and meaning/voice checks before consulting the
+service. By default, check the finished exact text once. A baseline comparison
+or repeated measurements belong to an explicitly requested comparison or
+skill-tuning experiment, not an ordinary humanizing pass.
+
 1. Fix the evaluation set and the exact original texts before adapting the
    editing approach to their results. For a batch, record case IDs and reserve
    held-out contexts where possible. Keep an in-sample result separate from
@@ -36,10 +41,11 @@ Follow any stricter project permission or publication rules.
    Preserve stance, scope, uncertainty, references, and technical terms. Do
    not invent experience, add typos or noise, or chase a score at the expense
    of the writing. A residual stylistic cue is not a strict pass.
-4. Check each candidate against the source before submission. By default, test
-   a baseline and at most two revised candidates per case; extend only for a
-   specific remaining defect that can be repaired without violating the voice
-   or meaning contract. Test the exact final wording. Do not treat a council
+4. Check each candidate against the source before submission. For an explicitly
+   requested comparison or tuning experiment, retain the requested baseline and
+   test at most two revised candidates per case; extend only for a specific
+   remaining defect that can be repaired without violating the voice or meaning
+   contract. Test the exact final wording. Do not treat a council
    verdict or an intermediate candidate's result as the final result.
 5. Report the service's literal score, category, or qualitative finding for
    each exact version, and distinguish observed change from interpretation.

@@ -13,6 +13,11 @@ An effective edit can be small, and an already natural passage can stay unchange
 Humanizing does not require a more casual, warmer, punchier, shorter, or more
 opinionated voice.
 
+Make the editorial decisions and necessary changes yourself first, then check
+meaning and voice. An external analyzer is only an optional final check of the
+finished exact text when requested and authorized. It is not a prerequisite,
+a first editing step, or a substitute for your own judgement.
+
 ## Establish the editing contract
 
 - Identify the target passage, language, audience, genre, and requested operation.
@@ -69,8 +74,8 @@ under the cover of a style edit.
 ## Identify what creates the AI-generated impression
 
 Read the whole passage before changing isolated phrases. Identify the wording or
-recurring structure behind the impression, then choose edits through the council
-procedure below. Look for:
+recurring structure behind the impression, then choose the review depth below.
+Look for:
 
 - **Delayed point:** throat-clearing, announcements of insight, or a recap that
   the reader does not need. Bring forward the existing point without adding one.
@@ -109,7 +114,23 @@ languages, use their idiom and the supplied calibration rather than mechanically
 translating an English blacklist. Read [examples](references/examples.md) only
 when the boundary between a useful edit and voice drift needs clarification.
 
-## Use a council to choose the edits
+## Scale review to the edit
+
+For an ordinary chat, email or other draft with a clear voice and meaning, use
+a local pass: identify the concrete friction, make the smallest useful edit,
+and complete the original/voice checks below. Keep natural text unchanged. Do
+not add agents, an external detector or a full rewrite merely because this
+skill was invoked.
+
+Use a council when the user requests it, the owning workflow requires it, or
+substantive restructuring leaves a material voice or meaning tradeoff unresolved.
+Use the procedure below for that review. A local wording fix alone does not
+trigger a council. Existing project assessment gates still apply to the final copy.
+Complete local edits before the owning workflow's exact-final-copy assessment;
+include unresolved wording choices there rather than adding a separate review.
+Later substantive changes follow that workflow's reassessment rules.
+
+### Council procedure when required
 
 Use the available `council` workflow in Quick mode for the editing decisions.
 If that skill is unavailable, follow the bounded procedure here. A project with

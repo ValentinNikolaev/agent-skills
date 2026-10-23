@@ -1,4 +1,4 @@
 interface:
   display_name: "Humanizer"
   short_description: "Remove an AI-generated feel while preserving voice"
-  default_prompt: "Use $humanizer and a decision council to remove the AI-generated feel from this text while preserving its established voice, meaning, language, and applicable project guidance."
+  default_prompt: "Use $humanizer to remove the AI-generated feel from this existing draft while preserving its voice, meaning, language, and project guidance. Use a local pass for routine wording fixes and reuse any council required by the owning workflow."
