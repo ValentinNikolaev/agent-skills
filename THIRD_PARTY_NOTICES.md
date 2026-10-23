@@ -180,6 +180,25 @@ metadata remains under the repository MIT license. No upstream scripts,
 Composer plugin, installer, or workflows are bundled. Attribution does not
 imply endorsement.
 
+## Humanizer
+
+The `humanizer` skill substantially rewrites selected editing guidance from
+[`blader/humanizer` at `8c307f367c91bd974002f10f2be2965d642c13df`](https://github.com/blader/humanizer/blob/8c307f367c91bd974002f10f2be2965d642c13df/SKILL.md),
+[`Aboudjem/humanizer-skill` at `a58df065367550b6ce40ff3f648335018d8e0589`](https://github.com/Aboudjem/humanizer-skill/blob/a58df065367550b6ce40ff3f648335018d8e0589/skills/humanizer/SKILL.md),
+and [`Vladimir-Human/humanizer-ru` at `57c72f8aced31bf4c8a98e7c0eae1e3c3e452fb3`](https://github.com/Vladimir-Human/humanizer-ru/blob/57c72f8aced31bf4c8a98e7c0eae1e3c3e452fb3/skills/humanizer-ru/SKILL.md).
+All three are MIT-licensed, copyright 2025 Siqi Chen, 2026 Adam Boudjemaa, and
+2026 Vladimir respectively. Complete licenses are retained as
+`LICENSE.blader-humanizer`, `LICENSE.aboudjem-humanizer`, and
+`LICENSE.humanizer-ru` in the canonical package and generated distributions.
+
+The adaptation preserves an established voice and project workflow instead of
+injecting a persona. It removes detector scoring and evasion promises, forced
+rhythm and punctuation rules, invented reactions, and implied file-edit authority.
+No upstream scripts, profile storage, detectors, services, or integrations are
+bundled. The other seven supplied sources were compared but not imported;
+source-specific decisions and license findings are recorded in the skill's
+`references/sources.md`. Attribution does not imply endorsement.
+
 ## Stop Slop
 
 The `stop-slop` skill is adapted from
