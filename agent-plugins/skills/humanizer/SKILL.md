@@ -1,6 +1,6 @@
 ---
 name: humanizer
-description: Humanize existing prose to remove an AI-generated feel while preserving the author's voice, meaning, and language. Use for robotic phrasing and mechanical rhetoric. Not for new drafts, translation, or authorship detection; stop-slop handles targeted English pattern audits.
+description: Humanize existing prose to remove an AI-generated feel while preserving the author's voice, meaning, and language. Use for robotic phrasing and mechanical rhetoric, including a named-service benchmark when explicitly requested. Not for new drafts, translation, or authorship classification; stop-slop handles targeted English pattern audits.
 ---
 
 # Humanizer
@@ -98,9 +98,10 @@ extra argument; an analytical passage need not become a short reaction.
 Patterns are clues to an editing problem, not proof of authorship or automatic
 bans. Keep intentional formality, dialect, non-native phrasing that carries the
 writer's voice, stable technical vocabulary, meaningful repetition, and humour.
-Do not inject slang, typos, fragments, anecdotes, or random synonyms. Do not force
-sentence-length variation, reading-grade targets, punctuation quotas, or tidy
-endings. Work in the original language without importing English syntax rules.
+Do not inject slang, typos, fragments, anecdotes, contractions by quota, or
+random synonyms. Do not force sentence-length variation, reading-grade targets,
+punctuation quotas, or tidy endings. Work in the original language without
+importing English syntax rules.
 
 For Russian, distinguish bureaucratic noun chains from necessary official terms,
 and keep grammatical dashes and natural impersonal constructions. For other
@@ -122,9 +123,11 @@ question into the owning workflow without bypassing its gates.
    anchors, protected spans, and the specific AI-sounding features to examine.
    Include keeping the original as an option. Do not present a preferred rewrite
    as the expected answer or expose peer responses before independent passes end.
-2. Ask for concrete excerpts, why they create a formulaic impression, the smallest
-   useful edit or a reason to keep them, and risks to voice or meaning. Compare
-   the actual stylistic effect with the source instead of rating AI likelihood.
+2. Ask for concrete excerpts, why they create a formulaic impression, the
+   smallest effective edit or a reason to keep them, and risks to voice or
+   meaning. Compare alternatives at the passage level as well as the sentence
+   level; identify the strongest reason an edited version might still read as
+   templated. Do not rate AI likelihood by council opinion.
 3. Synthesize a candidate. Have one advisor from the initial group critique the
    anonymized recommendations alongside the original and exact candidate. Ask
    what formulaic features remain, where voice or meaning drifted, and what the
@@ -153,7 +156,9 @@ nor this skill grants file-edit or publication authority beyond the user's task.
 3. Read for coherent movement and natural rhythm. Undo edits that merely impose
    the editor's taste. Check that replacement phrases have not formed a new template.
 4. Stop when the requested friction is resolved and these checks pass. Revisit
-   only a concrete remaining defect, not an arbitrary score or pass count.
+   only a concrete remaining defect. If the user requested a named-service
+   benchmark, also follow [benchmark guidance](references/benchmark.md) for
+   the exact final text.
 
 For rewrites, return the usable text first, with a short note only for a material
 ambiguity, limitation, or requested explanation. If no edit helps, return the text
@@ -161,10 +166,13 @@ unchanged. For reviews, give located excerpts, explain their effect, and suggest
 targeted changes without rewriting the document. For file edits, summarize the
 scope and verification. Preserve a request for text only.
 
-This is prose editing, not authorship detection. Do not assign AI probabilities,
-test detector scores, promise a bypass, or send the text to a humanizer service.
-If bypass is requested, briefly redirect to ordinary editing without a detection
-guarantee. Do not add a detector disclaimer to ordinary editing requests.
+This is prose editing, not authorship classification. Do not assign AI
+probabilities from your own judgement or promise a detector bypass. Ordinary
+edits require no detector or external service. When the user explicitly asks to
+test a supplied passage with a named service, use its actual feedback as a
+bounded editing check under the benchmark guidance. The request authorizes
+only the specified text and service; it does not authorize sending unrelated
+private material. Do not add a detector disclaimer to ordinary editing requests.
 
 ## Provenance
 

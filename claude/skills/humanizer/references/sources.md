@@ -22,8 +22,8 @@ substantially rewritten. Attribution does not imply endorsement.
 
 | Source at inspected commit | License finding | Decision |
 | --- | --- | --- |
-| [harshaneel/humanize](https://github.com/harshaneel/humanize/blob/9c3dec34dc8e0ed9d26de14a869900a714da8f9e/plugins/humanize/skills/humanize/SKILL.md) | MIT | Detector-driven levers, forced punctuation changes, and statistical variation conflict with this task. Neither the rewrite nor the companion forensic auditor is bundled. Research claims were not validated. |
-| [numen-tech/slopornot](https://github.com/numen-tech/slopornot/blob/71bf2ea2862817ed8d87196ddf1290ea37a439d4/skills/agentic-humanizer/SKILL.md) | MIT | Persistent profile management, voice fingerprints, MCP/CLI probing, and score loops add unwanted state and dependencies. No profiles, integrations, or tools imported. |
+| [harshaneel/humanize](https://github.com/harshaneel/humanize/blob/9c3dec34dc8e0ed9d26de14a869900a714da8f9e/plugins/humanize/skills/humanize/SKILL.md) | MIT | Forced punctuation changes and statistical variation conflict with this skill. Neither the rewrite nor the companion forensic auditor is bundled. Research claims were not validated. The optional user-requested benchmark is a local design, not adapted from this source. |
+| [numen-tech/slopornot](https://github.com/numen-tech/slopornot/blob/71bf2ea2862817ed8d87196ddf1290ea37a439d4/skills/agentic-humanizer/SKILL.md) | MIT | Persistent profile management, voice fingerprints, automatic MCP/CLI probing, and unbounded score loops add unwanted state and dependencies. No profiles, integrations, or tools imported. |
 | [gencharitaci/humanize-skills](https://github.com/gencharitaci/humanize-skills/blob/a9f9748d067770a5be6f64b3b804f99555193964/skills/humanize-skills/SKILL.md) | CC BY 4.0, not MIT | Broad purpose modes and calibration machinery are unnecessary for the bounded edit. No source text, references, or examples imported. |
 | [matsuikentaro1/humanizer_academic](https://github.com/matsuikentaro1/humanizer_academic/blob/468e67f6fd6d93bbfb257d4a685af8db89d0527b/SKILL.md) | Root file states MIT and attribution but does not reproduce the full grant | Medical-paper conventions and a preconfigured author's profile belong to that project. No source material or sentence-length checker imported. |
 | [lynote-ai/humanize-text-skill](https://github.com/lynote-ai/humanize-text-skill/blob/9359e17a8d7d54263adb726f4e6c71e0b0940651/SKILL.md) | MIT | Voice targeting and local detector machinery exceed this task. Tree inspection found a root `CLAUDE.md` symlink; it was not followed or imported. No package resources imported. |
@@ -62,6 +62,8 @@ intake scores, not text-authorship or human-likeness scores.
 Only instructions and complete licenses from the three selected sources are
 adapted. Their inspected package trees contain no symlinks or submodules. No
 upstream scripts, binaries, installers, hidden configuration, detector data,
-credentials, private paths, dependencies, or network actions are bundled or
-executed. Source links and commands remain reference material. The skill needs
-only the requested text and any already applicable voice guidance.
+credentials, private paths, or dependencies are bundled or executed. Source
+links and commands remain reference material. Ordinary use needs only the
+requested text and applicable voice guidance. The optional benchmark may use
+the explicitly named external service for the supplied passage; it does not
+import any upstream network workflow or require a standing integration.

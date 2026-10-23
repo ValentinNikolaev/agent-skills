@@ -1,8 +1,7 @@
 # Removing an AI-generated feel without voice drift
 
-These synthetic examples illustrate specific formulaic patterns and their
-removal without voice drift. They are not facts or phrases to reuse in the
-user's writing. Other revisions can satisfy the same constraints.
+These examples illustrate edits without voice drift. They are not facts or
+phrases to reuse in the user's writing; other revisions can meet the constraints.
 
 ## Existing irony and technical reasoning
 
@@ -77,6 +76,20 @@ from a promise. Do not add enthusiasm, familiarity, or a different language leve
 
 Leave it unchanged. Clear grammar, a colon, and two similar sentence lengths do
 not by themselves justify an edit.
+
+## Small, supported repairs
+
+These excerpts show local improvements, not proof that a whole passage meets a
+writing service's criterion. Keep the surrounding argument when editing:
+
+| Friction in the source | Narrower wording | Reason to use it |
+| --- | --- | --- |
+| `continuare a controllare` | `continuare a fare verifiche` | In conversational Italian, name the continuing activity without changing the speaker's conditional concern. |
+| `a cost to cut` | `work they could have avoided` | Name the avoidable work when the source supports that judgement; keep any separate case where another pass is useful. |
+| `That puts an interesting condition on “without increasing batch size”. The useful batch boundary is partly defined by what we can validate separately.` | `So “without increasing batch size” depends partly on what we can validate separately.` | Remove an empty announcement of the point while keeping the technical dependency and its qualifications. |
+
+Do not remove a technical contrast or a personal evaluation merely because its
+sentence is polished.
 
 ## Protected material
 
