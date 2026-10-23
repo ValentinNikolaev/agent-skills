@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-23T21:07:55.988979+00:00",
+  "updated_at": "2026-10-23T21:44:00.660Z",
   "policy": "Intermediate observations remain hypotheses until successful reuse on other texts supports their scope and the council selects them. A local benefit and a whole-text pass are recorded separately.",
   "hypotheses": [
     {
@@ -875,6 +875,87 @@
       "canonical_promotion": false,
       "council_decision": "Same initial council selected the provisional observation. Promising is limited to case003 connective and case016 actor-preserving wording; no permanent rule or readiness claim.",
       "experiment_file": "humanizer_comment_followups.json"
+    },
+    {
+      "id": "H15",
+      "status": "promising",
+      "operation": "Split an overloaded safeguard/condition/consequence sentence at the actual relationship; keep a modal governing both possible costs.",
+      "scope": "English developed technical reply; source and modality preservation.",
+      "draft_rule_or_example": "draft-SKILL-v1 experimental operations; case009 final paragraph",
+      "claimed_local_effect": "Source-faithful grammatical separation and shared possibility scope accepted by same council. Two exact assessments met the style criterion; attribution to the isolated edit is not established.",
+      "evidence": [
+        {
+          "fixture": "humanizer_comment_full20_recheck.json",
+          "id": "case-009",
+          "sha256": "72846291c11e94f2e55b526d3e66992c6e85a438bb47cbb910ca27e7aa622410",
+          "observations": [
+            "pre_batch_probe",
+            "neutral_recheck"
+          ]
+        }
+      ],
+      "counterevidence": [
+        "No paired single-operation comparison or independent transfer; dense paragraph still drew readability advice."
+      ],
+      "next_validation": "Apply on an untouched other text with the same actual scope issue; check meaning/voice and literal feedback.",
+      "validated_other_texts": [],
+      "canonical_promotion": false,
+      "council_decision": "Same three independent six-case passes, exact anonymized peer and full20 preservation gate accepted the exact local edit."
+    },
+    {
+      "id": "H16",
+      "status": "proposed",
+      "operation": "Let a concrete hypothetical establish the issue before the general interpretation; move substantive claim without deleting qualifiers or adding a tidy moral.",
+      "scope": "English developed technical explanation; case010 only.",
+      "draft_rule_or_example": "draft-SKILL-v1 experimental operations; case010 paragraph order",
+      "claimed_local_effect": "Concrete-first order was source-faithful. One exact probe met, but fullbatch initial response still linked craft to a possible AI-like impression; its later clarification retracted that claim.",
+      "evidence": [
+        {
+          "fixture": "humanizer_comment_full20_recheck.json",
+          "id": "case-010",
+          "sha256": "9b437e13cd6e63034188178e37b5b5f9357921ba93f5d09a521b7d7f7698a26e",
+          "observations": [
+            "pre_batch_probe",
+            "neutral_recheck",
+            "post_batch_clarification"
+          ]
+        }
+      ],
+      "counterevidence": [
+        "Full frozen batch case010 not_met retained. Clarification is not freshpass. No independent other-text transfer."
+      ],
+      "next_validation": "Other-text support needed; do not generalize an example-first mandate or reroll unchanged text for reassurance.",
+      "validated_other_texts": [],
+      "canonical_promotion": false,
+      "council_decision": "Same three advisors and peer retained the exact final text; optional purpose-first sentence rewrite rejected for lack of clear gain."
+    },
+    {
+      "id": "H17",
+      "status": "promising",
+      "operation": "In warm product-feedback requests, examine accumulated cushioning and replace the redundant request announcement with the existing observation before a direct polite question. Preserve warmth, source-grounded visit, concrete request and conditional rationale.",
+      "scope": "English product feedback; CoffeeSlack only so far.",
+      "draft_rule_or_example": "draft-SKILL-v2 provisional product-feedback example, frozen before revised exact test",
+      "claimed_local_effect": "First output was formulaic feedback structure; exact revised output met. Evaluator explicitly accepted remaining praise as ordinary warmth. Local operation is bundled with a minor anaphor correction.",
+      "evidence": [
+        {
+          "fixture": "humanizer_comment_new10_results.json",
+          "id": "heldout2-006",
+          "first_sha256": "6935984200a6a957e70c39fd79fafcb1a82fb9a9d2c6beb7cf3ac8acd22cd4b3",
+          "revised_sha256": "6ccf965114b673feffb5273ed426d0a946dc3142652264590d78180816116b85",
+          "observations": [
+            "first_neutral_assessment",
+            "diagnostic_clarification",
+            "post_feedback_tuning"
+          ]
+        }
+      ],
+      "counterevidence": [
+        "First-output failure retained; no readiness claim. The broad compliment may still feel stock. A single case cannot establish transfer, and anaphor change prevents isolated attribution."
+      ],
+      "next_validation": "No eligible untouched historical product-feedback comment found in bounded14-thread/11-final search. Still needs a new other-text case; no transfer or promotion established.",
+      "validated_other_texts": [],
+      "canonical_promotion": false,
+      "council_decision": "Three continuing same-team proposals and anonymous peer accepted the local revision; peer corrected those screenshots to the screenshots before test."
     }
   ],
   "final_council_audit": {
@@ -995,5 +1076,20 @@
     },
     "overall": "Eight tested versions across the two passages have not met the user's strict no-named-AI-like-cues criterion. Local editorial hypotheses remain separate from the gate and from canonical skill rules.",
     "evidence_note": "Council summary; quoted fragments may normalize typography. Exact literal service responses are retained in humanizer_editorial_results.json."
+  },
+  "remaining_six_audit": {
+    "full20_initial": {
+      "met": 19,
+      "not_met": 1,
+      "unresolved": 0
+    },
+    "new10_first": {
+      "met": 8,
+      "not_met": 1,
+      "unresolved": 1
+    },
+    "clarifications_do_not_replace_initial_results": true,
+    "new_operations_promoted": false,
+    "transfer_search": "No eligible independent other-text case found in bounded source search; H17 remains provisional."
   }
 }

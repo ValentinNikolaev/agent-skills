@@ -303,6 +303,13 @@ separate from confirmed canonical editing rules.
 [`humanizer_comment_followups.json`](../tests/fixtures/humanizer_comment_followups.json)
 retains detailed evaluator questions, recommendations and exact neutral rechecks
 of the previous twenty comments, including unchanged controls and failed edits.
+[`humanizer_comment_full20_recheck.json`](../tests/fixtures/humanizer_comment_full20_recheck.json)
+stores the next complete frozen-set run, six diagnostic clarifications and the
+later correction of an evaluator's vague finding without replacing that run.
+[`humanizer_comment_new10_results.json`](../tests/fixtures/humanizer_comment_new10_results.json)
+keeps first-output diagnostic results separate from later tuning. It distinguishes
+eight historical comment drafts from two synthetic Russian cases, records the
+unmet prerequisite gate, and retains the bounded unsuccessful transfer search.
 
 ## Plugin version and README policy
 

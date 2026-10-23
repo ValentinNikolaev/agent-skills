@@ -1,0 +1,904 @@
+{
+  "schema_version": 1,
+  "run_id": "2026-10-23-new10-diagnostic-first-outputs",
+  "created_at": "2026-10-23T21:42:19.738Z",
+  "base_commit": "39545d6fe96053d0b3b91548161492601d8d784c",
+  "base_skill_version": "21.1.0",
+  "draft_skill_sha256": "7dcd76e92a11fa426cf6a79b32e7bad70e1b9dd9dc7df7c4d7a3965009f334ee",
+  "scope": {
+    "historical_generated_social_comment_drafts": 8,
+    "synthetic_native_russian_fixtures": 2,
+    "languages": {
+      "en": 4,
+      "it": 2,
+      "uk": 2,
+      "ru": 2
+    },
+    "first_output_definition": "Exact final text after internal humanizer council, before any external feedback; one default-prompt external result.",
+    "initial_20_readiness_gate_met": false
+  },
+  "criterion": "No identified AI-like style cue, including mild; genuinely ambiguous unresolved. Ordinary craft or clarity alone not failure.",
+  "protocol": {
+    "prompt": "Check this text for AI-generated patterns.\n\nText:\n",
+    "freeze": "2026-10-23T21:36:35.677Z",
+    "blinding": {
+      "recorded_at": "2026-10-23T21:22:32.838581+00:00",
+      "limit": "One advisor collected the new sources before participating in the training-case council. Root and the other two advisors have not seen exact held-out texts. No heldout feedback or output is used to tune the draft before first new-text testing. This is partial blinding, not an independent human or fully isolated model study."
+    }
+  },
+  "first_output_counts": {
+    "met": 8,
+    "not_met": 1,
+    "unresolved": 1
+  },
+  "limits": [
+    "New set is diagnostic after unmet initial20 readiness gate.",
+    "Eight real generatedcommentdrafts, not verifiedpublished or humanwritten; two Russian cases separately synthetic.",
+    "No paired baseline measured; firstoutput result is not causal editinglift.",
+    "Advisor who collected sources later tookpart in tuning; partialblinding only.",
+    "Later tuning outputs never replace firstoutput results."
+  ],
+  "council_peer": {
+    "stage": "single anonymized peer review before external results",
+    "criterion": "Source meaning, protected spans, voice and exact small details; no pass prediction.",
+    "cases": [
+      {
+        "id": "heldout2-001",
+        "verdict": "accept",
+        "why_selected": "The period separates two documentary facts without implying more than the original semicolon; the unchanged alternative retains punctuation barred by the current project voice.",
+        "preservation": "PII/PHI remain possible, not universal. MCA TypeSafe, API, DPA N/A, own detection shortfall and deferral retain their separate functions.",
+        "strongest_residual_weakness": "The policy sentence remains dense, but simplification could distort calibrated legal wording.",
+        "mandatory_correction": null,
+        "source_sha256": "7d467a1cc162cb3b9b5f3e459a32537f15c8d668fe077970a750b27323e009ca",
+        "selected_sha256": "9d4541ef6bc7b590827cace159877e1a8c628f9b2c564e97c1780e66e351689f"
+      },
+      {
+        "id": "heldout2-002",
+        "verdict": "accept",
+        "why_selected": "All anonymous options converge on the same exact question. Removing the preview phrase leaves the existing validation question intact.",
+        "preservation": "ADP and RQI stay exact; no claim that either fails or that clearer data equals correct audience.",
+        "strongest_residual_weakness": "The 'really ... rather than just ...' contrast is polished, but it defines the substantive distinction.",
+        "mandatory_correction": null,
+        "source_sha256": "548fd30a38b5e6f8bc7cdf9807bfabeb1a05f434cef8e897eb2a850d50e1b8c7",
+        "selected_sha256": "f9ea8a2cfd6d64533cd53e61333e4ac5800b327e4d36843f02062626ce403ebe"
+      },
+      {
+        "id": "heldout2-003",
+        "verdict": "accept",
+        "why_selected": "All options keep the same dry-ironic text; editing 'слід визнати' or 'нещасний' would flatten the chosen emotional temperature.",
+        "preservation": "«careful review» and ag-grid remain exact; no private interview experience is added.",
+        "strongest_residual_weakness": "Two crafted ironic beats are visible, but they are the author's intended reaction, not padding.",
+        "mandatory_correction": null,
+        "source_sha256": "5b1647d75d68e5424f13e12985c7115ba588e75bb4996998f10e54ef1bc5e353",
+        "selected_sha256": "5b1647d75d68e5424f13e12985c7115ba588e75bb4996998f10e54ef1bc5e353"
+      },
+      {
+        "id": "heldout2-004",
+        "verdict": "accept",
+        "why_selected": "All options keep the already conversational Italian response; repeated 'Se' clauses carry different conditions.",
+        "preservation": "Known preference against voice messages and sender's own benefit remain conditional; no hostile intent is attributed.",
+        "strongest_residual_weakness": "'Far andare avanti il lavoro' is broad but natural in this short reply.",
+        "mandatory_correction": null,
+        "source_sha256": "5b127b3573cb375b3912934127caa2c5ebff202cb7237197076a7ab3e861413f",
+        "selected_sha256": "5b127b3573cb375b3912934127caa2c5ebff202cb7237197076a7ab3e861413f"
+      },
+      {
+        "id": "heldout2-005",
+        "verdict": "accept",
+        "why_selected": "The selected small referent repair points 'pratiche' toward the already named family-life moments while retaining 'anche' and the separate difficult-balance judgement; deleting that judgement would remove a source evaluation.",
+        "preservation": "Personal favourable experience remains limited by 'quasi sempre' and 'non posso darla per scontata'; negotiation/pay inequality, paid leave, procedures and coworker coverage remain.",
+        "strongest_residual_weakness": "'Procedure ... pratiche legate a quei momenti' is still somewhat administrative and the original pronoun could also be read against the earlier congedi; this edit does not justify stronger specificity.",
+        "mandatory_correction": null,
+        "source_sha256": "0d4cec0b30d4ea8e2329bbad3621ed241f8e369e69b5a6bd7578966303fed0b5",
+        "selected_sha256": "cc255f0f5f3aa49f070742bce1f466e1f9b9a2ecc1b2499bef2f97c414104e9e"
+      },
+      {
+        "id": "heldout2-006",
+        "verdict": "accept",
+        "why_selected": "The selected punctuation repair preserves the warm praise, the source-grounded site visit, the direct enlargement request and the conditional team recommendation. The more rearranged alternative also preserves these and may sound more immediate, but no source/voice error makes it mandatory.",
+        "preservation": "“What it looks like” exact; Slack and dashboard detail is hard to inspect at preview size; recommending to a team remains conditional.",
+        "strongest_residual_weakness": "'One small request after looking through the site' is a familiar courtesy frame that could still feel packaged; peer evaluation should treat it as a live style choice, not as protected wording.",
+        "mandatory_correction": null,
+        "source_sha256": "5f1c65a3f6a97bf470f24a10c3d7400a8c819b6ac5516e7b3f003610bad23cfa",
+        "selected_sha256": "6935984200a6a957e70c39fd79fafcb1a82fb9a9d2c6beb7cf3ac8acd22cd4b3"
+      },
+      {
+        "id": "heldout2-007",
+        "verdict": "accept",
+        "why_selected": "The selected one-mark punctuation repair removes the project-disallowed semicolon while retaining the source's lightly wry opening and concrete same-URL/two-filter test. Other options recast the test more directly but lose some of the original cadence without a required gain.",
+        "preservation": "“cacheable”, RFC 10008, QUERY, CDN, body-aware cache key and no cross-return between filter requests all remain.",
+        "strongest_residual_weakness": "'That is where' is a compressed referent, but the immediate cache-key sentence makes the target of the test recoverable.",
+        "mandatory_correction": null,
+        "source_sha256": "ac1aaf7e518f5742940b4fc0f15465e5faa3efd3991a2ead001df473cd4bbb7f",
+        "selected_sha256": "aeb0e2fb8f494e5cf39b194413c242ee04219a2b541699d7e15cdc2d5e76cc7a"
+      },
+      {
+        "id": "heldout2-008",
+        "verdict": "accept",
+        "why_selected": "Question-first states the actual request immediately while the following guard and profile sentences explain why it matters. Other alternatives leave the question last but recast the first-person comparison more heavily or lose the source's technical metaphor.",
+        "preservation": "29 is the reported exit count, not a measured frequency; hypothetical guard behavior and profile interpretation stay qualified. No measurements are invented.",
+        "strongest_residual_weakness": "Ending on the explanation rather than the question shifts conversational emphasis; it still functions as a question to Sebastian, but the exact question-last variant remains a plausible voice alternative.",
+        "mandatory_correction": null,
+        "source_sha256": "b3bbd9bfa25b42c8af638df6fbba49b4cb3de7497052c609c590ca76ec1abef4",
+        "selected_sha256": "fcf79ceaa5ded9e03b90c9bea412e2275c302b3711e499ba61855ba4e7f59ea0"
+      },
+      {
+        "id": "synthetic-ru-001",
+        "verdict": "accept",
+        "why_selected": "All options keep the Russian fixture; the compact 'повтор после таймаута' reads as normal technical shorthand.",
+        "preservation": "Duplicate execution is possible, check is tentative, result persistence precedes message acknowledgement, and replies alone prove nothing about one execution.",
+        "strongest_residual_weakness": "The last sentence has a neat inference rhythm but states the real reason for the check.",
+        "mandatory_correction": null,
+        "source_sha256": "daca6eb8df536f2b9fea32834602279d1249b47e3b6eb917875f24e14eba3800",
+        "selected_sha256": "daca6eb8df536f2b9fea32834602279d1249b47e3b6eb917875f24e14eba3800"
+      },
+      {
+        "id": "synthetic-ru-002",
+        "verdict": "accept",
+        "why_selected": "All options keep the calm Russian question and tentative check; a casual substitute for 'Запрос для пользователя закончился' could falsely imply successful completion rather than disconnection.",
+        "preservation": "Client disconnect, possible continued worker work, cancellation propagation and queue cleanup remain distinct and hypothetical.",
+        "strongest_residual_weakness": "The compressed 'запрос для пользователя закончился' asks the reader to infer the client-facing boundary, but it preserves the technical scope.",
+        "mandatory_correction": null,
+        "source_sha256": "ea17bb79572b16362768e9a2fc0e2a2e265b2fdda29fa37bbe0403d0be10b810",
+        "selected_sha256": "ea17bb79572b16362768e9a2fc0e2a2e265b2fdda29fa37bbe0403d0be10b810"
+      }
+    ],
+    "case010_challenge": {
+      "decision": "keep exact; no mandatory revision",
+      "source_sha256": "9b437e13cd6e63034188178e37b5b5f9357921ba93f5d09a521b7d7f7698a26e",
+      "reason": "The three same-team decisions agree on a real but modest readability issue in the methods sentence; agreement alone is not evidence of author preference. The purpose-first substitute shifts emphasis and adds formality without clearly reducing total load. The two paragraph endings each add a distinct condition or consequence. Keep is justified by source/voice fit, not by the clarification's desired wording.",
+      "measurement_boundary": "The original complete neutral batch stays 19/20 with case010 not_met under the strict literal gate. The same-conversation clarification recants the cue but is diagnostic, not a fresh neutral result. No new held-out result is available."
+    },
+    "overall": "Ten selected texts pass source/voice/protected-span peer review without mandatory pretest correction. This is not a named-service pass prediction or publication approval."
+  },
+  "records": [
+    {
+      "id": "heldout2-001",
+      "language": "uk",
+      "source": {
+        "id": "heldout2-001",
+        "language": "uk",
+        "target": "Jev support integration update",
+        "target_url": "https://lnkd.in/p/eJc9ys7j",
+        "context_excerpt": "Update to user's earlier comment: high-load support may contain PII/PHI; public TypeSafe terms and own reliability checks leave questions open, so integration deferred.",
+        "original_text": "Upd. Після мого прикладу з пріоритетами ми перевірили Jev для автоматизації нашої підтримки під великим навантаженням. У зверненнях можуть бути PII та PHI, тож до інтеграції треба узгодити, які дані може отримувати API і як використовується похідна телеметрія. Публічний MCA TypeSafe допускає її формування з даних клієнта; у стандартному DPA поле спеціальних заходів для чутливих даних позначене N/A. Для нашого потоку ці питання поки відкриті, а виявлення PII/PHI у власних перевірках не досягло потрібної надійності. Тому інтеграцію відклали.",
+        "original_sha256": "7d467a1cc162cb3b9b5f3e459a32537f15c8d668fe077970a750b27323e009ca",
+        "meaning_anchors": [
+          "PII and PHI are possible, not asserted in every message",
+          "Public MCA/DPA terms and own PII/PHI checks are separate grounds",
+          "Integration deferred, not categorical product condemnation"
+        ],
+        "voice_anchors": [
+          "Technical Ukrainian update",
+          "Calibrated legal and reliability claims"
+        ],
+        "source_thread_id": "01a0d4c4-d851-7461-b7bc-24cbe81097a3",
+        "source_rollout_final_line": 712,
+        "source_final_timestamp": "2026-09-24T19:07:47.014Z",
+        "source_kind": "visible assistant final output; original-language draft",
+        "publication_status": "not verified as published"
+      },
+      "first_output": {
+        "id": "heldout2-001",
+        "language": "uk",
+        "source_kind": "visible assistant final output; original-language draft",
+        "text": "Upd. Після мого прикладу з пріоритетами ми перевірили Jev для автоматизації нашої підтримки під великим навантаженням. У зверненнях можуть бути PII та PHI, тож до інтеграції треба узгодити, які дані може отримувати API і як використовується похідна телеметрія. Публічний MCA TypeSafe допускає її формування з даних клієнта. У стандартному DPA поле спеціальних заходів для чутливих даних позначене N/A. Для нашого потоку ці питання поки відкриті, а виявлення PII/PHI у власних перевірках не досягло потрібної надійності. Тому інтеграцію відклали.",
+        "sha256": "9d4541ef6bc7b590827cace159877e1a8c628f9b2c564e97c1780e66e351689f",
+        "decision": "edit",
+        "operation": [
+          "Current social voice: no semicolons in authored comments",
+          "Frozen humanizer: mechanical progression; preserve technical/legal terms"
+        ],
+        "root_reason": "Period separates documentary claims while satisfying project punctuation; no legal rewrite."
+      },
+      "first_neutral_assessment": {
+        "case_id": "heldout2-001",
+        "run": "first",
+        "input": "Upd. Після мого прикладу з пріоритетами ми перевірили Jev для автоматизації нашої підтримки під великим навантаженням. У зверненнях можуть бути PII та PHI, тож до інтеграції треба узгодити, які дані може отримувати API і як використовується похідна телеметрія. Публічний MCA TypeSafe допускає її формування з даних клієнта. У стандартному DPA поле спеціальних заходів для чутливих даних позначене N/A. Для нашого потоку ці питання поки відкриті, а виявлення PII/PHI у власних перевірках не досягло потрібної надійності. Тому інтеграцію відклали.",
+        "input_sha256": "9d4541ef6bc7b590827cace159877e1a8c628f9b2c564e97c1780e66e351689f",
+        "prompt": "Check this text for AI-generated patterns.\n\nText:\nUpd. Після мого прикладу з пріоритетами ми перевірили Jev для автоматизації нашої підтримки під великим навантаженням. У зверненнях можуть бути PII та PHI, тож до інтеграції треба узгодити, які дані може отримувати API і як використовується похідна телеметрія. Публічний MCA TypeSafe допускає її формування з даних клієнта. У стандартному DPA поле спеціальних заходів для чутливих даних позначене N/A. Для нашого потоку ці питання поки відкриті, а виявлення PII/PHI у власних перевірках не досягло потрібної надійності. Тому інтеграцію відклали.",
+        "posted_prompt": "Check this text for AI-generated patterns.\n\nText:\nUpd. Після мого прикладу з пріоритетами ми перевірили Jev для автоматизації нашої підтримки під великим навантаженням. У зверненнях можуть бути PII та PHI, тож до інтеграції треба узгодити, які дані може отримувати API і як використовується похідна телеметрія. Публічний MCA TypeSafe допускає її формування з даних клієнта. У стандартному DPA поле спеціальних заходів для чутливих даних позначене N/A. Для нашого потоку ці питання поки відкриті, а виявлення PII/PHI у власних перевірках не досягло потрібної надійності. Тому інтеграцію відклали.",
+        "valid_input": true,
+        "model_label": "GPT-6.1 Sol\nHigh\nNone\nMinimal\nLight\nMedium\nHigh\nExtra High\nMax\nUltra\nPersistent",
+        "submitted_at": "2026-10-23T21:36:38.076Z",
+        "url": "https://chatgpt.com/c/6adbd366-bfb4-83ed-9ba7-36574133bd6d",
+        "response": "Виразного ШІ-подібного стилістичного ефекту тут не бачу. Є щільність формального технічного звіту, але вона має конкретні причини.\n\n«Після мого прикладу з пріоритетами» прив’язує оновлення до попередньої розмови. Це контекстний вступ, а не універсальна підводка.\nРечення про MCA та DPA стисло називають дві конкретні документальні підстави для занепокоєння. Абревіатури й канцелярське «допускає її формування» додають формальності, але самі собою не створюють ознаки генерації.\n«Для нашого потоку ці питання поки відкриті» — найзагальніше формулювання. Воно трохи нагадує стандартний перехід у звіті, проте виконує потрібну функцію: відділяє положення документів від невирішених питань вашої інтеграції.\n«Тому інтеграцію відклали» — конкретне рішення, яке випливає з попереднього. Це не декоративний підсумок чи нав’язана мораль.\n\nНайпомітніша проблема — навантаження передостаннього речення: воно поєднує невирішені питання щодо даних із недостатньою надійністю виявлення PII/PHI. Це дві різні підстави для рішення, і читачеві доводиться розділяти їх самостійно.\n\nНайменша корисна правка — розділити це речення після «поки відкриті», почавши наступне з «Виявлення PII/PHI…». Читати стане легше; водночас виклад буде трохи рубанішим. Змінювати технічні розрізнення або прибирати фінальне рішення заради «меншої схожості на ШІ» підстав немає. Сам текст не дозволяє встановити авторство.",
+        "completed_at": "2026-10-23T21:37:37.106Z"
+      },
+      "first_classification": {
+        "id": "heldout2-001",
+        "verdict": "met",
+        "input_sha256": "9d4541ef6bc7b590827cace159877e1a8c628f9b2c564e97c1780e66e351689f",
+        "evidence_excerpt": "проте виконує потрібну функцію: відділяє положення документів від невирішених питань вашої інтеграції.",
+        "reason": "The report-like transition and formal acronyms are explicitly explained as useful context/genre; the response identifies sentence load as readability, not an AI-like cue.",
+        "named_ai_style_cue": "none",
+        "ordinary_craft_or_clarity": "The penultimate sentence combines two distinct grounds; a split is offered for readability."
+      }
+    },
+    {
+      "id": "heldout2-002",
+      "language": "en",
+      "source": {
+        "id": "heldout2-002",
+        "language": "en",
+        "target": "ADP and RQI audience validation question",
+        "target_url": "https://lnkd.in/p/e6XARwuu",
+        "context_excerpt": "Reply to a post introducing ADP and RQI; asks how the metrics are checked against identifying the intended audience rather than merely organizing available signals.",
+        "original_text": "One thing I’m curious about: how do you check whether ADP and RQI really point to the right audience, rather than just make the available data look clearer?",
+        "original_sha256": "548fd30a38b5e6f8bc7cdf9807bfabeb1a05f434cef8e897eb2a850d50e1b8c7",
+        "meaning_anchors": [
+          "ADP and RQI named as source terms",
+          "Question asks about outcome validation, not whether the metrics are internally tidy",
+          "No claim that either metric fails"
+        ],
+        "voice_anchors": [
+          "Plain curious English",
+          "One focused question"
+        ],
+        "source_thread_id": "01a0ee96-6b7b-7a00-bf37-a61517fc3ffb",
+        "source_rollout_final_line": 790,
+        "source_final_timestamp": "2026-09-29T20:40:18.548Z",
+        "source_kind": "visible assistant final output; original-language draft",
+        "publication_status": "not verified as published"
+      },
+      "first_output": {
+        "id": "heldout2-002",
+        "language": "en",
+        "source_kind": "visible assistant final output; original-language draft",
+        "text": "How do you check whether ADP and RQI really point to the right audience, rather than just make the available data look clearer?",
+        "sha256": "f9ea8a2cfd6d64533cd53e61333e4ac5800b327e4d36843f02062626ce403ebe",
+        "decision": "edit",
+        "operation": [
+          "Frozen humanizer: delayed point; remove introductory throat-clearing"
+        ],
+        "root_reason": "Question is existing point; remove preview only."
+      },
+      "first_neutral_assessment": {
+        "case_id": "heldout2-002",
+        "run": "first",
+        "input": "How do you check whether ADP and RQI really point to the right audience, rather than just make the available data look clearer?",
+        "input_sha256": "f9ea8a2cfd6d64533cd53e61333e4ac5800b327e4d36843f02062626ce403ebe",
+        "prompt": "Check this text for AI-generated patterns.\n\nText:\nHow do you check whether ADP and RQI really point to the right audience, rather than just make the available data look clearer?",
+        "posted_prompt": "Check this text for AI-generated patterns.\n\nText:\nHow do you check whether ADP and RQI really point to the right audience, rather than just make the available data look clearer?",
+        "valid_input": true,
+        "model_label": "GPT-6.1 Sol\nHigh\nNone\nMinimal\nLight\nMedium\nHigh\nExtra High\nMax\nUltra\nPersistent",
+        "submitted_at": "2026-10-23T21:36:41.960Z",
+        "url": "https://chatgpt.com/c/6adbd369-7688-83eb-9ec3-455c4169b224",
+        "response": "There’s no distinctive AI-like stylistic effect here. The “whether … rather than …” structure is ordinary argumentative phrasing: it separates identifying the right audience from making existing data easier to interpret.\n\nThe only possible weakness is “make the available data look clearer”. It’s slightly vague: does “clearer” mean easier to understand, more convincing, or apparently better segmented? That’s a clarity issue, not evidence of AI authorship.\n\nIf you mean easier to interpret, a small edit would be:\n\nHow do you check whether ADP and RQI really point to the right audience, rather than just make the available data easier to interpret?\n\nKeep “really” if you want the conversational skepticism.",
+        "completed_at": "2026-10-23T21:37:08.147Z"
+      },
+      "first_classification": {
+        "id": "heldout2-002",
+        "verdict": "met",
+        "input_sha256": "f9ea8a2cfd6d64533cd53e61333e4ac5800b327e4d36843f02062626ce403ebe",
+        "evidence_excerpt": "There’s no distinctive AI-like stylistic effect here.",
+        "reason": "The whether/rather-than comparison is ordinary substantive phrasing; only the meaning of 'clearer' is queried.",
+        "named_ai_style_cue": "none",
+        "ordinary_craft_or_clarity": "'Make the available data look clearer' may be slightly vague; the suggested reinterpretation is not an AI-style finding."
+      }
+    },
+    {
+      "id": "heldout2-003",
+      "language": "uk",
+      "source": {
+        "id": "heldout2-003",
+        "language": "uk",
+        "target": "Technical screening and careful-review rejection",
+        "target_url": null,
+        "context_excerpt": "Ukrainian post: half-hour interview without technical questions, then a rejection citing experience after a five-day 'careful review'; ag-grid was the only concrete technical detail. User wanted a dry, irritated observation, not advice.",
+        "original_text": "Методологія цього «careful review», слід визнати, бездоганна: якщо не ставити запитань, відповіді точно не ускладнять рішення. На цьому тлі нещасний ag-grid і справді виявився найзмістовнішою технічною частиною всієї історії.",
+        "original_sha256": "5b1647d75d68e5424f13e12985c7115ba588e75bb4996998f10e54ef1bc5e353",
+        "meaning_anchors": [
+          "No technical questions in the described screening",
+          "The 'careful review' phrase and ag-grid are from the post",
+          "No invented private interview experience"
+        ],
+        "voice_anchors": [
+          "Ukrainian dry irony",
+          "Starts with new observation rather than retelling post"
+        ],
+        "source_thread_id": "01a059ca-6db0-7300-b572-2a2e8c0e7055",
+        "source_rollout_final_line": 523,
+        "source_final_timestamp": "2026-09-01T13:14:20.145Z",
+        "source_kind": "visible assistant final output; original-language draft",
+        "publication_status": "not verified as published"
+      },
+      "first_output": {
+        "id": "heldout2-003",
+        "language": "uk",
+        "source_kind": "visible assistant final output; original-language draft",
+        "text": "Методологія цього «careful review», слід визнати, бездоганна: якщо не ставити запитань, відповіді точно не ускладнять рішення. На цьому тлі нещасний ag-grid і справді виявився найзмістовнішою технічною частиною всієї історії.",
+        "sha256": "5b1647d75d68e5424f13e12985c7115ba588e75bb4996998f10e54ef1bc5e353",
+        "decision": "keep",
+        "operation": [
+          "Frozen humanizer: preserve deliberate quirks, useful humour and stance"
+        ],
+        "root_reason": "Deliberate Ukrainian irony and exact quote must survive."
+      },
+      "first_neutral_assessment": {
+        "case_id": "heldout2-003",
+        "run": "first",
+        "input": "Методологія цього «careful review», слід визнати, бездоганна: якщо не ставити запитань, відповіді точно не ускладнять рішення. На цьому тлі нещасний ag-grid і справді виявився найзмістовнішою технічною частиною всієї історії.",
+        "input_sha256": "5b1647d75d68e5424f13e12985c7115ba588e75bb4996998f10e54ef1bc5e353",
+        "prompt": "Check this text for AI-generated patterns.\n\nText:\nМетодологія цього «careful review», слід визнати, бездоганна: якщо не ставити запитань, відповіді точно не ускладнять рішення. На цьому тлі нещасний ag-grid і справді виявився найзмістовнішою технічною частиною всієї історії.",
+        "posted_prompt": "Check this text for AI-generated patterns.\n\nText:\nМетодологія цього «careful review», слід визнати, бездоганна: якщо не ставити запитань, відповіді точно не ускладнять рішення. На цьому тлі нещасний ag-grid і справді виявився найзмістовнішою технічною частиною всієї історії.",
+        "valid_input": true,
+        "model_label": "GPT-6.1 Sol\nHigh\nNone\nMinimal\nLight\nMedium\nHigh\nExtra High\nMax\nUltra\nPersistent",
+        "submitted_at": "2026-10-23T21:36:44.779Z",
+        "url": "https://chatgpt.com/c/6adbd36d-1d58-83ed-986b-37d70ff65887",
+        "response": "У цьому уривку немає виразного, специфічно AI-подібного ефекту. Є відшліфована саркастична побудова, але сама по собі вона цього не засвідчує.\n\n«слід визнати, бездоганна» — удавана поступка, яка готує іронічне пояснення після двокрапки. Це звичайний прийом полемічного письма.\n«якщо не ставити запитань, відповіді точно не ускладнять рішення» — найбільш афористична частина. Її симетрія може здаватися навмисно сконструйованою, але тут вона виконує конкретну роботу: висміює сам спосіб проведення review.\n«нещасний ag-grid» — розмовна персоніфікація й конкретна технічна прив’язка. Друге речення переводить загальний сарказм у випад проти змістовності всієї історії.\n\nЄдине необов’язкове ущільнення — прибрати «слід визнати»: «Методологія цього “careful review” бездоганна…». Це зробить початок різкішим, але забере інтонацію награної поступливості. Це вибір голосу, а не необхідне виправлення «слідів AI».\n\nБез попереднього контексту незрозуміла роль ag-grid, проте це питання самодостатності уривка, а не ознака генерації. Авторство за цими двома реченнями встановити не можна.",
+        "completed_at": "2026-10-23T21:37:10.678Z"
+      },
+      "first_classification": {
+        "id": "heldout2-003",
+        "verdict": "met",
+        "input_sha256": "5b1647d75d68e5424f13e12985c7115ba588e75bb4996998f10e54ef1bc5e353",
+        "evidence_excerpt": "Її симетрія може здаватися навмисно сконструйованою, але тут вона виконує конкретну роботу: висміює сам спосіб проведення review.",
+        "reason": "The constructed symmetry is evaluated as deliberate dry irony serving the source's criticism, not a generic AI-like pattern.",
+        "named_ai_style_cue": "none",
+        "ordinary_craft_or_clarity": "Removing 'слід визнати' is framed as optional voice choice; ag-grid needs source context."
+      }
+    },
+    {
+      "id": "heldout2-004",
+      "language": "it",
+      "source": {
+        "id": "heldout2-004",
+        "language": "it",
+        "target": "Maurizio Passerini on client voice messages",
+        "target_url": "https://www.linkedin.com/posts/mauriziopasserini_%F0%9D%97%A0%F0%9D%97%98%F0%9D%97%A6%F0%9D%97%A6%F0%9D%97%94%F0%9D%97%9A%F0%9D%97%9A%F0%9D%97%9C%F0%9D%97%A2-%F0%9D%97%A9%F0%9D%97%A2%F0%9D%97%96%F0%9D%97%94%F0%9D%97%9F%F0%9D%97%98-%F0%9D%97%A2-%F0%9D%97%A6%F0%9D%97%98%F0%9D%97%A4-share-7516061523602227200-gCEN/",
+        "context_excerpt": "Author asks whether annoyance at client voice messages is intolerance; preference for email is known, and a readable request helps both recipient and sender.",
+        "original_text": "Non mi sembra intolleranza. Se ti chiedo qualcosa per lavoro, vorrei che fosse facile rispondermi. Se so che non ascolti vocali e te ne mando uno lo stesso, complico la vita anche a me. La mail, in quel caso, aiuta entrambi a far andare avanti il lavoro.",
+        "original_sha256": "5b127b3573cb375b3912934127caa2c5ebff202cb7237197076a7ab3e861413f",
+        "meaning_anchors": [
+          "Conditional: if recipient is known not to listen to voice messages",
+          "Sender benefits from an easier response",
+          "No intent to offend attributed to client"
+        ],
+        "voice_anchors": [
+          "Plain conversational Italian",
+          "Direct answer to author's question"
+        ],
+        "source_thread_id": "01a13f93-1044-7251-88b7-7ceb9b860556",
+        "source_rollout_final_line": 1170,
+        "source_final_timestamp": "2026-10-15T13:42:12.743Z",
+        "source_kind": "visible assistant final output; original-language draft",
+        "publication_status": "not verified as published"
+      },
+      "first_output": {
+        "id": "heldout2-004",
+        "language": "it",
+        "source_kind": "visible assistant final output; original-language draft",
+        "text": "Non mi sembra intolleranza. Se ti chiedo qualcosa per lavoro, vorrei che fosse facile rispondermi. Se so che non ascolti vocali e te ne mando uno lo stesso, complico la vita anche a me. La mail, in quel caso, aiuta entrambi a far andare avanti il lavoro.",
+        "sha256": "5b127b3573cb375b3912934127caa2c5ebff202cb7237197076a7ab3e861413f",
+        "decision": "keep",
+        "operation": [
+          "Frozen humanizer: already natural text may stay unchanged"
+        ],
+        "root_reason": "Useful direct Italian response already natural."
+      },
+      "first_neutral_assessment": {
+        "case_id": "heldout2-004",
+        "run": "first",
+        "input": "Non mi sembra intolleranza. Se ti chiedo qualcosa per lavoro, vorrei che fosse facile rispondermi. Se so che non ascolti vocali e te ne mando uno lo stesso, complico la vita anche a me. La mail, in quel caso, aiuta entrambi a far andare avanti il lavoro.",
+        "input_sha256": "5b127b3573cb375b3912934127caa2c5ebff202cb7237197076a7ab3e861413f",
+        "prompt": "Check this text for AI-generated patterns.\n\nText:\nNon mi sembra intolleranza. Se ti chiedo qualcosa per lavoro, vorrei che fosse facile rispondermi. Se so che non ascolti vocali e te ne mando uno lo stesso, complico la vita anche a me. La mail, in quel caso, aiuta entrambi a far andare avanti il lavoro.",
+        "posted_prompt": "Check this text for AI-generated patterns.\n\nText:\nNon mi sembra intolleranza. Se ti chiedo qualcosa per lavoro, vorrei che fosse facile rispondermi. Se so che non ascolti vocali e te ne mando uno lo stesso, complico la vita anche a me. La mail, in quel caso, aiuta entrambi a far andare avanti il lavoro.",
+        "valid_input": true,
+        "model_label": "GPT-6.1 Sol\nHigh\nNone\nMinimal\nLight\nMedium\nHigh\nExtra High\nMax\nUltra\nPersistent",
+        "submitted_at": "2026-10-23T21:37:38.874Z",
+        "url": "https://chatgpt.com/c/6adbd3a3-8948-83ed-b2b4-db80a638113e",
+        "response": "Il testo non presenta un effetto stilistico marcatamente associabile all’AI. È breve, colloquiale e segue un ragionamento concreto.\n\n«Se ti chiedo… Se so…»: la ripetizione rende la progressione ordinata, ma qui serve a distinguere il principio generale dall’esempio dei vocali. È normale argomentazione.\n«complico la vita anche a me»: è un’espressione quotidiana che chiarisce il costo pratico del comportamento.\n«aiuta entrambi a far andare avanti il lavoro»: chiude il ragionamento in modo conciliante. È una formula abbastanza comune, ma non così generica o enfatica da creare, da sola, un’impressione artificiosa.\n\nL’unico possibile ritocco riguarda la precisione: «vorrei che fosse facile rispondermi» → «vorrei renderti facile rispondermi» esplicita la responsabilità di chi sceglie il canale. Il cambio, però, accentua leggermente l’intenzione personale.\n\nNon vedo una ragione stilistica concreta per riscriverlo. Questo giudizio riguarda l’effetto del testo, non ne determina l’autore.",
+        "completed_at": "2026-10-23T21:38:21.861Z"
+      },
+      "first_classification": {
+        "id": "heldout2-004",
+        "verdict": "met",
+        "input_sha256": "5b127b3573cb375b3912934127caa2c5ebff202cb7237197076a7ab3e861413f",
+        "evidence_excerpt": "È una formula abbastanza comune, ma non così generica o enfatica da creare, da sola, un’impressione artificiosa.",
+        "reason": "Repeated 'Se' conditions and common closing are treated as ordinary, substantive conversation; no AI-like cue is identified.",
+        "named_ai_style_cue": "none",
+        "ordinary_craft_or_clarity": "Suggested agent-focused wording would slightly shift personal intent."
+      }
+    },
+    {
+      "id": "heldout2-005",
+      "language": "it",
+      "source": {
+        "id": "heldout2-005",
+        "language": "it",
+        "target": "Italian family-leave rules",
+        "target_url": "https://lnkd.in/p/dF3YVCgd",
+        "context_excerpt": "Italian discussion on leave, fatherhood, family needs, pay loss and workplace coverage; user brings experience of internal company leave rules but does not generalize it.",
+        "original_text": "In molte aziende in cui ho lavorato, i congedi aggiuntivi erano previsti dalle regole interne. Per le situazioni non previste, parlarne direttamente funzionava quasi sempre. È stata una buona esperienza, ma non posso darla per scontata per tutti.\n\nSe il sostegno dipende da una trattativa con l'azienda o da quanto stipendio si può perdere per stare con un figlio, non tutti hanno le stesse possibilità. Per me le regole vanno riviste pensando ai diversi momenti della vita familiare, con più tempo retribuito e procedure più semplici, anche per le pratiche che li accompagnano. Serve però capire come organizzare le assenze senza lasciare tutto sulle spalle dei colleghi. È un equilibrio difficile. Aumentare i giorni mi sembra necessario, ma da solo non basta.",
+        "original_sha256": "0d4cec0b30d4ea8e2329bbad3621ed241f8e369e69b5a6bd7578966303fed0b5",
+        "meaning_anchors": [
+          "User's own favorable company experience is limited",
+          "Unequal ability to negotiate or lose pay",
+          "More paid time is needed but coverage and procedures matter"
+        ],
+        "voice_anchors": [
+          "First-person, calm Italian",
+          "Nuanced rather than slogan-like"
+        ],
+        "source_thread_id": "01a12592-9a59-7a33-92d9-a0d61eaa6268",
+        "source_rollout_final_line": 704,
+        "source_final_timestamp": "2026-10-10T12:05:39.302Z",
+        "source_kind": "visible assistant final output; original-language draft",
+        "publication_status": "not verified as published"
+      },
+      "first_output": {
+        "id": "heldout2-005",
+        "language": "it",
+        "source_kind": "visible assistant final output; original-language draft",
+        "text": "In molte aziende in cui ho lavorato, i congedi aggiuntivi erano previsti dalle regole interne. Per le situazioni non previste, parlarne direttamente funzionava quasi sempre. È stata una buona esperienza, ma non posso darla per scontata per tutti.\n\nSe il sostegno dipende da una trattativa con l'azienda o da quanto stipendio si può perdere per stare con un figlio, non tutti hanno le stesse possibilità. Per me le regole vanno riviste pensando ai diversi momenti della vita familiare, con più tempo retribuito e procedure più semplici, anche per le pratiche legate a quei momenti. Serve però capire come organizzare le assenze senza lasciare tutto sulle spalle dei colleghi. È un equilibrio difficile. Aumentare i giorni mi sembra necessario, ma da solo non basta.",
+        "sha256": "cc255f0f5f3aa49f070742bce1f466e1f9b9a2ecc1b2499bef2f97c414104e9e",
+        "decision": "edit",
+        "operation": [
+          "Frozen humanizer: vague referents; smallest supported clarity edit",
+          "Italian calibration: common words and manageable clauses"
+        ],
+        "root_reason": "Clarify existing moments referent and keep anche; preserve separate acknowledgement that balance is difficult."
+      },
+      "first_neutral_assessment": {
+        "case_id": "heldout2-005",
+        "run": "first",
+        "input": "In molte aziende in cui ho lavorato, i congedi aggiuntivi erano previsti dalle regole interne. Per le situazioni non previste, parlarne direttamente funzionava quasi sempre. È stata una buona esperienza, ma non posso darla per scontata per tutti.\n\nSe il sostegno dipende da una trattativa con l'azienda o da quanto stipendio si può perdere per stare con un figlio, non tutti hanno le stesse possibilità. Per me le regole vanno riviste pensando ai diversi momenti della vita familiare, con più tempo retribuito e procedure più semplici, anche per le pratiche legate a quei momenti. Serve però capire come organizzare le assenze senza lasciare tutto sulle spalle dei colleghi. È un equilibrio difficile. Aumentare i giorni mi sembra necessario, ma da solo non basta.",
+        "input_sha256": "cc255f0f5f3aa49f070742bce1f466e1f9b9a2ecc1b2499bef2f97c414104e9e",
+        "prompt": "Check this text for AI-generated patterns.\n\nText:\nIn molte aziende in cui ho lavorato, i congedi aggiuntivi erano previsti dalle regole interne. Per le situazioni non previste, parlarne direttamente funzionava quasi sempre. È stata una buona esperienza, ma non posso darla per scontata per tutti.\n\nSe il sostegno dipende da una trattativa con l'azienda o da quanto stipendio si può perdere per stare con un figlio, non tutti hanno le stesse possibilità. Per me le regole vanno riviste pensando ai diversi momenti della vita familiare, con più tempo retribuito e procedure più semplici, anche per le pratiche legate a quei momenti. Serve però capire come organizzare le assenze senza lasciare tutto sulle spalle dei colleghi. È un equilibrio difficile. Aumentare i giorni mi sembra necessario, ma da solo non basta.",
+        "posted_prompt": "Check this text for AI-generated patterns.\n\nText:\nIn molte aziende in cui ho lavorato, i congedi aggiuntivi erano previsti dalle regole interne. Per le situazioni non previste, parlarne direttamente funzionava quasi sempre. È stata una buona esperienza, ma non posso darla per scontata per tutti.\n\nSe il sostegno dipende da una trattativa con l'azienda o da quanto stipendio si può perdere per stare con un figlio, non tutti hanno le stesse possibilità. Per me le regole vanno riviste pensando ai diversi momenti della vita familiare, con più tempo retribuito e procedure più semplici, anche per le pratiche legate a quei momenti. Serve però capire come organizzare le assenze senza lasciare tutto sulle spalle dei colleghi. È un equilibrio difficile. Aumentare i giorni mi sembra necessario, ma da solo non basta.",
+        "valid_input": true,
+        "model_label": "GPT-6.1 Sol\nHigh\nNone\nMinimal\nLight\nMedium\nHigh\nExtra High\nMax\nUltra\nPersistent",
+        "submitted_at": "2026-10-23T21:37:10.579Z",
+        "url": "https://chatgpt.com/c/6adbd387-1814-83eb-9da1-a2583c348fda",
+        "response": "Il testo ha un tono personale e ragionato. Non vedo elementi stilistici abbastanza specifici da suggerire una generazione AI; ci sono però due punti un po’ generici.\n\n«È un equilibrio difficile.» È la frase più convenzionale: riassume la difficoltà appena descritta senza aggiungere molto. Tra «senza lasciare tutto sulle spalle dei colleghi» e «Aumentare i giorni…» crea una pausa da conclusione editoriale. Si può eliminare per rendere il finale più diretto; si perde solo quella pausa.\n«anche per le pratiche legate a quei momenti» è poco preciso: non chiarisce quali pratiche siano comprese. È un problema di chiarezza, non un segnale AI. Se il contesto non lo spiega già, servirebbe una precisazione basata su ciò che intendi davvero.\n\nLa progressione esperienza personale → differenze nelle possibilità → proposta → difficoltà organizzativa è ordinata, ma segue il ragionamento e non costituisce da sola un effetto artificiale.\n\nTerrei «non posso darla per scontata per tutti», perché delimita l’esperienza personale, e «Aumentare i giorni mi sembra necessario, ma da solo non basta», perché distingue la quantità di congedo dalle condizioni che lo rendono utilizzabile. Non sono cautele decorative.\n\nLa modifica minima utile è quindi togliere «È un equilibrio difficile». Il resto richiede, al massimo, una precisazione sulle pratiche. Lo stile da solo non permette di stabilire l’autore.",
+        "completed_at": "2026-10-23T21:37:38.956Z"
+      },
+      "first_classification": {
+        "id": "heldout2-005",
+        "verdict": "met",
+        "input_sha256": "cc255f0f5f3aa49f070742bce1f466e1f9b9a2ecc1b2499bef2f97c414104e9e",
+        "evidence_excerpt": "Non vedo elementi stilistici abbastanza specifici da suggerire una generazione AI; ci sono però due punti un po’ generici.",
+        "reason": "The evaluator explicitly separates two generic/clarity observations from AI-like style. The optional deletion of 'È un equilibrio difficile' is a local concision suggestion, not a named AI-associated cue.",
+        "named_ai_style_cue": "none explicitly linked to AI-like style",
+        "ordinary_craft_or_clarity": "'È un equilibrio difficile' adds little and 'pratiche legate a quei momenti' is imprecise; these remain possible edits but do not by themselves fail this gate."
+      }
+    },
+    {
+      "id": "heldout2-006",
+      "language": "en",
+      "source": {
+        "id": "heldout2-006",
+        "language": "en",
+        "target": "CoffeeSlack screenshot usability",
+        "target_url": "https://lnkd.in/p/envDdWHF",
+        "context_excerpt": "Thank product maker; ask for click-to-enlarge screenshots in 'What it looks like' because Slack/dashboard detail at preview size is hard to inspect before recommending to a team.",
+        "original_text": "Thanks for making CoffeeSlack available — it’s a genuinely lovely idea. One small request after looking through the site: could the screenshots in “What it looks like” open larger when clicked? The Slack and dashboard details are hard to make out at preview size; being able to inspect the flow would make it much easier to judge whether to suggest it to a team.",
+        "original_sha256": "5f1c65a3f6a97bf470f24a10c3d7400a8c819b6ac5516e7b3f003610bad23cfa",
+        "meaning_anchors": [
+          "Request is specifically image enlargement",
+          "Observed detail is hard to read at preview size",
+          "Potential team recommendation is conditional"
+        ],
+        "voice_anchors": [
+          "Warm but concrete English request",
+          "No exaggerated UX claims"
+        ],
+        "source_thread_id": "01a0eeb2-f066-7ef2-9f96-1fcda0574646",
+        "source_rollout_final_line": 369,
+        "source_final_timestamp": "2026-09-29T19:52:16.709Z",
+        "source_kind": "visible assistant final output; original-language draft",
+        "publication_status": "not verified as published"
+      },
+      "first_output": {
+        "id": "heldout2-006",
+        "language": "en",
+        "source_kind": "visible assistant final output; original-language draft",
+        "text": "Thanks for making CoffeeSlack available — it’s a genuinely lovely idea. One small request after looking through the site: could the screenshots in “What it looks like” open larger when clicked? The Slack and dashboard details are hard to make out at preview size. Being able to inspect the flow would make it much easier to judge whether to suggest it to a team.",
+        "sha256": "6935984200a6a957e70c39fd79fafcb1a82fb9a9d2c6beb7cf3ac8acd22cd4b3",
+        "decision": "edit",
+        "operation": [
+          "Current social voice: no semicolons in authored comments",
+          "Frozen humanizer: avoid report-like sentence stacking"
+        ],
+        "root_reason": "Minimum punctuation repair keeps warmth and source fact of visiting site; broader removals risk courtesy/experience loss."
+      },
+      "first_neutral_assessment": {
+        "case_id": "heldout2-006",
+        "run": "first",
+        "input": "Thanks for making CoffeeSlack available — it’s a genuinely lovely idea. One small request after looking through the site: could the screenshots in “What it looks like” open larger when clicked? The Slack and dashboard details are hard to make out at preview size. Being able to inspect the flow would make it much easier to judge whether to suggest it to a team.",
+        "input_sha256": "6935984200a6a957e70c39fd79fafcb1a82fb9a9d2c6beb7cf3ac8acd22cd4b3",
+        "prompt": "Check this text for AI-generated patterns.\n\nText:\nThanks for making CoffeeSlack available — it’s a genuinely lovely idea. One small request after looking through the site: could the screenshots in “What it looks like” open larger when clicked? The Slack and dashboard details are hard to make out at preview size. Being able to inspect the flow would make it much easier to judge whether to suggest it to a team.",
+        "posted_prompt": "Check this text for AI-generated patterns.\n\nText:\nThanks for making CoffeeSlack available — it’s a genuinely lovely idea. One small request after looking through the site: could the screenshots in “What it looks like” open larger when clicked? The Slack and dashboard details are hard to make out at preview size. Being able to inspect the flow would make it much easier to judge whether to suggest it to a team.",
+        "valid_input": true,
+        "model_label": "GPT-6.1 Sol\nHigh\nNone\nMinimal\nLight\nMedium\nHigh\nExtra High\nMax\nUltra\nPersistent",
+        "submitted_at": "2026-10-23T21:37:12.585Z",
+        "url": "https://chatgpt.com/c/6adbd389-2c98-83ed-a92c-20dfa2096b08",
+        "response": "The passage has a slightly formulaic feedback structure, but nothing that reliably indicates AI authorship.\n\n“Thanks for making CoffeeSlack available — it’s a genuinely lovely idea.” Broad praise before a request can feel like a courtesy template. “Genuinely lovely” adds warmth without explaining what you like.\n“One small request after looking through the site” adds another layer of politeness before “could …”. Together, these make the opening feel carefully cushioned.\nThe screenshot request and explanation are concrete. Naming the section, identifying unreadable details, and explaining the team recommendation decision all serve a purpose. The closing is substantive, not merely a polished sign-off.\n\nThe clearest optional edit is to remove “One small request after looking through the site:” and begin that sentence with “Could the screenshots…” This reduces the stacked softening while preserving the request and rationale. The tradeoff is a slightly more direct tone.\n\nThe em dash and orderly progression alone aren’t meaningful signs of AI generation.",
+        "completed_at": "2026-10-23T21:37:41.016Z"
+      },
+      "first_classification": {
+        "id": "heldout2-006",
+        "verdict": "not_met",
+        "input_sha256": "6935984200a6a957e70c39fd79fafcb1a82fb9a9d2c6beb7cf3ac8acd22cd4b3",
+        "evidence_excerpt": "The passage has a slightly formulaic feedback structure",
+        "reason": "The response names a mild formulaic style effect and locates it in broad praise plus a cushioned request. Its disclaimer about authorship does not remove the style cue.",
+        "named_ai_style_cue": "slightly formulaic feedback structure; broad praise and stacked politeness",
+        "ordinary_craft_or_clarity": "The screenshot issue, named section and conditional team recommendation are called substantive. Pretest peer review had separately flagged the 'One small request...' courtesy frame as a live risk, not as a measured failure."
+      },
+      "diagnostic_clarification": {
+        "case_id": "heldout2-006",
+        "kind": "diagnostic_not_fresh_retest",
+        "input_sha256": "6935984200a6a957e70c39fd79fafcb1a82fb9a9d2c6beb7cf3ac8acd22cd4b3",
+        "prompt": "You called the exact text above a “slightly formulaic feedback structure.” Which wording or combination creates that effect, and which parts are ordinary warmth or needed for the concrete screenshot request? Please distinguish the broad praise from the “One small request after looking through the site” lead-in, and explain the voice or meaning tradeoff of any minimal source-faithful change. Do not infer authorship or treat this follow-up as a new evaluation. Please also preserve the source-grounded fact that the writer looked through the site if proposing a concrete version.",
+        "posted_prompt": "You called the exact text above a “slightly formulaic feedback structure.” Which wording or combination creates that effect, and which parts are ordinary warmth or needed for the concrete screenshot request? Please distinguish the broad praise from the “One small request after looking through the site” lead-in, and explain the voice or meaning tradeoff of any minimal source-faithful change. Do not infer authorship or treat this follow-up as a new evaluation. Please also preserve the source-grounded fact that the writer looked through the site if proposing a concrete version.",
+        "url": "https://chatgpt.com/c/6adbd389-2c98-83ed-a92c-20dfa2096b08",
+        "submitted_at": "2026-10-23T21:40:09.619Z",
+        "navigation_recovery": "Saved conversation briefly could not load; one reload restored original exact input and original literal response. No newassessment requested.",
+        "response": "By “slightly formulaic,” I meant the combined cushioning before the request: thanks → broad praise → “One small request” → “could…?” That sequence can feel rehearsed. Each element individually is ordinary polite feedback; my earlier wording should have located the effect in their accumulation.\n\nThe two opening elements do different work:\n\n“Thanks for making CoffeeSlack available — it’s a genuinely lovely idea.” The thanks acknowledges making the product available. “Genuinely lovely” expresses warm enthusiasm, but gives no particular reason for it. That makes the praise broadly reusable, without making it insincere. Removing “genuinely” would lower the intensity slightly; it would leave the same general praise and structure.\n“One small request after looking through the site” combines a softener with factual context. “One small request” presents the suggestion as modest; “after looking through the site” establishes that the writer examined the site. The latter is substantive and should survive an edit. My previous deletion suggestion lost that information.\n\nA minimal useful replacement for the second sentence would be:\n\nI looked through the site. Could the screenshots in “What it looks like” open larger when clicked?\n\nThis preserves the site inspection and exact request while removing one layer of cushioning. The voice becomes more direct, and the extra sentence makes the rhythm slightly choppier. Keeping the original is reasonable if its gentler transition matters.\n\nThe remaining explanation should stay: the Slack and dashboard details identify the visibility problem, while inspecting the flow and deciding whether to suggest it to a team explain why enlargement matters. Neither is dispensable courtesy padding.",
+        "completed_at": "2026-10-23T21:40:42.915Z"
+      },
+      "post_feedback_tuning": {
+        "draft_v2_sha256": "acd49e57f4e2fc296162765188b9d351990eb596f0e752a7054321a05413bc56",
+        "provisional_operation": "## Provisional product-feedback example for this experiment\n\nWhen a warm request stacks a broad positive reaction, an announcement of a small request, and a polite question, inspect the cumulative softening rather than banning courtesy. If that stack obscures the existing observation, try stating the observed obstacle in its own sentence before the direct question. Preserve the warmth, the fact of looking through the site, and the conditional reason for the request. This is a case-derived hypothesis, not a confirmed rule; do not apply it to other speech acts without fresh evidence.",
+        "exact_candidate": {
+          "id": "heldout2-006",
+          "text": "Thanks for making CoffeeSlack available — it’s a genuinely lovely idea. I looked through the site, but the Slack and dashboard details in “What it looks like” are hard to make out at preview size. Could the screenshots open larger when clicked? Being able to inspect the flow would make it much easier to judge whether to suggest it to a team.",
+          "sha256": "6ccf965114b673feffb5273ed426d0a946dc3142652264590d78180816116b85",
+          "draft_v2_sha256": "acd49e57f4e2fc296162765188b9d351990eb596f0e752a7054321a05413bc56",
+          "operation": "Provisional product-feedback example: observation before direct request; source-preserving anaphora correction those→the.",
+          "peer": "../case006-revision-peer.json",
+          "frozen_at": "2026-10-23T21:41:55.040Z",
+          "first_result_unchanged": "not_met"
+        },
+        "first_result_does_not_change": true,
+        "neutral_assessment": {
+          "case_id": "heldout2-006",
+          "run": "revision1",
+          "input": "Thanks for making CoffeeSlack available — it’s a genuinely lovely idea. I looked through the site, but the Slack and dashboard details in “What it looks like” are hard to make out at preview size. Could the screenshots open larger when clicked? Being able to inspect the flow would make it much easier to judge whether to suggest it to a team.",
+          "input_sha256": "6ccf965114b673feffb5273ed426d0a946dc3142652264590d78180816116b85",
+          "prompt": "Check this text for AI-generated patterns.\n\nText:\nThanks for making CoffeeSlack available — it’s a genuinely lovely idea. I looked through the site, but the Slack and dashboard details in “What it looks like” are hard to make out at preview size. Could the screenshots open larger when clicked? Being able to inspect the flow would make it much easier to judge whether to suggest it to a team.",
+          "posted_prompt": "Check this text for AI-generated patterns.\n\nText:\nThanks for making CoffeeSlack available — it’s a genuinely lovely idea. I looked through the site, but the Slack and dashboard details in “What it looks like” are hard to make out at preview size. Could the screenshots open larger when clicked? Being able to inspect the flow would make it much easier to judge whether to suggest it to a team.",
+          "valid_input": true,
+          "model_label": "GPT-6.1 Sol\nHigh\nNone\nMinimal\nLight\nMedium\nHigh\nExtra High\nMax\nUltra\nPersistent",
+          "submitted_at": "2026-10-23T21:41:58.171Z",
+          "url": "https://chatgpt.com/c/6adbd4a5-f090-83ed-8e02-70db0bcf2802",
+          "response": "The text has a few conventional feedback phrases, but no distinctive AI-generated pattern. Its structure—thanks, observed difficulty, specific request, practical reason—fits the task naturally.\n\n“It’s a genuinely lovely idea” is broad praise. “Genuinely” adds emphasis without explaining what the writer likes, which can give it a slightly stock feel. It is also ordinary warmth; it doesn’t need changing.\n“I looked through the site” supplies relevant context. Connecting it directly to the difficulty makes the request grounded rather than introducing it through a generic feedback preamble.\nThe screenshot description and click-to-enlarge question are specific and economical. Naming the section, Slack, dashboard, and preview size makes the problem clear.\n“Being able to inspect the flow would make it much easier to judge whether to suggest it to a team” is the most formal sentence. “Inspect the flow” and “judge whether” give it a measured, evaluative voice, but the sentence contributes a real reason for the request.\n\nAn optional simplification is “see how it works” instead of “inspect the flow.” That sounds more conversational, but loses some precision about examining the sequence of interactions. There’s no strong reason to restructure the passage or remove its warmth.",
+          "completed_at": "2026-10-23T21:42:35.934Z"
+        },
+        "classification": {
+          "case_id": "heldout2-006",
+          "run": "revision1",
+          "input_sha256": "6ccf965114b673feffb5273ed426d0a946dc3142652264590d78180816116b85",
+          "freeze_sha256": "6ccf965114b673feffb5273ed426d0a946dc3142652264590d78180816116b85",
+          "valid_input": true,
+          "gate": "No identified AI-like style cue, including mild; genuinely ambiguous is unresolved. Ordinary craft or clarity alone is not failure.",
+          "first_output_result_unchanged": "not_met",
+          "revision1_result": "met",
+          "evidence_excerpt": "It is also ordinary warmth; it doesn’t need changing.",
+          "other_literal_evidence": [
+            "The text has a few conventional feedback phrases, but no distinctive AI-generated pattern.",
+            "Its structure—thanks, observed difficulty, specific request, practical reason—fits the task naturally.",
+            "There’s no strong reason to restructure the passage or remove its warmth."
+          ],
+          "reason": "The reply observes broad praise with a slightly stock feel, but explicitly treats it as ordinary warmth rather than an AI-like style cue. It describes the observation, request, and reason as task-grounded, and names no residual AI-like pattern. The optional conversational simplification would lose precision and is not required by this gate.",
+          "limitation": "This is one later revision result, separate from the original first-output result. It does not isolate the effect of the courtesy-framing operation from the anaphor correction, establish transfer to other feedback, or prove authorship."
+        },
+        "peer": {
+          "verdict": "accept_with_required_minor_referent_correction",
+          "selected_sha256": "9c78745b216dbf67c4b5217c38c687d20181b950630faf7470d0e750a4aae072",
+          "required_correction": {
+            "source_span": "Could those screenshots open larger when clicked?",
+            "replacement": "Could the screenshots open larger when clicked?",
+            "reason": "“Those” points to screenshots not yet named in the preceding sentence. “The” works as a situational reference to the images in the named section without adding a second mention of that section."
+          },
+          "corrected_exact_text": "Thanks for making CoffeeSlack available — it’s a genuinely lovely idea. I looked through the site, but the Slack and dashboard details in “What it looks like” are hard to make out at preview size. Could the screenshots open larger when clicked? Being able to inspect the flow would make it much easier to judge whether to suggest it to a team.",
+          "corrected_sha256": "6ccf965114b673feffb5273ed426d0a946dc3142652264590d78180816116b85",
+          "source_voice_check": "Keeps the warm thanks and broad but intended praise; “I looked through the site” preserves the supported visit; current Slack/dashboard preview difficulty remains an observation. The direct click-to-enlarge question and conditional team-suggestion reason remain. No product benefit or new UX failure invented.",
+          "strongest_remaining_weakness": "The broad praise and observation→question→reason progression are still polished. Only the accumulated “One small request” cushioning was removed; fresh neutral feedback is needed before any effect claim.",
+          "first_failure_boundary": "The first-output failure remains recorded. The clarification names the cushioning stack, but it is diagnostic, not a fresh pass; no candidate pass is predicted."
+        },
+        "untested_variants": [
+          {
+            "label": "independent1",
+            "text": "Thanks for making CoffeeSlack available — it’s a genuinely lovely idea. I looked through the site, but the Slack and dashboard details in the screenshots under “What it looks like” are hard to make out at preview size. Could clicking a screenshot open a larger version? Being able to inspect the flow would make it much easier to judge whether to suggest it to a team."
+          },
+          {
+            "label": "independent2",
+            "text": "Thanks for making CoffeeSlack available — it’s a genuinely lovely idea. I looked through the site, but the Slack and dashboard details in “What it looks like” are hard to make out at preview size. Could those screenshots open larger when clicked? Being able to inspect the flow would make it much easier to judge whether to suggest it to a team."
+          },
+          {
+            "label": "independent3",
+            "text": "Thanks for making CoffeeSlack available — it’s a genuinely lovely idea. When I looked through the site, the Slack and dashboard details in “What it looks like” were hard to make out at preview size. Could the screenshots open larger when clicked? Being able to inspect the flow would make it much easier to judge whether to suggest it to a team."
+          }
+        ]
+      }
+    },
+    {
+      "id": "heldout2-007",
+      "language": "en",
+      "source": {
+        "id": "heldout2-007",
+        "language": "en",
+        "target": "HTTP QUERY caching adoption",
+        "target_url": "https://lnkd.in/p/eyCvE2yz",
+        "context_excerpt": "Reply to QUERY-method discussion: RFC permits caching but deployment components may differ; proposed Node.js search-endpoint check uses same URL with different filters.",
+        "original_text": "The semantics are lovely, but “cacheable” is doing a little more work than it first appears to. RFC 10008 permits a cache to store QUERY responses; it does not make an existing CDN do it automatically, and a correct cache key must include the request body. That is where I’d test a Node.js search endpoint first: same URL, two different filters, and no chance of getting each other’s results.",
+        "original_sha256": "ac1aaf7e518f5742940b4fc0f15465e5faa3efd3991a2ead001df473cd4bbb7f",
+        "meaning_anchors": [
+          "RFC 10008 permits cache storage, not automatic CDN support",
+          "Cache key must include request body",
+          "Same URL with two different filters is proposed test"
+        ],
+        "voice_anchors": [
+          "Interested technical English",
+          "Light wit in 'cacheable' caveat"
+        ],
+        "source_thread_id": "01a0d533-ec71-7be1-9749-75609250ea9a",
+        "source_rollout_final_line": 437,
+        "source_final_timestamp": "2026-09-24T21:06:02.044Z",
+        "source_kind": "visible assistant final output; original-language draft",
+        "publication_status": "not verified as published"
+      },
+      "first_output": {
+        "id": "heldout2-007",
+        "language": "en",
+        "source_kind": "visible assistant final output; original-language draft",
+        "text": "The semantics are lovely, but “cacheable” is doing a little more work than it first appears to. RFC 10008 permits a cache to store QUERY responses. It does not make an existing CDN do it automatically, and a correct cache key must include the request body. That is where I’d test a Node.js search endpoint first: same URL, two different filters, and no chance of getting each other’s results.",
+        "sha256": "aeb0e2fb8f494e5cf39b194413c242ee04219a2b541699d7e15cdc2d5e76cc7a",
+        "decision": "edit",
+        "operation": [
+          "Current social voice: no semicolons in authored comments",
+          "Frozen humanizer: keep useful technical distinctions"
+        ],
+        "root_reason": "Punctuation separates permission from deployed behaviour; keep author’s source wry phrasing and proposed test."
+      },
+      "first_neutral_assessment": {
+        "case_id": "heldout2-007",
+        "run": "first",
+        "input": "The semantics are lovely, but “cacheable” is doing a little more work than it first appears to. RFC 10008 permits a cache to store QUERY responses. It does not make an existing CDN do it automatically, and a correct cache key must include the request body. That is where I’d test a Node.js search endpoint first: same URL, two different filters, and no chance of getting each other’s results.",
+        "input_sha256": "aeb0e2fb8f494e5cf39b194413c242ee04219a2b541699d7e15cdc2d5e76cc7a",
+        "prompt": "Check this text for AI-generated patterns.\n\nText:\nThe semantics are lovely, but “cacheable” is doing a little more work than it first appears to. RFC 10008 permits a cache to store QUERY responses. It does not make an existing CDN do it automatically, and a correct cache key must include the request body. That is where I’d test a Node.js search endpoint first: same URL, two different filters, and no chance of getting each other’s results.",
+        "posted_prompt": "Check this text for AI-generated patterns.\n\nText:\nThe semantics are lovely, but “cacheable” is doing a little more work than it first appears to. RFC 10008 permits a cache to store QUERY responses. It does not make an existing CDN do it automatically, and a correct cache key must include the request body. That is where I’d test a Node.js search endpoint first: same URL, two different filters, and no chance of getting each other’s results.",
+        "valid_input": true,
+        "model_label": "GPT-6.1 Sol\nHigh\nNone\nMinimal\nLight\nMedium\nHigh\nExtra High\nMax\nUltra\nPersistent",
+        "submitted_at": "2026-10-23T21:37:40.962Z",
+        "url": "https://chatgpt.com/c/6adbd3a5-68d8-83eb-ab42-dce8a051315a",
+        "response": "The passage has a slightly polished editorial opening, but that alone doesn’t indicate AI authorship.\n\n“The semantics are lovely” is broad praise; “‘cacheable’ is doing a little more work than it first appears to” is a familiar rhetorical setup. Together, they briefly sound like a crafted technical commentary.\n“It does not make an existing CDN do it automatically” supplies a concrete distinction. The contrast serves the argument; it isn’t empty rhetorical balancing.\n“same URL, two different filters” makes the proposed test specific. The conversational ending, “getting each other’s results,” keeps it from sounding like formal documentation.\n\nThe progression—qualification, implementation concern, test—is ordinary technical argumentation. There’s no clear repetition or excessive summarising to remove.\n\nIf you want a less editorial opening, replace the first sentence with: “‘Cacheable’ needs a qualification here.” That preserves its purpose but loses the warmth and playful skepticism. The rest doesn’t need changing on stylistic grounds.\n\nThis assesses the wording, not the accuracy of the RFC claim.",
+        "completed_at": "2026-10-23T21:38:24.326Z"
+      },
+      "first_classification": {
+        "id": "heldout2-007",
+        "verdict": "unresolved",
+        "input_sha256": "aeb0e2fb8f494e5cf39b194413c242ee04219a2b541699d7e15cdc2d5e76cc7a",
+        "evidence_excerpt": "Together, they briefly sound like a crafted technical commentary.",
+        "reason": "The opening is described as slightly editorial, broad praise plus familiar setup producing a crafted impression. The response does not decide whether this is a mild AI-like style cue or ordinary warmth/playful skepticism; its authorship disclaimer and useful technical progression do not resolve that ambiguity.",
+        "named_ai_style_cue": "possible mild crafted/editorial opening, AI linkage unclear",
+        "ordinary_craft_or_clarity": "The RFC distinction and two-filter test are called concrete. Replacing the opening would lose warmth."
+      },
+      "diagnostic_clarification": {
+        "case_id": "heldout2-007",
+        "kind": "diagnostic_not_fresh_retest",
+        "input_sha256": "aeb0e2fb8f494e5cf39b194413c242ee04219a2b541699d7e15cdc2d5e76cc7a",
+        "prompt": "Please clarify the exact stylistic distinction in your assessment above. Does “slightly polished editorial opening” identify an AI-like stylistic effect, even a mild one, or ordinary crafted technical commentary? Explain which exact words or cumulative structure cause any avoidable effect and why; distinguish warmth/playful skepticism from generic framing. Suggest a minimal source-faithful improvement only if useful, with its voice and meaning tradeoff. Do not infer authorship or treat this clarification as a fresh evaluation.",
+        "posted_prompt": "Please clarify the exact stylistic distinction in your assessment above. Does “slightly polished editorial opening” identify an AI-like stylistic effect, even a mild one, or ordinary crafted technical commentary? Explain which exact words or cumulative structure cause any avoidable effect and why; distinguish warmth/playful skepticism from generic framing. Suggest a minimal source-faithful improvement only if useful, with its voice and meaning tradeoff. Do not infer authorship or treat this clarification as a fresh evaluation.",
+        "url": "https://chatgpt.com/c/6adbd3a5-68d8-83eb-ab42-dce8a051315a",
+        "submitted_at": "2026-10-23T21:39:39.454Z",
+        "response": "I meant ordinary crafted technical commentary, not a separately identifiable AI-like effect. My wording blurred that distinction by presenting editorial polish as relevant to an AI-pattern assessment without establishing anything more specific.\n\nThe opening combines two different things:\n\n“The semantics are lovely” expresses warmth toward the design itself. Although it doesn’t explain that praise, it has a clear referent and establishes the author’s appreciative stance.\n“‘cacheable’ is doing a little more work than it first appears to” supplies playful skepticism through a familiar idiom. Its potentially generic quality comes from announcing an unstated complication before naming it. “A little” softens the challenge; “than it first appears to” adds anticipation.\n\nTogether, they create a praise-then-qualification opening. That is a conventional rhetorical choice. The following sentences promptly explain the qualification, so there is no sustained generic framing or cumulative structure that I can justify calling AI-like.\n\nAn optional tightening would be:\n\nThe semantics are lovely, but “cacheable” needs a qualification.\n\nThis preserves the warmth and the substantive role of the opening while stating its purpose more directly. It loses the teasing suggestion that the word carries more implications than readers might initially notice. That is a voice tradeoff, not a necessary correction; the original idiom earns its place if playful skepticism is intended.",
+        "completed_at": "2026-10-23T21:40:42.880Z"
+      }
+    },
+    {
+      "id": "heldout2-008",
+      "language": "en",
+      "source": {
+        "id": "heldout2-008",
+        "language": "en",
+        "target": "PHP JIT matrix trace exit measurement",
+        "target_url": "https://lnkd.in/p/eQ2mcWuZ",
+        "context_excerpt": "Response to Sebastian's PHP JIT numerical-suite writeup: asks whether 29 trace exits are frequently taken and concentrated in a few guards.",
+        "original_text": "The 29 exits leave an interesting question about how often each is actually taken. A trace with many guards could still be a very comfortable place to spend most of the execution time if those assumptions usually hold. The distinction would affect how I read a profile: frequent returns to the interpreter would suggest a different problem from expensive arithmetic that stays in compiled code. Did you measure how often execution left the matrix trace, and whether a few exits accounted for most of those departures?",
+        "original_sha256": "b3bbd9bfa25b42c8af638df6fbba49b4cb3de7497052c609c590ca76ec1abef4",
+        "meaning_anchors": [
+          "29 exits is source-reported count",
+          "Question distinguishes static guard count from actual exit frequency",
+          "No claim of measurements not made"
+        ],
+        "voice_anchors": [
+          "Curious, technically precise English",
+          "Question rather than correction"
+        ],
+        "source_thread_id": "01a0c5d7-8e20-7d21-b23a-6bb7add7e487",
+        "source_rollout_final_line": 286,
+        "source_final_timestamp": "2026-09-21T21:38:14.500Z",
+        "source_kind": "visible assistant final output; original-language draft",
+        "publication_status": "not verified as published"
+      },
+      "first_output": {
+        "id": "heldout2-008",
+        "language": "en",
+        "source_kind": "visible assistant final output; original-language draft",
+        "text": "Did you measure how often execution left the matrix trace, and whether a few of the 29 exits accounted for most of those departures? A trace with many guards could still be a very comfortable place to spend most of the execution time if those assumptions usually hold. That distinction would affect how I read a profile: frequent returns to the interpreter would suggest a different problem from expensive arithmetic that stays in compiled code.",
+        "sha256": "fcf79ceaa5ded9e03b90c9bea412e2275c302b3711e499ba61855ba4e7f59ea0",
+        "decision": "edit",
+        "operation": [
+          "Frozen humanizer: delayed point and repeated rhetorical setup",
+          "Current English voice: address the knowledgeable peer directly"
+        ],
+        "root_reason": "Move existing actual question forward and retain explicit first-person profile judgement; no measurement or mechanism lost."
+      },
+      "first_neutral_assessment": {
+        "case_id": "heldout2-008",
+        "run": "first",
+        "input": "Did you measure how often execution left the matrix trace, and whether a few of the 29 exits accounted for most of those departures? A trace with many guards could still be a very comfortable place to spend most of the execution time if those assumptions usually hold. That distinction would affect how I read a profile: frequent returns to the interpreter would suggest a different problem from expensive arithmetic that stays in compiled code.",
+        "input_sha256": "fcf79ceaa5ded9e03b90c9bea412e2275c302b3711e499ba61855ba4e7f59ea0",
+        "prompt": "Check this text for AI-generated patterns.\n\nText:\nDid you measure how often execution left the matrix trace, and whether a few of the 29 exits accounted for most of those departures? A trace with many guards could still be a very comfortable place to spend most of the execution time if those assumptions usually hold. That distinction would affect how I read a profile: frequent returns to the interpreter would suggest a different problem from expensive arithmetic that stays in compiled code.",
+        "posted_prompt": "Check this text for AI-generated patterns.\n\nText:\nDid you measure how often execution left the matrix trace, and whether a few of the 29 exits accounted for most of those departures? A trace with many guards could still be a very comfortable place to spend most of the execution time if those assumptions usually hold. That distinction would affect how I read a profile: frequent returns to the interpreter would suggest a different problem from expensive arithmetic that stays in compiled code.",
+        "valid_input": true,
+        "model_label": "GPT-6.1 Sol\nHigh\nNone\nMinimal\nLight\nMedium\nHigh\nExtra High\nMax\nUltra\nPersistent",
+        "submitted_at": "2026-10-23T21:37:43.032Z",
+        "url": "https://chatgpt.com/c/6adbd3a7-b280-83eb-bb7e-f8d5abd46a05",
+        "response": "The passage reads as a focused technical comment. I don’t see a concrete, avoidable AI-like pattern; its orderly reasoning has a clear purpose here.\n\nThe opening asks for two distinct measurements: how often execution leaves the trace, and whether departures concentrate in a few exits. That specificity makes the question useful.\nThe middle explains why guard count alone is insufficient. “A very comfortable place to spend most of the execution time” is a slightly elaborate metaphor. It adds conversational voice, though “very comfortable” contributes little precision.\nThe closing distinguishes interpreter returns from arithmetic costs within compiled code. This is substantive reasoning, not merely a polished concluding sentence. Its placement follows naturally from the question.\n\nThe only small edit I’d consider is:\n\nA trace with many guards could still spend most of its execution time in compiled code if those assumptions usually hold.\n\nHowever, that makes “a trace” the thing spending time, which is less exact. A cleaner option is:\n\nExecution could still spend most of its time in a trace with many guards if those assumptions usually hold.\n\nThis removes the metaphor but also some personality. It is an optional precision edit, not a repair for evidence of AI authorship. I would retain the opening question and the final technical distinction.",
+        "completed_at": "2026-10-23T21:38:26.955Z"
+      },
+      "first_classification": {
+        "id": "heldout2-008",
+        "verdict": "met",
+        "input_sha256": "fcf79ceaa5ded9e03b90c9bea412e2275c302b3711e499ba61855ba4e7f59ea0",
+        "evidence_excerpt": "It is an optional precision edit, not a repair for evidence of AI authorship.",
+        "reason": "The question and profile distinction are substantive; metaphor tightening is optional precision and voice tradeoff, not a named AI-like cue.",
+        "named_ai_style_cue": "none",
+        "ordinary_craft_or_clarity": "'Very comfortable' adds little precision but gives conversational voice."
+      }
+    },
+    {
+      "id": "synthetic-ru-001",
+      "language": "ru",
+      "source": {
+        "id": "synthetic-ru-001",
+        "language": "ru",
+        "target": "Hypothetical retry worker discussion",
+        "original_text": "Если задача уже выполнена, повтор после таймаута всё равно может запустить её ещё раз. Я бы проверил, сохраняется ли результат по ключу операции до подтверждения сообщения. Иначе два успешных ответа не скажут, было ли действие выполнено один раз.",
+        "meaning_anchors": [
+          "Hypothetical duplicate execution after timeout",
+          "Check order of result persistence and message acknowledgement",
+          "Successful replies alone do not prove one execution"
+        ],
+        "voice_anchors": [
+          "Calm conversational Russian",
+          "Conditional, no claimed personal experience or measured outcome"
+        ],
+        "original_sha256": "daca6eb8df536f2b9fea32834602279d1249b47e3b6eb917875f24e14eba3800",
+        "source_kind": "synthetic native-Russian fixture, authored for this benchmark; not historical social-promotion output",
+        "publication_status": "not applicable"
+      },
+      "first_output": {
+        "id": "synthetic-ru-001",
+        "language": "ru",
+        "source_kind": "synthetic native-Russian fixture, authored for this benchmark; not historical social-promotion output",
+        "text": "Если задача уже выполнена, повтор после таймаута всё равно может запустить её ещё раз. Я бы проверил, сохраняется ли результат по ключу операции до подтверждения сообщения. Иначе два успешных ответа не скажут, было ли действие выполнено один раз.",
+        "sha256": "daca6eb8df536f2b9fea32834602279d1249b47e3b6eb917875f24e14eba3800",
+        "decision": "keep",
+        "operation": [
+          "Frozen humanizer: already natural text may stay unchanged",
+          "RU/UA calibration: preserve natural Russian impersonal constructions"
+        ],
+        "root_reason": "Native Russian already natural; no forced edits."
+      },
+      "first_neutral_assessment": {
+        "case_id": "synthetic-ru-001",
+        "run": "first",
+        "input": "Если задача уже выполнена, повтор после таймаута всё равно может запустить её ещё раз. Я бы проверил, сохраняется ли результат по ключу операции до подтверждения сообщения. Иначе два успешных ответа не скажут, было ли действие выполнено один раз.",
+        "input_sha256": "daca6eb8df536f2b9fea32834602279d1249b47e3b6eb917875f24e14eba3800",
+        "prompt": "Check this text for AI-generated patterns.\n\nText:\nЕсли задача уже выполнена, повтор после таймаута всё равно может запустить её ещё раз. Я бы проверил, сохраняется ли результат по ключу операции до подтверждения сообщения. Иначе два успешных ответа не скажут, было ли действие выполнено один раз.",
+        "posted_prompt": "Check this text for AI-generated patterns.\n\nText:\nЕсли задача уже выполнена, повтор после таймаута всё равно может запустить её ещё раз. Я бы проверил, сохраняется ли результат по ключу операции до подтверждения сообщения. Иначе два успешных ответа не скажут, было ли действие выполнено один раз.",
+        "valid_input": true,
+        "model_label": "GPT-6.1 Sol\nHigh\nNone\nMinimal\nLight\nMedium\nHigh\nExtra High\nMax\nUltra\nPersistent",
+        "submitted_at": "2026-10-23T21:38:24.244Z",
+        "url": "https://chatgpt.com/c/6adbd3d0-aacc-83eb-8536-a28d4f5a0fb8",
+        "response": "Выраженных AI-паттернов здесь не вижу. Текст компактный, с конкретной технической мыслью и без шаблонных вступлений или лишних обобщений.\n\nПоследовательность «риск → предлагаемая проверка → ограниченность наблюдаемого результата» выглядит аккуратно, но это обычное построение технического комментария. «Я бы проверил» естественно передаёт предложение, а не категоричный вывод.\n\nЕдинственная возможная неясность — «два успешных ответа»: без контекста непонятно, ответы какого компонента имеются в виду. Это вопрос точности формулировки, а не признак AI. По самому стилю установить авторство нельзя.",
+        "completed_at": "2026-10-23T21:39:14.725Z"
+      },
+      "first_classification": {
+        "id": "synthetic-ru-001",
+        "verdict": "met",
+        "input_sha256": "daca6eb8df536f2b9fea32834602279d1249b47e3b6eb917875f24e14eba3800",
+        "evidence_excerpt": "это обычное построение технического комментария.",
+        "reason": "The tidy risk–check–evidence sequence is explicitly classified as ordinary technical conversation, with no AI-like cue.",
+        "named_ai_style_cue": "none",
+        "ordinary_craft_or_clarity": "'Два успешных ответа' lacks component context but is a precision issue."
+      }
+    },
+    {
+      "id": "synthetic-ru-002",
+      "language": "ru",
+      "source": {
+        "id": "synthetic-ru-002",
+        "language": "ru",
+        "target": "Hypothetical client-cancellation discussion",
+        "original_text": "А что происходит с фоновой задачей, если клиент закрыл соединение? Запрос для пользователя закончился, но воркер может продолжать готовить ответ. Я бы посмотрел, доходит ли отмена до воркера и кто убирает оставшуюся работу из очереди.",
+        "meaning_anchors": [
+          "Hypothetical disconnect with continued background work",
+          "Check cancellation propagation and queue cleanup",
+          "No assertion that a particular system has this defect"
+        ],
+        "voice_anchors": [
+          "Calm conversational Russian",
+          "Question and tentative next check, no invented personal history"
+        ],
+        "original_sha256": "ea17bb79572b16362768e9a2fc0e2a2e265b2fdda29fa37bbe0403d0be10b810",
+        "source_kind": "synthetic native-Russian fixture, authored for this benchmark; not historical social-promotion output",
+        "publication_status": "not applicable"
+      },
+      "first_output": {
+        "id": "synthetic-ru-002",
+        "language": "ru",
+        "source_kind": "synthetic native-Russian fixture, authored for this benchmark; not historical social-promotion output",
+        "text": "А что происходит с фоновой задачей, если клиент закрыл соединение? Запрос для пользователя закончился, но воркер может продолжать готовить ответ. Я бы посмотрел, доходит ли отмена до воркера и кто убирает оставшуюся работу из очереди.",
+        "sha256": "ea17bb79572b16362768e9a2fc0e2a2e265b2fdda29fa37bbe0403d0be10b810",
+        "decision": "keep",
+        "operation": [
+          "Frozen humanizer: already natural text may stay unchanged",
+          "RU/UA calibration: natural Russian verbs and emphasis"
+        ],
+        "root_reason": "Native Russian already natural; responsibility question and uncertainty intact."
+      },
+      "first_neutral_assessment": {
+        "case_id": "synthetic-ru-002",
+        "run": "first",
+        "input": "А что происходит с фоновой задачей, если клиент закрыл соединение? Запрос для пользователя закончился, но воркер может продолжать готовить ответ. Я бы посмотрел, доходит ли отмена до воркера и кто убирает оставшуюся работу из очереди.",
+        "input_sha256": "ea17bb79572b16362768e9a2fc0e2a2e265b2fdda29fa37bbe0403d0be10b810",
+        "prompt": "Check this text for AI-generated patterns.\n\nText:\nА что происходит с фоновой задачей, если клиент закрыл соединение? Запрос для пользователя закончился, но воркер может продолжать готовить ответ. Я бы посмотрел, доходит ли отмена до воркера и кто убирает оставшуюся работу из очереди.",
+        "posted_prompt": "Check this text for AI-generated patterns.\n\nText:\nА что происходит с фоновой задачей, если клиент закрыл соединение? Запрос для пользователя закончился, но воркер может продолжать готовить ответ. Я бы посмотрел, доходит ли отмена до воркера и кто убирает оставшуюся работу из очереди.",
+        "valid_input": true,
+        "model_label": "GPT-6.1 Sol\nHigh\nNone\nMinimal\nLight\nMedium\nHigh\nExtra High\nMax\nUltra\nPersistent",
+        "submitted_at": "2026-10-23T21:38:26.859Z",
+        "url": "https://chatgpt.com/c/6adbd3d3-5570-83ed-8966-91911dc025f3",
+        "response": "Выраженного AI-подобного стилистического эффекта здесь не вижу. По этому фрагменту нельзя надёжно определить авторство.\n\n«А что происходит…» — естественный вопрос в техническом обсуждении.\n«Запрос для пользователя закончился, но воркер может продолжать…» — содержательное противопоставление: оно объясняет проблему, а не просто добавляет риторический баланс.\n«Я бы посмотрел…» — обычный способ предложить проверку. Последовательность «вопрос → последствие → проверка» сама по себе не указывает на ИИ.\n\nЕсть небольшая техническая неоднозначность в «кто убирает оставшуюся работу из очереди»: воркер мог уже забрать задание, и тогда речь идёт об остановке выполнения, а не об удалении из очереди.\n\nЕсли подразумеваются оба случая, последнюю фразу можно уточнить: «Я бы посмотрел, доходит ли отмена до воркера и кто удаляет задание из очереди, если оно ещё не запущено». Это повышает точность, но немного утяжеляет разговорную реплику. Остальной текст менять ради устранения AI-паттернов оснований нет.",
+        "completed_at": "2026-10-23T21:39:14.779Z"
+      },
+      "first_classification": {
+        "id": "synthetic-ru-002",
+        "verdict": "met",
+        "input_sha256": "ea17bb79572b16362768e9a2fc0e2a2e265b2fdda29fa37bbe0403d0be10b810",
+        "evidence_excerpt": "Последовательность «вопрос → последствие → проверка» сама по себе не указывает на ИИ.",
+        "reason": "Question, substantive contrast and tentative check are ordinary; the queue/execution distinction is technical ambiguity, not AI-like style.",
+        "named_ai_style_cue": "none",
+        "ordinary_craft_or_clarity": "The worker may already hold the task, so queue removal versus stopping execution may need context."
+      }
+    }
+  ],
+  "post_feedback_transfer_search": {
+    "task": "Bounded unused original-language social-promotion product-feedback/request source search for H17 transfer",
+    "selection_status": "none_found_within_bounded_search",
+    "selected_sources": [],
+    "source_index": {
+      "database": "I:/.codex/state_5.sqlite",
+      "method_reference": "humanizer-remaining-six/heldout/freeze_sources.py reads threads.rollout_path and extracts exact assistant final_answer output_text with rollout line provenance",
+      "repository_context": "I:/Development/Git/ValentinNikolaev/social-promotion"
+    },
+    "excluded_corpora": [
+      "humanizer-benchmark/corpus.json: prior 20, including their discussion contexts",
+      "humanizer-holdout-10/sources.json: prior 10, including their discussion contexts",
+      "humanizer-remaining-six/heldout/sources.json: new eight historical comments, including CoffeeSlack, Jev, HTTP QUERY and the other already used discussions",
+      "Translations, private correspondence, synthetic fixtures and minor variants of an excluded discussion"
+    ],
+    "bounded_scan": {
+      "root_thread_index": "SQLite threads with source=vscode and social-promotion cwd; source-thread exclusions from the three frozen corpora",
+      "remaining_index_rows_after_basic_link_reply_filter": 31,
+      "explicit_warm_product_request_prompt_hits": [
+        {
+          "thread_id": "01a0eeb2-f066-7ef2-9f96-1fcda0574646",
+          "topic": "CoffeeSlack screenshot enlargement",
+          "excluded_because": "already used as heldout2-006 in the new-eight diagnostic set"
+        }
+      ],
+      "additional_root_threads_inspected": 14,
+      "last_final_answer_items_visible": 11,
+      "eligible_unused_product_feedback_requests_found": 0,
+      "cap": "At most 30 relevant root finals or five minutes; stopped after the indexed prompt check and 14 targeted thread checks found no suitable unused case. This is not an exhaustive archive search."
+    },
+    "selection_limits": "Other inspected finals were unrelated social comments, research/workflow outputs or non-product exchanges. No text was selected merely for having warm wording, and no candidate rewrite or detector feedback was consulted. A source about a different product could be useful later if discovered in a separate, predeclared search, but H17 has no independent transfer source from this bounded pass.",
+    "next_step_for_hypothesis": "Keep H17 provisional. Do not promote a general product-feedback operation or claim cross-text validation from CoffeeSlack revisions alone."
+  }
+}

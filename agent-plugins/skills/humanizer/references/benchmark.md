@@ -56,6 +56,11 @@ Follow any stricter project permission or publication rules.
    reverse its verdict. Retain the initial response and clarification with their
    prompts as separate evidence; a clarification is not an independent retest
    or a reason to silently replace an unfavourable result.
+   If a follow-up withdraws an earlier AI-like impression, retain that correction
+   alongside the initial batch result without treating it as a new pass. Do not
+   invent a prose defect to satisfy the earlier wording. Keep readability advice
+   separate from evidence that a specific AI-style cue was removed. Report any
+   later diagnostic set separately when a required readiness gate remains unmet.
    When useful, also request concrete improvement recommendations for the exact
    spans: a minimal replacement, its rationale, and any meaning or voice
    tradeoff. Keep those suggestions separate from evaluation evidence. Review

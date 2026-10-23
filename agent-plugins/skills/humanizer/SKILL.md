@@ -150,6 +150,10 @@ nor this skill grants file-edit or publication authority beyond the user's task.
 
 1. Compare the edited text with the meaning anchors and protected spans. Check
    actor assignments, attribution, modality, and conditions as carefully as numbers.
+   Check pronoun referents and small words in context: connectives and particles
+   can carry contrast, timing or emphasis; verbs can mark persistence or change;
+   a modal can cover several linked outcomes. Preserve their function in the
+   source language even when a shorter sentence would remain grammatical.
 2. Compare voice before and after: the same register, stance, emotional intent,
    humour, and relationship with the reader should remain recognizable. Recheck
    the applicable project guidance on the exact final wording.
