@@ -63,8 +63,10 @@
         "Every proposed edit maps to an existing rule or a documented experimental skill patch, with council selection before promotion.",
         "If a named-service check is requested, freeze and record the exact candidate, neutral prompt, literal response, and user-defined criterion; do not count ordinary unit tests as writing-quality evidence."
       ],
-      "status": "registered; no humanizer output or external assessment recorded",
-      "relationship_to_holdout_10": "Separate user-supplied diagnostic case; excluded from the ten-case readiness denominator."
+      "status": "checked with humanizer v21; first output did not meet the no-identified-AI-cues criterion",
+      "relationship_to_holdout_10": "Separate user-supplied diagnostic case; excluded from the ten-case readiness denominator.",
+      "observed_results_file": "humanizer_editorial_results.json",
+      "latest_run_id": "2026-10-23-v21-first-output"
     }
   }
 ]

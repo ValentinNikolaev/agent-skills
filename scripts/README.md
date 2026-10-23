@@ -294,6 +294,9 @@ from external measurements, and evaluate the whole output against its meaning
 and voice constraints. The case file records review questions and acceptance
 criteria; JSON validation and unit tests do not establish writing quality or an
 AI-analysis result. Registration alone does not mark a case as passed.
+[`humanizer_editorial_results.json`](../tests/fixtures/humanizer_editorial_results.json)
+records exact tested outputs and literal external feedback as historical
+observations, not golden rewrites or proof of authorship.
 
 ## Plugin version and README policy
 

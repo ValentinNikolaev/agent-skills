@@ -1,0 +1,56 @@
+[
+  {
+    "case_id": "humanizer-code-review-confession",
+    "run_id": "2026-10-23-v21-first-output",
+    "skill_version": "21.0.0",
+    "recorded_at": "2026-10-23T20:04:59.156861+00:00",
+    "source_sha256": "795b55e24afe0262adc75bbb185989bf05667dabb5fc6024feec539236398ea8",
+    "first_output": "This week I did around 40 code reviews, about 8 a day. You can’t review at that pace while still writing code yourself without drastically lowering the quality of your reviews. One PR this week made me notice I’d stopped reviewing test files.\n\nUnit tests are the base of the pyramid and the majority of our tests. Yet halfway through a big diff I tell myself, “those are just tests, I have enough files to get through.” I know they matter, but I skip them.\n\nA lot of AI generated tests are useless, so this is a particularly bad time to skip them. I’d also forgotten that reading tests is how you understand what the code is supposed to do. If you skip them, you’re not really reviewing the PR.\n\nIt’s a bad habit I got into without noticing. I’m going back to opening test files first and giving them the same attention as the code they cover. They tell me what the code claims to do before I read how it does it. If that means fewer reviews per week, fewer is the honest number.\n\nDo you skip test files too?",
+    "first_output_sha256": "854f5cdc6447d545bb93330a316acbd4c74e5859179ac4949534869ef61facb1",
+    "criterion": "No identified AI-like stylistic cues in the literal response; mild named cues fail, missing or ambiguous assessment does not pass.",
+    "first_output_criterion_met": false,
+    "post_external_revisions": 0,
+    "service_numeric_score": null,
+    "council": "Faithful edit accepted; council is not evidence of detector success.",
+    "status": "Completed diagnostic; no canonical skill operation promoted from this case.",
+    "results": [
+      {
+        "version": "original",
+        "valid_input": true,
+        "input_sha256": "795b55e24afe0262adc75bbb185989bf05667dabb5fc6024feec539236398ea8",
+        "model_label": "GPT-6.1 Sol\nHigh\nNone\nMinimal\nLight\nMedium\nHigh\nExtra High\nMax\nUltra\nPersistent",
+        "url": "https://chatgpt.com/c/6adbbd87-3de4-83ed-9bd8-d08ab464c7c4",
+        "submitted_at": "2026-10-23T20:03:19.384Z",
+        "response": "It reads like a personal post with some familiar AI-style polishing. The wording alone doesn’t establish whether AI was involved.\n\nThe strongest patterns are:\n\nRepeated punchy fragments: “Unit tests, the base of the pyramid, the majority of our tests. I skip them.” Then “Not because they don’t matter. Because…” That deliberate rhythm can feel manufactured.\nA tidy narrative arc: workload → confession → realization → commitment → audience question. It’s effective, but familiar from AI-assisted LinkedIn posts.\nPolished takeaway: “fewer is the honest number” sounds crafted for quotation.\nGeneric engagement ending: “Do you skip test files too, or is it just me?” is the most formulaic line.\n\nWhat makes it feel personal is the specific workload, the uncomfortable admission, and especially the internal excuse: “those are just tests, I have enough files to get through.” That’s the strongest sentence because it captures an actual thought.\n\nThe bigger editorial weakness is the absolute claim “Skipping them means you’re not really reviewing the PR.” It turns a nuanced personal observation into a sweeping verdict.\n\nI’d keep the concrete confession, reduce the sentence fragments, and soften that claim. The substance is convincing; the presentation occasionally feels rehearsed.",
+        "completed_at": "2026-10-23T20:04:14.828Z",
+        "criterion_assessment": {
+          "criterion_met": false,
+          "literal_evidence": "some familiar AI-style polishing",
+          "reason": "Названы дробление фраз, аккуратная дуга признания, афористичный вывод и стандартный вопрос читателю."
+        }
+      },
+      {
+        "version": "first-output",
+        "valid_input": true,
+        "input_sha256": "854f5cdc6447d545bb93330a316acbd4c74e5859179ac4949534869ef61facb1",
+        "model_label": "GPT-6.1 Sol\nHigh\nNone\nMinimal\nLight\nMedium\nHigh\nExtra High\nMax\nUltra\nPersistent",
+        "url": "https://chatgpt.com/c/6adbbd8b-2744-83eb-ab22-814c6609e87b",
+        "submitted_at": "2026-10-23T20:03:23.710Z",
+        "response": "This reads as a personal post with a polished ending. There are a few phrases that could feel AI-assisted, but nothing establishes AI authorship.\n\nThe parts that feel most natural:\n\nThe specific workload: “around 40 code reviews, about 8 a day.”\nThe admission that one PR exposed a habit you hadn’t noticed.\nThe internal excuse: “those are just tests, I have enough files to get through.” This is the strongest detail.\n\nThe parts that feel more manufactured:\n\n“If you skip them, you’re not really reviewing the PR.” A categorical verdict that makes the argument sound tidier than the situation.\n“They tell me what the code claims to do before I read how it does it.” A carefully balanced, quotable sentence.\n“Fewer is the honest number.” The most conspicuously crafted line: it turns a workload adjustment into a moral takeaway.\n“Do you skip test files too?” A conventional engagement prompt, though common in human-written posts as well.\n\nThe progression—workload, confession, lesson, commitment, audience question—is familiar professional-post structure. The personal details carry it; the final paragraph feels the most edited.",
+        "completed_at": "2026-10-23T20:04:14.880Z",
+        "criterion_assessment": {
+          "criterion_met": false,
+          "literal_evidence": "There are a few phrases that could feel AI-assisted",
+          "reason": "Дробление фраз не отмечено, но названы искусственность отдельных формулировок, цитатный моральный вывод, стандартный вопрос и аккуратная композиция. Это не прохождение строгого критерия."
+        }
+      }
+    ],
+    "source_fixture": "humanizer_editorial_cases.json",
+    "interpretation_limits": [
+      "Observed qualitative feedback from this named service; not an authorship probability or universal classification.",
+      "Historical first output, not a golden rewrite to imitate or a new skill rule.",
+      "Both exact inputs were verified against their posted messages. No post-feedback edit was tested.",
+      "This diagnostic is separate from the earlier ten-case first-pass result."
+    ]
+  }
+]
