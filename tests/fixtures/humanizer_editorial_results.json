@@ -52,5 +52,421 @@
       "Both exact inputs were verified against their posted messages. No post-feedback edit was tested.",
       "This diagnostic is separate from the earlier ten-case first-pass result."
     ]
+  },
+  {
+    "case_id": "humanizer-code-review-confession",
+    "run_id": "2026-10-23-draft-tuning-post",
+    "base_skill_version": "21.0.0",
+    "source_sha256": "795b55e24afe0262adc75bbb185989bf05667dabb5fc6024feec539236398ea8",
+    "phase": "in-sample experimental tuning; not a fresh first-pass evaluation",
+    "criterion": "No identified AI-like stylistic cues in the initial literal response. Clarifications retained separately and do not replace initial results.",
+    "draft_operations": [
+      "Preserving an unquoted judgement or a genuine question does not require keeping\nits stock wording or position. Preserve what the speaker judges or asks, while\nexpressing it plainly and placing it where the thought needs it. If several\nsentences repeat the same confession, lesson, or resolution, keep the distinct\nmeaning once and reorganize the passage around the supplied detail. Do not\nerase conviction, manufacture a new narrative arc, change event chronology, or\nmove every question by formula.\n\n",
+      "When a passage states one action as a decision, a promise, and then a reason,\ncombine the repeated action with its reason while retaining distinct obligations\nand conditions. In factual summaries, parallel noun inventories may be expressed\nthrough the actions the source actually assigns to the speaker. Prefer an idiomatic\nverb to an abstract activity label when scope stays the same. Keep separate\nproject, technology, and responsibility scopes; never infer that each tool or\nactivity applies to every named project merely to join sentences.\n\n",
+      "# Provisional operations for the two supplied passages\n\nThese are case-level hypotheses derived from the existing draft's rules on preserving referents and scope, direct wording, cumulative progression, and idiomatic verbs. They are not promoted skill rules or evidence of a whole-text pass.\n\n1. **Remove an additive particle when the earlier category already includes the later one.** In the post, `test files` includes unit-test files, so `I’m skipping unit tests too` may imply a second class of skipped files. Use `I’m skipping unit tests` while retaining the pyramid relation and `majority of our tests`. This applies the existing preserve-meaning/referent and direct-wording rules.\n2. **Keep a strong general judgement connected to the speaker's reason.** Do not split `I’d forgotten that reading tests ... and you haven’t really reviewed ...` into a separate sentence solely for readability when that would make the general judgement a more quotable maxim. This applies the existing preserve-stance and cumulative-progression rules; it does not weaken the judgement.\n3. **Do not restate one commitment as two adjacent promises to move its purpose forward.** The source requires opening tests first, equal attention and intended behaviour before implementation. The existing draft's repeated-action rule favors one coherent commitment here. Retain the current sentence unless a local edit improves clarity without recreating the repeated-resolution cue.\n4. **Prefer a plain operation verb only when responsibility scope remains broad.** In the backend summary, `run live systems` can replace `operate live systems` to represent production operation without binding the duty to each named project, assigning on-call work, or changing the separate production-telephony claim. This applies the existing draft's idiomatic-verb and distinct-scope rules.\n5. **Avoid a new repeated opener to repair an understandable list.** Splitting `I design and build ..., do security reviews and operate/run live systems` into `I design ... . I also ...` adds adjacent `I` openers and separates actions already clear in one sentence. Keep the responsibilities general and the project/technology inventories distinct.\n\nExample boundaries: `I’m skipping unit tests, even though they’re the base of the pyramid and make up the majority of our tests.` preserves both technical claims and fixes only the referent. `I design and build backend services in Go, do security reviews and run live systems.` preserves the four activities while avoiding an ownership claim for every listed project.\n"
+    ],
+    "candidate_count": 4,
+    "strict_pass_count": 0,
+    "numeric_authorship_score": null,
+    "same_text_deduplication": false,
+    "council_limits": "Same three advisors reused. Round2 peer packet retained role labels, reducing anonymity; independent revision passes preceded it. Round3 reviewer used independent boundaries and anonymized proposals.",
+    "results": [
+      {
+        "version": "post-candidate-1",
+        "input": "On one PR this week, I realised I’d stopped reviewing test files. It’s a bad habit I’d picked up without noticing. Halfway through a big diff I tell myself, “those are just tests, I have enough files to get through.” Do you skip them too?\n\nThis week I did around 40 code reviews, about 8 a day. You can’t review at that pace while still writing code yourself without drastically lowering the quality of your reviews.\n\nUnit tests are the base of the pyramid and the majority of our tests. I know they matter. A lot of AI generated tests are useless, which makes this a particularly bad time to skip them. I’d also forgotten that reading tests is how you understand what the code is supposed to do. If you skip them, you haven’t really reviewed the PR.\n\nI used to open the test files first, and I’m going back to that. I’ll give them the same attention as the code they cover. I’ll read what the tests say the code should do, then look at the implementation. If that means fewer reviews per week, I’d rather do fewer than keep counting the ones where I skipped the tests.",
+        "prompt": "Check this text for AI-generated patterns.\n\nText:\nOn one PR this week, I realised I’d stopped reviewing test files. It’s a bad habit I’d picked up without noticing. Halfway through a big diff I tell myself, “those are just tests, I have enough files to get through.” Do you skip them too?\n\nThis week I did around 40 code reviews, about 8 a day. You can’t review at that pace while still writing code yourself without drastically lowering the quality of your reviews.\n\nUnit tests are the base of the pyramid and the majority of our tests. I know they matter. A lot of AI generated tests are useless, which makes this a particularly bad time to skip them. I’d also forgotten that reading tests is how you understand what the code is supposed to do. If you skip them, you haven’t really reviewed the PR.\n\nI used to open the test files first, and I’m going back to that. I’ll give them the same attention as the code they cover. I’ll read what the tests say the code should do, then look at the implementation. If that means fewer reviews per week, I’d rather do fewer than keep counting the ones where I skipped the tests.",
+        "posted_prompt": "Check this text for AI-generated patterns.\n\nText:\nOn one PR this week, I realised I’d stopped reviewing test files. It’s a bad habit I’d picked up without noticing. Halfway through a big diff I tell myself, “those are just tests, I have enough files to get through.” Do you skip them too?\n\nThis week I did around 40 code reviews, about 8 a day. You can’t review at that pace while still writing code yourself without drastically lowering the quality of your reviews.\n\nUnit tests are the base of the pyramid and the majority of our tests. I know they matter. A lot of AI generated tests are useless, which makes this a particularly bad time to skip them. I’d also forgotten that reading tests is how you understand what the code is supposed to do. If you skip them, you haven’t really reviewed the PR.\n\nI used to open the test files first, and I’m going back to that. I’ll give them the same attention as the code they cover. I’ll read what the tests say the code should do, then look at the implementation. If that means fewer reviews per week, I’d rather do fewer than keep counting the ones where I skipped the tests.",
+        "valid_input": true,
+        "input_sha256": "6282847b2716ed8fdcac204cf55705f3c55d3c1c6a0effb26da446d2c55dc79d",
+        "model_label": "GPT-6.1 Sol\nHigh\nNone\nMinimal\nLight\nMedium\nHigh\nExtra High\nMax\nUltra\nPersistent",
+        "url": "https://chatgpt.com/c/6adbbff9-edc8-83ed-9bd5-c87dcf64a29f",
+        "submitted_at": "2026-10-23T20:13:46.036Z",
+        "response": "This reads as a personal post with some polished, formulaic phrasing. The style alone doesn’t establish AI authorship.\n\nWhat feels natural:\n\nThe admission that you skip tests halfway through a diff is specific and credible.\nThe internal quote—“those are just tests, I have enough files to get through”—gives the post a recognisable voice.\nThe workload figure provides context for the habit.\n\nWhat feels more formulaic:\n\n“Unit tests are the base of the pyramid” sounds like textbook exposition within an otherwise personal account.\n“If you skip them, you haven’t really reviewed the PR” is an absolute, quotable verdict. It feels crafted for engagement.\nThe final paragraph repeats the same commitment: open tests first → give them equal attention → read expected behaviour before implementation. That repetition is the strongest AI-like feature.\n“Do you skip them too?” arrives before most of the argument. It feels like an engagement prompt inserted into the opening.\n\nI’d mainly tighten the final paragraph and reconsider the pyramid sentence. The closing admission about counting incomplete reviews is worth keeping: it connects directly to your experience and gives the post a clear ending.",
+        "completed_at": "2026-10-23T20:14:14.251Z",
+        "criterion_met": false,
+        "literal_gate_evidence": "some polished, formulaic phrasing",
+        "draft_skill_sha256": "f5ab9db959c15f77bbf3f49a53ff677c172d2cd6d27eedc301764191565dd382",
+        "edit_mapping": [
+          {
+            "change": "Open with the actual one-PR realization and internal excuse; place the genuine peer question beside that admission. Move workload to its explanatory paragraph; preserve unnoticed bad habit explicitly.",
+            "rule": "Draft addition: preserve speech act and judgement without freezing stock wording or position; organize around supplied detail without altering chronology."
+          },
+          {
+            "change": "Keep the general strong workload/quality and incomplete-review judgements rather than narrowing them to first person.",
+            "rule": "Existing preservation of actor, scope, modality and conviction."
+          },
+          {
+            "change": "Replace repeated fragment/signpost staging with connected statements while preserving the exact internal quote and all quantities/qualifiers.",
+            "rule": "Existing mechanical rhythm/progression and redundant emphasis."
+          },
+          {
+            "change": "Express tests-first reading order through tests and implementation instead of a balanced claims/does slogan; replace honest-number aphorism with the actual preference for fewer complete reviews over counting skipped-test reviews.",
+            "rule": "Draft addition: unquoted wording can change while the judgement and commitment remain; existing direct concrete wording."
+          }
+        ],
+        "correction_mapping": [],
+        "review_corrections": "Restored source condition inside the general second-person claim, as exact-review requested. Coordinator preservation check; no new editorial operation.",
+        "draft_hash_convention": "normalized UTF-8 text"
+      },
+      {
+        "version": "post-candidate-2",
+        "input": "One PR this week made me realise I’d got into a bad habit: I don’t review test files anymore. Halfway through a big diff I tell myself, “those are just tests, I have enough files to get through.”\n\nThis week I did around 40 code reviews, about 8 a day. You can’t review at that pace while still writing code yourself without drastically lowering the quality of your reviews.\n\nMost of our tests are unit tests, at the base of the test pyramid, and I know they matter. A lot of AI generated tests are useless, which makes this a particularly bad time to skip them. I’d also forgotten that reading tests is how you understand what the code is supposed to do. If you skip them, you haven’t really reviewed the PR.\n\nI’m going back to opening the test files first and reviewing them as carefully as the code they cover, to see what the code claims to do before I read the implementation. If that means fewer reviews per week, I’d rather do fewer than keep counting the ones where I skipped the tests.\n\nDo you ever get halfway through a diff and leave the test files unread?",
+        "prompt": "Check this text for AI-generated patterns.\n\nText:\nOne PR this week made me realise I’d got into a bad habit: I don’t review test files anymore. Halfway through a big diff I tell myself, “those are just tests, I have enough files to get through.”\n\nThis week I did around 40 code reviews, about 8 a day. You can’t review at that pace while still writing code yourself without drastically lowering the quality of your reviews.\n\nMost of our tests are unit tests, at the base of the test pyramid, and I know they matter. A lot of AI generated tests are useless, which makes this a particularly bad time to skip them. I’d also forgotten that reading tests is how you understand what the code is supposed to do. If you skip them, you haven’t really reviewed the PR.\n\nI’m going back to opening the test files first and reviewing them as carefully as the code they cover, to see what the code claims to do before I read the implementation. If that means fewer reviews per week, I’d rather do fewer than keep counting the ones where I skipped the tests.\n\nDo you ever get halfway through a diff and leave the test files unread?",
+        "posted_prompt": "Check this text for AI-generated patterns.\n\nText:\nOne PR this week made me realise I’d got into a bad habit: I don’t review test files anymore. Halfway through a big diff I tell myself, “those are just tests, I have enough files to get through.”\n\nThis week I did around 40 code reviews, about 8 a day. You can’t review at that pace while still writing code yourself without drastically lowering the quality of your reviews.\n\nMost of our tests are unit tests, at the base of the test pyramid, and I know they matter. A lot of AI generated tests are useless, which makes this a particularly bad time to skip them. I’d also forgotten that reading tests is how you understand what the code is supposed to do. If you skip them, you haven’t really reviewed the PR.\n\nI’m going back to opening the test files first and reviewing them as carefully as the code they cover, to see what the code claims to do before I read the implementation. If that means fewer reviews per week, I’d rather do fewer than keep counting the ones where I skipped the tests.\n\nDo you ever get halfway through a diff and leave the test files unread?",
+        "valid_input": true,
+        "input_sha256": "94f62f696225696f46d1582c508932869fbc038745b972c0fd3fa0b87b2ee834",
+        "model_label": "GPT-6.1 Sol\nHigh\nNone\nMinimal\nLight\nMedium\nHigh\nExtra High\nMax\nUltra\nPersistent",
+        "url": "https://chatgpt.com/c/6adbc147-adc0-83ed-a318-979e91f26a68",
+        "submitted_at": "2026-10-23T20:19:19.765Z",
+        "response": "This reads as a personal engineering post, with a few passages that feel overly polished or explanatory. Those are stylistic signals, not reliable evidence of AI authorship.\n\nThe parts most likely to give that impression:\n\n“Most of our tests are unit tests, at the base of the test pyramid” — the pyramid explanation feels inserted for completeness. It interrupts the personal account without adding much.\n“which makes this a particularly bad time to skip them” — a smooth but generic transition. The point would feel more concrete if you explained what makes those tests useless.\n“If you skip them, you haven’t really reviewed the PR.” — a neat, categorical takeaway. It sounds more like a crafted maxim than the surrounding admission.\nThe final paragraph repeats the same commitment through several clauses: opening tests first, reviewing carefully, understanding intent, and accepting fewer reviews. That completeness makes it feel edited into a lesson.\n\nWhat feels natural: the specific review count, the thought “those are just tests”, and admitting a habit you’re unhappy with. The closing question also follows directly from the experience.\n\nI’d make only two edits: remove “at the base of the test pyramid” and shorten the final paragraph. The voice already works; it doesn’t need deliberate roughness.",
+        "completed_at": "2026-10-23T20:19:52.677Z",
+        "criterion_met": false,
+        "literal_gate_evidence": "a few passages that feel overly polished or explanatory",
+        "draft_skill_sha256": "9835149d2c6fa352dd821c001192aa003548c236cd8cffdf2d1b48d5875f40ea",
+        "edit_mapping": [
+          {
+            "change": "Combine the three tests-first/equal-attention/expected-behaviour statements into one action with its reason. The complete-review judgement and lower-count preference stay explicit.",
+            "rule": "Draft addition2, repeated action plus its reason; preserve distinct obligations."
+          },
+          {
+            "change": "Place the peer question after the developed thought and ask about the concrete halfway-through-a-diff situation instead of a generic too tag.",
+            "rule": "Draft addition1, same genuine question without fixed stock wording or position; source supplies the situation."
+          },
+          {
+            "change": "Ground the unit-test/test-pyramid relationship in most of our tests rather than a textbook-like stand-alone maxim.",
+            "rule": "Existing direct wording plus draft addition1: retain technical relation and team-specific majority scope; do not delete the technical context."
+          }
+        ],
+        "correction_mapping": [],
+        "review_corrections": [
+          "Use reviewer C’s direct PR/habit sentence without repeating discovery of the same habit.",
+          "Restore explicit first-open order, equal attention, and source claims/implementation distinction in one action-plus-reason sentence."
+        ],
+        "draft_hash_convention": "normalized UTF-8 text"
+      },
+      {
+        "version": "post-candidate-3",
+        "input": "One PR this week made me realise I’d got into a bad habit: I don’t review test files anymore. Halfway through a big diff I tell myself, “those are just tests, I have enough files to get through.”\n\nThis week I did around 40 code reviews, about 8 a day. You can’t review at that pace while still writing code yourself without drastically lowering the quality of your reviews.\n\nI’m skipping unit tests too, even though they’re the base of the pyramid and make up the majority of our tests. A lot of AI generated tests are useless, which makes skipping test files even worse. I’d forgotten that reading tests is how you understand what the code is supposed to do, and you haven’t really reviewed the PR if you haven’t read its tests.\n\nI’m going back to opening test files first and reviewing them with the same attention as the code they cover, to see what the code claims to do before I read the implementation. I’d rather do fewer reviews than count one whose tests I didn’t read.\n\nDo you ever get halfway through a diff and leave the test files unread?",
+        "prompt": "Check this text for AI-generated patterns.\n\nText:\nOne PR this week made me realise I’d got into a bad habit: I don’t review test files anymore. Halfway through a big diff I tell myself, “those are just tests, I have enough files to get through.”\n\nThis week I did around 40 code reviews, about 8 a day. You can’t review at that pace while still writing code yourself without drastically lowering the quality of your reviews.\n\nI’m skipping unit tests too, even though they’re the base of the pyramid and make up the majority of our tests. A lot of AI generated tests are useless, which makes skipping test files even worse. I’d forgotten that reading tests is how you understand what the code is supposed to do, and you haven’t really reviewed the PR if you haven’t read its tests.\n\nI’m going back to opening test files first and reviewing them with the same attention as the code they cover, to see what the code claims to do before I read the implementation. I’d rather do fewer reviews than count one whose tests I didn’t read.\n\nDo you ever get halfway through a diff and leave the test files unread?",
+        "posted_prompt": "Check this text for AI-generated patterns.\n\nText:\nOne PR this week made me realise I’d got into a bad habit: I don’t review test files anymore. Halfway through a big diff I tell myself, “those are just tests, I have enough files to get through.”\n\nThis week I did around 40 code reviews, about 8 a day. You can’t review at that pace while still writing code yourself without drastically lowering the quality of your reviews.\n\nI’m skipping unit tests too, even though they’re the base of the pyramid and make up the majority of our tests. A lot of AI generated tests are useless, which makes skipping test files even worse. I’d forgotten that reading tests is how you understand what the code is supposed to do, and you haven’t really reviewed the PR if you haven’t read its tests.\n\nI’m going back to opening test files first and reviewing them with the same attention as the code they cover, to see what the code claims to do before I read the implementation. I’d rather do fewer reviews than count one whose tests I didn’t read.\n\nDo you ever get halfway through a diff and leave the test files unread?",
+        "valid_input": true,
+        "input_sha256": "22f9c8eeecc6066f8d677252a75c5dc4527bb9fdbcfce6fc1e093fa93b27bd0f",
+        "model_label": "GPT-6.1 Sol\nHigh\nNone\nMinimal\nLight\nMedium\nHigh\nExtra High\nMax\nUltra\nPersistent",
+        "url": "https://chatgpt.com/c/6adbc2b8-d098-83eb-8328-389def2f69c3",
+        "submitted_at": "2026-10-23T20:25:28.862Z",
+        "response": "This reads as a personal post with some polished LinkedIn phrasing. Nothing in it establishes AI authorship; the main signals are structural and stylistic.\n\nThe parts that feel most formulaic:\n\nThe tidy narrative arc: confession → workload → lesson → commitment → audience question. It works, but it’s also a common AI-assisted post structure.\n“They’re the base of the pyramid” sounds like textbook background inserted for completeness. Your audience probably doesn’t need it.\n“You haven’t really reviewed the PR if you haven’t read its tests” is a neat, categorical takeaway that slightly overshadows the personal admission.\nThe final question repeats the opening situation closely and feels like a standard engagement prompt.\n\nThe concrete details help: 40 reviews, eight a day, and the internal excuse about having enough files to get through give the post a recognisable situation and voice.\n\nTwo clarity issues matter more than the AI patterns:\n\n“I’m skipping unit tests too” suggests unit tests are separate from the test files already mentioned. Drop “too”.\n“A lot of AI generated tests are useless, which makes skipping test files even worse” leaves the connection implicit: reviewing them is how you catch weak assertions or tests that verify nothing useful.\n\nMy recommendation: remove the pyramid reference, clarify why generated tests need scrutiny, and consider ending on your commitment. The post already has enough personality; it doesn’t need a wholesale rewrite.",
+        "completed_at": "2026-10-23T20:26:39.289Z",
+        "criterion_met": false,
+        "literal_gate_evidence": "some polished LinkedIn phrasing",
+        "draft_skill_sha256": "8186ba14f81a8169379430bf8946bb1ecb91f7045da0571cabb22b4fcae21f8f",
+        "edit_mapping": [
+          {
+            "before": "Most of our tests are unit tests, at the base of the test pyramid, and I know they matter.",
+            "after": "I’m skipping unit tests too, even though they’re the base of the pyramid and make up the majority of our tests.",
+            "rule": "Existing direct wording/mechanical progression: attach the pyramid and team-specific majority facts to the writer’s actual skipped-file behaviour instead of a textbook aside.",
+            "risk": "“Too” refers to the already stated test-file skipping; it does not add a new class of files."
+          },
+          {
+            "before": "A lot of AI generated tests are useless, which makes this a particularly bad time to skip them.",
+            "after": "A lot of AI generated tests are useless.",
+            "rule": "Existing redundant emphasis/mechanical progression: remove the generic “particularly bad time” inference while preserving the qualified criticism.",
+            "risk": "Does not invent why generated tests are useless or assert which tests in a named PR were generated."
+          },
+          {
+            "before": "I’d also forgotten that reading tests is how you understand what the code is supposed to do. If you skip them, you haven’t really reviewed the PR.",
+            "after": "I’d forgotten that reading tests is how you understand what the code is supposed to do. If I haven’t read them, I haven’t really reviewed the PR.",
+            "rule": "Draft addition1: preserve the categorical judgement without freezing stock wording; ground it in the writer’s concrete failure rather than a standalone general maxim.",
+            "risk": "Narrows “you” to this writer but does not soften conviction that skipped tests invalidate this writer’s review."
+          },
+          {
+            "before": "I’m going back to opening the test files first and reviewing them as carefully as the code they cover, to see what the code claims to do before I read the implementation. If that means fewer reviews per week, I’d rather do fewer than keep counting the ones where I skipped the tests.",
+            "after": "I’m going back to opening test files first and reviewing them with the same attention as the code they cover, to see what the code claims to do before I read the implementation. I’d rather do fewer reviews than count one whose tests I didn’t read.",
+            "rule": "Draft addition2: combine first-open order, equal attention and tests’ claim before implementation into one action plus reason; keep the honest lower-count judgement once.",
+            "risk": "The shorter count sentence no longer says “per week” locally; weekly cadence remains explicit in the preceding workload paragraph, and the conditional preference remains."
+          }
+        ],
+        "correction_mapping": [
+          {
+            "change": "Restore the source general second-person incomplete-review judgement and the source relation that useless generated tests make skipping test files worse; join the judgement to its existing reason.",
+            "rule": "Existing preserve scope/stance/causal links; draft1 permits wording and position changes without deleting the judgement."
+          }
+        ],
+        "review_corrections": null,
+        "clarification": {
+          "version": "post-candidate-3",
+          "kind": "clarification_not_retest",
+          "prompt": "Please expand your assessment of the exact text above. For each point you raised, explain the effect of the quoted wording in context and distinguish an AI-like stylistic impression from an ordinary convention that fits this genre and from a separate clarity problem. Explain where these categories overlap, and which AI-like effects, if any, remain in the passage as a whole. Can the specific friction be repaired while keeping the same substantive claims and voice? Give reasons without rewriting the text or assigning an authorship probability.",
+          "original_input_sha256": "22f9c8eeecc6066f8d677252a75c5dc4527bb9fdbcfce6fc1e093fa93b27bd0f",
+          "submitted_at": "2026-10-23T20:31:46.216Z",
+          "url": "https://chatgpt.com/c/6adbc2b8-d098-83eb-8328-389def2f69c3",
+          "response": "The passage has a polished personal-post structure, but my earlier assessment gave some ordinary writing conventions too much weight as AI signals. Its more noticeable friction comes from a few compressed connections and shifts from personal experience to general claims. Those deserve separate treatment.\n\n1. The narrative arc\n\nThe progression is clear: a PR exposes a habit, the review count explains the pressure, the third paragraph explains what gets lost, and the fourth commits to a change.\n\nThat is a normal structure for a professional reflection. It helps readers understand why the incident matters. An AI-like impression can arise when each paragraph performs its assigned role so neatly that the experience feels arranged around a predetermined lesson. There is a little of that here, particularly in the movement from admission to moral conclusion to commitment.\n\nHowever, the structure itself creates no clarity problem. Making it less organised would not necessarily make it more personal. The relevant question is whether the connections feel earned; most of them do.\n\n2. “They’re the base of the pyramid and make up the majority of our tests”\n\nThese two descriptions serve different purposes. “Base of the pyramid” invokes their place in a testing model; “majority of our tests” describes your team’s actual situation. Together, they emphasise how much you are overlooking.\n\nThe pyramid reference is an ordinary convention in writing for developers. My earlier suggestion that the audience probably does not need it was too categorical: a familiar concept can still provide useful emphasis.\n\nIts slightly AI-like effect comes from pausing a personal account to supply textbook context. The sentence briefly sounds as though it is establishing the importance of unit tests for completeness. That effect overlaps with a relevance issue, rather than a factual or grammatical problem: the reader must connect the pyramid reference to why skipping these files matters. Keeping both substantive claims is possible; their relationship to your admission needs to carry the sentence.\n\n3. “You haven’t really reviewed the PR if you haven’t read its tests”\n\nIn context, this turns your discovery into a standard for what counts as a review. “Really” does substantial work: it distinguishes completing a review action from doing the work you believe that action requires.\n\nThat is a conventional opinion-post move. A firm conclusion fits the subject and your candid voice. It can also sound AI-like because it packages the preceding explanation into a concise, portable lesson.\n\nThe more specific friction is the shift in scope. You begin with what you have been skipping, then state what counts as reviewing for anyone. The earlier “You can’t review at that pace…” makes the same move. These are broader claims, not merely descriptions of your week.\n\nThat does not make them unclear, but it changes the tone from reflection to instruction. If those general claims are intentional, preserving them means accepting some of that assertiveness. Turning everything into a personal qualification would change the substance, not just improve the style.\n\n4. The closing question\n\n“Do you ever get halfway through a diff and leave the test files unread?” returns to the exact situation in the opening. It invites readers to admit a recognisable behaviour rather than answer a vague question about review quality.\n\nClosing with a question is an ordinary social-post convention. It can resemble an AI-generated engagement prompt, but this question is closely connected to the experience described. Its repetition also gives the passage a deliberate frame.\n\nThere is no significant clarity problem here. Whether it feels formulaic depends partly on the cumulative structure: after an orderly lesson and commitment, another familiar closing device can make the construction more visible. Removing it is an editorial preference, not a necessary repair.\n\n5. The numbers and internal excuse\n\n“Around 40 code reviews, about 8 a day” establishes the workload. The quoted thought—“those are just tests, I have enough files to get through”—shows how that workload affects an actual decision.\n\nThese details make the account concrete. They are not evidence of human authorship; generated writing can contain equally specific details. Their value is that they explain the behaviour rather than merely asserting that you were busy.\n\nThe internal excuse is especially effective because it exposes an unflattering piece of reasoning without explaining it away. I would preserve that voice.\n\n6. “I’m skipping unit tests too”\n\nMy earlier explanation overstated the problem. This does not necessarily imply that unit tests are separate from test files. Readers can understand “too” as adding another troubling aspect of the admission.\n\nNevertheless, its reference is uncertain: what previously mentioned category are unit tests being added to? You have already said you skip test files generally. The intended emphasis appears to be that this includes the tests forming most of your suite.\n\nThat is a local clarity problem, with little specifically AI-like about it. It can be repaired at the level of the connective while preserving every substantive claim.\n\n7. “A lot of AI generated tests are useless, which makes skipping test files even worse”\n\nThe intended connection is understandable: tests may be present without providing useful verification, so their presence makes careful review especially necessary.\n\nBut “which makes” compresses that reasoning. “Useless” also leaves the particular failure unspecified. The reader supplies the missing connection between weak generated tests and your responsibility to inspect them.\n\nThis is where clarity and an AI-like impression overlap most. Smooth causal transitions can make an argument sound complete before it has fully expressed its reasoning. Here, however, “useless” also contributes to your blunt voice. The repair is to expose the causal connection, not necessarily to soften the judgement or add a technical example you have not supplied.\n\nAcross the whole passage, the remaining AI-like effect is mild structural tidiness: each paragraph advances toward a neatly stated lesson, followed by a commitment and a reader question. That is also entirely compatible with an edited professional post.\n\nThe specific friction is repairable without changing your claims or voice: clarify the additive wording around unit tests, make the reasoning about generated tests explicit, and ease the long sentence about your intended review practice. Those are local improvements. The broader claims and the closing question involve choices about stance and genre; they do not need changing merely because AI writing also uses them.",
+          "completed_at": "2026-10-23T20:33:52.481Z",
+          "does_not_replace_initial_assessment": true
+        },
+        "recommendations": {
+          "version": "post-candidate-3",
+          "kind": "editing_recommendations_not_evaluation",
+          "prompt": "Please recommend up to three minimal, concrete edits to the exact passage above for the friction you identified. For each, give the original span, a proposed replacement, why it helps, and any meaning or voice tradeoff. Preserve the substantive claims, their scope and certainty, approximate numbers, names, project/technology/responsibility boundaries, and any exact quoted inner thought. You may change unquoted wording, sentence boundaries and order. Do not add anecdotes, results or technical explanations absent from the passage, remove useful detail merely because it is conventional, or switch persona. Mark any unavoidable substantive tradeoff instead of silently making it. Do not give an authorship probability or claim that the revision passes. Please give local recommendations, not a wholesale rewrite.",
+          "original_input_sha256": "22f9c8eeecc6066f8d677252a75c5dc4527bb9fdbcfce6fc1e093fa93b27bd0f",
+          "submitted_at": "2026-10-23T20:35:26.852Z",
+          "url": "https://chatgpt.com/c/6adbc2b8-d098-83eb-8328-389def2f69c3",
+          "response": "I’d make these three local edits to the test-review passage.\n\nRemove the uncertain reference in “too”.\n\nOriginal: “I’m skipping unit tests too, even though they’re the base of the pyramid and make up the majority of our tests.”\n\nReplacement: “I’m skipping unit tests, even though they’re the base of the pyramid and make up the majority of our tests.”\n\nWhy: Unit tests are already included in the test files mentioned earlier. Removing “too” avoids suggesting an additional category while preserving both reasons their omission matters.\n\nTradeoff: Slightly less conversational emphasis; no substantive change.\n\nSeparate the remembered insight from the general judgement.\n\nOriginal: “I’d forgotten that reading tests is how you understand what the code is supposed to do, and you haven’t really reviewed the PR if you haven’t read its tests.”\n\nReplacement: “I’d forgotten that reading tests is how you understand what the code is supposed to do. You haven’t really reviewed the PR if you haven’t read its tests.”\n\nWhy: The sentence currently joins a personal admission and a general standard under one grammatical structure. The boundary makes each easier to absorb without changing either claim’s scope or certainty.\n\nTradeoff: The general judgement becomes more emphatic and slightly more instructional. This improves readability but does not soften the stance.\n\nPut the purpose beside “opening test files first”.\n\nOriginal: “I’m going back to opening test files first and reviewing them with the same attention as the code they cover, to see what the code claims to do before I read the implementation.”\n\nReplacement: “I’m going back to opening test files first so I can see what the code claims to do before I read the implementation. I’ll review them with the same attention as the code they cover.”\n\nWhy: The original postpones the reason for opening tests first until after the separate commitment about review quality. Moving that reason closer clarifies the relationship and gives each commitment room.\n\nTradeoff: A slightly more deliberate rhythm; no substantive change.\n\nI would leave the generated-tests sentence unchanged under your constraints. Making its causal connection fully explicit would require specifying what makes those tests useless or what inspecting them reveals—details the passage does not supply. The remaining compression is understandable, and changing the connective alone would not resolve it.",
+          "completed_at": "2026-10-23T20:36:12.677Z",
+          "recommendation_is_not_test_result": true
+        },
+        "draft_hash_convention": "file bytes"
+      },
+      {
+        "version": "post-candidate-4",
+        "input": "One PR this week made me realise I’d got into a bad habit: I don’t review test files anymore. Halfway through a big diff I tell myself, “those are just tests, I have enough files to get through.”\n\nThis week I did around 40 code reviews, about 8 a day. You can’t review at that pace while still writing code yourself without drastically lowering the quality of your reviews.\n\nI’m skipping unit tests, even though they’re the base of the pyramid and make up the majority of our tests. A lot of AI generated tests are useless, which makes skipping test files even worse. I’d forgotten that reading tests is how you understand what the code is supposed to do, and you haven’t really reviewed the PR if you haven’t read its tests.\n\nI’m going back to opening test files first and reviewing them with the same attention as the code they cover, to see what the code claims to do before I read the implementation. I’d rather do fewer reviews than count one whose tests I didn’t read.\n\nDo you ever get halfway through a diff and leave the test files unread?",
+        "prompt": "Check this text for AI-generated patterns.\n\nText:\nOne PR this week made me realise I’d got into a bad habit: I don’t review test files anymore. Halfway through a big diff I tell myself, “those are just tests, I have enough files to get through.”\n\nThis week I did around 40 code reviews, about 8 a day. You can’t review at that pace while still writing code yourself without drastically lowering the quality of your reviews.\n\nI’m skipping unit tests, even though they’re the base of the pyramid and make up the majority of our tests. A lot of AI generated tests are useless, which makes skipping test files even worse. I’d forgotten that reading tests is how you understand what the code is supposed to do, and you haven’t really reviewed the PR if you haven’t read its tests.\n\nI’m going back to opening test files first and reviewing them with the same attention as the code they cover, to see what the code claims to do before I read the implementation. I’d rather do fewer reviews than count one whose tests I didn’t read.\n\nDo you ever get halfway through a diff and leave the test files unread?",
+        "posted_prompt": "Check this text for AI-generated patterns.\n\nText:\nOne PR this week made me realise I’d got into a bad habit: I don’t review test files anymore. Halfway through a big diff I tell myself, “those are just tests, I have enough files to get through.”\n\nThis week I did around 40 code reviews, about 8 a day. You can’t review at that pace while still writing code yourself without drastically lowering the quality of your reviews.\n\nI’m skipping unit tests, even though they’re the base of the pyramid and make up the majority of our tests. A lot of AI generated tests are useless, which makes skipping test files even worse. I’d forgotten that reading tests is how you understand what the code is supposed to do, and you haven’t really reviewed the PR if you haven’t read its tests.\n\nI’m going back to opening test files first and reviewing them with the same attention as the code they cover, to see what the code claims to do before I read the implementation. I’d rather do fewer reviews than count one whose tests I didn’t read.\n\nDo you ever get halfway through a diff and leave the test files unread?",
+        "valid_input": true,
+        "input_sha256": "3ba5967b2c13b4f35ddc3c1bb9de63a73ccb5612a34032d499d0ed200beb6185",
+        "model_label": "GPT-6.1 Sol\nHigh\nNone\nMinimal\nLight\nMedium\nHigh\nExtra High\nMax\nUltra\nPersistent",
+        "url": "https://chatgpt.com/c/6adbc699-3d78-83ed-ac6d-d98f9a7a4d37",
+        "submitted_at": "2026-10-23T20:42:02.019Z",
+        "response": "The passage has a few features that can feel AI-polished, but none establishes AI authorship. Most of that impression comes from repetition and a neatly structured professional-post format.\n\nThe same point returns several times. “I don’t review test files anymore,” “I’m skipping unit tests,” “you haven’t really reviewed the PR,” and the final question all reinforce the omission. Each has a role, but together they make the argument feel slightly over-explained.\n\nThe test-pyramid reference feels inserted as background. “They’re the base of the pyramid and make up the majority of our tests” is ordinary engineering language, not an AI marker. Here, though, it briefly shifts from a personal admission into textbook explanation. Being the majority directly supports your point; being at the base of the pyramid adds less.\n\nSome claims sound unusually categorical. “You can’t review at that pace … without drastically lowering the quality” turns your experience into a general rule. Likewise, “reading tests is how you understand” presents one practice as definitive. These can sound like polished thought-leadership assertions, although they also fit an opinionated human voice. The issue is scope and certainty more than authorship.\n\nThe closing question repeats the opening scenario closely. It works as an invitation to respond, but the admission → lesson → commitment → audience question structure is familiar enough to feel formulaic.\n\nThe strongest personal details are “around 40 code reviews, about 8 a day” and the quoted inner thought. They give the post a concrete situation and a recognisable voice.\n\nOverall, the main friction is repeated explanation and a very tidy rhetorical arc, rather than conspicuously synthetic wording. There’s no need to remove ordinary technical language or make the prose rougher merely to avoid an AI-like impression.",
+        "completed_at": "2026-10-23T20:42:31.207Z",
+        "criterion_met": false,
+        "literal_gate_evidence": "a few features that can feel AI-polished",
+        "draft_skill_sha256": "8186ba14f81a8169379430bf8946bb1ecb91f7045da0571cabb22b4fcae21f8f",
+        "edit_mapping": [
+          {
+            "from": "I’m skipping unit tests too, even though",
+            "to": "I’m skipping unit tests, even though",
+            "rule": "draft-operations-4.md operation 1; existing preserve-meaning/referent and direct-wording rules",
+            "reason": "Unit tests are a subset of the test files already admitted as skipped; remove an additive particle that can suggest another category."
+          }
+        ],
+        "correction_mapping": [],
+        "review_corrections": null,
+        "draft_operations_sha256": "adefd813057a28dcc7ae5a85dae3fb0edcedc8058ce2b7b844df270756faf98c",
+        "advice_selection": [
+          {
+            "advice": "Remove too from I’m skipping unit tests too",
+            "decision": "adopt",
+            "reason": "Test files already include unit tests, so the additive particle has an uncertain referent. Both pyramid and team-majority claims stay."
+          },
+          {
+            "advice": "Split remembered insight from general incomplete-review judgement",
+            "decision": "reject",
+            "reason": "A stand-alone 'You haven’t really reviewed...' sentence would make the judgement more maxim-like and instructional. The general conviction and reason already survive together."
+          },
+          {
+            "advice": "Place purpose immediately after opening test files first and put equal-attention promise in a second sentence",
+            "decision": "reject",
+            "reason": "It would restate the decision in two adjacent promises, recreating the repeated-commitment friction. Current one-sentence commitment retains reading order, equal attention and purpose."
+          },
+          {
+            "advice": "Explain technically why AI generated tests are useless",
+            "decision": "reject_as_unsupported",
+            "reason": "The source does not specify test failures or assertions. The named service also said this causal detail cannot be added from the supplied text."
+          }
+        ],
+        "source_voice_review": {
+          "candidate_sha256": "3ba5967b2c13b4f35ddc3c1bb9de63a73ccb5612a34032d499d0ed200beb6185",
+          "verdict": "accept",
+          "fidelity": "All approximate counts, simultaneous-coding condition, one-PR trigger, unnoticed bad habit, exact quote, unit-test pyramid and majority-of-our-tests scope, many-not-all AI-generated-test claim, firm incomplete-review judgement, tests-first/equal-attention promise, intended-behaviour claim before implementation, fewer honest reviews and peer question survive. Removing “too” fixes the misleading additive referent.",
+          "meaning_or_voice_risk": "“Which makes skipping test files even worse” states the original wrong-time judgement without supplying any new technical reason that generated tests fail. “Count one whose tests I didn’t read” follows the source’s honest-number and incomplete-review claims, not a new measured count. The post remains a candid confession, not generic advice.",
+          "remaining_weakest_point": "The reason-to-judgement clause and lower-count ending are still orderly, but separating either into a maxim or adding roughness would not be source-driven.",
+          "required_correction": ""
+        },
+        "draft_hash_convention": "file bytes"
+      }
+    ],
+    "promoted_editing_operations": []
+  },
+  {
+    "case_id": "humanizer-go-backend-profile",
+    "run_id": "2026-10-23-draft-tuning-backend",
+    "base_skill_version": "21.0.0",
+    "source_sha256": "df5f2364368e4cfe0723ed86980153353c1b76b80ecc747a31814807ea7fa699",
+    "phase": "in-sample experimental tuning; not a fresh first-pass evaluation",
+    "criterion": "No identified AI-like stylistic cues in the initial literal response. Clarifications retained separately and do not replace initial results.",
+    "draft_operations": [
+      "Preserving an unquoted judgement or a genuine question does not require keeping\nits stock wording or position. Preserve what the speaker judges or asks, while\nexpressing it plainly and placing it where the thought needs it. If several\nsentences repeat the same confession, lesson, or resolution, keep the distinct\nmeaning once and reorganize the passage around the supplied detail. Do not\nerase conviction, manufacture a new narrative arc, change event chronology, or\nmove every question by formula.\n\n",
+      "When a passage states one action as a decision, a promise, and then a reason,\ncombine the repeated action with its reason while retaining distinct obligations\nand conditions. In factual summaries, parallel noun inventories may be expressed\nthrough the actions the source actually assigns to the speaker. Prefer an idiomatic\nverb to an abstract activity label when scope stays the same. Keep separate\nproject, technology, and responsibility scopes; never infer that each tool or\nactivity applies to every named project merely to join sentences.\n\n",
+      "# Provisional operations for the two supplied passages\n\nThese are case-level hypotheses derived from the existing draft's rules on preserving referents and scope, direct wording, cumulative progression, and idiomatic verbs. They are not promoted skill rules or evidence of a whole-text pass.\n\n1. **Remove an additive particle when the earlier category already includes the later one.** In the post, `test files` includes unit-test files, so `I’m skipping unit tests too` may imply a second class of skipped files. Use `I’m skipping unit tests` while retaining the pyramid relation and `majority of our tests`. This applies the existing preserve-meaning/referent and direct-wording rules.\n2. **Keep a strong general judgement connected to the speaker's reason.** Do not split `I’d forgotten that reading tests ... and you haven’t really reviewed ...` into a separate sentence solely for readability when that would make the general judgement a more quotable maxim. This applies the existing preserve-stance and cumulative-progression rules; it does not weaken the judgement.\n3. **Do not restate one commitment as two adjacent promises to move its purpose forward.** The source requires opening tests first, equal attention and intended behaviour before implementation. The existing draft's repeated-action rule favors one coherent commitment here. Retain the current sentence unless a local edit improves clarity without recreating the repeated-resolution cue.\n4. **Prefer a plain operation verb only when responsibility scope remains broad.** In the backend summary, `run live systems` can replace `operate live systems` to represent production operation without binding the duty to each named project, assigning on-call work, or changing the separate production-telephony claim. This applies the existing draft's idiomatic-verb and distinct-scope rules.\n5. **Avoid a new repeated opener to repair an understandable list.** Splitting `I design and build ..., do security reviews and operate/run live systems` into `I design ... . I also ...` adds adjacent `I` openers and separates actions already clear in one sentence. Keep the responsibilities general and the project/technology inventories distinct.\n\nExample boundaries: `I’m skipping unit tests, even though they’re the base of the pyramid and make up the majority of our tests.` preserves both technical claims and fixes only the referent. `I design and build backend services in Go, do security reviews and run live systems.` preserves the four activities while avoiding an ownership claim for every listed project.\n"
+    ],
+    "candidate_count": 4,
+    "strict_pass_count": 0,
+    "numeric_authorship_score": null,
+    "same_text_deduplication": true,
+    "council_limits": "Same three advisors reused. Round2 peer packet retained role labels, reducing anonymity; independent revision passes preceded it. Round3 reviewer used independent boundaries and anonymized proposals.",
+    "results": [
+      {
+        "version": "backend-candidate-1",
+        "input": "I build backend services in Go. My recent work includes a multi-tenant gateway for Intercom and Zendesk, a production telephony platform, and data pipelines connecting Snowflake with support systems. I work with APIs, PostgreSQL, AWS and Kubernetes. My work covers design, implementation, security review and production operation.",
+        "prompt": "Check this text for AI-generated patterns.\n\nText:\nI build backend services in Go. My recent work includes a multi-tenant gateway for Intercom and Zendesk, a production telephony platform, and data pipelines connecting Snowflake with support systems. I work with APIs, PostgreSQL, AWS and Kubernetes. My work covers design, implementation, security review and production operation.",
+        "posted_prompt": "Check this text for AI-generated patterns.\n\nText:\nI build backend services in Go. My recent work includes a multi-tenant gateway for Intercom and Zendesk, a production telephony platform, and data pipelines connecting Snowflake with support systems. I work with APIs, PostgreSQL, AWS and Kubernetes. My work covers design, implementation, security review and production operation.",
+        "valid_input": true,
+        "input_sha256": "df5f2364368e4cfe0723ed86980153353c1b76b80ecc747a31814807ea7fa699",
+        "model_label": "GPT-6.1 Sol\nHigh\nNone\nMinimal\nLight\nMedium\nHigh\nExtra High\nMax\nUltra\nPersistent",
+        "url": "https://chatgpt.com/c/6adbbffe-c890-83ed-8858-cf124977c41f",
+        "submitted_at": "2026-10-23T20:13:51.116Z",
+        "response": "Low presence of AI-style patterns. It reads like a straightforward professional bio. The concrete details—Go, Intercom, Zendesk and Snowflake—make it specific.\n\nThe slightly formulaic parts are:\n\nRepetitive openings: “I build,” “My recent work,” “I work,” “My work.”\nList-heavy structure: projects, technologies and responsibilities appear as three consecutive inventories.\nGeneric closing: “design, implementation, security review and production operation” sounds like a résumé checklist. “Operating services in production” would be more natural.\n\nNothing here strongly suggests AI authorship. The main editing opportunity is sentence variety; the tone is already restrained and credible.",
+        "completed_at": "2026-10-23T20:14:14.310Z",
+        "criterion_met": false,
+        "literal_gate_evidence": "slightly formulaic parts",
+        "draft_skill_sha256": "f5ab9db959c15f77bbf3f49a53ff677c172d2cd6d27eedc301764191565dd382",
+        "edit_mapping": [],
+        "correction_mapping": [],
+        "review_corrections": null,
+        "draft_hash_convention": "normalized UTF-8 text"
+      },
+      {
+        "version": "backend-candidate-2",
+        "input": "I design and build backend services in Go. My work also includes security reviews and running services in production. Recently, I’ve worked on a multi-tenant gateway for Intercom and Zendesk, a production telephony platform, and data pipelines connecting Snowflake with support systems. I work with APIs, PostgreSQL, AWS and Kubernetes.",
+        "prompt": "Check this text for AI-generated patterns.\n\nText:\nI design and build backend services in Go. My work also includes security reviews and running services in production. Recently, I’ve worked on a multi-tenant gateway for Intercom and Zendesk, a production telephony platform, and data pipelines connecting Snowflake with support systems. I work with APIs, PostgreSQL, AWS and Kubernetes.",
+        "posted_prompt": "Check this text for AI-generated patterns.\n\nText:\nI design and build backend services in Go. My work also includes security reviews and running services in production. Recently, I’ve worked on a multi-tenant gateway for Intercom and Zendesk, a production telephony platform, and data pipelines connecting Snowflake with support systems. I work with APIs, PostgreSQL, AWS and Kubernetes.",
+        "valid_input": true,
+        "input_sha256": "c6bfe86e45d759d6572888440111a7eb06bd032decf7a102b1853e4bd7d310b1",
+        "model_label": "GPT-6.1 Sol\nHigh\nNone\nMinimal\nLight\nMedium\nHigh\nExtra High\nMax\nUltra\nPersistent",
+        "url": "https://chatgpt.com/c/6adbc14b-b410-83eb-a33e-32fd3866434a",
+        "submitted_at": "2026-10-23T20:19:23.899Z",
+        "response": "Low on obvious AI-style patterns. It reads like a straightforward professional bio, though a few details make it feel formulaic:\n\nRepeated phrasing: “My work,” “I’ve worked,” and “I work” appear close together.\nRepeated wording: “production” appears twice.\nGeneric closing: the technology list feels familiar and adds less character than the specific project examples.\n\nThe Intercom/Zendesk gateway and Snowflake pipelines give it substance. I’d mainly vary the repeated “work” phrasing. Nothing here reliably establishes AI authorship.",
+        "completed_at": "2026-10-23T20:19:52.730Z",
+        "criterion_met": false,
+        "literal_gate_evidence": "a few details make it feel formulaic",
+        "draft_skill_sha256": "9835149d2c6fa352dd821c001192aa003548c236cd8cffdf2d1b48d5875f40ea",
+        "edit_mapping": [
+          {
+            "change": "Express design and implementation as I design and build backend services in Go; keep security reviews and running services in production as separate general work activities. No pronoun assigns every duty to every Go service or named project.",
+            "rule": "Draft addition2, source-assigned actions instead of noun inventories; preserve responsibility scope."
+          },
+          {
+            "change": "My recent work includes becomes Recently, I’ve worked on; retain every project unchanged. Keep APIs/PostgreSQL/AWS/Kubernetes in a separate general sentence.",
+            "rule": "Existing mechanical rhythm and direct wording; draft addition2 preserves distinct project and tool scopes."
+          },
+          {
+            "change": "production operation becomes running services in production, without adding support, on-call or day-to-day frequency.",
+            "rule": "Draft addition2, idiomatic verb for the same activity label."
+          }
+        ],
+        "correction_mapping": [],
+        "review_corrections": [
+          "Resolve reviewer A’s aggregate-scope concern: security review and production operation are separate general work activities, with no their/them attachment to every Go service."
+        ],
+        "draft_hash_convention": "normalized UTF-8 text"
+      },
+      {
+        "version": "backend-candidate-3",
+        "input": "I design and build backend services in Go, do security reviews and operate live systems. I work with APIs, PostgreSQL, AWS and Kubernetes. Recent projects include a multi-tenant gateway for Intercom and Zendesk, a production telephony platform, and data pipelines connecting Snowflake with support systems.",
+        "prompt": "Check this text for AI-generated patterns.\n\nText:\nI design and build backend services in Go, do security reviews and operate live systems. I work with APIs, PostgreSQL, AWS and Kubernetes. Recent projects include a multi-tenant gateway for Intercom and Zendesk, a production telephony platform, and data pipelines connecting Snowflake with support systems.",
+        "posted_prompt": "Check this text for AI-generated patterns.\n\nText:\nI design and build backend services in Go, do security reviews and operate live systems. I work with APIs, PostgreSQL, AWS and Kubernetes. Recent projects include a multi-tenant gateway for Intercom and Zendesk, a production telephony platform, and data pipelines connecting Snowflake with support systems.",
+        "valid_input": true,
+        "input_sha256": "2ee7d490dc9d4fc2f5a0eb0a076eb1460db5bb2b552e418ab6081d757916b263",
+        "model_label": "GPT-6.1 Sol\nHigh\nNone\nMinimal\nLight\nMedium\nHigh\nExtra High\nMax\nUltra\nPersistent",
+        "url": "https://chatgpt.com/c/6adbc2bd-7e10-83ed-9b7e-38c9846b494c",
+        "submitted_at": "2026-10-23T20:25:33.868Z",
+        "response": "Few obvious AI-style patterns. It reads like a concise professional bio. Style alone can’t establish authorship.\n\nA few elements feel formulaic:\n\n“I design and build” is a common opening in developer bios.\nThe technology list and three-project list make the paragraph slightly catalogue-like.\n“Operate live systems” sounds a little stiff; “run services in production” is more conversational.\n\nThe specific integrations—Intercom, Zendesk and Snowflake—give it substance. There’s no inflated language, forced conclusion or repetitive explanation.\n\nI’d keep it largely as written. The list-heavy structure is reasonable for a short technical bio.",
+        "completed_at": "2026-10-23T20:26:39.337Z",
+        "criterion_met": false,
+        "literal_gate_evidence": "A few elements feel formulaic",
+        "draft_skill_sha256": "8186ba14f81a8169379430bf8946bb1ecb91f7045da0571cabb22b4fcae21f8f",
+        "edit_mapping": [
+          {
+            "edit": "Replace nearby 'My work ... I’ve worked ... I work' subjects with a direct responsibility sentence, a separate general technology sentence and a concrete recent-work sentence.",
+            "rule": "Draft-SKILL-2: mechanical progression and abstract activity labels; use source-assigned actions while keeping project, technology and responsibility scopes distinct.",
+            "risk": "The verbs are general activities, not an assertion that every duty or technology applies to every named project."
+          },
+          {
+            "edit": "Render general production operation as 'operate live systems' while retaining the separate 'production telephony platform' description.",
+            "rule": "Draft-SKILL-2: prefer an idiomatic verb to an abstract activity label when scope stays the same.",
+            "risk": "'Live systems' is meant to denote systems in production, not a new real-time telephony claim or on-call duty."
+          },
+          {
+            "edit": "Move the technology inventory before the more distinctive recent examples.",
+            "rule": "Draft-SKILL-2: assess cumulative progression, retain useful detail, avoid a generic list ending.",
+            "risk": "The technology sentence remains general and does not assign the full stack to each example."
+          }
+        ],
+        "correction_mapping": [
+          {
+            "change": "Use general do security reviews without their, preserve broad work with APIs instead of consumer-only use, and use Recent projects include instead of a second nearby work subject.",
+            "rule": "Existing preserve actor/action/scope; draft2 source-assigned verbs and distinct inventory scopes."
+          }
+        ],
+        "review_corrections": null,
+        "clarification": {
+          "version": "backend-candidate-3",
+          "kind": "clarification_not_retest",
+          "prompt": "Please expand your assessment of the exact text above. For each point you raised, explain the effect of the quoted wording in context and distinguish an AI-like stylistic impression from an ordinary convention that fits this genre and from a separate clarity problem. Explain where these categories overlap, and which AI-like effects, if any, remain in the passage as a whole. Can the specific friction be repaired while keeping the same substantive claims and voice? Give reasons without rewriting the text or assigning an authorship probability.",
+          "original_input_sha256": "2ee7d490dc9d4fc2f5a0eb0a076eb1460db5bb2b552e418ab6081d757916b263",
+          "submitted_at": "2026-10-23T20:31:49.509Z",
+          "url": "https://chatgpt.com/c/6adbc2bd-7e10-83ed-9b7e-38c9846b494c",
+          "response": "The passage has a slightly compressed, list-driven rhythm, but little that specifically warrants calling it AI-like. My earlier assessment gave too much weight to features that are ordinary in a short technical bio. The main friction concerns phrasing and information density.\n\n“I design and build backend services in Go”\nThis establishes the role, language and scope immediately. “Design and build” is conventional professional wording: it distinguishes architectural responsibility from implementation. Its familiarity can give it a template-like feel, but that is a weak stylistic association, especially in a genre where readers expect a direct opening. There is no clarity problem here, and changing it simply to sound less conventional would have little benefit.\n\n“do security reviews and operate live systems”\nIn context, this extends your responsibilities beyond developing services. The slight awkwardness comes from the coordination: “design and build” describes one activity, “do security reviews” introduces another, and “operate live systems” adds a broader operational responsibility. The sentence remains grammatical and understandable, but it packs several kinds of work into the same construction.\n\n“Operate live systems” is legitimate technical language. It sounds more formal than the adjacent “do security reviews,” which creates a small register mismatch. There is also some breadth in “operate”: readers cannot tell exactly which operational duties it covers. That breadth may be appropriate for a short bio; it becomes a clarity problem only if those duties need to be understood more precisely. Neither formality nor breadth is, by itself, an AI-like feature.\n\n“I work with APIs, PostgreSQL, AWS and Kubernetes”\nThis is a standard technology inventory, useful to recruiters and technical readers scanning for relevant experience. The items sit at different levels—an interface category, a database, a cloud platform and an orchestration system—but that mixture is normal in developer bios.\n\nIts contribution to the catalogue-like impression comes from its position between two other inventories: responsibilities first, technologies second, projects third. The effect is cumulative. Each sentence supplies another set of credentials, with little variation in how the information is presented. That can resemble generated professional copy, but it also follows directly from the practical demands of this genre.\n\n“Recent projects include…” followed by three projects\nThree examples do not automatically constitute a conspicuously polished rhetorical pattern. Here they identify distinct work, and their descriptions are not artificially matched in length or construction.\n\nThe actual friction is that this is the longest and most information-dense sentence. Readers must absorb several products, domains and relationships at once. “Support systems” is also broader than the named technologies elsewhere, although it still communicates the integration domain. These are questions of density and specificity, rather than strong AI-style signals.\n\nThe references to Intercom, Zendesk and Snowflake make the passage concrete and help readers understand the work. My earlier point about their “substance” should be understood that way: specific names improve informational value; they do not establish how the text was written. Likewise, the absence of inflated language, repetitive explanation and a forced conclusion makes the paragraph economical, without proving anything about authorship.\n\nWhat remains across the whole passage is a mild inventory effect. That impression overlaps with ordinary bio conventions because concise professional summaries often organise experience into exactly these categories. It overlaps with clarity where compression makes the opening coordination uneven and the final sentence demanding.\n\nThe friction can be repaired while preserving the claims and the direct, restrained voice. Local adjustments to coordination, register or sentence boundaries would be enough. There is no need to add anecdotes, personality markers or achievements that the passage does not currently claim.",
+          "completed_at": "2026-10-23T20:33:52.556Z",
+          "does_not_replace_initial_assessment": true
+        },
+        "recommendations": {
+          "version": "backend-candidate-3",
+          "kind": "editing_recommendations_not_evaluation",
+          "prompt": "Please recommend up to three minimal, concrete edits to the exact passage above for the friction you identified. For each, give the original span, a proposed replacement, why it helps, and any meaning or voice tradeoff. Preserve the substantive claims, their scope and certainty, approximate numbers, names, project/technology/responsibility boundaries, and any exact quoted inner thought. You may change unquoted wording, sentence boundaries and order. Do not add anecdotes, results or technical explanations absent from the passage, remove useful detail merely because it is conventional, or switch persona. Mark any unavoidable substantive tradeoff instead of silently making it. Do not give an authorship probability or claim that the revision passes. Please give local recommendations, not a wholesale rewrite.",
+          "original_input_sha256": "2ee7d490dc9d4fc2f5a0eb0a076eb1460db5bb2b552e418ab6081d757916b263",
+          "submitted_at": "2026-10-23T20:35:28.102Z",
+          "url": "https://chatgpt.com/c/6adbc2bd-7e10-83ed-9b7e-38c9846b494c",
+          "response": "I’d recommend two small edits to the Go bio:\n\nSeparate development from the additional responsibilities.\n\nOriginal: “I design and build backend services in Go, do security reviews and operate live systems.”\n\nReplacement: “I design and build backend services in Go. I also do security reviews and operate live systems.”\n\nWhy: Gives the opening a pause and makes the responsibility boundaries easier to scan. It preserves the breadth of security reviews and operations without implying they apply only to the Go services.\n\nTradeoff: Adds another sentence beginning with “I,” so the rhythm becomes slightly more repetitive. No substantive change.\n\nMake the operational wording less formal.\n\nOriginal: “operate live systems”\n\nReplacement: “run live systems”\n\nWhy: “Run” sits more naturally alongside the plain wording “do security reviews.” Keeping “live systems” avoids narrowing the claim to a particular kind of service or operational duty.\n\nTradeoff: Slightly more conversational and less formal. It retains the same broad claim without specifying particular operational responsibilities.\n\nI’d leave the technology and project lists intact. Their detail serves the bio, and the project boundaries are already understandable. Splitting the final sentence would require extra connective wording for a modest readability gain.",
+          "completed_at": "2026-10-23T20:36:12.740Z",
+          "recommendation_is_not_test_result": true
+        },
+        "draft_hash_convention": "file bytes"
+      },
+      {
+        "version": "backend-candidate-4",
+        "input": "I design and build backend services in Go, do security reviews and run live systems. I work with APIs, PostgreSQL, AWS and Kubernetes. Recent projects include a multi-tenant gateway for Intercom and Zendesk, a production telephony platform, and data pipelines connecting Snowflake with support systems.",
+        "prompt": "Check this text for AI-generated patterns.\n\nText:\nI design and build backend services in Go, do security reviews and run live systems. I work with APIs, PostgreSQL, AWS and Kubernetes. Recent projects include a multi-tenant gateway for Intercom and Zendesk, a production telephony platform, and data pipelines connecting Snowflake with support systems.",
+        "posted_prompt": "Check this text for AI-generated patterns.\n\nText:\nI design and build backend services in Go, do security reviews and run live systems. I work with APIs, PostgreSQL, AWS and Kubernetes. Recent projects include a multi-tenant gateway for Intercom and Zendesk, a production telephony platform, and data pipelines connecting Snowflake with support systems.",
+        "valid_input": true,
+        "input_sha256": "0da70376125b3364637c01932a4097a9f7fdf78238d22dd4518fb925926979ca",
+        "model_label": "GPT-6.1 Sol\nHigh\nNone\nMinimal\nLight\nMedium\nHigh\nExtra High\nMax\nUltra\nPersistent",
+        "url": "https://chatgpt.com/c/6adbc69b-6a88-83eb-9a00-6881f935eb95",
+        "submitted_at": "2026-10-23T20:42:03.640Z",
+        "response": "The passage reads as a straightforward professional bio. The main AI-like impression is its evenly organised structure, rather than any distinctive wording.\n\nThree sentences, three lists: responsibilities, technologies, then projects. That creates a slightly catalogue-like rhythm, but it’s also a normal way to make a technical bio easy to scan.\n“Recent projects include…” is conventional résumé language. It sounds polished, but serves a clear purpose without adding empty praise.\n“Run live systems” is the least precise phrase: it leaves your operational responsibilities unspecified. That’s a minor clarity issue, not an AI signal.\nThe named integrations and project types give the passage substance, although specificity alone says nothing about authorship.\n\nThere’s little stylistic friction here. I wouldn’t change it simply to make it seem less AI-generated; any useful edit would clarify your responsibilities rather than add artificial informality.",
+        "completed_at": "2026-10-23T20:42:31.269Z",
+        "criterion_met": false,
+        "literal_gate_evidence": "The main AI-like impression is its evenly organised structure",
+        "draft_skill_sha256": "8186ba14f81a8169379430bf8946bb1ecb91f7045da0571cabb22b4fcae21f8f",
+        "edit_mapping": [
+          {
+            "from": "operate live systems",
+            "to": "run live systems",
+            "rule": "draft-operations-4.md operation 4; existing idiomatic-verb and distinct-scope rules",
+            "reason": "Use a plainer operation verb without changing the broad production responsibility or the separate production telephony project."
+          }
+        ],
+        "correction_mapping": [],
+        "review_corrections": null,
+        "draft_operations_sha256": "adefd813057a28dcc7ae5a85dae3fb0edcedc8058ce2b7b844df270756faf98c",
+        "advice_selection": [
+          {
+            "advice": "Split development and additional responsibilities into two I-led sentences",
+            "decision": "reject",
+            "reason": "It adds repeated adjacent I openers while the general responsibility scope is already understandable; it would not improve the inventory cadence."
+          },
+          {
+            "advice": "Use run live systems instead of operate live systems",
+            "decision": "adopt",
+            "reason": "Run is plainer beside do security reviews and keeps broad production-operation scope. It does not add on-call responsibility or attach all duties to each named project."
+          },
+          {
+            "advice": "Leave the technology and project lists intact",
+            "decision": "adopt_keep",
+            "reason": "Every listed item is source-supplied, and merging the lists would risk assigning the general stack to each project."
+          }
+        ],
+        "source_voice_review": {
+          "candidate_sha256": "0da70376125b3364637c01932a4097a9f7fdf78238d22dd4518fb925926979ca",
+          "verdict": "accept",
+          "fidelity": "Design/build, security reviews, running live systems, all three projects and all technologies remain. “Run live systems” is a plain broad rendering of production operation, without an on-call or sole-owner claim. The technology sentence is separate from recent projects, so no stack is assigned to every project.",
+          "meaning_or_voice_risk": "“Run live systems” is broader wording than “production operation” but still denotes operating deployed systems; it does not claim that every named project is operated by the speaker. The opening remains professional rather than promotional.",
+          "remaining_weakest_point": "The final project enumeration remains a list, but each item is required factual scope.",
+          "required_correction": ""
+        },
+        "draft_hash_convention": "file bytes"
+      }
+    ],
+    "promoted_editing_operations": []
   }
 ]

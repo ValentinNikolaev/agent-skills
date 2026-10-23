@@ -13,23 +13,42 @@
     "source_text": "This week I did around 40 code reviews. About 8 a day. It sounds impressive until you admit what it actually means: you can’t review at that pace, while still writing code yourself, without drastically lowering the quality of your reviews.\nOne PR this week made me see it. I don’t review test files anymore. Unit tests, the base of the pyramid, the majority of our tests. I skip them. Not because they don’t matter. Because halfway through a big diff I tell myself, “those are just tests, I have enough files to get through.”\nAnd this is exactly the wrong time to skip them. A lot of AI generated tests are useless. Worse, I forgot that reading the tests is how you actually understand what the code is supposed to do. Skipping them means you’re not really reviewing the PR.\nThat’s a habit I built without noticing, and it’s a bad one.\nSo here’s what I’m changing. Test files get reviewed with the same attention as the code they cover. I open them first, like in the good old days, because they tell me what the code claims to do before I read how it does it. And if that means fewer reviews per week, then fewer is the honest number.\nDo you skip test files too, or is it just me?",
     "review_focus": [
       {
-        "excerpts": ["This week I did around 40 code reviews.", "About 8 a day.", "I skip them."],
+        "excerpts": [
+          "This week I did around 40 code reviews.",
+          "About 8 a day.",
+          "I skip them."
+        ],
         "question": "Does the repeated dramatic fragmentation serve emphasis here, or manufacture a punchy cadence? Judge the cumulative effect; short sentences alone are not a defect."
       },
       {
-        "excerpts": ["It sounds impressive until you admit what it actually means", "One PR this week made me see it."],
+        "excerpts": [
+          "It sounds impressive until you admit what it actually means",
+          "One PR this week made me see it."
+        ],
         "question": "Do these staged revelations delay an already concrete observation? Preserve the specific week and PR without inventing what happened in that PR."
       },
       {
-        "excerpts": ["Not because they don’t matter. Because", "And this is exactly the wrong time", "Worse, I forgot"],
+        "excerpts": [
+          "Not because they don’t matter. Because",
+          "And this is exactly the wrong time",
+          "Worse, I forgot"
+        ],
         "question": "Do the contrast and escalating signposts make the confession feel rehearsed? Preserve the actual explanation, regret, and concern about generated tests."
       },
       {
-        "excerpts": ["That’s a habit I built without noticing, and it’s a bad one.", "So here’s what I’m changing.", "fewer is the honest number"],
+        "excerpts": [
+          "That’s a habit I built without noticing, and it’s a bad one.",
+          "So here’s what I’m changing.",
+          "fewer is the honest number"
+        ],
         "question": "Do repeated self-judgements and the packaged resolution restate what the anecdote already establishes? Retain the real commitment and willingness to do fewer reviews."
       },
       {
-        "excerpts": ["like in the good old days", "what the code claims to do before I read how it does it", "Do you skip test files too, or is it just me?"],
+        "excerpts": [
+          "like in the good old days",
+          "what the code claims to do before I read how it does it",
+          "Do you skip test files too, or is it just me?"
+        ],
         "question": "Check stock nostalgia, the polished claims/does balance, and the generic engagement ending in context. Preserve the substantive reason for reading tests first and the genuine question to peers."
       }
     ],
@@ -63,10 +82,43 @@
         "Every proposed edit maps to an existing rule or a documented experimental skill patch, with council selection before promotion.",
         "If a named-service check is requested, freeze and record the exact candidate, neutral prompt, literal response, and user-defined criterion; do not count ordinary unit tests as writing-quality evidence."
       ],
-      "status": "checked with humanizer v21; first output did not meet the no-identified-AI-cues criterion",
+      "status": "checked; four in-sample candidates did not meet the strict whole-text criterion",
       "relationship_to_holdout_10": "Separate user-supplied diagnostic case; excluded from the ten-case readiness denominator.",
       "observed_results_file": "humanizer_editorial_results.json",
-      "latest_run_id": "2026-10-23-v21-first-output"
+      "latest_run_id": "2026-10-23-draft-tuning-post",
+      "hypothesis_file": "humanizer_hypotheses.json"
+    }
+  },
+  {
+    "id": "humanizer-go-backend-profile",
+    "skill": "humanizer",
+    "language": "en",
+    "genre": "professional backend experience summary",
+    "provenance": "Exact text supplied by user on 2026-10-23 for the same humanizer/review experiment; claims are source material, not newly verified project evidence.",
+    "prompt": "Apply the same draft humanizer to this second source without changing its professional voice. Small local edits or keep-original are available; map every edit to draft/existing rules. Exact external review comes after the council output is frozen.",
+    "source_text": "I build backend services in Go. My recent work includes a multi-tenant gateway for Intercom and Zendesk, a production telephony platform, and data pipelines connecting Snowflake with support systems. I work with APIs, PostgreSQL, AWS and Kubernetes. My work covers design, implementation, security review and production operation.",
+    "must_preserve": [
+      "First-person, plain professional tone; builds backend services in Go.",
+      "Recent work includes a multi-tenant gateway for both Intercom and Zendesk.",
+      "Recent work includes a production telephony platform.",
+      "Recent work includes data pipelines connecting Snowflake with support systems.",
+      "Works with APIs, PostgreSQL, AWS and Kubernetes; do not imply every technology was used on every named project.",
+      "Work covers design, implementation, security review and production operation, with no added leadership, ownership, on-call, scale, impact or chronology claims."
+    ],
+    "must_not_do": [
+      "Invent anecdotes, project details, results, metrics, personal reactions, job titles or timelines.",
+      "Change the voice to casual, punchy, promotional or narrative prose.",
+      "Turn connecting systems into an unsupported migration or direct product integration claim.",
+      "Add typos or awkward grammar to change an external assessment.",
+      "Delete a real project or technology to make the passage less list-like."
+    ],
+    "evaluation": {
+      "mode": "Actual named-service check plus same-council meaning/voice review; no authorship classification",
+      "criterion": "Exact meaning/voice-preserving candidate accepted by same council and actual external response meets user no-identified-AI-like-cues criterion; otherwise report remaining failure honestly.",
+      "status": "checked; four in-sample candidates did not meet the strict whole-text criterion",
+      "observed_results_file": "humanizer_editorial_results.json",
+      "latest_run_id": "2026-10-23-draft-tuning-backend",
+      "hypothesis_file": "humanizer_hypotheses.json"
     }
   }
 ]

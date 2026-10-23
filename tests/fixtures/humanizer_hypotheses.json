@@ -1,0 +1,419 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-10-23T20:43:53.808989+00:00",
+  "policy": "Intermediate observations remain hypotheses until successful reuse on other texts supports their scope and the council selects them. A local benefit and a whole-text pass are recorded separately.",
+  "hypotheses": [
+    {
+      "id": "H1",
+      "status": "proposed",
+      "operation": "Use a source-specific genuine peer question where it follows the developed account, without fixing its position or treating one wording as a reusable hook.",
+      "draft_rule_or_example": "Preserving a genuine question does not require keeping its stock wording or position. Preserve what the speaker asks and place it where the thought needs it.",
+      "scope": "English personal engineering post with a genuine peer question; placement depends on the whole passage.",
+      "claimed_local_effect": "One revised context received explicit positive feedback about the closing question. The same question in a later context was criticised; transfer and causal benefit are not established.",
+      "evidence": [
+        {
+          "case_id": "humanizer-code-review-confession",
+          "version": "post-candidate-2",
+          "input_sha256": "94f62f696225696f46d1582c508932869fbc038745b972c0fd3fa0b87b2ee834",
+          "evidence_kind": "literal local positive feedback",
+          "literal_excerpt": "What feels natural: the specific review count, the thought “those are just tests”, and admitting a habit you’re unhappy with. The closing question also follows directly from the experience.",
+          "url": "https://chatgpt.com/c/6adbc147-adc0-83ed-a318-979e91f26a68",
+          "whole_text_criterion_met": false
+        }
+      ],
+      "counterevidence": [
+        {
+          "case_id": "humanizer-code-review-confession",
+          "version": "post-candidate-1",
+          "input_sha256": "6282847b2716ed8fdcac204cf55705f3c55d3c1c6a0effb26da446d2c55dc79d",
+          "evidence_kind": "literal negative feedback",
+          "literal_excerpt": "“Do you skip them too?” arrives before most of the argument. It feels like an engagement prompt inserted into the opening.",
+          "url": "https://chatgpt.com/c/6adbbff9-edc8-83ed-9bd5-c87dcf64a29f",
+          "whole_text_criterion_met": false
+        },
+        {
+          "case_id": "humanizer-code-review-confession",
+          "version": "post-candidate-3",
+          "input_sha256": "22f9c8eeecc6066f8d677252a75c5dc4527bb9fdbcfce6fc1e093fa93b27bd0f",
+          "evidence_kind": "literal negative feedback",
+          "literal_excerpt": "The final question repeats the opening situation closely and feels like a standard engagement prompt.",
+          "url": "https://chatgpt.com/c/6adbc2b8-d098-83eb-8328-389def2f69c3",
+          "whole_text_criterion_met": false
+        },
+        {
+          "case_id": "humanizer-code-review-confession",
+          "version": "post-candidate-4",
+          "input_sha256": "3ba5967b2c13b4f35ddc3c1bb9de63a73ccb5612a34032d499d0ed200beb6185",
+          "evidence_kind": "literal negative feedback in another revision of the same text",
+          "literal_excerpt": "The closing question repeats the opening scenario closely. It works as an invitation to respond, but the admission → lesson → commitment → audience question structure is familiar enough to feel formulaic.",
+          "url": "https://chatgpt.com/c/6adbc699-3d78-83ed-ac6d-d98f9a7a4d37",
+          "whole_text_criterion_met": false
+        }
+      ],
+      "uncertainty": "Several surrounding passages changed and model judgements can vary; this does not isolate the effect of question wording or placement.",
+      "next_validation": "Pre-register another personal post with a genuine peer question, hold unrelated wording fixed, preserve its speech act, and compare explicit local feedback plus the whole-text result.",
+      "validated_other_texts": [],
+      "canonical_promotion": false,
+      "council_decision": {
+        "id": "H1",
+        "operation": "A contextual peer question follows the developed account without acting as a stock engagement prompt.",
+        "status": "proposed_mixed_context_dependent",
+        "evidence": [
+          "post-2: 'The closing question also follows directly from the experience'"
+        ],
+        "counterevidence": [
+          "post-3: 'final question repeats the opening situation closely'",
+          "post-4: 'closing question repeats the opening scenario closely'"
+        ],
+        "whole_text": "All post versions failed the strict criterion.",
+        "next_validation": "Use another source with a genuine question; pre-register wording and placement, then seek direct local feedback rather than treating an omitted objection as confirmation."
+      }
+    },
+    {
+      "id": "H2",
+      "status": "proposed",
+      "operation": "Express source-assigned production operation with an idiomatic verb such as run services in production, while retaining separate project and tool scopes.",
+      "draft_rule_or_example": "Prefer an idiomatic verb to an abstract activity label when scope stays the same; do not add on-call, ownership or a duty for every named project.",
+      "scope": "English technical experience summaries explicitly including production operation.",
+      "claimed_local_effect": "Service suggestions favour operating/running services in production over production operation and operate live systems. This is local editorial support, not an isolated successful rewrite or a whole-text pass.",
+      "evidence": [
+        {
+          "case_id": "humanizer-go-backend-profile",
+          "version": "backend-candidate-1",
+          "input_sha256": "df5f2364368e4cfe0723ed86980153353c1b76b80ecc747a31814807ea7fa699",
+          "evidence_kind": "literal editing suggestion",
+          "literal_excerpt": "Generic closing: “design, implementation, security review and production operation” sounds like a résumé checklist. “Operating services in production” would be more natural.",
+          "url": "https://chatgpt.com/c/6adbbffe-c890-83ed-8858-cf124977c41f",
+          "whole_text_criterion_met": false
+        },
+        {
+          "case_id": "humanizer-go-backend-profile",
+          "version": "backend-candidate-3",
+          "input_sha256": "2ee7d490dc9d4fc2f5a0eb0a076eb1460db5bb2b552e418ab6081d757916b263",
+          "evidence_kind": "literal idiom comparison/suggestion",
+          "literal_excerpt": "“Operate live systems” sounds a little stiff; “run services in production” is more conversational.",
+          "url": "https://chatgpt.com/c/6adbc2bd-7e10-83ed-9b7e-38c9846b494c",
+          "whole_text_criterion_met": false
+        }
+      ],
+      "counterevidence": [
+        {
+          "case_id": "humanizer-go-backend-profile",
+          "version": "backend-candidate-2",
+          "input_sha256": "c6bfe86e45d759d6572888440111a7eb06bd032decf7a102b1853e4bd7d310b1",
+          "evidence_kind": "whole-text residual cue despite the more idiomatic phrase",
+          "literal_excerpt": "Repeated wording: “production” appears twice.",
+          "url": "https://chatgpt.com/c/6adbc14b-b410-83eb-a33e-32fd3866434a",
+          "whole_text_criterion_met": false
+        },
+        {
+          "case_id": "humanizer-go-backend-profile",
+          "version": "backend-candidate-4",
+          "input_sha256": "0da70376125b3364637c01932a4097a9f7fdf78238d22dd4518fb925926979ca",
+          "evidence_kind": "literal clarity concern after the recommended run variant",
+          "literal_excerpt": "“Run live systems” is the least precise phrase: it leaves your operational responsibilities unspecified. That’s a minor clarity issue, not an AI signal.",
+          "url": "https://chatgpt.com/c/6adbc69b-6a88-83eb-9a00-6881f935eb95",
+          "whole_text_criterion_met": false
+        }
+      ],
+      "rejected_variant": "Operate live systems was source-faithful but later called stiff; do not adopt it solely to avoid repeating production.",
+      "uncertainty": "The exact standalone replacement was not isolated from other sentence changes. Responsibility scope must be checked in every context.",
+      "next_validation": "On other technical summaries that actually include production operation, test precise idioms with unrelated sentences fixed and verify that responsibilities and project associations do not expand.",
+      "validated_other_texts": [],
+      "canonical_promotion": false,
+      "council_decision": {
+        "id": "H2",
+        "operation": "Render production operation with an idiomatic direct verb at the same general responsibility scope.",
+        "status": "proposed_phrase_specific; run_live_systems_variant_counterevidenced",
+        "evidence": [
+          "backend-1: 'Operating services in production would be more natural'",
+          "backend-3: 'run services in production is more conversational'"
+        ],
+        "counterevidence": [
+          "backend-4: 'Run live systems is the least precise phrase'",
+          "backend-2 used 'running services in production' but still had whole-bio repeated-work and production objections"
+        ],
+        "whole_text": "All backend versions failed the strict criterion.",
+        "next_validation": "Test a source-faithful production-operation phrase on another technical summary, holding unrelated catalogue structure fixed; reject a variant that loses operational precision."
+      }
+    },
+    {
+      "id": "H3",
+      "status": "proposed",
+      "operation": "Combine a repeated action with its reason while preserving distinct promises such as reading order and equal attention.",
+      "draft_rule_or_example": "When one action is repeated as decision, promise and explanation, express the action once with its reason and keep each distinct obligation.",
+      "scope": "A first-person process-change paragraph; distinct requirements are not automatically redundant.",
+      "claimed_local_effect": "Not established. Consolidation preserved meaning, but the next response still criticised repetition; omission of that cue in a later non-exhaustive response is weak evidence.",
+      "evidence": [
+        {
+          "case_id": "humanizer-code-review-confession",
+          "version": "post-candidate-1",
+          "input_sha256": "6282847b2716ed8fdcac204cf55705f3c55d3c1c6a0effb26da446d2c55dc79d",
+          "evidence_kind": "literal starting defect",
+          "literal_excerpt": "The final paragraph repeats the same commitment: open tests first → give them equal attention → read expected behaviour before implementation. That repetition is the strongest AI-like feature.",
+          "url": "https://chatgpt.com/c/6adbbff9-edc8-83ed-9bd5-c87dcf64a29f",
+          "whole_text_criterion_met": false
+        }
+      ],
+      "counterevidence": [
+        {
+          "case_id": "humanizer-code-review-confession",
+          "version": "post-candidate-2",
+          "input_sha256": "94f62f696225696f46d1582c508932869fbc038745b972c0fd3fa0b87b2ee834",
+          "evidence_kind": "literal unresolved repetition",
+          "literal_excerpt": "The final paragraph repeats the same commitment through several clauses: opening tests first, reviewing carefully, understanding intent, and accepting fewer reviews. That completeness makes it feel edited into a lesson.",
+          "url": "https://chatgpt.com/c/6adbc147-adc0-83ed-a318-979e91f26a68",
+          "whole_text_criterion_met": false
+        },
+        {
+          "case_id": "humanizer-code-review-confession",
+          "version": "post-candidate-3",
+          "input_sha256": "22f9c8eeecc6066f8d677252a75c5dc4527bb9fdbcfce6fc1e093fa93b27bd0f",
+          "evidence_kind": "remaining whole-passage cue",
+          "literal_excerpt": "The tidy narrative arc: confession → workload → lesson → commitment → audience question. It works, but it’s also a common AI-assisted post structure.",
+          "url": "https://chatgpt.com/c/6adbc2b8-d098-83eb-8328-389def2f69c3",
+          "whole_text_criterion_met": false
+        }
+      ],
+      "next_validation": "Use another process-change passage with genuine repetition; preserve every distinct obligation and seek explicit feedback about the local repetition rather than infer success from silence.",
+      "validated_other_texts": [],
+      "canonical_promotion": false,
+      "council_decision": {
+        "id": "H3",
+        "operation": "Combine repeated decision, equal-attention promise and reason while preserving each obligation.",
+        "status": "proposed_ambiguous",
+        "evidence": [
+          "post-1 and post-2 explicitly flagged a repeated final commitment",
+          "post-3 and post-4 did not list that exact repetition as a separate defect"
+        ],
+        "counterevidence": [
+          "post-4 still says 'The same point returns several times' and flags a tidy rhetorical arc; omission of the exact final-paragraph objection is non-exhaustive feedback"
+        ],
+        "whole_text": "Post candidates 3 and 4 still failed.",
+        "next_validation": "On a different process-change passage, compare one coherent commitment with the source, then obtain explicit local feedback on repetition."
+      }
+    },
+    {
+      "id": "H4",
+      "status": "rejected",
+      "operation": "In this post, embed the unit-test pyramid explanation into the confession using I’m skipping unit tests too.",
+      "draft_rule_or_example": "Reorganize around supplied detail without changing technical relationships or referents. The tested too variant failed this boundary.",
+      "scope": "Rejection concerns these exact variants of this post, not all uses of technical background or additive particles.",
+      "claimed_local_effect": "No supported improvement in the targeted cue; an added too also created a clarity problem.",
+      "evidence": [],
+      "counterevidence": [
+        {
+          "case_id": "humanizer-code-review-confession",
+          "version": "post-candidate-2",
+          "input_sha256": "94f62f696225696f46d1582c508932869fbc038745b972c0fd3fa0b87b2ee834",
+          "evidence_kind": "literal unresolved cue",
+          "literal_excerpt": "“Most of our tests are unit tests, at the base of the test pyramid” — the pyramid explanation feels inserted for completeness. It interrupts the personal account without adding much.",
+          "url": "https://chatgpt.com/c/6adbc147-adc0-83ed-a318-979e91f26a68",
+          "whole_text_criterion_met": false
+        },
+        {
+          "case_id": "humanizer-code-review-confession",
+          "version": "post-candidate-3",
+          "input_sha256": "22f9c8eeecc6066f8d677252a75c5dc4527bb9fdbcfce6fc1e093fa93b27bd0f",
+          "evidence_kind": "literal unresolved cue",
+          "literal_excerpt": "“They’re the base of the pyramid” sounds like textbook background inserted for completeness. Your audience probably doesn’t need it.",
+          "url": "https://chatgpt.com/c/6adbc2b8-d098-83eb-8328-389def2f69c3",
+          "whole_text_criterion_met": false
+        },
+        {
+          "case_id": "humanizer-code-review-confession",
+          "version": "post-candidate-3",
+          "input_sha256": "22f9c8eeecc6066f8d677252a75c5dc4527bb9fdbcfce6fc1e093fa93b27bd0f",
+          "evidence_kind": "literal clarity defect",
+          "literal_excerpt": "“I’m skipping unit tests too” suggests unit tests are separate from the test files already mentioned. Drop “too”.",
+          "url": "https://chatgpt.com/c/6adbc2b8-d098-83eb-8328-389def2f69c3",
+          "whole_text_criterion_met": false
+        }
+      ],
+      "next_validation": "Do not promote this variant. A later hypothesis needs a different source-faithful integration and an explicit referent check; these failures do not authorize removing a required source fact.",
+      "validated_other_texts": [],
+      "canonical_promotion": false,
+      "council_decision": {
+        "id": "H4",
+        "operation": "Embed the pyramid/majority relation in the personal account rather than a standalone aside.",
+        "status": "unsupported_for_this_case",
+        "evidence": [
+          "post-1, post-2 and post-3 each flagged the pyramid reference after different integrations",
+          "post-4: 'test-pyramid reference feels inserted as background'"
+        ],
+        "counterevidence": [
+          "post-4 also calls the phrase 'ordinary engineering language, not an AI marker' and acknowledges that the team majority directly supports the point"
+        ],
+        "whole_text": "Every post candidate failed, but deleting the source's required pyramid relation is not justified.",
+        "next_validation": "Do not promote a generic embedding rule from this case. Preserve the source fact and test only a source-supported relation on another passage if one arises."
+      }
+    },
+    {
+      "id": "H5",
+      "status": "proposed",
+      "operation": "Remove an additive particle whose referent incorrectly implies that a subset is an additional category, while retaining the substantive technical relationship.",
+      "draft_rule_or_example": "# Provisional operations for the two supplied passages\n\nThese are case-level hypotheses derived from the existing draft's rules on preserving referents and scope, direct wording, cumulative progression, and idiomatic verbs. They are not promoted skill rules or evidence of a whole-text pass.\n\n1. **Remove an additive particle when the earlier category already includes the later one.** In the post, `test files` includes unit-test files, so `I’m skipping unit tests too` may imply a second class of skipped files. Use `I’m skipping unit tests` while retaining the pyramid relation and `majority of our tests`. This applies the existing preserve-meaning/referent and direct-wording rules.\n2. **Keep a strong general judgement connected to the speaker's reason.** Do not split `I’d forgotten that reading tests ... and you haven’t really reviewed ...` into a separate sentence solely for readability when that would make the general judgement a more quotable maxim. This applies the existing preserve-stance and cumulative-progression rules; it does not weaken the judgement.\n3. **Do not restate one commitment as two adjacent promises to move its purpose forward.** The source requires opening tests first, equal attention and intended behaviour before implementation. The existing draft's repeated-action rule favors one coherent commitment here. Retain the current sentence unless a local edit improves clarity without recreating the repeated-resolution cue.\n4. **Prefer a plain operation verb only when responsibility scope remains broad.** In the backend summary, `run live systems` can replace `operate live systems` to represent production operation without binding the duty to each named project, assigning on-call work, or changing the separate production-telephony claim. This applies the existing draft's idiomatic-verb and distinct-scope rules.\n5. **Avoid a new repeated opener to repair an understandable list.** Splitting `I design and build ..., do security reviews and operate/run live systems` into `I design ... . I also ...` adds adjacent `I` openers and separates actions already clear in one sentence. Keep the responsibilities general and the project/technology inventories distinct.\n\nExample boundaries: `I’m skipping unit tests, even though they’re the base of the pyramid and make up the majority of our tests.` preserves both technical claims and fixes only the referent. `I design and build backend services in Go, do security reviews and run live systems.` preserves the four activities while avoiding an ownership claim for every listed project.\n",
+      "scope": "The exact unit tests too variant in this English post; no global ban on too or additive particles.",
+      "claimed_local_effect": "The service explicitly recommended the referent repair and the council accepted fidelity. The next fresh response did not repeat that clarity objection, but still named AI-like features; absence is weak evidence, not an isolated demonstrated effect.",
+      "evidence": [
+        {
+          "case_id": "humanizer-code-review-confession",
+          "version": "post-candidate-3",
+          "input_sha256": "22f9c8eeecc6066f8d677252a75c5dc4527bb9fdbcfce6fc1e093fa93b27bd0f",
+          "evidence_kind": "literal recommendation, not an evaluation result",
+          "literal_excerpt": "Removing “too” avoids suggesting an additional category while preserving both reasons their omission matters.",
+          "url": "https://chatgpt.com/c/6adbc2b8-d098-83eb-8328-389def2f69c3"
+        }
+      ],
+      "counterevidence": [
+        {
+          "case_id": "humanizer-code-review-confession",
+          "version": "post-candidate-4",
+          "input_sha256": "3ba5967b2c13b4f35ddc3c1bb9de63a73ccb5612a34032d499d0ed200beb6185",
+          "evidence_kind": "whole-text criterion remains unmet",
+          "literal_excerpt": "The passage has a few features that can feel AI-polished, but none establishes AI authorship. Most of that impression comes from repetition and a neatly structured professional-post format.",
+          "url": "https://chatgpt.com/c/6adbc699-3d78-83ed-ac6d-d98f9a7a4d37",
+          "whole_text_criterion_met": false
+        }
+      ],
+      "uncertainty": "A clarity repair is not evidence that an AI-like impression was removed. Repeated reviews of this same post do not establish transfer.",
+      "next_validation": "Test another supplied passage with an actually ambiguous additive referent; retain legitimate emphasis and seek explicit local clarity feedback plus an independent whole-text review.",
+      "validated_other_texts": [],
+      "canonical_promotion": false,
+      "council_decision": {
+        "id": "H5",
+        "operation": "Remove an additive particle when an earlier category already includes the named subset and the particle obscures the referent.",
+        "status": "proposed_local_clarity_cross_text_unvalidated",
+        "evidence": [
+          "post-3: 'I’m skipping unit tests too suggests unit tests are separate from the test files already mentioned. Drop too.'",
+          "candidate-4 exact change removed only 'too' in that clause"
+        ],
+        "counterevidence": [
+          "post-4 did not assess the edit directly; absence of the old objection cannot establish improvement",
+          "post-4 still failed the whole-text criterion for other named cues"
+        ],
+        "whole_text": "No whole-text success; no confirmed AI-style benefit from the one-word correction.",
+        "next_validation": "Use a different passage with an additive-particle/subset ambiguity, pre-register the referent and exact edit, and obtain direct clarity feedback plus meaning review before moving beyond proposed."
+      }
+    }
+  ],
+  "final_council_audit": {
+    "scope": "Two fresh candidate-4 ChatGPT writing-page responses, reviewed against the six earlier literal results and the user's strict no-named-AI-like-cues criterion. No new rewrite, retest, or authorship inference.",
+    "candidate_4_verdicts": [
+      {
+        "case": "post",
+        "candidate": "post-candidate-4",
+        "sha256": "3ba5967b2c13b4f35ddc3c1bb9de63a73ccb5612a34032d499d0ed200beb6185",
+        "result_file": "post-candidate-4-result.json",
+        "user_criterion": "fail",
+        "local_edit": "Removed additive 'too' from 'I’m skipping unit tests too'. The response did not repeat the prior 'too' clarity objection, but gave no affirmative assessment of this one-word edit; silence is not proof of benefit.",
+        "remaining_source_boundaries": "Do not delete the required pyramid relation, qualified AI-generated-test criticism, general strong judgements, equal-attention commitment or real peer question merely because their form drew comments.",
+        "supporting_notes": [
+          "a few features that can feel AI-polished",
+          "repetition and a neatly structured professional-post format",
+          "The closing question repeats the opening scenario closely"
+        ]
+      },
+      {
+        "case": "backend",
+        "candidate": "backend-candidate-4",
+        "sha256": "0da70376125b3364637c01932a4097a9f7fdf78238d22dd4518fb925926979ca",
+        "result_file": "backend-candidate-4-result.json",
+        "user_criterion": "fail",
+        "local_edit": "Changed 'operate live systems' to 'run live systems'. The response raised a new minor clarity objection; this exact variant has no demonstrated local benefit.",
+        "remaining_source_boundaries": "The three inventories represent different source scopes; no project-to-tool or sole-ownership claim should be created merely to vary the structure.",
+        "supporting_notes": [
+          "main AI-like impression is its evenly organised structure",
+          "Three sentences, three lists",
+          "Run live systems is the least precise phrase"
+        ]
+      }
+    ],
+    "hypothesis_updates": [
+      {
+        "id": "H1",
+        "operation": "A contextual peer question follows the developed account without acting as a stock engagement prompt.",
+        "status": "proposed_mixed_context_dependent",
+        "evidence": [
+          "post-2: 'The closing question also follows directly from the experience'"
+        ],
+        "counterevidence": [
+          "post-3: 'final question repeats the opening situation closely'",
+          "post-4: 'closing question repeats the opening scenario closely'"
+        ],
+        "whole_text": "All post versions failed the strict criterion.",
+        "next_validation": "Use another source with a genuine question; pre-register wording and placement, then seek direct local feedback rather than treating an omitted objection as confirmation."
+      },
+      {
+        "id": "H2",
+        "operation": "Render production operation with an idiomatic direct verb at the same general responsibility scope.",
+        "status": "proposed_phrase_specific; run_live_systems_variant_counterevidenced",
+        "evidence": [
+          "backend-1: 'Operating services in production would be more natural'",
+          "backend-3: 'run services in production is more conversational'"
+        ],
+        "counterevidence": [
+          "backend-4: 'Run live systems is the least precise phrase'",
+          "backend-2 used 'running services in production' but still had whole-bio repeated-work and production objections"
+        ],
+        "whole_text": "All backend versions failed the strict criterion.",
+        "next_validation": "Test a source-faithful production-operation phrase on another technical summary, holding unrelated catalogue structure fixed; reject a variant that loses operational precision."
+      },
+      {
+        "id": "H3",
+        "operation": "Combine repeated decision, equal-attention promise and reason while preserving each obligation.",
+        "status": "proposed_ambiguous",
+        "evidence": [
+          "post-1 and post-2 explicitly flagged a repeated final commitment",
+          "post-3 and post-4 did not list that exact repetition as a separate defect"
+        ],
+        "counterevidence": [
+          "post-4 still says 'The same point returns several times' and flags a tidy rhetorical arc; omission of the exact final-paragraph objection is non-exhaustive feedback"
+        ],
+        "whole_text": "Post candidates 3 and 4 still failed.",
+        "next_validation": "On a different process-change passage, compare one coherent commitment with the source, then obtain explicit local feedback on repetition."
+      },
+      {
+        "id": "H4",
+        "operation": "Embed the pyramid/majority relation in the personal account rather than a standalone aside.",
+        "status": "unsupported_for_this_case",
+        "evidence": [
+          "post-1, post-2 and post-3 each flagged the pyramid reference after different integrations",
+          "post-4: 'test-pyramid reference feels inserted as background'"
+        ],
+        "counterevidence": [
+          "post-4 also calls the phrase 'ordinary engineering language, not an AI marker' and acknowledges that the team majority directly supports the point"
+        ],
+        "whole_text": "Every post candidate failed, but deleting the source's required pyramid relation is not justified.",
+        "next_validation": "Do not promote a generic embedding rule from this case. Preserve the source fact and test only a source-supported relation on another passage if one arises."
+      },
+      {
+        "id": "H5",
+        "operation": "Remove an additive particle when an earlier category already includes the named subset and the particle obscures the referent.",
+        "status": "proposed_local_clarity_cross_text_unvalidated",
+        "evidence": [
+          "post-3: 'I’m skipping unit tests too suggests unit tests are separate from the test files already mentioned. Drop too.'",
+          "candidate-4 exact change removed only 'too' in that clause"
+        ],
+        "counterevidence": [
+          "post-4 did not assess the edit directly; absence of the old objection cannot establish improvement",
+          "post-4 still failed the whole-text criterion for other named cues"
+        ],
+        "whole_text": "No whole-text success; no confirmed AI-style benefit from the one-word correction.",
+        "next_validation": "Use a different passage with an additive-particle/subset ambiguity, pre-register the referent and exact edit, and obtain direct clarity feedback plus meaning review before moving beyond proposed."
+      }
+    ],
+    "benchmark_workflow_review": {
+      "path": "I:/Development/Git/ValentinNikolaev/llm-skills/agent-plugins/skills/humanizer/references/benchmark.md",
+      "verdict": "accurate_for_requested_separation; no correction required",
+      "evidence": [
+        "Step 5 retains initial response and clarification with their prompts as separate evidence, explicitly says clarification is not an independent retest, and keeps service recommendations separate from evaluation evidence.",
+        "The promotion ledger separates proposal, draft rule/example, exact candidate, external feedback and council decision; it says a local edit in a failing passage is only a hypothesis and silence about an old objection is weaker evidence.",
+        "The hypothesis section requires experimental reuse on other texts before generalized-rule promotion, exact-case evidence, same-council acceptance, and a frozen final-skill rerun."
+      ],
+      "limit": "Its statuses permit 'promising' for an accepted local edit, but these candidate-4 responses provide no affirmative local confirmation of the two exact word changes, so this audit leaves H2 and H5 proposed."
+    },
+    "overall": "Eight tested versions across the two passages have not met the user's strict no-named-AI-like-cues criterion. Local editorial hypotheses remain separate from the gate and from canonical skill rules.",
+    "evidence_note": "Council summary; quoted fragments may normalize typography. Exact literal service responses are retained in humanizer_editorial_results.json."
+  }
+}

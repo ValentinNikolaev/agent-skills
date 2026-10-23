@@ -297,6 +297,9 @@ AI-analysis result. Registration alone does not mark a case as passed.
 [`humanizer_editorial_results.json`](../tests/fixtures/humanizer_editorial_results.json)
 records exact tested outputs and literal external feedback as historical
 observations, not golden rewrites or proof of authorship.
+[`humanizer_hypotheses.json`](../tests/fixtures/humanizer_hypotheses.json) keeps
+promising intermediate operations, counterevidence and pending cross-text checks
+separate from confirmed canonical editing rules.
 
 ## Plugin version and README policy
 
