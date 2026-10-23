@@ -287,6 +287,14 @@ The directory name must match the top-level frontmatter `name`. The validator
 also checks descriptions, UI metadata, bundled Python syntax, local links,
 reference navigation, shared memory resources, and activation fixtures.
 
+Manual humanizer evaluations use
+[`tests/fixtures/humanizer_editorial_cases.json`](../tests/fixtures/humanizer_editorial_cases.json).
+Keep each supplied passage verbatim, distinguish the user's editorial judgement
+from external measurements, and evaluate the whole output against its meaning
+and voice constraints. The case file records review questions and acceptance
+criteria; JSON validation and unit tests do not establish writing quality or an
+AI-analysis result. Registration alone does not mark a case as passed.
+
 ## Plugin version and README policy
 
 When generation changes either platform's generated skill tree, the matching plugin manifest version is bumped automatically:

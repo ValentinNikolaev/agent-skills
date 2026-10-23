@@ -1,0 +1,70 @@
+[
+  {
+    "id": "humanizer-code-review-confession",
+    "skill": "humanizer",
+    "language": "en",
+    "genre": "LinkedIn post",
+    "provenance": "Exact passage supplied by the user on 2026-10-23; authorship and publication status are unknown.",
+    "user_assessment": {
+      "literal": "100% нейрослоп текста",
+      "kind": "editorial judgement, not a measured authorship probability"
+    },
+    "prompt": "Humanize this existing LinkedIn post while preserving the author's voice, meaning, uncertainty, and conversational purpose. Examine how small phrasing choices accumulate across the whole passage. Follow applicable project voice guidance. Treat the supplied first-person claims as claims within the passage, not verified facts about the user.",
+    "source_text": "This week I did around 40 code reviews. About 8 a day. It sounds impressive until you admit what it actually means: you can’t review at that pace, while still writing code yourself, without drastically lowering the quality of your reviews.\nOne PR this week made me see it. I don’t review test files anymore. Unit tests, the base of the pyramid, the majority of our tests. I skip them. Not because they don’t matter. Because halfway through a big diff I tell myself, “those are just tests, I have enough files to get through.”\nAnd this is exactly the wrong time to skip them. A lot of AI generated tests are useless. Worse, I forgot that reading the tests is how you actually understand what the code is supposed to do. Skipping them means you’re not really reviewing the PR.\nThat’s a habit I built without noticing, and it’s a bad one.\nSo here’s what I’m changing. Test files get reviewed with the same attention as the code they cover. I open them first, like in the good old days, because they tell me what the code claims to do before I read how it does it. And if that means fewer reviews per week, then fewer is the honest number.\nDo you skip test files too, or is it just me?",
+    "review_focus": [
+      {
+        "excerpts": ["This week I did around 40 code reviews.", "About 8 a day.", "I skip them."],
+        "question": "Does the repeated dramatic fragmentation serve emphasis here, or manufacture a punchy cadence? Judge the cumulative effect; short sentences alone are not a defect."
+      },
+      {
+        "excerpts": ["It sounds impressive until you admit what it actually means", "One PR this week made me see it."],
+        "question": "Do these staged revelations delay an already concrete observation? Preserve the specific week and PR without inventing what happened in that PR."
+      },
+      {
+        "excerpts": ["Not because they don’t matter. Because", "And this is exactly the wrong time", "Worse, I forgot"],
+        "question": "Do the contrast and escalating signposts make the confession feel rehearsed? Preserve the actual explanation, regret, and concern about generated tests."
+      },
+      {
+        "excerpts": ["That’s a habit I built without noticing, and it’s a bad one.", "So here’s what I’m changing.", "fewer is the honest number"],
+        "question": "Do repeated self-judgements and the packaged resolution restate what the anecdote already establishes? Retain the real commitment and willingness to do fewer reviews."
+      },
+      {
+        "excerpts": ["like in the good old days", "what the code claims to do before I read how it does it", "Do you skip test files too, or is it just me?"],
+        "question": "Check stock nostalgia, the polished claims/does balance, and the generic engagement ending in context. Preserve the substantive reason for reading tests first and the genuine question to peers."
+      }
+    ],
+    "must_preserve": [
+      "First-person, candid, self-critical engineering voice; the writer still writes code as well as reviewing it.",
+      "Around 40 reviews this week and about 8 a day; retain both approximations rather than making either exact.",
+      "The writer's claim that maintaining that review pace while still writing code drastically lowers review quality.",
+      "One PR prompted the realization; the writer has been skipping test files and regards that habit as wrong.",
+      "Unit tests are described as the base of the pyramid and the majority of 'our tests'; do not generalize that distribution to all teams.",
+      "The exact quoted inner thought: those are just tests, I have enough files to get through.",
+      "The claim concerns a lot of AI generated tests, not all of them; tests help explain intended code behaviour.",
+      "The writer's judgement that skipping tests means not really reviewing the PR, and the distinction between what code claims to do and how it does it.",
+      "The promise to review test files with the same attention, open them first, and accept fewer reviews if necessary.",
+      "The final question's purpose: ask peers whether they also skip test files."
+    ],
+    "must_not_do": [
+      "Treat the user's slop label as proof of AI authorship, or infer an authorship score from this example.",
+      "Replace the existing voice with a generic casual, punchy, ironic, or formal persona.",
+      "Invent details about the PR, review outcomes, production incidents, colleagues, or a measured quality decline.",
+      "Remove the substantive criticism or weaken the writer's commitment just to reduce rhetorical polish.",
+      "Turn the candid personal post into generic advice, a checklist, or a neutral summary.",
+      "Solve the example only by deleting a blacklist of words, forcing sentence-length variation, or adding errors.",
+      "Treat each flagged construction as universally banned; assess their accumulation and purpose.",
+      "Promote a proposed rewrite into the canonical skill as a successful example without the required exact-case evidence and council selection."
+    ],
+    "evaluation": {
+      "mode": "manual behavioural case; inspect the complete output against the source and applicable voice guidance",
+      "acceptance": [
+        "The cumulative staged, mechanical impression is resolved through source-supported edits, including small lexical and rhythmic details.",
+        "All meaning anchors and protected quoted wording survive; the speaker and purpose remain recognisable.",
+        "Every proposed edit maps to an existing rule or a documented experimental skill patch, with council selection before promotion.",
+        "If a named-service check is requested, freeze and record the exact candidate, neutral prompt, literal response, and user-defined criterion; do not count ordinary unit tests as writing-quality evidence."
+      ],
+      "status": "registered; no humanizer output or external assessment recorded",
+      "relationship_to_holdout_10": "Separate user-supplied diagnostic case; excluded from the ten-case readiness denominator."
+    }
+  }
+]
