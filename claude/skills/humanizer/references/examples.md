@@ -3,6 +3,17 @@
 These examples illustrate edits without voice drift. They are not facts or
 phrases to reuse in the user's writing; other revisions can meet the constraints.
 
+## Contents
+
+- [Existing irony and technical reasoning](#existing-irony-and-technical-reasoning)
+- [Formal prose stays formal](#formal-prose-stays-formal)
+- [Russian without forced informality](#russian-without-forced-informality)
+- [Italian with the same courteous register](#italian-with-the-same-courteous-register)
+- [No useful edit](#no-useful-edit)
+- [Small, supported repairs](#small-supported-repairs)
+- [Keep stance while fixing precision](#keep-stance-while-fixing-precision)
+- [Protected material](#protected-material)
+
 ## Existing irony and technical reasoning
 
 Source:
@@ -90,6 +101,29 @@ writing service's criterion. Keep the surrounding argument when editing:
 
 Do not remove a technical contrast or a personal evaluation merely because its
 sentence is polished.
+
+## Keep stance while fixing precision
+
+Source excerpts from an engineering comment:
+
+> I'd want the optimisation agent to show its working.
+> I'd want that decision made explicitly before comparing the gain with a port
+> that keeps the existing behaviour.
+
+The repeated stance keeps both requests scoped to the writer's judgement.
+Replacing the second occurrence with `That decision must be explicit` would
+make the requirement stronger. `Show its working` is ordinary British English,
+not an idiom to remove merely because a plainer alternative exists.
+
+A separate phrase in the same passage, `shortened the request`, can mean a
+smaller request rather than a quicker response. Where the source concerns
+latency, `reduced the response time` removes that ambiguity. This is a precision
+edit, not evidence of AI authorship. Preserve `partly` if only part of the gain
+comes from changed completion semantics.
+
+This bounded example does not prescribe first person, repeated framing or
+technical vocabulary for other authors. A complete draft still needs its own
+meaning and voice checks.
 
 ## Protected material
 

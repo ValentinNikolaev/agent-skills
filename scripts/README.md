@@ -311,6 +311,16 @@ keeps first-output diagnostic results separate from later tuning. It distinguish
 eight historical comment drafts from two synthetic Russian cases, records the
 unmet prerequisite gate, and retains the bounded unsuccessful transfer search.
 
+`ai-detector` owns local analysis, explicit external checks and their exact-input
+verification. Calls made only by a skill or workflow stay local. A human's direct
+detector request includes the ChatGPT AI detector and concrete improvement advice,
+unless the user restricts external work. `humanizer` owns the resulting prose
+edits. The older humanizer evaluation files above remain historical evidence.
+[`ai_detector_sean_b_result.json`](../tests/fixtures/ai_detector_sean_b_result.json)
+records one exact-text external check, an invalid omitted-text attempt, and
+accepted or rejected recommendations. It does not establish general detection
+accuracy. Routing decisions can be forward-tested separately without uploads.
+
 ## Plugin version and README policy
 
 When generation changes either platform's generated skill tree, the matching plugin manifest version is bumped automatically:

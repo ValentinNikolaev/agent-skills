@@ -1,6 +1,6 @@
 ---
 name: humanizer
-description: Humanize existing prose to remove an AI-generated feel while preserving the author's voice, meaning, and language. Use for robotic phrasing and mechanical rhetoric, including a named-service benchmark when explicitly requested. Not for new drafts, translation, or authorship classification; stop-slop handles targeted English pattern audits.
+description: Humanize existing prose while preserving voice and meaning. Not drafting or translation. Use ai-detector for analysis, stop-slop for targeted English audits.
 ---
 
 # Humanizer
@@ -14,9 +14,10 @@ Humanizing does not require a more casual, warmer, punchier, shorter, or more
 opinionated voice.
 
 Make the editorial decisions and necessary changes yourself first, then check
-meaning and voice. An external analyzer is only an optional final check of the
-finished exact text when requested and authorized. It is not a prerequisite,
-a first editing step, or a substitute for your own judgement.
+meaning and voice. `humanizer` owns editing, while the available `ai-detector`
+skill owns detector analysis and external-check procedures. An ordinary edit
+does not require that skill or an external service. In an edit-then-check task,
+finish the local edit before handing that exact version to the detector.
 
 ## Establish the editing contract
 
@@ -100,6 +101,12 @@ progression is the problem, rather than replacing every flagged word. Preserve
 the reasoning and useful detail that earn the conclusion. A short text needs no
 extra argument; an analytical passage need not become a short reaction.
 
+Repeated stance can do useful work. Replacing a second `I'd want` with `must`
+or `should` merely for variety strengthens the claim. Replacing an unspecified
+actor with `we` assigns responsibility. Keep the original when that is the only
+benefit, and repair any separate clarity issue on its own merits. See the
+[scoped-judgement example](references/examples.md#keep-stance-while-fixing-precision).
+
 Patterns are clues to an editing problem, not proof of authorship or automatic
 bans. Keep intentional formality, dialect, non-native phrasing that carries the
 writer's voice, stable technical vocabulary, meaningful repetition, and humour.
@@ -181,9 +188,11 @@ nor this skill grants file-edit or publication authority beyond the user's task.
 3. Read for coherent movement and natural rhythm. Undo edits that merely impose
    the editor's taste. Check that replacement phrases have not formed a new template.
 4. Stop when the requested friction is resolved and these checks pass. Revisit
-   only a concrete remaining defect. If the user requested a named-service
-   benchmark, also follow [benchmark guidance](references/benchmark.md) for
-   the exact final text.
+   only a concrete remaining defect. Route an explicit detector or named-service
+   check to `ai-detector` with the exact requested version and its constraints.
+   An internal workflow check remains local unless the human requested an
+   external check. Do not quietly substitute your own review for a required
+   service result.
 
 For rewrites, return the usable text first, with a short note only for a material
 ambiguity, limitation, or requested explanation. If no edit helps, return the text
@@ -192,12 +201,10 @@ targeted changes without rewriting the document. For file edits, summarize the
 scope and verification. Preserve a request for text only.
 
 This is prose editing, not authorship classification. Do not assign AI
-probabilities from your own judgement or promise a detector bypass. Ordinary
-edits require no detector or external service. When the user explicitly asks to
-test a supplied passage with a named service, use its actual feedback as a
-bounded editing check under the benchmark guidance. The request authorizes
-only the specified text and service; it does not authorize sending unrelated
-private material. Do not add a detector disclaimer to ordinary editing requests.
+probabilities or promise a detector bypass. Keep detector results and skill-tuning
+evidence under `ai-detector` rather than duplicating its protocol here. Use its
+actionable findings as editing input, preserving rejected suggestions and useful
+keep decisions. Ordinary editing requires no upload and no detector disclaimer.
 
 ## Provenance
 

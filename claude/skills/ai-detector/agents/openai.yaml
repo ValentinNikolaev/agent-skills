@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI Detector"
+  short_description: "Assess AI-like style with concrete improvements"
+  default_prompt: "Use $ai-detector to analyse this exact prose locally and, for my explicit request, through the ChatGPT AI detector, with concrete improvement advice that preserves meaning and voice."

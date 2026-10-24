@@ -40,9 +40,10 @@ punctuation choices, and assessment procedures remain project-owned.
 
 `humanizer` handles an existing passage's naturalness in its current language and
 voice, with removing an AI-generated impression as its primary objective.
-Voice preservation constrains that edit. `stop-slop` retains its detailed English phrase/structure diagnostics for
-targeted pattern audits and explicit Stop Slop edits. Neither requires loading
-the other or running two consecutive editing passes.
+Voice preservation constrains that edit. The locally authored `ai-detector`
+skill owns analysis and external-check mechanics extracted from the former
+humanizer benchmark reference. `stop-slop` retains targeted English editing.
+An ordinary prose edit does not require another skill or an external check.
 
 The user also requested council-based editing decisions. One bounded session
 covers edit selection and critique of the exact candidate, with an unchanged
@@ -64,6 +65,6 @@ adapted. Their inspected package trees contain no symlinks or submodules. No
 upstream scripts, binaries, installers, hidden configuration, detector data,
 credentials, private paths, or dependencies are bundled or executed. Source
 links and commands remain reference material. Ordinary use needs only the
-requested text and applicable voice guidance. The optional benchmark may use
-the explicitly named external service for the supplied passage; it does not
-import any upstream network workflow or require a standing integration.
+requested text and applicable voice guidance. Explicit external checks are
+routed to `ai-detector`, not an imported upstream network workflow or a bundled
+detector API. Existing third-party notices and licenses remain with humanizer.

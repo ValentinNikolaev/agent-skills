@@ -94,11 +94,12 @@ Use business-viability-assessment to assess this product idea.
 
 ### More skills
 
+- [`ai-detector`](agent-plugins/skills/ai-detector/SKILL.md) — Assess AI-like prose (ai-detector/is-AI) with improvement advice. Direct user requests also use ChatGPT's detector, workflow checks stay local. Not proof of authorship.
 - [`claude-api`](agent-plugins/skills/claude-api/SKILL.md) — Build Claude API clients; not Agent SDK, other providers, or read-only review.
 - [`fastapi-development`](agent-plugins/skills/fastapi-development/SKILL.md) — Implement FastAPI APIs and streaming; not diff review or generic Python.
 - [`go-benchmark`](agent-plugins/skills/go-benchmark/SKILL.md) — Measure and compare Go benchmarks or profiles; not PR review or optimization.
 - [`go-security-audit`](agent-plugins/skills/go-security-audit/SKILL.md) — Audit Go security across named trust boundaries; not PR review or fixes.
-- [`humanizer`](agent-plugins/skills/humanizer/SKILL.md) — Humanize existing prose to remove an AI-generated feel while preserving the author's voice, meaning, and language. Use for robotic phrasing and mechanical rhetoric, including a named-service benchmark when explicitly requested. Not for new drafts, translation, or authorship classification; stop-slop handles targeted English pattern audits.
+- [`humanizer`](agent-plugins/skills/humanizer/SKILL.md) — Humanize existing prose while preserving voice and meaning. Not drafting or translation. Use ai-detector for analysis, stop-slop for targeted English audits.
 - [`linkedin-featured-proof`](agent-plugins/skills/linkedin-featured-proof/SKILL.md) — Plan or create LinkedIn Featured case studies, PDFs, and PNG proof cards from verified work; not profile rewrites or feed content.
 - [`linkedin-profile-optimizer`](agent-plugins/skills/linkedin-profile-optimizer/SKILL.md) — Audit or rewrite LinkedIn profiles and role keywords from verified evidence; not CVs, letters, feed posts, or asset files.
 - [`php-modernization`](agent-plugins/skills/php-modernization/SKILL.md) — Modernize PHP runtimes, types, or tooling with scoped previews and compatibility checks; not diff review.

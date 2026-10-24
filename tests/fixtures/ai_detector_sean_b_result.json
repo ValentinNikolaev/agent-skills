@@ -1,0 +1,43 @@
+{
+  "case_id": "sean-background-job-B-original",
+  "captured_at": "2026-10-24T22:02:42.784Z",
+  "service": "ChatGPT AI detector",
+  "entry_url": "https://chatgpt.com/writing/ai-detector/",
+  "session_url": "https://chatgpt.com/c/6add297d-afac-83ed-847d-291940e29839",
+  "text": "The background-job example is where I'd want the optimisation agent to show its working. If a response used to mean 'the update is saved' and now means 'the job is queued', it has shortened the request partly by changing what completion means. The user may still wait just as long for the result, with failures now arriving later. That can be a worthwhile redesign, but it needs a decision about how callers learn that the operation actually finished. I'd want that decision made explicitly before comparing the gain with a port that keeps the existing behaviour.",
+  "text_sha256": "c56b96402930115a6307117a9245b4d2c28b6c8b7db5a081ace9566b0d505b71",
+  "prompt": "Analyse the prose below for AI-like writing patterns. Identify concrete spans and explain what, if anything, could be improved for a natural engineer-to-engineer conversation. Give minimal replacement suggestions with reasons and any meaning or voice trade-offs. Preserve conditional claims, British English and technical terms. Distinguish stylistic impressions from evidence of authorship.\n\nText:\nThe background-job example is where I'd want the optimisation agent to show its working. If a response used to mean 'the update is saved' and now means 'the job is queued', it has shortened the request partly by changing what completion means. The user may still wait just as long for the result, with failures now arriving later. That can be a worthwhile redesign, but it needs a decision about how callers learn that the operation actually finished. I'd want that decision made explicitly before comparing the gain with a port that keeps the existing behaviour.",
+  "posted_text_verified": true,
+  "feedback": "The passage sounds like ordinary, carefully written engineer-to-engineer commentary. Its progression—from changed semantics to user impact to a fair comparison—is technically motivated. That organisation alone is not evidence of AI authorship.\n\nThree spans merit a closer look:\n\nSpan\tAssessment and minimal suggestion\tTrade-off\n“show its working”\tNatural British English: it asks the agent to explain its reasoning. Keep it.\t“Explain the change” would be more literal but lose some personality and narrow the request.\n“it has shortened the request partly by changing what completion means”\tThe semantic point is clear, but “shortened the request” could mean reducing its size. Consider “it has reduced the response time partly by changing what completion means”.\tMore precise about the measured improvement; slightly more formal. Keep “partly”, which avoids attributing the entire gain to changed semantics.\n“it needs a decision about how callers learn that the operation actually finished”\tUnderstandable, though “needs a decision about” is somewhat administrative. Consider “we need to decide how callers learn that the operation actually finished”.\tMore conversational, but introduces a shared “we” and assigns responsibility that the original leaves open.\n\n“I'd want” appears twice, framing both the opening and closing. That gives the paragraph a mildly polished, bookended feel, but also consistently presents the writer’s judgement rather than a universal rule. Changing the second occurrence to “That decision should be explicit before…” would reduce repetition while making the requirement more categorical. I would keep the original.\n\nThe conditional “If…”, the uncertainty in “may still wait”, and the concession “can be a worthwhile redesign” all carry meaning. They are not disposable hedging or generic balance. Likewise, the closing comparison with a port supplies the practical consequence; it is not merely an editorial wrap-up.\n\nThe only edit I would recommend outright is “shortened the request” → “reduced the response time”. The rest is natural technical prose, with no distinctive stylistic basis for attributing it to AI.",
+  "numeric_score": null,
+  "invalid_attempts": [
+    {
+      "valid": false,
+      "reason": "Writing-page navigation submitted only the assessment instructions and omitted the target comment. The service analysed the instructions. This response was not counted as an analysis of B."
+    }
+  ],
+  "decisions": [
+    {
+      "span": "show its working",
+      "decision": "keep",
+      "reason": "Natural British English, preserves the request for reasoning."
+    },
+    {
+      "span": "I'd want",
+      "decision": "keep repeated stance",
+      "reason": "Replacing it with should or must strengthens the scoped judgement."
+    },
+    {
+      "span": "shortened the request",
+      "decision": "accept precision suggestion when revising the comment",
+      "replacement": "reduced the response time",
+      "reason": "Distinguishes request size from latency. This is a clarity issue, not an AI-authorship finding."
+    },
+    {
+      "span": "it needs a decision",
+      "decision": "do not automatically replace with we need to decide",
+      "reason": "Adding we assigns responsibility absent from the original."
+    }
+  ],
+  "scope": "One observed exact-text result. No rewritten comment or universal detector accuracy claimed."
+}
