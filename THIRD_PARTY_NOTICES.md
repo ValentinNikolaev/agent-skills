@@ -241,6 +241,15 @@ license text is retained as the scoped third-party file
 generated distribution copies. Original repository-authored portions remain
 covered by the repository's root [MIT License](LICENSE).
 
+The conditional review checks also adapt and substantially rewrite selected
+recoverable-failure, lock-order/callback, and comparative-performance-measurement
+topics from [Mte90/linus-torvalds-skill at commit
+`97625cb16eaa6061e02832a33ccf56440252d41f`](https://github.com/Mte90/linus-torvalds-skill/tree/97625cb16eaa6061e02832a33ccf56440252d41f),
+whose repository declares [CC0-1.0](https://github.com/Mte90/linus-torvalds-skill/blob/97625cb16eaa6061e02832a33ccf56440252d41f/LICENSE).
+The adaptation includes no interview or email quotations, persona instructions,
+severity quotas, numeric style thresholds, scripts, or model-service dependencies.
+The paired review examples and their executable checks are repository-authored.
+
 The `debugging-and-error-recovery`, `planning-and-task-breakdown`,
 `test-driven-development`, `write-spec`, `deprecation-and-migration`,
 `code-simplification`, `api-and-interface-design`, and `write-adr` skills adapt

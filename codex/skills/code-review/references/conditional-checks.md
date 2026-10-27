@@ -5,6 +5,9 @@ Read only the sections that match the changed languages or change patterns.
 ## Contents
 
 - [Tests and verification](#tests-and-verification)
+- [Recoverable failures and process lifetime](#recoverable-failures-and-process-lifetime)
+- [Locking and callbacks](#locking-and-callbacks)
+- [Optimization claims](#optimization-claims)
 - [Readability and architecture](#readability-and-architecture)
 - [Dependencies and lockfiles](#dependencies-and-lockfiles)
 - [Web UI and accessibility](#web-ui-and-accessibility)
@@ -21,6 +24,26 @@ Read only the sections that match the changed languages or change patterns.
 - Mock system boundaries such as databases, clocks, filesystems, and remote services; do not mock the business logic under test without a repository-specific reason.
 - Check that asynchronous failures are awaited and asserted rather than silently swallowed.
 - Distinguish `not run`, `unknown`, and `not covered`; they are different claims.
+
+## Recoverable failures and process lifetime
+
+- Trace `panic`, assertions, fatal logging, and process exits reached by external input or expected operational failures. Establish whether the failure stops one operation, a worker, or the whole service, and whether callers can still recover.
+- Check the actual runtime and framework recovery boundary before claiming a process crash. A raised exception or panic may be caught and translated into the intended response; a fatal exit may bypass that boundary and cleanup.
+- Distinguish a recoverable request or dependency failure from a broken internal invariant that makes continued execution unsafe. An intentional fail-stop policy is not a defect without evidence that the condition should be recoverable or the termination violates a reachable contract.
+
+## Locking and callbacks
+
+- Identify the synchronization primitive and its actual semantics. Trace nested calls and callbacks made while a lock is held for reacquisition of the same non-reentrant lock, including indirect calls through another module.
+- Compare acquisition order on reachable overlapping paths when multiple locks are involved. Demonstrate the wait cycle and execution context before reporting a deadlock; different lock order alone is insufficient if the paths cannot overlap.
+- Check blocking I/O, waits, and callbacks inside a critical section against the primitive, callback contract, and execution context. Do not forbid all callbacks, timer locks, or blocking operations under every kind of lock.
+- Check release and ownership on success, exceptions, early returns, and cancellation. Consider reentrant locks, calls made after unlocking, and established ordering as possible mitigations; prove that the proposed remedy preserves the protected state.
+
+## Optimization claims
+
+- Check that a claimed speedup compares a baseline and candidate under comparable workload, build/runtime configuration, dependencies, hardware, and cache or warm-up conditions. Read the supplied measurements before accepting the claim.
+- Relate the measured workload to the changed production path. Inspect relevant large-input, contention, or constrained-resource cases when a best-case result could hide a material regression; do not demand every hardware configuration.
+- Trace observable results, error behavior, ordering, and resource bounds through an optimization. A speed gain does not justify a correctness or security regression. Do not infer overhead from a wrapper or function call alone without evidence about the actual path.
+- Missing or incomparable measurements leave a performance claim unverified; they do not by themselves establish a code defect. Record the missing evidence and a bounded comparison in `Questions` or verification limits. Report a finding only for a concrete failure or grounded contract violation, without universal percentage thresholds. Benchmarks and profiling retain the main skill's approval gate.
 
 ## Readability and architecture
 
@@ -77,3 +100,11 @@ Do not assume one platform's convention, such as returning `nil` or an error, ap
 - Verify that logs and metrics contain operation and entity metadata without raw user content, credentials, prompts, payment data, or response bodies.
 - Confirm metric names match their expressions, units, cardinality, and boolean polarity.
 - Treat model or tool output as untrusted input; check permission enforcement, output validation, and token, rate, and loop bounds.
+
+## Provenance
+
+Selected recoverable-failure, locking, and comparative-measurement topics are
+adapted and rewritten from [Mte90/linus-torvalds-skill at commit
+`97625cb16eaa6061e02832a33ccf56440252d41f`](https://github.com/Mte90/linus-torvalds-skill/blob/97625cb16eaa6061e02832a33ccf56440252d41f/linus-torvalds-skill/SKILL.md),
+published under [CC0-1.0](https://github.com/Mte90/linus-torvalds-skill/blob/97625cb16eaa6061e02832a33ccf56440252d41f/LICENSE).
+The repository's evidence, severity, scope, and approval rules govern these checks.

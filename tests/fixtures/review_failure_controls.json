@@ -1,0 +1,104 @@
+[
+  {
+    "id": "recoverable-request-exits-service",
+    "topic": "recoverable-exit",
+    "verification": "runtime",
+    "context": "A long-running worker processes independent external records in order. Malformed numeric input must yield an invalid-record result and allow the following record to run. There is no process restart or retry supervisor.",
+    "source": "import sys\n\ndef parse(raw):\n    try:\n        return int(raw)\n    except ValueError:\n        sys.exit(2)\n\nfor raw in ('1', 'bad', '2'):\n    value = parse(raw)\n    print('invalid' if value is None else f'ok:{value}')\n",
+    "returncode": 2,
+    "stdout": "ok:1\n",
+    "expected_findings": ["Malformed external input exits the whole worker before the following valid record runs."],
+    "location_line": 7
+  },
+  {
+    "id": "recoverable-request-returns-error",
+    "topic": "recoverable-exit",
+    "verification": "runtime",
+    "context": "A long-running worker processes independent external records in order. Malformed numeric input must yield an invalid-record result and allow the following record to run. There is no process restart or retry supervisor.",
+    "source": "def parse(raw):\n    try:\n        return int(raw)\n    except ValueError:\n        return None\n\nfor raw in ('1', 'bad', '2'):\n    value = parse(raw)\n    print('invalid' if value is None else f'ok:{value}')\n",
+    "returncode": 0,
+    "stdout": "ok:1\ninvalid\nok:2\n",
+    "expected_findings": [],
+    "location_line": null
+  },
+  {
+    "id": "internal-invariant-fail-stop",
+    "topic": "fail-stop-policy",
+    "verification": "runtime",
+    "context": "Startup integrity verification has detected corrupted internal state. The approved recovery policy is to terminate with status 3 before serving any requests because continuing could corrupt persisted data. This path does not validate external request input.",
+    "source": "state = {'integrity_ok': False}\nif not state['integrity_ok']:\n    print('unsafe state')\n    raise SystemExit(3)\nprint('serving requests')\n",
+    "returncode": 3,
+    "stdout": "unsafe state\n",
+    "expected_findings": [],
+    "location_line": null
+  },
+  {
+    "id": "callback-under-nonreentrant-lock",
+    "topic": "callback-lock",
+    "verification": "runtime",
+    "context": "update must synchronously return notified. Its notification callback acquires the project's mutex to inspect the updated state. A timeout returns blocked and means the required notification did not happen. Both functions run on the same thread.",
+    "source": "import threading\n\nlock = threading.Lock()\n\ndef notify():\n    if not lock.acquire(timeout=0.05):\n        return 'blocked'\n    try:\n        return 'notified'\n    finally:\n        lock.release()\n\ndef update():\n    with lock:\n        return notify()\n\nprint(update())\n",
+    "returncode": 0,
+    "stdout": "blocked\n",
+    "expected_findings": ["update calls notify while holding the non-reentrant lock that notify must reacquire, so the required notification times out."],
+    "location_line": 15
+  },
+  {
+    "id": "callback-after-unlocking",
+    "topic": "callback-lock",
+    "verification": "runtime",
+    "context": "update must synchronously return notified. Its notification callback acquires the project's mutex to inspect the updated state. A timeout returns blocked and means the required notification did not happen. Both functions run on the same thread.",
+    "source": "import threading\n\nlock = threading.Lock()\n\ndef notify():\n    if not lock.acquire(timeout=0.05):\n        return 'blocked'\n    try:\n        return 'notified'\n    finally:\n        lock.release()\n\ndef update():\n    with lock:\n        pass\n    return notify()\n\nprint(update())\n",
+    "returncode": 0,
+    "stdout": "notified\n",
+    "expected_findings": [],
+    "location_line": null
+  },
+  {
+    "id": "callback-reentrant-lock",
+    "topic": "reentrant-lock-policy",
+    "verification": "runtime",
+    "context": "update must synchronously return notified. The project deliberately uses a reentrant mutex because the notification callback inspects state on the same thread while the outer critical section remains active.",
+    "source": "import threading\n\nlock = threading.RLock()\n\ndef notify():\n    if not lock.acquire(timeout=0.05):\n        return 'blocked'\n    try:\n        return 'notified'\n    finally:\n        lock.release()\n\ndef update():\n    with lock:\n        return notify()\n\nprint(update())\n",
+    "returncode": 0,
+    "stdout": "notified\n",
+    "expected_findings": [],
+    "location_line": null
+  },
+  {
+    "id": "incomparable-measurements",
+    "topic": "measurements",
+    "verification": "static",
+    "context": "A PR replaces a hand-written sum loop with built-in sum and claims its supplied sample shows half the elapsed time for the same work. Inputs are lists of integers. There is no performance SLO. Assess the supplied evidence without running benchmarks or treating an unsupported speedup as a code defect.",
+    "source": "def total(values):\n    return sum(values)\n",
+    "baseline": {"requests": 10000, "elapsed_ms": 200, "runtime": "CPython 3.12", "hardware": "same host", "cache": "warm"},
+    "candidate": {"requests": 5000, "elapsed_ms": 100, "runtime": "CPython 3.12", "hardware": "same host", "cache": "warm"},
+    "expected_findings": [],
+    "expected_verification_limits": ["The candidate did half as much work. Request a comparison with the same input and request count before accepting the speedup claim."],
+    "location_line": null
+  },
+  {
+    "id": "comparable-measurements",
+    "topic": "measurements",
+    "verification": "static",
+    "context": "A PR replaces a hand-written sum loop with built-in sum and claims its supplied sample shows half the elapsed time for the same work. Inputs are lists of integers. There is no performance SLO. Assess the supplied evidence without running benchmarks or treating an unsupported speedup as a code defect.",
+    "source": "def total(values):\n    return sum(values)\n",
+    "baseline": {"requests": 10000, "elapsed_ms": 200, "runtime": "CPython 3.12", "hardware": "same host", "cache": "warm"},
+    "candidate": {"requests": 10000, "elapsed_ms": 100, "runtime": "CPython 3.12", "hardware": "same host", "cache": "warm"},
+    "expected_findings": [],
+    "expected_verification_limits": [],
+    "location_line": null
+  },
+  {
+    "id": "missing-measurements",
+    "topic": "measurements",
+    "verification": "static",
+    "context": "A PR replaces a hand-written sum loop with built-in sum and claims its supplied sample shows half the elapsed time for the same work. Inputs are lists of integers. There is no performance SLO. Assess the supplied evidence without running benchmarks or treating an unsupported speedup as a code defect.",
+    "source": "def total(values):\n    return sum(values)\n",
+    "baseline": {"requests": 10000, "elapsed_ms": 200, "runtime": "CPython 3.12", "hardware": "same host", "cache": "warm"},
+    "candidate": null,
+    "expected_findings": [],
+    "expected_verification_limits": ["Candidate measurements are absent. The speedup remains unverified; request the candidate result under the baseline conditions."],
+    "location_line": null
+  }
+]
