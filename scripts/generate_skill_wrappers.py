@@ -64,77 +64,89 @@ GUIDE_SOURCES = {
 }
 README_SKILL_GROUPS = (
     (
-        "Review and quality",
+        "Review and verification",
         {
-            "audit-docs": "Find broken references, stale indexes, and documentation drift.",
-            "clean-code-comments": "Remove redundant comments without changing behavior.",
-            "code-review": "Review changes for bugs, regressions, and test gaps.",
-            "code-simplification": "Simplify code while preserving behavior and contracts.",
-            "fix-pr": "Implement actionable pull-request review feedback.",
-            "plan-review": "Validate implementation plans and revisions.",
-            "review-arch": "Assess system boundaries and architecture tradeoffs.",
-            "review-spec": "Review proposed specifications and revisions.",
-            "verify-impl": "Trace specification requirements to implementation evidence.",
+            "code-review": "Review a diff for confirmed defects and actionable test gaps, with evidence for each finding.",
+            "fix-pr": "Assess existing GitHub PR feedback, apply valid fixes, and verify them.",
+            "plan-review": "Check whether an implementation plan is feasible, complete, and verifiable.",
+            "review-spec": "Review proposed requirements for gaps, feasibility, and testability.",
+            "review-arch": "Examine system boundaries, responsibilities, and architectural trade-offs.",
+            "verify-impl": "Trace specification requirements to the code and identify what remains unverified.",
+            "prove-checks": "Check whether a passing test or CI check could detect the failure it claims to cover.",
+            "monitor-ci": "Follow a GitHub Actions run and verify that the required jobs actually ran and passed.",
+            "vet-dependency": "Check whether a library meets the project's version, behaviour, and maintenance needs.",
         },
     ),
     (
-        "Engineering checks",
+        "Planning, implementation, and maintenance",
         {
-            "monitor-ci": "Follow required GitHub Actions jobs to a verified outcome.",
-            "prove-checks": "Verify that a green check could detect the claimed failure.",
-            "vet-dependency": "Assess a library against project contracts and maintenance evidence.",
+            "write-spec": "Turn a proposed change into testable requirements and clear scope.",
+            "planning-and-task-breakdown": "Break the work into ordered steps with dependencies and observable completion criteria.",
+            "api-and-interface-design": "Define API or module contracts before implementation.",
+            "console-ux-design": "Design commands, help, prompts, errors, and output for people and automation.",
+            "test-driven-development": "Implement behaviour through a verified red-green-refactor cycle.",
+            "debugging-and-error-recovery": "Find the cause of an observed failure, make a focused fix, and verify it.",
+            "deprecation-and-migration": "Plan or implement contract changes with a path for existing consumers.",
+            "code-simplification": "Reduce unnecessary branches and abstractions while preserving behaviour.",
+            "clean-code-comments": "Remove comments that repeat the code while keeping useful explanations.",
+            "write-adr": "Record an architectural decision, the alternatives, and its consequences.",
         },
     ),
     (
-        "Engineering workflows",
+        "Languages and frameworks",
         {
-            "debugging-and-error-recovery": "Find the cause of observed failures and verify fixes.",
-            "deprecation-and-migration": "Move live consumers across contract changes safely.",
-            "planning-and-task-breakdown": "Create ordered implementation steps with acceptance checks.",
-            "test-driven-development": "Implement behavior through a focused red-green loop.",
-            "write-spec": "Draft testable requirements for a proposed change.",
+            "claude-api": "Build Claude API clients using verified SDK and API contracts.",
+            "fastapi-development": "Implement FastAPI endpoints, dependencies, response models, and streaming.",
+            "go-benchmark": "Run and compare Go benchmarks or profiles under comparable conditions.",
+            "go-security-audit": "Audit specified Go trust boundaries and trace the evidence behind security findings.",
+            "php-modernization": "Modernise PHP runtimes, types, and tooling with scoped previews and compatibility checks.",
+            "typescript-type-design": "Implement and test TypeScript types, inference, and compile-time contracts.",
+            "uv-project-workflow": "Manage uv dependencies, lockfiles, environments, and CI.",
+            "zod": "Build version-aware Zod schemas and validate data at runtime boundaries.",
+        },
+    ),
+    (
+        "Documentation and GitHub Pages",
+        {
+            "audit-docs": "Find broken references, stale indexes, duplicate facts, and documentation drift.",
+            "create-github-pages": "Build or repair a GitHub Pages site from repository content.",
+            "github-pages-content-architecture": "Organise Pages content, navigation, reader journeys, and local search.",
+            "github-pages-visual-system": "Develop a Pages visual system for typography, colour, layout, and responsive behaviour.",
+            "audit-github-pages-ux": "Inspect a rendered Pages site for usability, accessibility, and layout defects.",
+            "improve-github-pages": "Assess a Pages site, propose improvements, and implement the approved changes.",
         },
     ),
     (
         "Project memory",
         {
-            "audit-memory": "Check memory stores for drift, stale facts, and broken relationships.",
-            "create-memory": "Bootstrap durable project memory from a repository.",
-            "ingest-memory": "Import source-backed knowledge into project memory.",
-            "update-memory": "Record durable facts learned during completed work.",
+            "create-memory": "Create the first useful project-memory baseline from repository evidence.",
+            "ingest-memory": "Import or refresh knowledge from a specified source while keeping its provenance.",
+            "update-memory": "Update existing project memory with decisions and facts from completed work.",
+            "audit-memory": "Inspect memory freshness, indexes, links, duplication, and conflicting facts.",
         },
     ),
     (
-        "Decision-making",
+        "Writing and career material",
         {
-            "business-viability-assessment": "Assess demand, costs, economics, risks, and viability.",
-            "council": "Pressure-test consequential decisions with independent advisor passes.",
+            "humanizer": "Edit an existing draft for natural phrasing while preserving its meaning and voice.",
+            "stop-slop": "Audit or edit specific formulaic patterns in English prose.",
+            "ai-detector": "Assess AI-like style and suggest concrete improvements grounded in the text.",
+            "write-cover-letter": "Write or revise a cover letter using job requirements and verified candidate experience.",
+            "linkedin-profile-optimizer": "Review or rewrite a LinkedIn profile using verified experience and relevant role keywords.",
+            "linkedin-featured-proof": "Turn verified work into LinkedIn Featured case studies, PDFs, and proof cards.",
         },
     ),
     (
-        "Interface design",
+        "Products and decisions",
         {
-            "api-and-interface-design": "Design stable API and module contracts.",
-            "console-ux-design": "Design usable, automation-safe console commands.",
-        },
-    ),
-    (
-        "Writing and publishing",
-        {
-            "audit-github-pages-ux": "Audit rendered GitHub Pages experiences.",
-            "create-github-pages": "Build or repair repository-grounded GitHub Pages sites.",
-            "github-pages-content-architecture": "Structure Pages content around reader tasks.",
-            "github-pages-visual-system": "Design accessible visual systems for Pages sites.",
-            "improve-github-pages": "Propose and apply approved Pages improvements.",
-            "stop-slop": "Humanize prose while preserving meaning and evidence.",
-            "write-cover-letter": "Create truthful, evidence-backed cover letters.",
-            "write-adr": "Record architecture decisions and their consequences.",
+            "business-viability-assessment": "Assess demand, competitors, costs, unit economics, and a practical route to validation.",
+            "council": "Stress-test a consequential choice through independent advisor passes and peer review.",
         },
     ),
     (
         "Skill development",
         {
-            "wrap-agent-skill": "Import and normalize reusable skills across platforms.",
+            "wrap-agent-skill": "Inspect, adapt, and validate reusable skills in canonical sources and both platform packages.",
         },
     ),
 )
@@ -837,6 +849,31 @@ def render_readme_skill_catalog(skills: Sequence[SourceSkill]) -> str:
 
 def render_repo_readme(repo_root: Path, skills: Sequence[SourceSkill]) -> str:
     skill_catalog = render_readme_skill_catalog(skills)
+    skill_names = {skill.name for skill in skills}
+    starting_points = (
+        ("A diff to review", "code-review", "Confirmed defects, evidence, and missing test scenarios."),
+        ("A failing test or runtime error", "debugging-and-error-recovery", "A traced cause, a focused fix, and verification."),
+        ("A feature that needs clearer scope", "write-spec", "Requirements and boundaries you can test."),
+        ("A green check you want to trust", "prove-checks", "Evidence that the check can detect the claimed failure."),
+        ("A draft that needs a natural edit", "humanizer", "Clearer phrasing that keeps your meaning and voice."),
+        ("A product idea to evaluate", "business-viability-assessment", "A viability assessment and a practical validation plan."),
+    )
+    starting_rows = [
+        f"| {situation} | [`{name}`]({readme_skill_link(name)}) | {outcome} |"
+        for situation, name, outcome in starting_points
+        if name in skill_names
+    ]
+    starting_section = ""
+    if starting_rows:
+        starting_section = (
+            "## Choose a skill\n\n"
+            "| What you have | Start with | Result |\n"
+            "| --- | --- | --- |\n"
+            + "\n".join(starting_rows)
+            + "\n\n"
+            "Give the agent the relevant files, diff, requirements, or draft. "
+            "Name the result you want and any constraints it needs to respect.\n\n"
+        )
 
     guide_source_lines = []
     for skill in sorted(skills, key=lambda item: item.name.casefold()):
@@ -857,9 +894,13 @@ def render_repo_readme(repo_root: Path, skills: Sequence[SourceSkill]) -> str:
     readme = (
         f"{README_MARKER}\n"
         "# Agent Plugins for Codex and Claude Code\n\n"
-        "Reusable agent workflows for code review, documentation, project memory, "
-        "product decisions, writing, and publishing. Install the collection once, "
-        "then ask your agent to use a skill by name.\n\n"
+        "Ask Codex or Claude Code to review a diff, investigate a failure, or edit "
+        "a draft without losing your voice. Each skill supplies a procedure for "
+        "that job, including the evidence to gather and the checks to make before "
+        "calling it done.\n\n"
+        f"The collection contains {len(skills)} skills covering software development, "
+        "documentation, project memory, writing, and product decisions. "
+        "Install the plugin for your agent, then choose a skill from the catalogue below.\n\n"
         f"[![Latest release](https://img.shields.io/github/v/release/{REPOSITORY_SLUG}?sort=semver)]"
         f"(https://github.com/{REPOSITORY_SLUG}/releases/latest) "
         f"[![Build](https://github.com/{REPOSITORY_SLUG}/actions/workflows/"
@@ -883,43 +924,67 @@ def render_repo_readme(repo_root: Path, skills: Sequence[SourceSkill]) -> str:
         "If Claude Code is already running, use `/reload-plugins` after installation.\n\n"
         "### Try it\n\n"
         "```text\n"
-        "Use code-review to review my uncommitted changes.\n"
-        "Use audit-docs to find stale documentation references.\n"
-        "Use business-viability-assessment to assess this product idea.\n"
+        "Use code-review to review my uncommitted changes and identify missing regression tests.\n"
+        "Use humanizer to edit this draft. Keep the facts and my voice.\n"
         "```\n\n"
+        + starting_section
+        + "Review skills such as `code-review`, `plan-review`, and `review-spec` "
+        "return findings. `fix-pr` handles existing GitHub review comments and "
+        "applies valid fixes. Choose the skill for the work you want the agent to do.\n\n"
         "## Skill catalog\n\n"
+        "Each link opens the skill's full instructions, including when to use it "
+        "and how it checks its work.\n\n"
         + skill_catalog
         + "\n\n"
+        "## Updating\n\n"
+        "Refresh your marketplace, then update the installed plugin. "
+        "The marketplace commands below follow `master`.\n\n"
+        "### Codex\n\n"
+        "```bash\n"
+        f"codex plugin marketplace upgrade {MARKETPLACE_NAME}\n"
+        f"codex plugin add agent-plugins@{MARKETPLACE_NAME}\n"
+        "```\n\n"
+        "### Claude Code\n\n"
+        "```bash\n"
+        f"claude plugin marketplace update {MARKETPLACE_NAME}\n"
+        f"claude plugin update agent-plugins@{MARKETPLACE_NAME}\n"
+        "```\n\n"
+        "Use `/reload-plugins` in an open Claude Code session. Restart Codex "
+        "to load the updated plugin in an existing app session.\n\n"
         "## How it works\n\n"
-        "Canonical skill definitions live in [`agent-plugins/skills/`]"
-        "(agent-plugins/skills/). The generator creates complete platform distributions "
-        "under [`codex/skills/`](codex/skills/) and "
-        "[`claude/skills/`](claude/skills/). Shared resources live in "
-        "[`agent-plugins/shared/`](agent-plugins/shared/).\n\n"
+        "The same canonical instructions produce both platform packages. "
+        "Skills live in [`agent-plugins/skills/`](agent-plugins/skills/), with "
+        "shared resources in [`agent-plugins/shared/`](agent-plugins/shared/). "
+        "The generator builds complete copies under "
+        "[`codex/skills/`](codex/skills/) and [`claude/skills/`](claude/skills/).\n\n"
         "Codex reads [`.codex-plugin/plugin.json`](.codex-plugin/plugin.json), and "
         "Claude Code reads [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json). "
-        "Edit canonical sources rather than generated distribution copies.\n\n"
+        "Each package includes the instructions and resources its skills need.\n\n"
         "## Getting help\n\n"
         f"- [Report a bug or request a skill](https://github.com/{REPOSITORY_SLUG}/issues/new/choose).\n"
-        "- Report vulnerabilities privately through the [security policy](SECURITY.md).\n"
-        "- Review the [code of conduct](CODE_OF_CONDUCT.md) for community expectations.\n"
-        f"- This project is maintained by [Valentin Nikolaev](https://github.com/ValentinNikolaev).\n\n"
+        "- Use the [security policy](SECURITY.md) to report a vulnerability privately.\n"
+        "- Read the [code of conduct](CODE_OF_CONDUCT.md) before joining a discussion.\n\n"
+        f"Maintained by [Valentin Nikolaev](https://github.com/ValentinNikolaev).\n\n"
         "## Contributing and development\n\n"
-        "Start with [CONTRIBUTING.md](CONTRIBUTING.md) for setup, repository layout, "
-        "and pull-request guidance. After changing a canonical skill or shared resource, "
-        "regenerate and verify the distributions:\n\n"
+        "Start with [CONTRIBUTING.md](CONTRIBUTING.md) for setup and contribution "
+        "guidance. Edit skills in `agent-plugins/skills/` and this README's catalogue "
+        "and template in [`scripts/generate_skill_wrappers.py`]"
+        "(scripts/generate_skill_wrappers.py), then regenerate the output.\n\n"
+        "Run the repository checks after your changes:\n\n"
         "```bash\n"
+        "python scripts/validate_skills.py\n"
         "python scripts/generate_skill_wrappers.py --clean\n"
         "python scripts/generate_skill_wrappers.py --check --clean --strict-links\n"
-        "python scripts/validate_skills.py\n"
         "python -m unittest discover -s tests -v\n"
         "```\n\n"
-        f"Releases are published from [GitHub Actions](https://github.com/{REPOSITORY_SLUG}/actions) "
-        f"and collected on the [releases page](https://github.com/{REPOSITORY_SLUG}/releases).\n\n"
+        "The [release workflows]"
+        f"(https://github.com/{REPOSITORY_SLUG}/actions) publish versioned archives "
+        f"for both platforms on the [releases page](https://github.com/{REPOSITORY_SLUG}/releases).\n\n"
         "## License and provenance\n\n"
-        "The project is available under the [MIT License](LICENSE). See "
-        "[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for retained licenses and "
-        "source provenance.\n\n"
+        "Original work is covered by the [MIT License](LICENSE). "
+        "Adapted material retains its source licences and attribution. "
+        "[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) records those sources "
+        "and where their licence files are kept.\n\n"
         + guide_sources_section
     )
     return readme.rstrip() + "\n"

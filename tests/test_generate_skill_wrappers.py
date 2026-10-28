@@ -127,6 +127,17 @@ class GeneratorRegressionTests(unittest.TestCase):
             )
             self.assertIn("## Getting help", readme)
             self.assertIn("## License and provenance", readme)
+            starting_links = re.findall(r"(?m)^\|.*\]\(([^)]+)\)", readme)
+            self.assertTrue(starting_links, "expected a starting point for code-review")
+            for link in starting_links:
+                self.assertTrue((root / link).is_file(), f"missing starting-point skill: {link}")
+
+    def test_current_catalog_groups_every_canonical_skill_exactly_once(self) -> None:
+        skills = generator.discover_skills(REPO_ROOT / "agent-plugins" / "skills", [])
+        catalog = generator.render_readme_skill_catalog(skills)
+        links = re.findall(r"\]\((agent-plugins/skills/[^)]+/SKILL.md)\)", catalog)
+        self.assertCountEqual(links, [generator.readme_skill_link(skill.name) for skill in skills])
+        self.assertNotIn("### More skills", catalog)
 
     def test_version_contract_preserves_build_metadata_and_normalizes_releases(self) -> None:
         manifest = Path("plugin.json")
