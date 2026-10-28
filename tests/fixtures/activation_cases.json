@@ -352,5 +352,8 @@
 
   {"id":"review-go-contract-paths","skill":"code-review","category":"direct","prompt":"Review this Go diff for doc-comment contract violations, cache/retry path differences, and callback state reused between attempts. Report defects without editing.","expected_skills":["code-review"]},
   {"id":"review-go-numeric-map","skill":"code-review","category":"direct","prompt":"Inspect these changed Go helpers for reachable narrowing-conversion errors and a minimum-key selection that depends on map traversal order.","expected_skills":["code-review"]},
-  {"id":"review-go-contract-design-negative","skill":"code-review","category":"negative","prompt":"Review this proposed Go API specification's ownership and retry guarantees before implementation; no code or diff exists.","expected_skills":["review-spec"]}
+  {"id":"review-go-contract-design-negative","skill":"code-review","category":"negative","prompt":"Review this proposed Go API specification's ownership and retry guarantees before implementation; no code or diff exists.","expected_skills":["review-spec"]},
+  {"id":"review-bootstrap-inline-php","skill":"code-review","category":"direct","prompt":"Review this Docker Compose and shell entrypoint diff, including its inline PHP and stubbed command tests. Report defects and verification limits without editing.","expected_skills":["code-review"]},
+  {"id":"review-configuration-compatibility","skill":"code-review","category":"direct","prompt":"Review this startup diff that removes an environment input and writes configuration during initialization. Check compatibility with supported configuration sources; do not redesign deployment.","expected_skills":["code-review"]},
+  {"id":"review-bootstrap-spec-negative","skill":"code-review","category":"negative","prompt":"Review the proposed configuration precedence specification before we implement startup scripts; no code or diff exists.","expected_skills":["review-spec"]}
 ]

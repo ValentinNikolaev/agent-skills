@@ -5,6 +5,7 @@ Read only the sections that match the changed languages or change patterns.
 ## Contents
 
 - [Tests and verification](#tests-and-verification)
+- [Configuration and bootstrap](#configuration-and-bootstrap)
 - [Recoverable failures and process lifetime](#recoverable-failures-and-process-lifetime)
 - [Locking and callbacks](#locking-and-callbacks)
 - [Optimization claims](#optimization-claims)
@@ -24,6 +25,14 @@ Read only the sections that match the changed languages or change patterns.
 - Mock system boundaries such as databases, clocks, filesystems, and remote services; do not mock the business logic under test without a repository-specific reason.
 - Check that asynchronous failures are awaited and asserted rather than silently swallowed.
 - Distinguish `not run`, `unknown`, and `not covered`; they are different claims.
+
+## Configuration and bootstrap
+
+- When a diff changes configuration loading or startup, trace the effective value from its supported sources through the framework loader to every changed consumer or writer. Check source selection and precedence, including environment-specific files, overrides, and cached configuration where reachable. Read the installed loader or existing contract tests instead of assuming a direct dotenv parser matches framework bootstrap.
+- Distinguish absent, empty, and explicitly supplied values. Check whether a value captured at container creation, image build, or process start shadows a file changed later; writing a file does not update an existing process environment or cache.
+- For initialization that writes secrets or other durable state, verify that the existence check and writer use the same effective source and target. Trace a normal first start, preservation of existing state, and the highest-risk supported override or restart path. Do not generate or expose real credentials during review.
+- Treat removal of a configuration input as a compatibility change. Check existing callers, Compose/CI declarations, documentation, and tests for users supplying that input. Separate a demonstrated break from a maintainer's preference for how optional settings are presented.
+- Do not exclude a supported path solely because the environment is for development or the variant was absent from the happy-path fixture. If support or reachability is uncertain, state the evidence needed rather than inventing a defect or assuming safety. Keep this trace scoped to changed behavior; it does not require a deployment matrix or broad framework audit.
 
 ## Recoverable failures and process lifetime
 

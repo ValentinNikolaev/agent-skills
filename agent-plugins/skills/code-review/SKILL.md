@@ -50,7 +50,7 @@ Perform the useful bounded review before asking about optional, token-intensive 
 5. Exclude generated artifacts as findings targets unless the source change generated them incorrectly.
 6. Trace one normal scenario and the highest-risk edge scenario through non-trivial logic. Skip traces for mechanical changes and say why.
 
-Read [references/conditional-checks.md](references/conditional-checks.md) only for languages and change patterns present in the scope. Do not load or apply unrelated sections.
+Read [references/conditional-checks.md](references/conditional-checks.md) only for languages and change patterns present in the scope, including configuration/bootstrap changes and tests that replace framework behavior. Do not load or apply unrelated sections.
 
 Load only the language references needed by changed behavior and its tests:
 
@@ -60,7 +60,7 @@ Load only the language references needed by changed behavior and its tests:
 - FastAPI endpoints, dependencies, response models, or streaming changes: also read [references/review-fastapi.md](references/review-fastapi.md) after establishing the installed FastAPI/Pydantic versions.
 - PHP or PHP-backed templates: [references/review-php.md](references/review-php.md).
 
-In a mixed-language change, apply each reference to its own files and trace cross-language contracts once. These references refine the same evidence and severity rules; they are not separate verdicts or a request to apply one language's conventions to another. Language presence alone does not authorize a framework audit, dependency installation, formatter fix, or migration.
+Select language references by executed behavior, including inline programs in shell, CI, containers, and templates, rather than file extensions alone. In a mixed-language change, apply each reference to the relevant code and trace cross-language contracts once. These references refine the same evidence and severity rules; they are not separate verdicts or a request to apply one language's conventions to another. Language presence alone does not authorize a framework audit, dependency installation, formatter fix, or migration.
 
 Use `fastapi-development` for requested FastAPI implementation, `claude-api` for requested Claude API integration, and `uv-project-workflow` for requested uv environment/dependency work. A diff using those technologies remains a read-only review here; do not invoke an implementation workflow to inspect it.
 
@@ -117,10 +117,13 @@ Separate repository evidence from commands actually executed.
 - Record relevant tests, builds, linters, type checks, manual checks, screenshots, or before/after evidence reported by the author or CI.
 - Never say a command passed unless its result was observed.
 - Treat passing tests as evidence, not proof that changed behavior is covered.
+- For mocks or stubs on the changed path, identify the real selection, parsing, precedence, or persistence behavior they replace. Cite separate source or execution evidence for that behavior, or mark it unverified; mutation controls on orchestration do not validate a stubbed framework contract.
 - Treat a coverage percentage as measured only when a coverage tool produced it for the relevant code.
 - For a bug fix with a new regression test, identify the pre-fix behavior the test should reject. When the claim is important and a narrow negative control is proportionate, run the test against the pre-fix behavior in an isolated scratch copy, verify that the intended assertion fails, then verify the fixed behavior passes. Preserve the working checkout and other sessions' files. If the control was not run, state that the test was not observed failing for the defect; do not call it a proven regression test.
 
 Run cheap, targeted, read-only checks or isolated scratch controls when they are normal for the repository and materially verify a candidate. Do not silently expand into the high-cost checks below.
+
+Before the final verdict, revisit exclusions and assumptions that could hide a reachable failure in the changed path. A development-only label does not exclude supported configuration variants. Do not issue `APPROVE` while a material assumption remains unverified; record the missing evidence and a concrete check in `Questions` and let that limit constrain the verdict.
 
 ## Offer high-cost checks only after the baseline report
 

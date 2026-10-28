@@ -16,6 +16,7 @@ Selected topics are adapted from awesome-skills/code-review-skill at commit `485
 ## Trust boundaries and data
 
 - Follow request, CLI, environment, uploaded-file, queue, and external API data through validation and coercion to use. Type declarations alone do not establish a validated domain value.
+- For PHP bootstrap invoked by shell or container configuration, compare any direct environment parser with the framework's effective configuration loader. In Laravel, inspect environment-file selection, external-variable precedence, and configuration caching before judging key checks or `key:generate`; the check and writer must agree on the selected file and existing value.
 - Check SQL parameter binding and dynamic identifiers separately. ORM use does not make raw expressions safe. Trace tenant ownership and authorization on the server, not just a hidden template action.
 - Match output encoding to HTML, attributes, URLs, JavaScript, and other actual contexts. Check raw-template escapes and stored content. Input validation does not replace output encoding.
 - Check password APIs, randomness, secret comparisons, untrusted `unserialize`, shell construction, and executable PHP configuration. Do not execute a PHP config file just to inspect an untrusted repository.
