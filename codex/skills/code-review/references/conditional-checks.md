@@ -20,6 +20,9 @@ Read only the sections that match the changed languages or change patterns.
 ## Tests and verification
 
 - Prefer behavior assertions over implementation-detail assertions that break during safe refactors.
+- Identify the change-owned regression each added or requested test distinguishes. Search nearby coverage first; prefer extending an existing case or parameterizing equivalent inputs over duplicate suites. Keep separate cases when they exercise different failure paths. Similar setup alone does not establish redundant coverage.
+- Follow repository policy for human-facing messages and translations. Unless exact wording is an explicit contract, prefer dynamic values, links, conditional content, formats, and escaping over literal greetings, subjects, footers, or translated sentences. Preserve exact checks for contractual bytes, stable error codes, and security-sensitive transformations.
+- Keep tests scoped to behavior owned or changed here. Do not request tests of unrelated application-wide defaults or established framework guarantees unless the changed integration can break them. Flag brittle or redundant assertions only with a concrete maintenance cost or coverage weakness, not a target test count.
 - For a bug fix, identify the regression test that fails without the fix and passes with it; if absent, name the exact missing scenario.
 - Check happy path, the highest-risk edge case, and meaningful error or partial-failure behavior introduced by the change.
 - Mock system boundaries such as databases, clocks, filesystems, and remote services; do not mock the business logic under test without a repository-specific reason.
@@ -28,6 +31,7 @@ Read only the sections that match the changed languages or change patterns.
 
 ## Configuration and bootstrap
 
+- Identify application-wide defaults changed alongside a narrow feature. When they can be rolled back independently, recommend a separate atomic commit consistent with repository policy; commit organization alone is not a runtime defect.
 - When a diff changes configuration loading or startup, trace the effective value from its supported sources through the framework loader to every changed consumer or writer. Check source selection and precedence, including environment-specific files, overrides, and cached configuration where reachable. Read the installed loader or existing contract tests instead of assuming a direct dotenv parser matches framework bootstrap.
 - Distinguish absent, empty, and explicitly supplied values. Check whether a value captured at container creation, image build, or process start shadows a file changed later; writing a file does not update an existing process environment or cache.
 - For initialization that writes secrets or other durable state, verify that the existence check and writer use the same effective source and target. Trace a normal first start, preservation of existing state, and the highest-risk supported override or restart path. Do not generate or expose real credentials during review.

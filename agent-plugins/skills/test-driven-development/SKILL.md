@@ -21,6 +21,8 @@ Read repository instructions, test locations, manifests, configuration, and CI c
 
 Name the caller-visible boundary and the behavior one case will observe before writing the test. Use the existing contract and domain vocabulary; ask only when a missing decision changes the expected behavior. Do not require fresh approval for every test boundary already established by the task.
 
+Name the concrete regression the case would reject, then inspect existing coverage before adding it. Extend or parameterize equivalent scenarios when sufficient; keep distinct failure paths. Follow [the scope and copy guidance](references/test-observations.md#scope-and-reuse) to avoid duplicate suites, incidental wording checks, and tests of unrelated global or framework behavior. Do not add tests solely to increase their count or match the number of public methods; repository requirements still apply.
+
 Prefer tests that survive an internal refactor. Mock external boundaries when useful without mocking away the behavior under test. Internal seams, interactions, call counts, and persistence observations can be legitimate when they express the contract being checked; they are not automatically defects or universally forbidden techniques.
 
 Derive expected results independently from a specification, worked example, or known literal. A test that repeats the implementation's algorithm can repeat its bug. See [references/test-observations.md](references/test-observations.md) for concrete controls. Work in vertical slices: one observed failure, one minimal implementation, then the next behavior; do not build a speculative batch of tests around an imagined design.
