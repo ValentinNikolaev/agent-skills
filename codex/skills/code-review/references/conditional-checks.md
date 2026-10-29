@@ -6,6 +6,7 @@ Read only the sections that match the changed languages or change patterns.
 
 - [Tests and verification](#tests-and-verification)
 - [Configuration and bootstrap](#configuration-and-bootstrap)
+- [Build and runtime identity](#build-and-runtime-identity)
 - [Recoverable failures and process lifetime](#recoverable-failures-and-process-lifetime)
 - [Locking and callbacks](#locking-and-callbacks)
 - [Optimization claims](#optimization-claims)
@@ -37,6 +38,12 @@ Read only the sections that match the changed languages or change patterns.
 - For initialization that writes secrets or other durable state, verify that the existence check and writer use the same effective source and target. Trace a normal first start, preservation of existing state, and the highest-risk supported override or restart path. Do not generate or expose real credentials during review.
 - Treat removal of a configuration input as a compatibility change. Check existing callers, Compose/CI declarations, documentation, and tests for users supplying that input. Separate a demonstrated break from a maintainer's preference for how optional settings are presented.
 - Do not exclude a supported path solely because the environment is for development or the variant was absent from the happy-path fixture. If support or reachability is uncertain, state the evidence needed rather than inventing a defect or assuming safety. Keep this trace scoped to changed behavior; it does not require a deployment matrix or broad framework audit.
+
+## Build and runtime identity
+
+- For configuration written during a build, installation, or privileged setup, trace the writer's user, home directory, configuration scope, and file ownership through to the actual runtime reader. Check user switches, service accounts, changed UID/GID values, and mounted paths where the diff uses them. A successful command as root does not establish that a later unprivileged process sees the setting.
+- Verify the effective value as the intended reader, using the real tool's configuration-origin output or a narrow isolated probe when available. Distinguish configuration visibility from permission to read it; do not treat build success or a setup-user assertion as runtime coverage. If the reader cannot be inspected, retain the material assumption as a verification limit.
+- Scope trust and permission exceptions to the resources the changed path needs. For example, Git's global configuration belongs to the executing user, while system configuration can serve multiple users; choose deliberately and constrain `safe.directory` to a verified repository path rather than trusting every mounted repository. Do not prescribe system-wide configuration for tools whose contracts differ, and separate an ineffective setting from an independently demonstrated security failure.
 
 ## Recoverable failures and process lifetime
 
