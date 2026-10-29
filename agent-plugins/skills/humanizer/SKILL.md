@@ -1,6 +1,6 @@
 ---
 name: humanizer
-description: Humanize existing prose while preserving voice and meaning. Not drafting or translation. Use ai-detector for analysis, stop-slop for targeted English audits.
+description: Humanize existing prose while preserving voice and meaning, including targeted English pattern edits. Not drafting or translation. Use ai-detector for analysis.
 ---
 
 # Humanizer

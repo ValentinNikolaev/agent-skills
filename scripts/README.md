@@ -30,14 +30,13 @@ Recommended layout:
 │   └── skills/
 │       ├── code-review/
 │       │   └── SKILL.md
-│       └── stop-slop/
+│       └── ai-detector/
 │           ├── SKILL.md
 │           ├── agents/
 │           │   └── openai.yaml
 │           └── references/
-│               ├── examples.md
-│               ├── phrases.md
-│               └── structures.md
+│               ├── external-check.md
+│               └── improvement-loop.md
 ├── claude/
 │   └── skills/
 ├── codex/
@@ -87,36 +86,33 @@ This includes:
 For example:
 
 ```text
-agent-plugins/skills/stop-slop/
+agent-plugins/skills/ai-detector/
 ├── SKILL.md
 └── references/
-    ├── examples.md
-    ├── phrases.md
-    └── structures.md
+    ├── external-check.md
+    └── improvement-loop.md
 ```
 
 becomes:
 
 ```text
-claude/skills/stop-slop/
+claude/skills/ai-detector/
 ├── SKILL.md
 └── references/
-    ├── examples.md
-    ├── phrases.md
-    └── structures.md
+    ├── external-check.md
+    └── improvement-loop.md
 
-codex/skills/stop-slop/
+codex/skills/ai-detector/
 ├── SKILL.md
 └── references/
-    ├── examples.md
-    ├── phrases.md
-    └── structures.md
+    ├── external-check.md
+    └── improvement-loop.md
 ```
 
 Relative links such as:
 
 ```markdown
-[examples](references/examples.md)
+[external analysis](references/external-check.md)
 ```
 
 continue to work without rewriting.
@@ -146,7 +142,7 @@ python scripts/generate_skill_wrappers.py
 Generate selected skills:
 
 ```bash
-python scripts/generate_skill_wrappers.py code-review stop-slop
+python scripts/generate_skill_wrappers.py code-review ai-detector
 ```
 
 Selected generation still rebuilds the root catalog from every canonical skill;
@@ -315,7 +311,13 @@ unmet prerequisite gate, and retains the bounded unsuccessful transfer search.
 verification. Calls made only by a skill or workflow stay local. A human's direct
 detector request includes the ChatGPT AI detector and concrete improvement advice,
 unless the user restricts external work. `humanizer` owns the resulting prose
-edits. The older humanizer evaluation files above remain historical evidence.
+edits. `stop-slop` is a deprecated compatibility entry through v29, with removal
+planned for the v30 major release after maintained callers and activation cases
+are migrated and release notes explain the replacement. New workflows use
+`ai-detector` for analysis and `humanizer` for edits. Legacy style audits stay
+local unless the human also requests a detector or external check. Bundled
+Stop Slop references and their license remain legacy provenance until removal.
+The older humanizer evaluation files above remain historical evidence.
 [`ai_detector_sean_b_result.json`](../tests/fixtures/ai_detector_sean_b_result.json)
 records one exact-text external check, an invalid omitted-text attempt, and
 accepted or rejected recommendations. It does not establish general detection

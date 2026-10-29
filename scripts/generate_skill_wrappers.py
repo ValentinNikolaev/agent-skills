@@ -19,7 +19,7 @@ and agents/ metadata. No symlinks are created.
 Typical usage::
 
     python scripts/generate_skill_wrappers.py
-    python scripts/generate_skill_wrappers.py code-review stop-slop
+    python scripts/generate_skill_wrappers.py code-review ai-detector
     python scripts/generate_skill_wrappers.py --check
     python scripts/generate_skill_wrappers.py --clean
 
@@ -129,7 +129,7 @@ README_SKILL_GROUPS = (
         "Writing and career material",
         {
             "humanizer": "Edit an existing draft for natural phrasing while preserving its meaning and voice.",
-            "stop-slop": "Audit or edit specific formulaic patterns in English prose.",
+            "stop-slop": "Deprecated compatibility entry; use ai-detector for analysis and humanizer for edits. Planned removal in v30.",
             "ai-detector": "Assess AI-like style and suggest concrete improvements grounded in the text.",
             "write-cover-letter": "Write or revise a cover letter using job requirements and verified candidate experience.",
             "linkedin-profile-optimizer": "Review or rewrite a LinkedIn profile using verified experience and relevant role keywords.",

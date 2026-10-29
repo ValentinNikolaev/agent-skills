@@ -107,7 +107,7 @@ Each link opens the skill's full instructions, including when to use it and how 
 ### Writing and career material
 
 - [`humanizer`](agent-plugins/skills/humanizer/SKILL.md) — Edit an existing draft for natural phrasing while preserving its meaning and voice.
-- [`stop-slop`](agent-plugins/skills/stop-slop/SKILL.md) — Audit or edit specific formulaic patterns in English prose.
+- [`stop-slop`](agent-plugins/skills/stop-slop/SKILL.md) — Deprecated compatibility entry; use ai-detector for analysis and humanizer for edits. Planned removal in v30.
 - [`ai-detector`](agent-plugins/skills/ai-detector/SKILL.md) — Assess AI-like style and suggest concrete improvements grounded in the text.
 - [`write-cover-letter`](agent-plugins/skills/write-cover-letter/SKILL.md) — Write or revise a cover letter using job requirements and verified candidate experience.
 - [`linkedin-profile-optimizer`](agent-plugins/skills/linkedin-profile-optimizer/SKILL.md) — Review or rewrite a LinkedIn profile using verified experience and relevant role keywords.
