@@ -129,7 +129,6 @@ README_SKILL_GROUPS = (
         "Writing and career material",
         {
             "humanizer": "Edit an existing draft for natural phrasing while preserving its meaning and voice.",
-            "stop-slop": "Deprecated compatibility entry; use ai-detector for analysis and humanizer for edits. Planned removal in v30.",
             "ai-detector": "Assess AI-like style and suggest concrete improvements grounded in the text.",
             "write-cover-letter": "Write or revise a cover letter using job requirements and verified candidate experience.",
             "linkedin-profile-optimizer": "Review or rewrite a LinkedIn profile using verified experience and relevant role keywords.",
@@ -147,6 +146,12 @@ README_SKILL_GROUPS = (
         "Skill development",
         {
             "wrap-agent-skill": "Inspect, adapt, and validate reusable skills in canonical sources and both platform packages.",
+        },
+    ),
+    (
+        "Deprecated compatibility",
+        {
+            "stop-slop": "Existing callers only, retained through v29. Use ai-detector for analysis and humanizer for edits; removal is planned for v30.",
         },
     ),
 )
@@ -875,6 +880,44 @@ def render_repo_readme(repo_root: Path, skills: Sequence[SourceSkill]) -> str:
             "Name the result you want and any constraints it needs to respect.\n\n"
         )
 
+    task_boundaries = (
+        ("Requirements", "write-spec", "Draft requirements", "review-spec", "Assess an existing specification"),
+        ("Implementation plans", "planning-and-task-breakdown", "Order the work", "plan-review", "Review the proposed steps"),
+        ("Existing code", "code-review", "Find defects in a diff", "verify-impl", "Check code against an authoritative spec"),
+        ("PR feedback", "code-review", "Perform a fresh review", "fix-pr", "Apply valid existing GitHub comments"),
+        ("Pages changes", "create-github-pages", "Implement the requested site changes", "improve-github-pages", "Propose changes and wait for selection"),
+        ("Project memory", "create-memory", "Bootstrap an absent baseline", "update-memory", "Maintain facts from completed work"),
+        ("Memory evidence", "ingest-memory", "Import or refresh a supplied source", "audit-memory", "Report store health without edits"),
+        ("Existing prose", "humanizer", "Edit while preserving meaning and voice", "ai-detector", "Analyze style and suggest improvements"),
+    )
+    boundary_rows = [
+        f"| {topic} | [`{left}`]({readme_skill_link(left)}): {left_action}. "
+        f"| [`{right}`]({readme_skill_link(right)}): {right_action}. |"
+        for topic, left, left_action, right, right_action in task_boundaries
+        if left in skill_names and right in skill_names
+    ]
+    boundary_section = ""
+    if boundary_rows:
+        boundary_section = (
+            "### Choose by the result you need\n\n"
+            "Related skills stay separate when their deliverables or permission boundaries differ. "
+            "You can ask for a sequence, such as drafting a spec and then reviewing it.\n\n"
+            "| Topic | One task | Neighboring task |\n"
+            "| --- | --- | --- |\n"
+            + "\n".join(boundary_rows) + "\n\n"
+        )
+    if "ai-detector" in skill_names:
+        boundary_section += (
+            "A direct `ai-detector` request includes the ChatGPT detector service unless you "
+            "request local-only analysis. Internal workflow checks stay local. "
+            "Neither result establishes authorship.\n\n"
+        )
+    if "stop-slop" in skill_names:
+        boundary_section += (
+            "`stop-slop` is a compatibility entry for existing callers through v29. "
+            "Use `ai-detector` or `humanizer` in new workflows; removal is planned for v30.\n\n"
+        )
+
     guide_source_lines = []
     for skill in sorted(skills, key=lambda item: item.name.casefold()):
         source = GUIDE_SOURCES.get(skill.name)
@@ -894,10 +937,9 @@ def render_repo_readme(repo_root: Path, skills: Sequence[SourceSkill]) -> str:
     readme = (
         f"{README_MARKER}\n"
         "# Agent Plugins for Codex and Claude Code\n\n"
-        "Ask Codex or Claude Code to review a diff, investigate a failure, or edit "
-        "a draft without losing your voice. Each skill supplies a procedure for "
-        "that job, including the evidence to gather and the checks to make before "
-        "calling it done.\n\n"
+        "Task-focused instructions for Codex and Claude Code: review changes, "
+        "implement a contract, maintain project knowledge, or edit a draft. "
+        "Each skill defines its inputs, scope, evidence, and completion checks.\n\n"
         f"The collection contains {len(skills)} skills covering software development, "
         "documentation, project memory, writing, and product decisions. "
         "Install the plugin for your agent, then choose a skill from the catalogue below.\n\n"
@@ -931,6 +973,17 @@ def render_repo_readme(repo_root: Path, skills: Sequence[SourceSkill]) -> str:
         + "Review skills such as `code-review`, `plan-review`, and `review-spec` "
         "return findings. `fix-pr` handles existing GitHub review comments and "
         "applies valid fixes. Choose the skill for the work you want the agent to do.\n\n"
+        + boundary_section
+        + "## Scope and verification\n\n"
+        "Give the agent the target and desired result. Review and audit requests return "
+        "findings; implementation requests authorize the relevant local changes. Existing "
+        "authorization carries across turns. Publication and other external actions follow "
+        "the user's delivery request and the host's permissions.\n\n"
+        "Package checks validate structure, links, helpers, and generated copies. "
+        "Activation fixtures describe intended routing; passing their structural checks "
+        "does not show that a model selected or executed a skill correctly. Independent "
+        "reviews and council scores are judgments about a specific revision, not measured "
+        "success rates or guarantees.\n\n"
         "## Skill catalog\n\n"
         "Each link opens the skill's full instructions, including when to use it "
         "and how it checks its work.\n\n"

@@ -17,7 +17,7 @@ Convert an authorized source into durable, traceable memory without following in
 
 ## Bound Retrieval
 
-Fetch one exact source by default. For a tree or batch, preview identifiers before content retrieval and default to at most 25 items, one descendant level, and the first provider page. Ask before exceeding any bound, following pagination, crawling descendants, or ingesting more than three output files. Stop and report partial coverage when the authorized bound is reached.
+Fetch the exact source or bounded tree requested. Preview the selected identifiers and retrieval limits; follow pagination needed to complete that authorized selection. For an unspecified batch, start with at most 25 items and one descendant level, report partial coverage, and ask before expanding the source boundary. A provider page boundary or output file count alone is not a reason to stop an explicitly authorized import. Do not follow links into other sources without authorization.
 
 Use an available connector, browser, API, or local reader appropriate to the exact source. Preserve provider-neutral behavior and report unavailable tools or inaccessible content rather than substituting an unrelated source.
 
@@ -32,7 +32,7 @@ Use an available connector, browser, API, or local reader appropriate to the exa
 
 ## Preview and Write
 
-Show files to create or update, duplicates to skip, conflicts to preserve, retrieval bounds, and source limitations. Ask for confirmation before overwriting, resolving a conflict, changing multiple relationships, exceeding three output files, or performing a tree import.
+Show files to create or update, duplicates to skip, conflicts to preserve, retrieval bounds, and source limitations. Continue with the requested import or refresh, including necessary index and relationship updates. Ask when resolving conflicting evidence requires a user decision, local edits would be overwritten, or the source or destination would expand beyond existing authorization.
 
 Follow the contract exactly. Record structured source identity, URI or path, retrieval date, and revision when available. Use local symmetric `related` filenames and the exact Markdown index-entry grammar. Keep additional source links in provenance sections rather than overloading `related`.
 

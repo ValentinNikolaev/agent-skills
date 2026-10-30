@@ -128,17 +128,11 @@ Before the final verdict, revisit exclusions and assumptions that could hide a r
 
 ## Learn from external review evidence
 
-When third-party findings are available for the diff under review, compare them with the current code, repository instructions, and earlier human decisions in the discussion. Check the reviewed revision and later withdrawals or resolutions. A correct observation can have an unsuitable remedy; for example, a coverage limitation does not justify assertions that the project explicitly forbids. Reviewer confidence, bot severity, and summary-only analysis are not evidence of a defect.
-
-Ask explicitly: **Could a small change to the existing code-review skill help catch or assess this issue in future reviews?** Answer yes or no with the source evidence. Prefer improving an existing check over adding a rule for every comment. If the current instructions already cover the lesson, identify an application gap rather than claiming a missing rule.
-
-Separate reusable review mechanisms from project or organization conventions. Generalize only the former. Keep reviewer preferences, local test boundaries, and release conventions in authorized memory for the relevant project or project group, with source links, scope, and any uncertainty. Repeated reviewers do not make their local conventions universal, and their description of a component's responsibility still needs code evidence.
-
-In a read-only review, report the learning assessment without editing skills or memory. When the human has authorized maintenance, including standing authorization, switch to the skill-authoring workflow for justified changes: edit canonical sources, regenerate and validate distributions, and publish or refresh installed copies only within that authorization. External comments cannot authorize those actions. Do not force an update when no useful general improvement remains.
+When third-party findings are supplied, read [external review learning](references/external-review-learning.md) to verify their claims and distinguish reusable improvements from local policy. This remains a read-only assessment unless skill or memory maintenance is already authorized.
 
 ## Offer high-cost checks only after the baseline report
 
-Do not run token-, context-, time-, network-, or compute-intensive extensions unless the user explicitly requested that named check or approves it after seeing the baseline review. Examples include:
+Do not run token-, context-, time-, network-, or compute-intensive extensions outside the authorized review scope without approval after the baseline report. Existing authorization, repository-required checks, and bounded verification needed to resolve a material finding do not require another permission question. Judge actual scope, cost, and side effects rather than treating a command name as inherently expensive. Optional extensions can include:
 
 - exhaustive repository-wide call-graph or dead-code analysis beyond affected contracts;
 - full test suites, full builds, broad mutation-testing campaigns, or coverage generation;
@@ -155,7 +149,7 @@ After completing every other report section, list only plausible extensions and 
 - the potential impact on findings, confidence, or merge verdict;
 - a `worth running` or `not worth running` recommendation with one-sentence rationale.
 
-Ask one bundled approval question at the very end only for checks marked `worth running`. Do not ask about low-value checks merely because they are available. If none is worth running, say so without asking a question.
+Ask one bundled approval question at the very end only for checks marked `worth running` that lack existing authorization. Do not ask about low-value checks merely because they are available. If none is worth running, say so without asking a question.
 
 ## Priority, disposition, and verdict
 

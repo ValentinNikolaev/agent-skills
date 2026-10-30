@@ -40,6 +40,14 @@ Read [references/advisors-and-prompts.md](references/advisors-and-prompts.md) fo
 
 Run as many independent passes concurrently as the host safely supports. Queue the rest in bounded waves. Do not fail or simulate unavailable concurrency claims; use separated passes in the current model when subagents are unavailable.
 
+Respect the host's total agent budget, not just concurrent capacity. Reuse the initial reviewers for peer challenge and changed-material reassessment. Disclose omitted styles or reduced independence rather than spawning extra teams to obtain agreement.
+
+## When the user requests a score or quality gate
+
+Define the rubric, scored artifact, pass threshold, and aggregation rule before voting. For a collection, score every item separately; a high average must not hide a failing item. Reviewers must not author the candidate they judge. Give them the same exact revision, sources, and observed checks, without a preferred verdict or other scores until their independent votes are complete.
+
+Require evidence and a concrete explanation of the weakest criterion for each score. An unresolved material defect blocks approval regardless of the total. Report missing reviews as missing, not zero or a pass. After a revision, reuse reviewers on the changed material and record which earlier findings were resolved. Stop once the agreed gate passes or a concrete blocker remains; do not reroll unchanged work or lower the rubric to reach a target. Scores are structured judgement, not measured effectiveness or proof from consensus.
+
 ## Convene the session
 
 ### 1. Frame neutrally
