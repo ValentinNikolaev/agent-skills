@@ -1,0 +1,4 @@
+interface:
+  display_name: "Discussion Reply"
+  short_description: "Prepare grounded social and forum replies"
+  default_prompt: "Use $discussion-reply to prepare a reply from this source discussion, preserving my voice and the required review checks."
