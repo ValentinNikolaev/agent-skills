@@ -32,7 +32,7 @@ Use this order:
 2. Propose one focused new file when durable knowledge is absent.
 3. Skip and explain temporary, redundant, unsupported, or uncertain material.
 
-Preview file-level changes. Ask for confirmation when the root was inferred, cross-root access is involved, substantial text would be replaced, more than three files would be created, or relationships across multiple topics would change.
+Preview file-level changes and continue within the authorized store and task. Updating related entries and the index is part of maintaining a coherent store. Ask only when the destination is ambiguous, cross-root access lacks authorization, or a proposed replacement would discard unresolved conflicting evidence or exceed the requested scope. Preserve existing authorization across turns.
 
 ## Update and Reconcile
 

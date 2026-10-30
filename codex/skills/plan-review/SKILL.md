@@ -23,11 +23,11 @@ Review an implementation plan against requirements, repository evidence, archite
 
 ## Choose one mode
 
-Default to `deep` unless the user requests another mode.
+Use `quick` for a narrow plan with explicit requirements, `deep` for cross-component or uncertain work, and `final` for a release-readiness challenge. Honor a user-selected mode.
 
-- `quick`: verify the goal, explicit requirements, referenced artifacts, and blockers. Emit only Validation, Verdict, Blockers, Questions, and Requirements Traceability.
-- `deep`: also inspect applicable architecture, data flow, security, failure handling, tests, scope, and up to three useful local comparables. Emit every report section.
-- `final`: assume the plan is nearly ready and try to break it with production edge cases, migration and rollback failures, concurrency, observability, and recovery gaps. Emit every report section and a Release Risks section.
+- `quick`: verify the goal, explicit requirements, referenced artifacts, and blockers. Keep the report compact, but include every material finding and verification limit.
+- `deep`: also inspect applicable architecture, data flow, security, failure handling, tests, scope, and up to three useful local comparables. Include applicable architecture and failure-path evidence.
+- `final`: assume the plan is nearly ready and try to break it with production edge cases, migration and rollback failures, concurrency, observability, and recovery gaps. Include release risks and their verification.
 
 For `quick`, inspect only the plan, explicit requirements/instructions, and directly referenced files. For `deep` or `final`, inspect only enough repository context to verify material claims. Do not fill a comparison quota with irrelevant files.
 
@@ -81,7 +81,7 @@ Map report sections consistently: `P0` and `P1` open findings are Blockers; `P2`
 
 ## Decide the verdict
 
-- `APPROVE`: no open `P0` or `P1` findings, no unanswered question required to implement safely, and verification limits are acceptable.
+- `APPROVE`: no unresolved finding or question that must be settled before executing the plan, and verification limits are acceptable. An open `P2` prerequisite requires `REVISE`, even in quick mode; optional `P3` suggestions need not block approval.
 - `REVISE`: the plan is identifiable and reviewable but needs correctable changes before implementation.
 - `BLOCKED`: the plan or authoritative evidence is missing, irreconcilably conflicting, or inaccessible enough that a responsible verdict cannot be reached. A dangerous plan with confirmed defects is `REVISE` with blockers, not `BLOCKED` merely because it is poor.
 
@@ -89,50 +89,18 @@ Never use `APPROVE` to mean that implementation itself has been verified.
 
 ## Report
 
-Use only the sections required by the selected mode:
+Report plan identity, mode, sources and verification limits, followed by the verdict and findings ordered by priority. Use the same evidence fields in every mode; quick changes investigation depth, not whether material findings are visible.
+
+For each finding use:
 
 ```text
-## Plan Review: <summary>
-
-### Validation
-- Mode: quick | deep | final
-- Plan source: <source>
-- Requirements: <sources or limits>
-- Repository instructions: <sources>
-- Referenced artifacts: <verified or missing>
-- Comparables: <deep/final only; useful files or none>
-
-### Verdict
-APPROVE | REVISE | BLOCKED — <one-sentence basis>
-
-### Blockers
-ID: PLAN-001
-Priority: P1
-Disposition: open
-Plan evidence: Step <id>, "<short excerpt>"
-Repository/requirement evidence: <file:line or supplied criterion>
-Risk: <concrete failure>
-Remediation: <specific plan-level correction>
-
-### Warnings
-<deep/final only; same fields>
-
-### Suggestions
-<deep/final only; same fields>
-
-### Questions
-- PLAN-00N | Priority: P1 | Disposition: question | <question and missing evidence>
-
-### Requirements Traceability
-| Criterion | Plan step | Status | Evidence |
-|---|---|---|---|
-| <criterion> | <step> | Covered / Partial / Missing | <excerpt or source> |
-
-### Release Risks
-<final only; production, migration, rollback, and recovery residuals>
-
-### Verification Limits
-<deep/final only; sources or checks unavailable>
+PLAN-001 | P1 | open | <short summary>
+Plan: Step <id>, "<short excerpt>"
+Evidence: <requirement or repository file:line>
+Risk: <concrete implementation consequence>
+Correction: <smallest plan-level change or precise question>
 ```
+
+Include a compact requirements-to-step mapping with `Covered`, `Partial`, or `Missing` and supporting evidence. When no authoritative requirements exist, identify that limit instead of inventing criteria. In final mode also state remaining release, migration, rollback, and recovery risks.
 
 Omit empty issue sections. If no issues remain, say so and preserve the verdict basis and verification limits. Do not edit, reorder, or replace the plan; checkout branches; install dependencies; or run state-changing commands.

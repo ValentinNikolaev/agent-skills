@@ -97,7 +97,7 @@ From the repository root, invoke the targeted generator with an available Python
 python scripts/generate_skill_wrappers.py <skill-name>
 ```
 
-The generator must produce both `claude/skills/<name>/` and `codex/skills/<name>/`, copy required resources, and add its generated-file marker. Do not advertise per-platform flags that the generator does not support.
+The generator must produce both `claude/skills/<name>/` and `codex/skills/<name>/`, copy required resources, and add its generated-file marker. This first generation prepares plugin versions locally. If the release already has prepared versions, use `--no-version-bump` instead. Commit the manifests with the canonical and generated changes when delivery is authorized; CI must publish the committed version without incrementing it.
 
 ## Validate the target
 
@@ -107,7 +107,7 @@ Run target validation even for a narrow update:
 2. Verify direct local links, required resources, folder/name agreement, body length, long-reference tables of contents, and absence of extraneous docs.
 3. Validate `agents/openai.yaml` quoting, display name, 25–64 character short description, and `$skill-name` default prompt.
 4. Inspect every bundled script before execution. Run a representative safe test for new or changed scripts and record the command and result.
-5. Re-run the targeted wrapper generator and re-read canonical and generated `SKILL.md` files, generated markers, and resource inventories.
+5. Check generated content with `python scripts/generate_skill_wrappers.py --check <skill-name>` and inspect generated markers and resource inventories. If a repair requires regeneration, use `--no-version-bump` to preserve the already prepared release version.
 6. Forward-test a substantially changed skill on realistic raw input with minimal leaked context. Skip only when the test would require new authority, significant time, or live-system effects; report the reason.
 
 Then run the repository-wide consistency check:

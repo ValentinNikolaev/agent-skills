@@ -12,15 +12,15 @@ Inspect all review feedback, preserve non-actionable items in the report, apply 
 - Use this skill only when the user asks to address feedback already attached to a GitHub pull request.
 - Use `plan-review` when the primary artifact is an implementation plan, including a revision during ongoing work.
 - Use `code-review` for a fresh read-only review of code or a pull-request diff.
-- If the user supplies a local review report rather than GitHub feedback, use ordinary implementation workflow after confirming which findings to fix.
+- If the user supplies a local review report rather than GitHub feedback, use ordinary implementation workflow for the requested findings. Clarify only when the intended selection is ambiguous.
 
 ## Protect local and external state
 
 1. Parse and confirm the PR owner, repository, number, and local repository identity.
 2. Record the starting branch, `HEAD`, `git status --short`, and the existing diff before editing.
-3. If unrelated changes exist, do not stash, reset, clean, overwrite, or include them. Ask whether to stop, continue around non-overlapping changes, or use a separate worktree.
-4. Ask before changing branches or creating a worktree unless the user explicitly requested that transition in this turn.
-5. Never commit, stage, push, resolve threads, submit reviews, or post comments unless the user explicitly requests that separate action.
+3. Preserve unrelated changes. Continue around non-overlapping work or use an isolated checkout when needed; do not stash, reset, clean, overwrite, or include another task's changes. Ask only when overlapping edits cannot be safely isolated.
+4. Use the host's checkout or worktree mechanism to reach the verified PR head within the authorized task. Honor existing session authorization and report the selected location; do not switch an actively used checkout underneath another session.
+5. Commit, stage, or push only within the user's delivery request or standing authorization. Resolve threads, submit reviews, or post comments only when those external actions are explicitly authorized.
 6. Use read-only GitHub queries. Do not accept arbitrary API methods, GraphQL documents, or mutation input.
 
 Accept PR references as a canonical pull-request URL, a URL ending in `/files`, `/commits`, or `/checks`, or `owner/repo#number`. Strip query parameters and trailing view paths. Stop with accepted formats when parsing fails.
@@ -44,9 +44,8 @@ If only flat comments are available, label resolution, outdated state, and threa
 Compare local `git rev-parse HEAD` with the provider's `headRefOid` before editing.
 
 - If they match, continue.
-- If they differ, stop editing and report both OIDs.
-- With user authorization, fetch and check out or create a worktree at the exact PR head. Do not merge, rebase, or force-update unrelated work.
-- After any authorized transition, compare OIDs again and record the new baseline.
+- If they differ, report both OIDs and fetch the exact PR head into a safe isolated checkout before editing. Follow the state-protection rules above; do not merge, rebase, or force-update unrelated work.
+- Compare OIDs again and record the new baseline. If the exact head cannot be obtained safely, report the blocker rather than editing a stale approximation.
 
 Do not apply feedback to a stale approximation of the PR branch.
 

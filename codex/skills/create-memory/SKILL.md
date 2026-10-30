@@ -35,7 +35,7 @@ Skip temporary status, unfinished experiments, raw logs or conversations, specul
 ## Preview and Write
 
 1. Present a compact plan with the selected roots, proposed files, types, evidence, relationships, and skipped candidates.
-2. Ask for confirmation when the root was inferred, any cross-root access is involved, more than three files would be created, an index would be replaced, or existing content would change non-additively.
+2. Continue within the user's authorized project and scope, including an unambiguous existing local root. Ask only when the destination is ambiguous, cross-root access lacks authorization, or replacing an index or existing content would exceed the request. File count alone does not require another approval.
 3. Re-read the target files immediately before editing.
 4. Follow the contract exactly. Use its versioned frontmatter, structured provenance, local symmetric `related` filenames, ISO dates, and exact Markdown index-entry grammar.
 5. Create focused files with one durable topic each. Preserve manual index entries and unrelated content. Do not delete stale material without an explicit cleanup request.
