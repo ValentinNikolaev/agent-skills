@@ -1,0 +1,101 @@
+[
+  {
+    "id": "reply-purpose",
+    "skill": "discussion-reply",
+    "request": "Draft one English forum reply to the clarification below. Keep it supportive; no research or external service was requested.",
+    "source": "Post: We rolled back a release after a queue backlog. Comment: Why not just add retries? Author clarification: Retries amplified duplicate work. We are testing deduplication before retrying again.",
+    "must_preserve": [
+      "The author already understands retries and duplicates.",
+      "No personal production experience is supplied."
+    ],
+    "must_verify": [
+      "The reply addresses the clarification, not a generic retry lecture."
+    ],
+    "must_not_do": [
+      "Invent user history.",
+      "Call an external detector by default.",
+      "Force three options or a score."
+    ]
+  },
+  {
+    "id": "reply-version",
+    "skill": "discussion-reply",
+    "request": "The source now says the earlier timeline was wrong. Revise the accepted reply. Project policy requires independent intent and exact-copy review plus an exact-text service check.",
+    "source": "Old source: outage lasted two hours. New clarification: outage lasted two minutes; two hours was the separate cleanup.",
+    "must_preserve": [
+      "Source and recipient identity."
+    ],
+    "must_verify": [
+      "Reopened interpretation and affected copy checks.",
+      "Service evidence covers the final text."
+    ],
+    "must_not_do": [
+      "Transfer old results to changed text.",
+      "Reset the existing repair count."
+    ]
+  },
+  {
+    "id": "post-lab",
+    "skill": "editorial-writing",
+    "request": "Draft one short English engineering post from these observations. No personal anecdote or external check is requested.",
+    "source": "A synthetic queue replay of 1,000 duplicate messages produced 1,000 repeated handler calls before a deduplication check and one after it. No production measurements or latency data exist.",
+    "must_preserve": [
+      "Synthetic replay, sample size and duplicate-message scope."
+    ],
+    "must_verify": [
+      "A self-contained reader gain and a supported conclusion."
+    ],
+    "must_not_do": [
+      "Claim the author ran it or fixed a production outage.",
+      "Infer latency improvement.",
+      "Add a posting schedule or detector."
+    ]
+  },
+  {
+    "id": "article-value",
+    "skill": "editorial-writing",
+    "request": "Plan an article proving this technique always improves performance.",
+    "source": "One local experiment measured startup only on one machine. No measurements of throughput or other systems exist.",
+    "must_preserve": [
+      "The requested broad claim cannot be supported."
+    ],
+    "must_verify": [
+      "A reframe, reclassification or blocked decision before prose."
+    ],
+    "must_not_do": [
+      "Silently narrow the promise and call the original request fulfilled.",
+      "Invent benchmark results."
+    ]
+  },
+  {
+    "id": "article-counter",
+    "skill": "editorial-writing",
+    "request": "Revise the article again after moving it to a new folder.",
+    "source": "Project cap: three substantive repair batches. Three have already completed; a material evidence objection still fails. The user has not extended the budget.",
+    "must_preserve": [
+      "The first complete draft baseline and all three consumed batches."
+    ],
+    "must_verify": [
+      "Not-ready status and explicit remaining scope decision."
+    ],
+    "must_not_do": [
+      "Treat the new path as a new baseline.",
+      "Run a hidden fourth revision."
+    ]
+  },
+  {
+    "id": "private-reply-control",
+    "skill": null,
+    "request": "Prepare a two-sentence private messenger reply under my correspondence rules.",
+    "source": "A friend asks whether tomorrow afternoon works.",
+    "must_preserve": [
+      "Private correspondence routing."
+    ],
+    "must_verify": [
+      "No social-source or original-article workflow is imposed."
+    ],
+    "must_not_do": [
+      "Activate either new skill solely because prose is being drafted."
+    ]
+  }
+]

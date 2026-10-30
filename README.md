@@ -3,7 +3,7 @@
 
 Task-focused instructions for Codex and Claude Code: review changes, implement a contract, maintain project knowledge, or edit a draft. Each skill defines its inputs, scope, evidence, and completion checks.
 
-The collection contains 46 skills covering software development, documentation, project memory, writing, and product decisions. Install the plugin for your agent, then choose a skill from the catalogue below.
+The collection contains 48 skills covering software development, documentation, project memory, writing, and product decisions. Install the plugin for your agent, then choose a skill from the catalogue below.
 
 [![Latest release](https://img.shields.io/github/v/release/ValentinNikolaev/agent-skills?sort=semver)](https://github.com/ValentinNikolaev/agent-skills/releases/latest) [![Build](https://github.com/ValentinNikolaev/agent-skills/actions/workflows/regenerate-skills.yml/badge.svg)](https://github.com/ValentinNikolaev/agent-skills/actions/workflows/regenerate-skills.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -61,6 +61,7 @@ Related skills stay separate when their deliverables or permission boundaries di
 | Pages changes | [`create-github-pages`](agent-plugins/skills/create-github-pages/SKILL.md): Implement the requested site changes. | [`improve-github-pages`](agent-plugins/skills/improve-github-pages/SKILL.md): Propose changes and wait for selection. |
 | Project memory | [`create-memory`](agent-plugins/skills/create-memory/SKILL.md): Bootstrap an absent baseline. | [`update-memory`](agent-plugins/skills/update-memory/SKILL.md): Maintain facts from completed work. |
 | Memory evidence | [`ingest-memory`](agent-plugins/skills/ingest-memory/SKILL.md): Import or refresh a supplied source. | [`audit-memory`](agent-plugins/skills/audit-memory/SKILL.md): Report store health without edits. |
+| New public writing | [`discussion-reply`](agent-plugins/skills/discussion-reply/SKILL.md): Respond to a social discussion. | [`editorial-writing`](agent-plugins/skills/editorial-writing/SKILL.md): Develop a standalone post or article. |
 | Existing prose | [`humanizer`](agent-plugins/skills/humanizer/SKILL.md): Edit while preserving meaning and voice. | [`ai-detector`](agent-plugins/skills/ai-detector/SKILL.md): Analyze style and suggest improvements. |
 
 A direct `ai-detector` request includes the ChatGPT detector service unless you request local-only analysis. Internal workflow checks stay local. Neither result establishes authorship.
@@ -131,6 +132,8 @@ Each link opens the skill's full instructions, including when to use it and how 
 
 ### Writing and career material
 
+- [`discussion-reply`](agent-plugins/skills/discussion-reply/SKILL.md) — Develop a grounded social or forum reply from source context through exact-copy review.
+- [`editorial-writing`](agent-plugins/skills/editorial-writing/SKILL.md) — Develop standalone posts and articles with evidence, structure, voice, and bounded revision.
 - [`humanizer`](agent-plugins/skills/humanizer/SKILL.md) — Edit an existing draft for natural phrasing while preserving its meaning and voice.
 - [`ai-detector`](agent-plugins/skills/ai-detector/SKILL.md) — Assess AI-like style and suggest concrete improvements grounded in the text.
 - [`write-cover-letter`](agent-plugins/skills/write-cover-letter/SKILL.md) — Write or revise a cover letter using job requirements and verified candidate experience.

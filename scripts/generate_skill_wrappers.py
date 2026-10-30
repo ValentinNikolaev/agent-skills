@@ -128,6 +128,8 @@ README_SKILL_GROUPS = (
     (
         "Writing and career material",
         {
+            "discussion-reply": "Develop a grounded social or forum reply from source context through exact-copy review.",
+            "editorial-writing": "Develop standalone posts and articles with evidence, structure, voice, and bounded revision.",
             "humanizer": "Edit an existing draft for natural phrasing while preserving its meaning and voice.",
             "ai-detector": "Assess AI-like style and suggest concrete improvements grounded in the text.",
             "write-cover-letter": "Write or revise a cover letter using job requirements and verified candidate experience.",
@@ -888,6 +890,7 @@ def render_repo_readme(repo_root: Path, skills: Sequence[SourceSkill]) -> str:
         ("Pages changes", "create-github-pages", "Implement the requested site changes", "improve-github-pages", "Propose changes and wait for selection"),
         ("Project memory", "create-memory", "Bootstrap an absent baseline", "update-memory", "Maintain facts from completed work"),
         ("Memory evidence", "ingest-memory", "Import or refresh a supplied source", "audit-memory", "Report store health without edits"),
+        ("New public writing", "discussion-reply", "Respond to a social discussion", "editorial-writing", "Develop a standalone post or article"),
         ("Existing prose", "humanizer", "Edit while preserving meaning and voice", "ai-detector", "Analyze style and suggest improvements"),
     )
     boundary_rows = [

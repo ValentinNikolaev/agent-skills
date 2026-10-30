@@ -1,0 +1,4 @@
+interface:
+  display_name: "Editorial Writing"
+  short_description: "Develop evidence-based standalone posts and articles"
+  default_prompt: "Use $editorial-writing to develop this idea into a standalone post or article with supported claims, my voice, and bounded review."
