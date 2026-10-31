@@ -323,6 +323,20 @@ records one exact-text external check, an invalid omitted-text attempt, and
 accepted or rejected recommendations. It does not establish general detection
 accuracy. Routing decisions can be forward-tested separately without uploads.
 
+The seven-paper research update uses frozen
+[`ai_style_research_cases.json`](../tests/fixtures/ai_style_research_cases.json)
+and retains exact original-package/current-package outputs, six sequential
+candidate-rule decisions, three independent comparative judgments, and a fourth
+nonauthor peer review in
+[`ai_style_research_results.json`](../tests/fixtures/ai_style_research_results.json).
+Six development cases and ten held-out cases were fixed before edits; two known
+historical examples are supplementary regressions. Reviewers had prior research
+and development context, so version anonymization is only partial blinding.
+The record-integrity tests check coverage, hashes and within-source rankings;
+they do not score naturalness, establish human authorship or measure detector
+accuracy. Preserve first outputs, rejected candidates, ties and disagreements
+when extending this evaluation. Use a fresh corpus for a new generalization claim.
+
 ## Plugin version and README policy
 
 When generation changes either platform's generated skill tree, the matching plugin manifest version is bumped automatically:

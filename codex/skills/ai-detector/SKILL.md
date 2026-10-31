@@ -55,6 +55,25 @@ Do not silently substitute a local verdict or another provider.
 
 ## Analyse locally
 
+Calibrate the reading to language, genre, length and the text's role in the
+exchange. Brief, formulaic, translated, non-native or deliberately constrained
+prose can share the same cues. Without a suitable comparison set, keep findings
+qualitative; do not transfer an English benchmark's accuracy to another language
+or population. Treat correlated cues as one pattern, not independent votes.
+Rank findings by concrete reader effect and confidence in that effect. Keep
+ordinary clarity issues distinct from an AI-style impression, and say when the
+text supplies no useful basis for that impression.
+
+Distinguish three layers: an observed wording pattern, its effect on this reader,
+and a measured statistical result. A local reading supplies the first two. It
+does not measure predictive entropy, token surprisal, latent prompt dependency,
+or a sentence-embedding graph. When the request invokes those methods or research
+claims, use [research-backed interpretation](references/research.md) and report
+unavailable measurements as such. Varied sentence lengths are not an entropy
+estimate, and an AI-style impression is not a calibrated authorship verdict.
+Name only the measurements relevant to the request; an ordinary style assessment
+does not need paper names or a catalogue of metrics.
+
 Read the whole passage in context before naming patterns. Locate the actual
 friction, if any: delayed point, abstract actors, mechanical progression,
 redundant emphasis, repeated framing or a tidy ending that adds nothing.
@@ -63,6 +82,18 @@ For each material finding, give the exact span, its effect in this exchange,
 and a minimal improvement with any meaning or voice trade-off. Include a keep
 decision when repetition, structure, an idiom or a qualification earns its place.
 An orderly technical argument is not by itself an AI-style defect.
+
+Assess progression across sentence and paragraph boundaries, not just isolated
+phrases. Identify repeated conclusions or topic restatements that add no new
+fact, relation or useful emphasis. Explain the cumulative reader effect and
+suggest a paragraph-level repair when local substitutions leave it intact.
+Do not call this a measured semantic-transition signal or treat useful recaps,
+chronological structure and intentional parallelism as defects.
+
+Assistant-response wording needs a genre check. An FAQ answer, courteous reply
+or requested example legitimately responds to someone. Flag prefatory praise,
+offers or process narration only when they intrude into the intended document.
+Do not infer EchoPrompt's latent dependency from visible response format.
 
 Check every proposed replacement against the editing contract. For example,
 replacing a repeated `I'd want` with `must` strengthens a scoped judgement into
