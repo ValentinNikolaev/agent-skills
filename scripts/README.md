@@ -337,6 +337,16 @@ they do not score naturalness, establish human authorship or measure detector
 accuracy. Preserve first outputs, rejected candidates, ties and disagreements
 when extending this evaluation. Use a fresh corpus for a new generalization claim.
 
+The subsequent bounded extension freezes six longer English/Russian passages in
+[`humanizer_longform_cases.json`](../tests/fixtures/humanizer_longform_cases.json).
+[`humanizer_longform_results.json`](../tests/fixtures/humanizer_longform_results.json)
+records ordinary editor requests with evaluation anchors withheld, crossed
+package assignments, twelve first outputs, and four reviewer passes. Two
+reviewers generated none of these outputs; two are returning executors, and the
+record keeps that distinction. Two later local repairs do not replace initial
+outputs or ratings. This extension adds evidence, not a new canonical rule or
+an authorship-detection claim.
+
 ## Plugin version and README policy
 
 When generation changes either platform's generated skill tree, the matching plugin manifest version is bumped automatically:

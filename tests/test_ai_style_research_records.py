@@ -11,6 +11,8 @@ ROOT = Path(__file__).resolve().parents[1]
 EVIDENCE = ROOT / "agent-plugins/skills/ai-detector/references/research-evidence.json"
 CASES = ROOT / "tests/fixtures/ai_style_research_cases.json"
 RESULTS = ROOT / "tests/fixtures/ai_style_research_results.json"
+LONG_CASES = ROOT / "tests/fixtures/humanizer_longform_cases.json"
+LONG_RESULTS = ROOT / "tests/fixtures/humanizer_longform_results.json"
 
 
 def read_json(path: Path):
@@ -102,6 +104,36 @@ class ResearchRecordTests(unittest.TestCase):
         self.assertEqual(len(data["nonauthor_agents"]), 4)
         self.assertFalse(data["claims"]["detection_accuracy_measured"])
         self.assertFalse(data["claims"]["human_reader_validation"])
+
+    def test_longform_extension_preserves_inputs_first_outputs_and_reviewer_roles(self) -> None:
+        cases = read_json(LONG_CASES)["cases"]
+        data = read_json(LONG_RESULTS)
+        corpus = LONG_CASES.read_text(encoding="utf-8").encode("utf-8")
+        self.assertEqual(data["cases_sha256"], hashlib.sha256(corpus).hexdigest())
+        expected = {case["id"] for case in cases}
+        self.assertEqual(len(expected), 6)
+        editor_inputs = data["editor_input"]["cases"]
+        self.assertEqual({c["id"] for c in editor_inputs}, expected)
+        for case in editor_inputs:
+            self.assertEqual(set(case), {"id", "language", "request", "text"})
+        records = [r for executor in data["executions"] for r in executor["records"]]
+        self.assertEqual(len(records), 12)
+        self.assertEqual({(r["case_id"], r["package"]) for r in records},
+                         {(case, package) for case in expected for package in ("P", "Q")})
+        for record in records:
+            digest = hashlib.sha256(record["output"].encode("utf-8")).hexdigest()
+            self.assertEqual(record["output_sha256"], digest)
+        self.assertEqual(len(data["reviews"]), 4)
+        self.assertEqual(sum(r["independent_of_fresh_outputs"] for r in data["reviews"]), 2)
+        for review in data["reviews"]:
+            self.assertEqual({r["case_id"] for r in review["assessment"]["records"]}, expected)
+        for repair in data["post_review_repairs"]:
+            original = next(r for r in records if r["case_id"] == repair["case"]["id"]
+                            and r["package"] == repair["package"])
+            self.assertEqual(repair["initial_output"], original["output"])
+        self.assertEqual(len(data["repair_advisors"]), 3)
+        self.assertTrue(data["repair_peer_review"])
+        self.assertFalse(data["claims"]["general_skill_superiority_established"])
 
 
 if __name__ == "__main__":

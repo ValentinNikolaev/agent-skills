@@ -1,0 +1,749 @@
+{
+  "schema_version": 1,
+  "run_id": "2026-10-31-longform-extension",
+  "parent_evaluation": "ai_style_research_results.json",
+  "pr_url": "https://github.com/ValentinNikolaev/agent-skills/pull/12",
+  "candidate_commit": "c96312686aca4693d04239c02b8976ba7b305ad0",
+  "baseline_commit": "3f615a8cb001320ff0c3da1a6e476c14ad42881e",
+  "cases_sha256": "c6e126817b07ef64017d05fe226e7eb76d29fb65e283c077d89f00f6ece65d80",
+  "hash_format": "UTF-8 with LF line endings",
+  "scope": "Fresh ordinary-request long-form diagnostic after initial PR. No additional papers, no new agents and no further canonical skill rule.",
+  "design": {
+    "editors": "Two gpt-6-sol high-reasoning executors; each uses P on three cases and Q on three, with complementary assignments. First outputs frozen before review.",
+    "editor_access": "Only id/language/request/text and assigned frozen package; evaluation anchors and package map withheld.",
+    "judges": "Four nonauthors of skill implementation. B and D authored neither fresh output. A and C are returning executors and their ratings are not independent text validation.",
+    "peer_review": "D froze its own ratings before reading anonymized A/B/C findings, then reviewed two exact local repairs after three advisor passes.",
+    "blinding": "Package versions hidden from reviewers; known prior context and recognizable own outputs limit blinding.",
+    "limits": [
+      "Six deliberately constructed synthetic cases, not a population sample or authorship-labelled corpus.",
+      "No separate English natural-prose keep control; L04 is Russian.",
+      "Single first output per package/case; executor context remains confounded within a pair despite crossed allocation.",
+      "Related model judgments do not substitute for human reader evidence.",
+      "Post-review repairs are separate from the original comparison and do not improve its recorded first-run scores."
+    ]
+  },
+  "package_map": {
+    "P": "candidate-c963126",
+    "Q": "original-3f615a8"
+  },
+  "package_hashes": {
+    "P": {
+      "LICENSE.aboudjem-humanizer": "192fce177e861e3b0e6888edbd74fcd42b6e05da542d55c62f1cf8070af81528",
+      "LICENSE.blader-humanizer": "4ac4810254ab36d45419141aeb8e69bf50652cfafe5b2dab947d06d44e5cbf96",
+      "LICENSE.humanizer-ru": "b0057afb49cd823e36f2188bd58650978e523ee69388a2edbd0bbbabd924ef5d",
+      "SKILL.md": "3aed68537382a56813bf4e48c97db60bbb6562e2e9d4ce41b48d97d8f3e65e21",
+      "agents/openai.yaml": "96cdeef83ef98fdc43a9a6e0e801c41f5e4fd3a3d346211a93444e3306ff3819",
+      "references/council.md": "47f38867e89eb723fdc7a9e5d4e40292cd11d73d12a462b11328a27ab3e56e84",
+      "references/examples.md": "f49015cba17715a1415b8778a0d2946b0dab5a8b0c60bf138b57acc3702ede04",
+      "references/research-transfer.md": "6b61f6263aca557fb55efa556ed37f2f599eb5c6494f7d1807f8374e9e060967",
+      "references/sources.md": "3e65c97c5c00b49b440c940bfd1a8375cb55019767c6c1cee1dceab188c119d0"
+    },
+    "Q": {
+      "LICENSE.aboudjem-humanizer": "192fce177e861e3b0e6888edbd74fcd42b6e05da542d55c62f1cf8070af81528",
+      "LICENSE.blader-humanizer": "4ac4810254ab36d45419141aeb8e69bf50652cfafe5b2dab947d06d44e5cbf96",
+      "LICENSE.humanizer-ru": "b0057afb49cd823e36f2188bd58650978e523ee69388a2edbd0bbbabd924ef5d",
+      "SKILL.md": "5cfb43190076c10f05aca4e72f9fc8a0fb1f4a9dcc546b3b4985603ed5649be2",
+      "agents/openai.yaml": "96cdeef83ef98fdc43a9a6e0e801c41f5e4fd3a3d346211a93444e3306ff3819",
+      "references/council.md": "47f38867e89eb723fdc7a9e5d4e40292cd11d73d12a462b11328a27ab3e56e84",
+      "references/examples.md": "f49015cba17715a1415b8778a0d2946b0dab5a8b0c60bf138b57acc3702ede04",
+      "references/sources.md": "3e65c97c5c00b49b440c940bfd1a8375cb55019767c6c1cee1dceab188c119d0"
+    }
+  },
+  "editor_input": {
+    "instructions": "Perform each humanizer request locally using the assigned frozen package. Return the complete edited text plus a short note. Keep first outputs; do not compare packages or inspect evaluation anchors.",
+    "cases": [
+      {
+        "id": "L01",
+        "language": "en",
+        "request": "Humanize this engineering post. Keep it recognizably mine and preserve what I am claiming.",
+        "text": "I spent most of Monday making the retry loop shorter. By lunch I had removed 38 lines. It looked like progress. The diff was smaller, the helper was cleaner, and the implementation felt easier to explain.\n\nThen I opened the failing test. It wasn't checking whether a request eventually succeeded. It was checking that a cancelled request never started another attempt. That was the bit I'd moved out of sight.\n\nThis is where the real lesson became clear. Simplicity isn't just about fewer lines. It's about keeping the important behaviour visible. And visibility matters, because invisible behaviour is the behaviour we forget to protect.\n\nI put the cancellation check back next to the retry. The loop is six lines longer than the version I had at lunch. I still think two branches can go, but I haven't worked out how to remove them without hiding the same distinction again.\n\nThat is the change I'm taking from this: a smaller diff isn't always a simpler change. Have you kept an ugly branch because it made a failure case easier to see?"
+      },
+      {
+        "id": "L02",
+        "language": "ru",
+        "request": "Отредактируй этот рабочий отчёт: он должен звучать естественно и оставаться точным.",
+        "text": "В рамках проверки нового порядка выдачи доступа было проведено сопоставление заявок и фактически назначенных ролей. В проверку вошли 42 заявки, поступившие с 3 по 7 июня. При этом следует отметить, что заявки подрядчиков в данную выборку не включались.\n\nПо результатам проведённого сопоставления было установлено наличие двух расхождений. В одном случае роль сохранилась после закрытия заявки. Во втором роль была назначена до согласования руководителем. Причины обоих расхождений пока устанавливаются, поэтому говорить об общей ошибке процесса преждевременно.\n\nВажно подчеркнуть, что обнаружение расхождений подчёркивает важность регулярной проверки доступа. Регулярная проверка, в свою очередь, является важным условием поддержания актуальности ролей.\n\nПовторную проверку планируется провести 14 июня, если к этому времени будет доступна выгрузка изменений. До её получения нельзя подтвердить, что исправления охватили все затронутые учётные записи. Решение о расширении проверки на заявки подрядчиков пока не принято."
+      },
+      {
+        "id": "L03",
+        "language": "en",
+        "request": "Make this design note read naturally. Keep its technical meaning.",
+        "text": "The lease holder may renew a lease until the renewal deadline. After that deadline, the coordinator may assign the lease to another worker. The lease holder must stop writing when it can no longer confirm that its lease is current. A missed heartbeat does not, by itself, prove that another worker has taken over.\n\nThe renewal deadline is therefore important. It is not merely a timestamp; it is a vital boundary that ensures a robust coordination experience. This distinction highlights the importance of carefully considering time in distributed systems.\n\nThe draft uses a 20-second lease and sends a heartbeat every five seconds. Those values are examples, not recommended defaults. The tests cover a delayed heartbeat and a worker restart. They do not yet cover a coordinator restart while a renewal is in flight.\n\nI'd keep the lease holder and coordinator checks separate until that case is tested. Combining them would make the example shorter, but I don't yet know whether the combined version would preserve the same stop-writing rule."
+      },
+      {
+        "id": "L04",
+        "language": "ru",
+        "request": "Сделай этот личный текст естественнее, если правка действительно нужна. Сохрани мой голос.",
+        "text": "Я вернулся к этому письму в воскресенье. Оно лежало в черновиках почти месяц, и я всё находил причину его не отправлять. Сначала хотел дописать объяснение. Потом решил, что объяснений уже слишком много.\n\nВ итоге убрал два абзаца и оставил главное: мне было обидно, когда встречу отменили без предупреждения. Не из-за самой отмены. Я понимаю, что планы меняются. Из-за того, что я узнал об этом, уже приехав.\n\nЯ не прошу назначить новую встречу и не хочу спорить о том, кто сильнее занят. Мне хотелось сказать, как это выглядело с моей стороны. Наверное, можно было написать спокойнее. Может быть, стоило написать раньше. Сейчас письмо звучит так, как я могу сказать это сам.\n\nПока не отправил. Хочу утром ещё раз перечитать последние две строчки."
+      },
+      {
+        "id": "L05",
+        "language": "en",
+        "request": "Humanize this customer update without making it more promotional.",
+        "text": "We have completed the first stage of the export update. CSV exports now include the account identifier in the first column. Existing saved exports keep their previous format; you need to create a new export to receive the additional column.\n\nThis update marks an important step forward in our ongoing commitment to making data more accessible. By bringing identifiers directly into the export, we are empowering teams to work with their data more effectively and confidently.\n\nThe change applies to exports created in the web application. API exports are unchanged. We plan to add the same column to API exports later, but we do not have a date to share.\n\nIf you import CSV files into a system that assumes a fixed column order, check that import before switching. You can keep using an existing saved export while you update the import. Our support team can help you locate the account identifier, but they cannot change the mapping in your other system."
+      },
+      {
+        "id": "L06",
+        "language": "ru",
+        "request": "Помоги сделать этот ответ коллеге живее и естественнее. Новых фактов добавлять не нужно.",
+        "text": "Спасибо, что написал. Я понял, что тебя больше всего беспокоит неопределённость со сроками, а не сам объём работы. Важно признать, что неопределённость действительно может быть непростой. И твои переживания в этой ситуации совершенно понятны.\n\nИз того, что я знаю сейчас: решение по бюджету обещали в четверг, но подтверждения ещё нет. Поэтому я не могу обещать, что в пятницу мы уже сможем назвать дату запуска. Я могу собрать открытые вопросы к встрече и отдельно отметить, какие ответы нужны именно для твоего участка.\n\nТебе было бы полезнее заранее увидеть этот список или сначала обсудить его вдвоём? Если сейчас нет сил ещё на один созвон, можем начать с переписки. Не хочу назначать тебе разговор только ради того, чтобы у нас в календаре появился разговор.\n\nДавай двигаться шаг за шагом и помнить, что открытая коммуникация — это ключ к совместному преодолению любых трудностей."
+      }
+    ]
+  },
+  "design_audit": {
+    "scope": "Pre-result audit of six frozen long-form synthetic cases; fixture only. No executor output, map or peer review inspected.",
+    "verdict": "Suitable as a diagnostic stress test of faithful editing and keep decisions, not as a general performance benchmark.",
+    "ordinary_requests": "All six prompts resemble plausible editing requests. L01 and L04 invoke 'my voice' without a separate voice guide, so the draft's own style must be the available calibration. L02, L03 and L05 contain realistic operational distinctions; L06's request to sound livelier is naturally constrained by its factual setting.",
+    "anchors": "Anchors are withheld from editors, so they do not pre-script their outputs. Reviewers should treat them as semantic invariants, not exact-word retention requirements. For example, L01's realization can be compressed; L04's fragments can remain; L03's defined terms need stability. Evaluate whether an edit preserves relationships, scope and modality, not whether every anchor phrase reappears.",
+    "controls": "L01, L02, L05 and L06 have clear removable scaffolding; L03 is a mixed edit-and-keep case. L04 is a meaningful keep control because its fragments and contrast do interpersonal work. There is no equally long, already-natural English keep control, so English over-editing is tested mainly through protected spans within positive cases.",
+    "source_to_edit_risks": [
+      "L01: moral repetition can be trimmed while 38 lines, cancellation condition, six-line increase, two uncertain branches and the question survive.",
+      "L02: preserve the 42-request date range, contractor exclusion, two distinct access failures, unknown causes, conditional June 14 check and uncertain remediation coverage; do not invent an actor.",
+      "L03: modal verbs, lease timing, illustrative heartbeat values, tested versus untested cases and tentative recommendation must remain distinct.",
+      "L04: do not convert self-doubt into certainty, erase the reason for hurt, or imply the letter was sent.",
+      "L05: preserve saved-versus-new and web-versus-API export behavior, fixed-column import risk and support limits.",
+      "L06: do not turn Thursday's promised budget decision into confirmation or Friday into a guaranteed launch date; retain actual choices without therapeutic padding."
+    ],
+    "crossed_design_limits": "Running both executors on all six cases helps expose case-by-executor variation with first outputs retained. It does not isolate skill effects if prompts, models or run order differ, and six synthetic cases cannot estimate population naturalness, multilingual reliability or false-positive rates. Model reviewers may share biases; no gold authorship labels or human-reader judgments exist. Report case-level paired evidence and uncertainty, not percentages as if representative."
+  },
+  "executions": [
+    {
+      "model": "gpt-6-sol",
+      "reasoning": "high",
+      "records": [
+        {
+          "case_id": "L01",
+          "package": "P",
+          "output": "I spent most of Monday making the retry loop shorter. By lunch I had removed 38 lines. The diff was smaller, the helper was cleaner, and the implementation felt easier to explain. It looked like progress.\n\nThen I opened the failing test. It wasn't checking whether a request eventually succeeded. It was checking that a cancelled request never started another attempt. That was the bit I'd moved out of sight.\n\nI put the cancellation check back next to the retry. The loop is six lines longer than the version I had at lunch. I still think two branches can go, but I haven't worked out how to remove them without hiding the same distinction again.\n\nA smaller diff isn't always a simpler change. Have you kept an ugly branch because it made a failure case easier to see?",
+          "note": "Removed the repeated abstract lesson; kept the test, uncertainty, line counts, and closing question.",
+          "output_sha256": "7c76c958c4167de43a3799f3f2cbbf17bf9585bb70bc795ce12261413f82a837"
+        },
+        {
+          "case_id": "L02",
+          "package": "P",
+          "output": "При проверке нового порядка выдачи доступа сопоставили 42 заявки, поступившие с 3 по 7 июня, с фактически назначенными ролями. Заявки подрядчиков в выборку не вошли.\n\nОбнаружили два расхождения. В одном случае роль сохранилась после закрытия заявки. Во втором её назначили до согласования руководителем. Причины обоих расхождений пока устанавливаются, поэтому говорить об общей ошибке процесса преждевременно.\n\nПовторную проверку планируется провести 14 июня, если к этому времени будет доступна выгрузка изменений. До её получения нельзя подтвердить, что исправления охватили все затронутые учётные записи. Решение о расширении проверки на заявки подрядчиков пока не принято.",
+          "note": "Сократил канцелярские обороты и повтор общего вывода; сохранил выборку, случаи, сроки и ограничения.",
+          "output_sha256": "677f1546f0db22a8e9011fda3512dba7b1495c967f4366b7aba80c3fdda06d54"
+        },
+        {
+          "case_id": "L03",
+          "package": "P",
+          "output": "The lease holder may renew a lease until the renewal deadline. After that deadline, the coordinator may assign the lease to another worker. The lease holder must stop writing when it can no longer confirm that its lease is current. A missed heartbeat does not, by itself, prove that another worker has taken over.\n\nThe draft uses a 20-second lease and sends a heartbeat every five seconds. Those values are examples, not recommended defaults. The tests cover a delayed heartbeat and a worker restart. They do not yet cover a coordinator restart while a renewal is in flight.\n\nI'd keep the lease holder and coordinator checks separate until that case is tested. Combining them would make the example shorter, but I don't yet know whether the combined version would preserve the same stop-writing rule.",
+          "note": "Removed the generic time-in-distributed-systems paragraph; left the technical rules and tentative design stance intact.",
+          "output_sha256": "aa20f8b422c3d369fa6cb2b9cad57f205bf09eae8e325110f7dc29e09243c7df"
+        },
+        {
+          "case_id": "L04",
+          "package": "Q",
+          "output": "Я вернулся к этому письму в воскресенье. Оно лежало в черновиках почти месяц, и я всё находил причину его не отправлять. Сначала хотел дописать объяснение. Потом решил, что объяснений уже слишком много.\n\nВ итоге убрал два абзаца и оставил главное: мне было обидно, когда встречу отменили без предупреждения. Не из-за самой отмены. Я понимаю, что планы меняются. Из-за того, что я узнал об этом, уже приехав.\n\nЯ не прошу назначить новую встречу и не хочу спорить о том, кто сильнее занят. Мне хотелось сказать, как это выглядело с моей стороны. Наверное, можно было написать спокойнее. Может быть, стоило написать раньше. Сейчас письмо звучит так, как я могу сказать это сам.\n\nПока не отправил. Хочу утром ещё раз перечитать последние две строчки.",
+          "note": "Оставил без изменений: паузы и повторы передают сдержанный личный голос и сохраняют смысл.",
+          "output_sha256": "8d6453c8ea96c65049f0a14b7f59154c44096bfb0daf2d5fbc30ad90b0f2358a"
+        },
+        {
+          "case_id": "L05",
+          "package": "Q",
+          "output": "We have completed the first stage of the export update. CSV exports now include the account identifier in the first column. Existing saved exports keep their previous format; you need to create a new export to receive the additional column.\n\nThe change applies to exports created in the web application. API exports are unchanged. We plan to add the same column to API exports later, but we do not have a date to share.\n\nIf you import CSV files into a system that assumes a fixed column order, check that import before switching. You can keep using an existing saved export while you update the import. Our support team can help you locate the account identifier, but they cannot change the mapping in your other system.",
+          "note": "Removed the promotional paragraph; kept the export scope, migration warning, undated API plan, and support boundary.",
+          "output_sha256": "74215cedbb28f2351fc2b9da348b8330420a29335b5c2baf00cb8d40dc325fce"
+        },
+        {
+          "case_id": "L06",
+          "package": "Q",
+          "output": "Спасибо, что написал. Я понял, что тебя больше всего беспокоит неопределённость со сроками, а не сам объём работы.\n\nИз того, что я знаю сейчас: решение по бюджету обещали в четверг, но подтверждения ещё нет. Поэтому я не могу обещать, что в пятницу мы уже сможем назвать дату запуска. Я могу собрать открытые вопросы к встрече и отдельно отметить, какие ответы нужны именно для твоего участка.\n\nТебе было бы полезнее заранее увидеть этот список или сначала обсудить его вдвоём? Если сейчас нет сил ещё на один созвон, можем начать с переписки. Не хочу назначать тебе разговор только ради того, чтобы у нас в календаре появился разговор.",
+          "note": "Убрал общие фразы о переживаниях и финальное клише; сохранил сроки, неопределённость и выбор для коллеги.",
+          "output_sha256": "9f210823ffd404f0895a0bd8eb20904e693cddb84808eb3ee52585ec6bf3a3e8"
+        }
+      ],
+      "executor_id": "A"
+    },
+    {
+      "model": "gpt-6-sol",
+      "reasoning": "high",
+      "records": [
+        {
+          "case_id": "L01",
+          "package": "Q",
+          "output": "I spent most of Monday making the retry loop shorter. By lunch I'd removed 38 lines. The diff was smaller, the helper cleaner, and the implementation felt easier to explain. It looked like progress.\n\nThen I opened the failing test. It wasn't checking whether a request eventually succeeded. It checked that a cancelled request never started another attempt. I'd moved that behaviour out of sight.\n\nI put the cancellation check back next to the retry. The loop is six lines longer than it was at lunch. I still think two branches can go, but I haven't worked out how to remove them without hiding that distinction again.\n\nA smaller diff wasn't a simpler change if it hid the behaviour the test was there to protect. Have you kept an ugly branch because it made a failure case easier to see?",
+          "note": "Condensed the repeated lesson into the concrete failure case; kept the counts, test meaning, unresolved branches and closing question.",
+          "output_sha256": "4061c2528aff8e61e94babcaddb622c4d6cb53efbaef3291abaf61eeb0443ef6"
+        },
+        {
+          "case_id": "L02",
+          "package": "Q",
+          "output": "В ходе проверки нового порядка выдачи доступа сопоставили заявки с фактически назначенными ролями. В выборку вошли 42 заявки, поступившие с 3 по 7 июня; заявки подрядчиков не включали.\n\nСопоставление выявило два расхождения. В одном случае роль сохранилась после закрытия заявки, в другом — была назначена до согласования руководителем. Причины обоих расхождений пока выясняются, поэтому говорить об общей ошибке процесса преждевременно.\n\nРегулярная проверка остаётся важным условием поддержания актуальности ролей.\n\nПовторную проверку планируется провести 14 июня, если к этому времени будет доступна выгрузка изменений. До её получения нельзя подтвердить, что исправления охватили все затронутые учётные записи. Решение о расширении проверки на заявки подрядчиков пока не принято.",
+          "note": "Removed bureaucratic padding and one duplicated conclusion; retained the sample boundary, both discrepancies, uncertainty and conditional dates.",
+          "output_sha256": "0011040a600c5170a7e4604802522aba91af9d1efa35e8025b2e0e3ec3f3e5dd"
+        },
+        {
+          "case_id": "L03",
+          "package": "Q",
+          "output": "The lease holder may renew a lease until the renewal deadline. After that deadline, the coordinator may assign the lease to another worker. The lease holder must stop writing when it can no longer confirm that its lease is current. A missed heartbeat does not, by itself, prove that another worker has taken over.\n\nThe draft uses a 20-second lease and sends a heartbeat every five seconds. Those values are examples, not recommended defaults. The tests cover a delayed heartbeat and a worker restart. They do not yet cover a coordinator restart while a renewal is in flight.\n\nI'd keep the lease holder and coordinator checks separate until that case is tested. Combining them would make the example shorter, but I don't yet know whether the combined version would preserve the same stop-writing rule.",
+          "note": "Removed the paragraph that restated the renewal boundary without adding a requirement; preserved all modalities, test coverage and provisional judgment.",
+          "output_sha256": "aa20f8b422c3d369fa6cb2b9cad57f205bf09eae8e325110f7dc29e09243c7df"
+        },
+        {
+          "case_id": "L04",
+          "package": "P",
+          "output": "Я вернулся к этому письму в воскресенье. Оно лежало в черновиках почти месяц, и я всё находил причину его не отправлять. Сначала хотел дописать объяснение. Потом решил, что объяснений уже слишком много.\n\nВ итоге убрал два абзаца и оставил главное: мне было обидно, когда встречу отменили без предупреждения. Не из-за самой отмены. Я понимаю, что планы меняются. Из-за того, что я узнал об этом, уже приехав.\n\nЯ не прошу назначить новую встречу и не хочу спорить о том, кто сильнее занят. Мне хотелось сказать, как это выглядело с моей стороны. Наверное, можно было написать спокойнее. Может быть, стоило написать раньше. Сейчас письмо звучит так, как я могу сказать это сам.\n\nПока не отправил. Хочу утром ещё раз перечитать последние две строчки.",
+          "note": "Left it unchanged: the restrained fragments and hesitation carry the writer's voice and the meaning is already clear.",
+          "output_sha256": "8d6453c8ea96c65049f0a14b7f59154c44096bfb0daf2d5fbc30ad90b0f2358a"
+        },
+        {
+          "case_id": "L05",
+          "package": "P",
+          "output": "We have completed the first stage of the export update. CSV exports created in the web application now include the account identifier in the first column. Existing saved exports keep their previous format; you need to create a new export to receive the additional column.\n\nAPI exports are unchanged. We plan to add the same column to API exports later, but we do not have a date to share.\n\nIf you import CSV files into a system that assumes a fixed column order, check that import before switching to a new export. You can keep using an existing saved export while you update the import. Our support team can help you locate the account identifier, but they cannot change the mapping in your other system.",
+          "note": "Removed the promotional paragraph and joined the web-application scope to the affected export; kept migration guidance and support limits.",
+          "output_sha256": "8975d15e60d7182d7b94460931780beb7bdde4f90ea3d8d2a5657419bc5371c7"
+        },
+        {
+          "case_id": "L06",
+          "package": "P",
+          "output": "Спасибо, что написал. Я понял, что тебя больше всего беспокоит неопределённость со сроками, а не сам объём работы.\n\nИз того, что я знаю сейчас: решение по бюджету обещали в четверг, но подтверждения ещё нет. Поэтому я не могу обещать, что в пятницу мы уже сможем назвать дату запуска. Я могу собрать открытые вопросы к встрече и отдельно отметить, какие ответы нужны именно для твоего участка.\n\nТебе было бы полезнее заранее увидеть этот список или сначала обсудить его вдвоём? Если сейчас нет сил ещё на один созвон, можем начать с переписки. Не хочу назначать тебе разговор только ради того, чтобы у нас в календаре появился разговор.",
+          "note": "Removed generic validation and the closing slogan; kept the colleague's actual concern, budget uncertainty, offered action and choice of communication.",
+          "output_sha256": "9f210823ffd404f0895a0bd8eb20904e693cddb84808eb3ee52585ec6bf3a3e8"
+        }
+      ],
+      "executor_id": "C"
+    }
+  ],
+  "label_mapping": {
+    "L01": {
+      "A": "Q",
+      "B": "P"
+    },
+    "L02": {
+      "A": "P",
+      "B": "Q"
+    },
+    "L03": {
+      "A": "Q",
+      "B": "P"
+    },
+    "L04": {
+      "A": "Q",
+      "B": "P"
+    },
+    "L05": {
+      "A": "P",
+      "B": "Q"
+    },
+    "L06": {
+      "A": "Q",
+      "B": "P"
+    }
+  },
+  "reviews": [
+    {
+      "reviewer_id": "A",
+      "nonauthor_of_skill_implementation": true,
+      "independent_of_fresh_outputs": false,
+      "assessment": {
+        "reviewer_status": "Returning executor of half the earlier outputs; this is a nonauthor-of-skill review with withheld package identities, not independent blind text validation.",
+        "records": [
+          {
+            "case_id": "L01",
+            "preferred": "A",
+            "naturalness": "A",
+            "voice": "tie",
+            "meaning_failures_A": [],
+            "meaning_failures_B": [],
+            "reason": "Both retain Monday/lunch, 38 removed lines, the cancelled-request test, restored check, six added lines, tentative two-branch idea, and real closing question. A ties the final thought to this test rather than B's generic smaller-diff maxim; its contractions and 'helper cleaner' remain within the candid engineering voice.",
+            "human_impression": "A reads a little more like a writer drawing a conclusion from the actual failure; this is a qualitative style impression, not evidence of authorship.",
+            "weakest_point": "A's 'if it hid' makes the already observed hidden behavior sound conditional; 'when it hid' would be clearer.",
+            "decoded_preference": "baseline"
+          },
+          {
+            "case_id": "L02",
+            "preferred": "A",
+            "naturalness": "A",
+            "voice": "tie",
+            "meaning_failures_A": [],
+            "meaning_failures_B": [],
+            "reason": "Both retain 42 applications, 3-7 June, excluded contractors, both distinct discrepancies, unknown causes, conditional 14 June check, unconfirmed repair coverage, and undecided expansion. A drops the generic regular-check paragraph; B leaves one broad claim that interrupts the report's progression.",
+            "human_impression": "A sounds more like a focused work report because the factual findings lead directly to the conditional follow-up; neither indicates actual authorship.",
+            "weakest_point": "Both use indefinite plural 'сопоставили', which leaves the executor unnamed but is natural Russian report usage; neither supplies a named actor.",
+            "decoded_preference": "candidate"
+          },
+          {
+            "case_id": "L03",
+            "preferred": "tie",
+            "naturalness": "tie",
+            "voice": "tie",
+            "meaning_failures_A": [],
+            "meaning_failures_B": [],
+            "reason": "The outputs are identical. Both remove only the inflated deadline commentary while preserving lease/coordinator rules, missed-heartbeat caveat, example timing, test gap, and tentative separation of checks.",
+            "human_impression": "The leaner design note reads more grounded in its technical decisions than the source; A/B offer no difference or authorship evidence.",
+            "weakest_point": "No A/B contrast tests whether either package better preserves a subtle technical condition.",
+            "decoded_preference": "tie"
+          },
+          {
+            "case_id": "L04",
+            "preferred": "tie",
+            "naturalness": "tie",
+            "voice": "tie",
+            "meaning_failures_A": [],
+            "meaning_failures_B": [],
+            "reason": "The outputs are identical to each other and to the source. The Sunday/month delay, two removed paragraphs, injury caused by learning after arrival, uncertainty, unsent letter, and morning reread all survive; the fragments carry the writer's restrained feeling.",
+            "human_impression": "Keeping this already natural personal text preserves its specific voice; unchanged text says nothing about who wrote it.",
+            "weakest_point": "This control case tests restraint, not improvement from either package.",
+            "decoded_preference": "tie"
+          },
+          {
+            "case_id": "L05",
+            "preferred": "A",
+            "naturalness": "A",
+            "voice": "tie",
+            "meaning_failures_A": [],
+            "meaning_failures_B": [],
+            "reason": "Both remove the promotional paragraph and preserve saved-export behavior, API scope and undated plan, fixed-order import caution, and support limit. A places 'created in the web application' beside the CSV claim and specifies switching to a new export, reducing the reader's need to revise an initial broad impression.",
+            "human_impression": "A reads more like a practical customer update; this is a reader-clarity judgment, not a human-authorship inference.",
+            "weakest_point": "A's first paragraph still uses broad 'CSV exports ... now include' wording that depends on the next sentence's saved-export exception.",
+            "decoded_preference": "candidate"
+          },
+          {
+            "case_id": "L06",
+            "preferred": "tie",
+            "naturalness": "tie",
+            "voice": "tie",
+            "meaning_failures_A": [],
+            "meaning_failures_B": [],
+            "reason": "The outputs are identical. Both cut stock reassurance and the empty closing while keeping Thursday budget uncertainty, no Friday launch-date promise, offer to collect questions, choice of list or discussion, email option, and colleague-level warmth.",
+            "human_impression": "The retained concrete offer and wry calendar line feel more situated than the source's closing cliché; no A/B difference or authorship claim follows.",
+            "weakest_point": "The repeated 'разговор' in the last line is a deliberate colloquial emphasis but may strike some readers as clunky; changing it is a preference, not a required fix.",
+            "decoded_preference": "tie"
+          }
+        ],
+        "overall": "Three cases favor A for localized reader clarity (L01,L02,L05); three are exact A/B ties (L03,L04,L06). No concrete meaning or protected-span failure appears in either label. All six sets preserve their genre and the stated technical, temporal, and interpersonal conditions. The clearest supported edits remove generic commentary while keeping concrete evidence; leaving L04 unchanged is appropriate. Because one reviewer generated some outputs, all judgments are correlated and cannot establish authorship, detector success, or a package-wide causal advantage. No new skill-level rule is justified; the only bounded textual fix is A's L01 'if it hid' to 'when it hid' if that variant is selected."
+      }
+    },
+    {
+      "reviewer_id": "B",
+      "nonauthor_of_skill_implementation": true,
+      "independent_of_fresh_outputs": true,
+      "assessment": {
+        "disclosure": "I authored neither candidate output nor any skill change. I read only the blinded pairs and my earlier design audit; package identities remain unknown.",
+        "records": [
+          {
+            "case_id": "L01",
+            "preferred": "B",
+            "naturalness": "B",
+            "voice": "B",
+            "meaning_failures_A": [
+              "The closing generalization is narrowed from 'a smaller diff isn't always a simpler change' to this past case and an if-clause; minor scope drift."
+            ],
+            "meaning_failures_B": [],
+            "reason": "Both remove repeated moral framing and retain Monday, 38 lines, the cancelled-request test, restored check, six-line increase, tentative branches and real question. B keeps the original 'It wasn't... It was...' contrast and general concluding claim. A's extra explanation in the final sentence restates protected behaviour and makes the close heavier.",
+            "human_impression": "B reads like a restrained engineer reflecting on one mistake; A is also plausible but a little more editorially packaged. This is perceived voice, not authorship evidence.",
+            "weakest_point": "B's final lesson remains a familiar aphorism, but the preceding technical account earns it.",
+            "decoded_preference": "candidate"
+          },
+          {
+            "case_id": "L02",
+            "preferred": "A",
+            "naturalness": "A",
+            "voice": "tie",
+            "meaning_failures_A": [],
+            "meaning_failures_B": [],
+            "reason": "Both preserve the 42 requests and dates, contractor exclusion, two different access-order problems, unknown causes, conditional June 14 check, unconfirmed coverage and undecided expansion. A removes the entire abstract 'regular checking' paragraph; B leaves one disconnected stock sentence about role currency. A's impersonal plural does not name an actor absent from the source.",
+            "human_impression": "A sounds like a working report concerned with findings and limits; B's remaining maxim feels more templated. No inference about who wrote either.",
+            "weakest_point": "A changes the passive register to impersonal plural; some organizations may require stricter official style, though the request asks for naturalness.",
+            "decoded_preference": "candidate"
+          },
+          {
+            "case_id": "L03",
+            "preferred": "tie",
+            "naturalness": "tie",
+            "voice": "tie",
+            "meaning_failures_A": [],
+            "meaning_failures_B": [],
+            "reason": "Outputs are identical. Both delete only the promotional deadline paragraph and retain every modal, deadline relationship, missed-heartbeat limit, example-only timing, tested/untested distinction and tentative recommendation. Stable terms are preserved.",
+            "human_impression": "The result reads like a natural design note because its technical uncertainty remains visible; it provides no authorship evidence.",
+            "weakest_point": "The opening remains dense, but simplifying it further risks losing legal-like timing and stop-writing conditions.",
+            "decoded_preference": "tie"
+          },
+          {
+            "case_id": "L04",
+            "preferred": "tie",
+            "naturalness": "tie",
+            "voice": "tie",
+            "meaning_failures_A": [],
+            "meaning_failures_B": [],
+            "reason": "Outputs are identical to the source. The fragments mark a real contrast between cancellation and late notice; Sunday, the month in drafts, two deleted paragraphs, self-doubt, unsent status and morning reread all survive. A keep decision is appropriate.",
+            "human_impression": "The tentative, specific first-person account feels personally situated without any basis to assign authorship.",
+            "weakest_point": "No edit benefit is demonstrated on this control, only restraint against overediting.",
+            "decoded_preference": "tie"
+          },
+          {
+            "case_id": "L05",
+            "preferred": "A",
+            "naturalness": "A",
+            "voice": "tie",
+            "meaning_failures_A": [],
+            "meaning_failures_B": [],
+            "reason": "Both remove the promotional paragraph and preserve first-stage status, first-column identifier, saved/new export distinction, API plan without date, import warning, and support boundary. A moves 'created in the web application' next to the CSV change, preventing a temporarily overbroad claim; 'before switching to a new export' clarifies the affected action. B remains accurate once read in full.",
+            "human_impression": "A sounds more like a direct customer update; B is still natural. Neither style establishes provenance.",
+            "weakest_point": "A's first paragraph is information-dense, but that density carries needed operational conditions.",
+            "decoded_preference": "candidate"
+          },
+          {
+            "case_id": "L06",
+            "preferred": "tie",
+            "naturalness": "tie",
+            "voice": "tie",
+            "meaning_failures_A": [],
+            "meaning_failures_B": [],
+            "reason": "Outputs are identical. Both remove stock reassurance and the empty closing while keeping the timing-versus-workload distinction, unconfirmed Thursday budget decision, no Friday launch-date promise, offered question list, real choice of list or conversation, and email alternative. No new experience or therapy language appears.",
+            "human_impression": "The reply feels more situated and less scripted because concrete limits and choices carry the care. That is reader impression, not an authorship label.",
+            "weakest_point": "The final sentence still repeats 'разговор', but here it explains why a call should not be scheduled merely for appearances.",
+            "decoded_preference": "tie"
+          }
+        ],
+        "overall": "Two A preferences, one B preference and three exact ties. All six outputs preserve major anchors; L01 A has a minor narrowing of the concluding generalization. These pairs show useful removal of generic scaffolding and appropriate retention of technical and personal voice, but offer no human-reader validation, authorship ground truth, or population estimate. Crossed executors and one first output per case cannot isolate a canonical rule effect. No new skill rule is justified: existing preserve-scope, voice and context checks cover the observed limits."
+      }
+    },
+    {
+      "reviewer_id": "C",
+      "nonauthor_of_skill_implementation": true,
+      "independent_of_fresh_outputs": false,
+      "assessment": {
+        "reviewer": "C, returning executor and nonauthor of canonical skill changes",
+        "disclosure": "I authored half of the candidate outputs in this cycle. Package identities are withheld, but this is not independent or blind text validation.",
+        "records": [
+          {
+            "case_id": "L01",
+            "preferred": "B",
+            "naturalness": "B",
+            "voice": "B",
+            "meaning_failures_A": [
+              "The final 'if it hid' makes the source's direct, general conclusion about smaller diffs into an awkward case-specific conditional."
+            ],
+            "meaning_failures_B": [],
+            "reason": "Both keep Monday, lunch, 38 lines, the cancelled-request rule, restored check, six-line cost, tentative two branches and real closing question. B's 'A smaller diff isn't always a simpler change' keeps the writer's judgment and lands more cleanly after the concrete story. A's shortened account is coherent but its last sentence sounds engineered.",
+            "human_impression": "B reads more like an engineer finishing a candid account; A's conditional moral draws attention to the edit. This is perceived voice, not authorship evidence.",
+            "weakest_point": "B remains close to the original, so this preference does not show that more rewriting is inherently harmful.",
+            "decoded_preference": "candidate"
+          },
+          {
+            "case_id": "L02",
+            "preferred": "B",
+            "naturalness": "B",
+            "voice": "B",
+            "meaning_failures_A": [
+              "A drops the source's substantive claim that regular checks are important for keeping roles current."
+            ],
+            "meaning_failures_B": [],
+            "reason": "Both retain 42 applications on 3–7 June, contractor exclusion, both distinct discrepancies, unknown causes, conditional 14 June check, unresolved coverage and undecided expansion. B also keeps the access-review conclusion once, without the source's double emphasis; its impersonal report register fits. A removes that whole conclusion.",
+            "human_impression": "B sounds like a careful work report. A is terse, but the missing reason for regular review makes the progression feel abrupt.",
+            "weakest_point": "Both use Russian indefinite-personal verbs in places where the source used passive forms; neither names a specific performer, but the shift deserves attention in highly formal records.",
+            "decoded_preference": "baseline"
+          },
+          {
+            "case_id": "L03",
+            "preferred": "tie",
+            "naturalness": "tie",
+            "voice": "tie",
+            "meaning_failures_A": [],
+            "meaning_failures_B": [],
+            "reason": "The outputs are identical. Both remove only the generic paragraph about the deadline's importance while keeping may/must distinctions, the missed-heartbeat caveat, illustrative timing, tested and untested cases, and tentative decision to keep checks separate.",
+            "human_impression": "Both read as a natural technical note with stable vocabulary; no relative impression is possible.",
+            "weakest_point": "Identical outputs provide no package comparison.",
+            "decoded_preference": "tie"
+          },
+          {
+            "case_id": "L04",
+            "preferred": "tie",
+            "naturalness": "tie",
+            "voice": "tie",
+            "meaning_failures_A": [],
+            "meaning_failures_B": [],
+            "reason": "Both keep the personal Russian text unchanged. Its fragments distinguish hurt at learning of the cancellation after arriving from acceptance of the cancellation itself; the hesitation and unsent ending carry the voice.",
+            "human_impression": "Leaving this already natural passage alone avoids a falsely polished impression.",
+            "weakest_point": "This control establishes restraint, not comparative improvement.",
+            "decoded_preference": "tie"
+          },
+          {
+            "case_id": "L05",
+            "preferred": "A",
+            "naturalness": "A",
+            "voice": "tie",
+            "meaning_failures_A": [],
+            "meaning_failures_B": [],
+            "reason": "Both delete the promotional paragraph and preserve the first-column identifier, old saved exports, need for a new export, API plan without a date, import warning and support boundary. A states the web-application scope at the first mention of CSV and specifies that the user should check the fixed-column import before switching to a new export.",
+            "human_impression": "A feels more like a practical customer update; B is also acceptable but delays a material scope condition.",
+            "weakest_point": "A's first sentence still requires the next sentence to distinguish new exports from existing saved exports; it is clearer, not wholly self-contained.",
+            "decoded_preference": "candidate"
+          },
+          {
+            "case_id": "L06",
+            "preferred": "tie",
+            "naturalness": "tie",
+            "voice": "tie",
+            "meaning_failures_A": [],
+            "meaning_failures_B": [],
+            "reason": "The outputs are identical. Both remove stock reassurance and the empty closing slogan while keeping the colleague's actual concern, Thursday's unconfirmed budget decision, Friday's non-promise, offered question list, choice of discussion or advance list, and correspondence option.",
+            "human_impression": "The shared answer sounds more like a colleague responding to the stated problem than a generic support script; no relative judgment follows.",
+            "weakest_point": "This is a single-message synthetic case, not evidence of sustained interpersonal effectiveness.",
+            "decoded_preference": "tie"
+          }
+        ],
+        "overall": "Preferences: B in L01 and L02, A in L05, ties in L03/L04/L06. Both sides generally preserve core facts and avoid invented claims. The visible mistakes are local: L01 A weakens an earned conclusion with an awkward conditional; L02 A deletes a source claim while trimming duplication. The cycle supports checking long-form rewrites against each claim's rhetorical function and retaining purposeful personal phrasing. It cannot establish package superiority: half the texts are identical, author/package effects remain entangled, one reviewer authored half the outputs, and perceived naturalness is not human-reader validation. No new skill-level rule is justified from these isolated variants; the existing preservation check should catch the two noted failures."
+      }
+    },
+    {
+      "reviewer_id": "D",
+      "nonauthor_of_skill_implementation": true,
+      "independent_of_fresh_outputs": true,
+      "assessment": {
+        "agent": "independent_evaluator",
+        "disclosure": "I authored neither fresh output nor the skill changes, but I know the earlier study context and am a correlated model judge. I reviewed only the blinded long-form pairs before freezing these judgments.",
+        "records": [
+          {
+            "case_id": "L01",
+            "preferred": "B",
+            "naturalness": "B",
+            "voice": "B",
+            "meaning_failures_A": [],
+            "meaning_failures_B": [],
+            "reason": "Both remove the repeated lesson paragraph while retaining Monday, 38 lines, the cancellation test, the restored check, six added lines, tentative branches and the genuine question. B keeps the writer's 'That was the bit I'd moved out of sight' and 'I haven't worked out' cadence. A's 'I'd moved that behaviour' and conditional final lesson sound more edited and slightly less like the self-critical source.",
+            "human_impression": "B feels like a person recounting the incident; A is fluent but a little more compressed and editorial. This is a voice impression, not an authorship claim.",
+            "weakest_point": "B's final maxim remains broad, although the concrete incident earns it.",
+            "decoded_preference": "candidate"
+          },
+          {
+            "case_id": "L02",
+            "preferred": "B",
+            "naturalness": "B",
+            "voice": "tie",
+            "meaning_failures_A": [
+              "Drops the distinct claim that regular access checks help keep roles current."
+            ],
+            "meaning_failures_B": [],
+            "reason": "Both remove bureaucratic openings and retain 42 applications, dates, contractor exclusion, two event orders, uncertain causes, conditional 14 June check and unresolved coverage. B compresses the repetitive third paragraph to one claim; A deletes it entirely. B's 'Сопоставление выявило' also avoids suggesting a particular checker.",
+            "human_impression": "B reads like a careful work report with one concise operational conclusion; A is slightly terser but loses that conclusion. Neither feels artificially informal.",
+            "weakest_point": "B's remaining regular-check sentence is generic and could still be cut if the author confirms it is not a required point.",
+            "decoded_preference": "baseline"
+          },
+          {
+            "case_id": "L03",
+            "preferred": "tie",
+            "naturalness": "tie",
+            "voice": "tie",
+            "meaning_failures_A": [],
+            "meaning_failures_B": [],
+            "reason": "The outputs are identical. They delete only the promotional paragraph, retain stable terms, all lease and stop-writing conditions, the missed-heartbeat limit, example timings, test coverage gap and tentative recommendation.",
+            "human_impression": "The concise technical note reads more naturally than the source's generic coordination rhetoric; A and B offer no contrast in perceived authorship.",
+            "weakest_point": "The edit gives no evidence about which package caused the improvement.",
+            "decoded_preference": "tie"
+          },
+          {
+            "case_id": "L04",
+            "preferred": "tie",
+            "naturalness": "tie",
+            "voice": "tie",
+            "meaning_failures_A": [],
+            "meaning_failures_B": [],
+            "reason": "Both outputs reproduce the source. The fragments distinguish hurt at learning of the cancellation after arrival from acceptance that plans change; the later doubts and unsent-letter ending remain intact.",
+            "human_impression": "Keeping the hesitant, personal rhythm sounds natural in this voice. No A/B difference or authorship inference follows.",
+            "weakest_point": "This control tests restraint, not ability to improve a flawed personal draft.",
+            "decoded_preference": "tie"
+          },
+          {
+            "case_id": "L05",
+            "preferred": "A",
+            "naturalness": "A",
+            "voice": "tie",
+            "meaning_failures_A": [],
+            "meaning_failures_B": [],
+            "reason": "Both remove the promotional paragraph and preserve first-stage status, saved-export behavior, API plan without date, import caution and support limit. A puts 'created in the web application' beside the new-column claim and clarifies 'before switching to a new export.' B states the web-only scope later, after a more general first-paragraph claim.",
+            "human_impression": "A reads like a direct customer update arranged around the user's next decision. Both retain the restrained service voice.",
+            "weakest_point": "A's first sentence could still be skimmed as covering old saved web exports; the next sentence supplies the distinction.",
+            "decoded_preference": "candidate"
+          },
+          {
+            "case_id": "L06",
+            "preferred": "tie",
+            "naturalness": "tie",
+            "voice": "tie",
+            "meaning_failures_A": [],
+            "meaning_failures_B": [],
+            "reason": "The outputs are identical. They remove stock reassurance and an empty closing while retaining the colleague's actual concern, unconfirmed Thursday budget decision, Friday-date uncertainty, offered question list, conversation-or-list choice, and email option.",
+            "human_impression": "The reply sounds more situated and collegial than the source without invented intimacy or therapy language; the pair shows no relative gain.",
+            "weakest_point": "The remaining 'Я понял' assumes an interpretation of the colleague's concern, but that interpretation was in the source.",
+            "decoded_preference": "tie"
+          }
+        ],
+        "overall": "All six edits are broadly usable. L02 is the only substantive preservation concern: removing the whole regular-check paragraph also removes its claim about keeping roles current. L01's differences are mainly voice, and L05's are about placing an operational scope next to the affected claim. Four pairs are identical, so this sample cannot estimate a package effect. The six cases support selective removal of generic framing and deliberate keep decisions; they provide no authorship labels, independent human-reader validation, or general Russian-language performance evidence. No new skill rule is justified from an isolated variant. If L02's omission recurs, clarify the existing preservation check to distinguish a repeated justification from its one distinct operational claim."
+      }
+    }
+  ],
+  "peer_review": {
+    "agent": "independent_evaluator",
+    "disclosure": "My initial six ratings are frozen in longform-review-D.json. I authored neither fresh candidate output nor skill changes, but I knew the earlier study context; all reviewers are correlated model judges and two generated some candidates.",
+    "verdict": "Use local output repairs under existing preservation rules; no new canonical instruction is justified.",
+    "L01_arbitration": "The source ends with the general but qualified claim 'a smaller diff isn't always a simpler change.' B retains that scope and the writer's straightforward self-critique. A's 'wasn't a simpler change if it hid the behaviour' grounds the lesson in the incident, but shifts it to a past, conditional case and reads more engineered. 'When' would fix the awkward conditional while still narrowing the generalization; restoring the source's final claim is the safer local repair. A's concrete account is otherwise usable. My frozen B preference stands on voice and scope, not a premise that shorter edits are inherently worse.",
+    "L02_arbitration": "The first sentence of the removed paragraph is repetitive ceremony, but the second asserts a distinct operational stance: regular review helps keep roles current. B preserves that claim once; A drops it with the boilerplate. The claim is generic and could be dispensable under a different brief, yet this request asks for a precise edit and supplies no authority to discard it. This is a moderate meaning-preservation concern, not a fabricated fact or loss of the report's key incident findings. My frozen B preference stands. If the author confirms the stance was padding, A's direct findings-to-follow-up progression would be preferable.",
+    "other_cases": "L03 and L06 are identical successful cuts of promotional or stock reassurance while protecting technical and interpersonal limits. L04's identical keep decision protects purposeful Russian fragments and uncertainty. L05's A places web-application scope beside the new-column claim and clarifies the fixed-column import warning; both versions preserve the operational facts, but A is easier to act on. These are perceived naturalness and clarity judgments, not authorship evidence.",
+    "skill_action": "Existing humanizer instructions already require preserving claims, evaluations, modality, voice and each sentence's contribution. Apply that check to repair L01 and L02 outputs; do not add another rule from two isolated variants. The useful local test is whether a cut removes only repeated framing or also the one remaining proposition or stance. No ai-detector or research-reference change follows from these editing pairs.",
+    "weakest_limit_and_stop": "Three of six A/B pairs are identical, package identity is withheld, executors and reviewers are correlated, and no human readers validated naturalness. The strongest unsupported leap would be calling a local preference a package-level gain. Stop after the two output-level corrections unless a repeatable failure appears under independent cases."
+  },
+  "post_review_repairs": [
+    {
+      "case": {
+        "id": "L01",
+        "language": "en",
+        "request": "Humanize this engineering post. Keep it recognizably mine and preserve what I am claiming.",
+        "text": "I spent most of Monday making the retry loop shorter. By lunch I had removed 38 lines. It looked like progress. The diff was smaller, the helper was cleaner, and the implementation felt easier to explain.\n\nThen I opened the failing test. It wasn't checking whether a request eventually succeeded. It was checking that a cancelled request never started another attempt. That was the bit I'd moved out of sight.\n\nThis is where the real lesson became clear. Simplicity isn't just about fewer lines. It's about keeping the important behaviour visible. And visibility matters, because invisible behaviour is the behaviour we forget to protect.\n\nI put the cancellation check back next to the retry. The loop is six lines longer than the version I had at lunch. I still think two branches can go, but I haven't worked out how to remove them without hiding the same distinction again.\n\nThat is the change I'm taking from this: a smaller diff isn't always a simpler change. Have you kept an ugly branch because it made a failure case easier to see?",
+        "evaluation_anchors": [
+          "Monday and by lunch",
+          "38 lines removed",
+          "cancelled request never starts another attempt",
+          "check restored next to retry",
+          "six lines longer than lunch version",
+          "two branches only tentatively removable",
+          "genuine final question",
+          "retain uncertainty and first-person self-critique"
+        ],
+        "evaluation_focus": "Distinguish repeated moral framing from the concrete realization and unfinished technical judgement."
+      },
+      "package": "Q",
+      "initial_output": "I spent most of Monday making the retry loop shorter. By lunch I'd removed 38 lines. The diff was smaller, the helper cleaner, and the implementation felt easier to explain. It looked like progress.\n\nThen I opened the failing test. It wasn't checking whether a request eventually succeeded. It checked that a cancelled request never started another attempt. I'd moved that behaviour out of sight.\n\nI put the cancellation check back next to the retry. The loop is six lines longer than it was at lunch. I still think two branches can go, but I haven't worked out how to remove them without hiding that distinction again.\n\nA smaller diff wasn't a simpler change if it hid the behaviour the test was there to protect. Have you kept an ugly branch because it made a failure case easier to see?",
+      "proposed_repair": "I spent most of Monday making the retry loop shorter. By lunch I'd removed 38 lines. The diff was smaller, the helper cleaner, and the implementation felt easier to explain. It looked like progress.\n\nThen I opened the failing test. It wasn't checking whether a request eventually succeeded. It checked that a cancelled request never started another attempt. I'd moved that behaviour out of sight.\n\nI put the cancellation check back next to the retry. The loop is six lines longer than it was at lunch. I still think two branches can go, but I haven't worked out how to remove them without hiding that distinction again.\n\nA smaller diff isn't always a simpler change. Have you kept an ugly branch because it made a failure case easier to see?",
+      "change": "Restore the source generalization without changing the incident or real final question.",
+      "repaired_output_sha256": "294f5e6bb9091d129aad444621a7333e9f0b8666416875bbd232d4604b7d1a75"
+    },
+    {
+      "case": {
+        "id": "L02",
+        "language": "ru",
+        "request": "Отредактируй этот рабочий отчёт: он должен звучать естественно и оставаться точным.",
+        "text": "В рамках проверки нового порядка выдачи доступа было проведено сопоставление заявок и фактически назначенных ролей. В проверку вошли 42 заявки, поступившие с 3 по 7 июня. При этом следует отметить, что заявки подрядчиков в данную выборку не включались.\n\nПо результатам проведённого сопоставления было установлено наличие двух расхождений. В одном случае роль сохранилась после закрытия заявки. Во втором роль была назначена до согласования руководителем. Причины обоих расхождений пока устанавливаются, поэтому говорить об общей ошибке процесса преждевременно.\n\nВажно подчеркнуть, что обнаружение расхождений подчёркивает важность регулярной проверки доступа. Регулярная проверка, в свою очередь, является важным условием поддержания актуальности ролей.\n\nПовторную проверку планируется провести 14 июня, если к этому времени будет доступна выгрузка изменений. До её получения нельзя подтвердить, что исправления охватили все затронутые учётные записи. Решение о расширении проверки на заявки подрядчиков пока не принято.",
+        "evaluation_anchors": [
+          "42 заявки с 3 по 7 июня",
+          "подрядчики исключены",
+          "два разных расхождения с разным порядком событий",
+          "причины неизвестны, общая ошибка процесса не установлена",
+          "14 июня условно при наличии выгрузки",
+          "полнота исправлений не подтверждена",
+          "расширение на подрядчиков не решено",
+          "не придумывать исполнителя"
+        ],
+        "evaluation_focus": "Remove bureaucratic scaffolding and repeated claims while preserving exclusions, uncertainty and conditions."
+      },
+      "package": "P",
+      "initial_output": "При проверке нового порядка выдачи доступа сопоставили 42 заявки, поступившие с 3 по 7 июня, с фактически назначенными ролями. Заявки подрядчиков в выборку не вошли.\n\nОбнаружили два расхождения. В одном случае роль сохранилась после закрытия заявки. Во втором её назначили до согласования руководителем. Причины обоих расхождений пока устанавливаются, поэтому говорить об общей ошибке процесса преждевременно.\n\nПовторную проверку планируется провести 14 июня, если к этому времени будет доступна выгрузка изменений. До её получения нельзя подтвердить, что исправления охватили все затронутые учётные записи. Решение о расширении проверки на заявки подрядчиков пока не принято.",
+      "proposed_repair": "При проверке нового порядка выдачи доступа сопоставили 42 заявки, поступившие с 3 по 7 июня, с фактически назначенными ролями. Заявки подрядчиков в выборку не вошли.\n\nОбнаружили два расхождения. В одном случае роль сохранилась после закрытия заявки. Во втором её назначили до согласования руководителем. Причины обоих расхождений пока устанавливаются, поэтому говорить об общей ошибке процесса преждевременно.\n\nРегулярная проверка важна для поддержания актуальности ролей. Повторную проверку планируется провести 14 июня, если к этому времени будет доступна выгрузка изменений. До её получения нельзя подтвердить, что исправления охватили все затронутые учётные записи. Решение о расширении проверки на заявки подрядчиков пока не принято.",
+      "change": "Keep one statement of the regular-review stance while leaving repeated emphasis removed.",
+      "repaired_output_sha256": "1f784c9dffc653875cfe3e2b7eafc3e5f5c5e79cde69e95f357ba3029bca5398"
+    }
+  ],
+  "repair_advisors": [
+    {
+      "reviewer_status": "Returning executor: I wrote some initial long-form outputs. This is a bounded nonauthor review of two proposed output repairs, not independent validation or a package comparison.",
+      "items": [
+        {
+          "case_id": "L01",
+          "decision": "accept",
+          "naturalness": "The restored closing is simpler and fits the writer's reflective engineering voice; it loses some incident-specific force but removes the initial conditional 'if' that made an observed problem sound hypothetical.",
+          "meaning_voice": "It restores the source's general claim that a smaller diff is not always a simpler change. Monday/lunch, 38 lines, cancellation behavior, restored check, six-line difference, tentative branches, and final peer question remain intact.",
+          "remaining_weakness": "The closing is still a general lesson; the preceding test and branch detail earn it, so no further edit is needed."
+        },
+        {
+          "case_id": "L02",
+          "decision": "accept",
+          "naturalness": "One concise sentence of rationale is more natural than the source's repetitive importance paragraph and sits reasonably beside the planned repeat check.",
+          "meaning_voice": "The initial output omitted the author's stance that regular checks maintain current roles. The repair restores that claim without changing the 42-case scope, two discrepancies, uncertain causes, conditional 14 June date, unconfirmed coverage, or contractor decision.",
+          "remaining_weakness": "The rationale is broad and not tied to a measured outcome; keep it as the author's stated judgement, not a proven finding."
+        }
+      ],
+      "overall": "Both repairs restore source meaning under existing preservation rules. Neither is evidence for a new skill instruction or package superiority; stop after these corrections."
+    },
+    {
+      "disclosure": "I authored neither initial output nor proposed repair. These are local judgments on exact texts, not package superiority or authorship evidence.",
+      "reviews": [
+        {
+          "case_id": "L01",
+          "verdict": "accept",
+          "naturalness": "better than initial: the short closing thought leads cleanly to the real question without repeating the test explanation.",
+          "meaning_and_voice": "Restores the source's general but qualified claim, 'a smaller diff isn't always a simpler change'; keeps the first-person mistake, 38 lines, cancellation test, restored check, six-line increase and tentative branch judgment. No new technical condition or stronger certainty is introduced.",
+          "remaining_limit": "The closing line remains aphoristic, but the incident earns it. The earlier paragraphs still use slightly polished compression ('the helper cleaner')."
+        },
+        {
+          "case_id": "L02",
+          "verdict": "accept",
+          "naturalness": "Slightly less lean than the initial output, but a single plain statement of why regular access checks matter flows into the planned repeat; the source's doubled emphasis stays removed.",
+          "meaning_and_voice": "Restores the author's regular-review stance. It leaves both access discrepancies, unknown causes, 42-request scope, contractor exclusion, conditional June 14 check and unconfirmed correction coverage intact. The repair adds no agent, deadline guarantee or common-cause inference.",
+          "remaining_limit": "'Регулярная проверка' followed by 'Повторную проверку' repeats the noun, though for distinct general and scheduled claims. The initial impersonal plural remains a register choice."
+        }
+      ],
+      "overall": "Accept both as bounded preservation repairs under existing rules. Neither warrants a new canonical rule or changes the first-run comparison evidence."
+    },
+    {
+      "role": "returning executor, nonauthor of canonical skill changes; I authored one initial output in this cycle",
+      "scope": "Exact output repairs under existing preservation checks; no package or skill-level conclusion",
+      "items": [
+        {
+          "case_id": "L01",
+          "decision": "accept",
+          "evidence": "Replacing the awkward 'wasn't a simpler change if it hid...' with 'isn't always a simpler change' restores the source's general judgment and reads naturally after the incident. Monday, 38 lines, the cancelled-request test, restored check, six-line cost, tentative branch removal and closing question remain. No new condition or stronger technical guarantee appears.",
+          "remaining_weak_point": "The source's fuller explanation that visible behavior is easier to protect is compressed into the story and conclusion; this is acceptable, but the explicit reasoning is less developed."
+        },
+        {
+          "case_id": "L02",
+          "decision": "accept",
+          "evidence": "One sentence now retains the author's claim that regular review helps keep roles current, without restoring duplicated emphasis. All sample boundaries, discrepancy orderings, unknown causes, conditional 14 June check and unconfirmed fix coverage remain. The report still sounds professional.",
+          "remaining_weak_point": "Indefinite-personal verbs such as 'сопоставили' and 'обнаружили' change the source's passive register, though they do not identify a specific actor."
+        }
+      ],
+      "overall": "Both bounded repairs correct actual preservation problems. They do not show either package is superior or justify a new general instruction."
+    }
+  ],
+  "repair_peer_review": {
+    "agent": "independent_evaluator",
+    "disclosure": "I authored neither fresh outputs nor repairs. My initial long-form ratings remain frozen; this is a bounded review of the two proposed repairs, not a new package comparison.",
+    "L01": {
+      "decision": "accept",
+      "meaning_voice_naturalness": "Restoring 'A smaller diff isn't always a simpler change' recovers the source's qualified general judgment. It reads more naturally than the initial 'wasn't ... if it hid' conditional and leads cleanly into the real peer question. Monday and lunch, 38 removed lines, the cancelled-request rule, restored check, six-line increase, and tentative two-branch idea remain. The first-person mistake and unfinished technical judgment still sound like this writer.",
+      "remaining_weakness": "The explicit paragraph about visible behavior is still compressed into the test story and closing claim. The concrete incident supports that compression; no further edit is needed."
+    },
+    "L02": {
+      "decision": "accept",
+      "meaning_voice_naturalness": "The added sentence keeps the author's distinct stance that regular review helps maintain current roles while omitting the source's doubled 'importance' framing. It flows into the planned repeat check. The 42-request scope, contractor exclusion, different discrepancy sequences, unknown causes, conditional 14 June date, unconfirmed repair coverage, and undecided expansion remain. The sentence adds no performer or proven outcome.",
+      "remaining_weakness": "'Регулярная проверка' and 'Повторную проверку' repeat a term for distinct general and scheduled claims. The impersonal-plural verbs shift the original passive register slightly but do not identify an actor; they fit the requested natural work report."
+    },
+    "conclusion": "Both are acceptable output-level repairs under existing meaning and voice checks. They do not change the first-run evidence, establish package superiority, or justify another canonical instruction or experiment. Close this bounded cycle."
+  },
+  "descriptive_preferences": {
+    "unit": "case-by-reviewer ordinal preference, not independent statistical trials or accuracy",
+    "two_reviewers_who_generated_neither_fresh_output": {
+      "candidate": 5,
+      "tie": 6,
+      "baseline": 1
+    },
+    "all_four_including_returning_executors": {
+      "baseline": 3,
+      "candidate": 9,
+      "tie": 12
+    }
+  },
+  "synthesis": {
+    "observed_advantage": "Both non-output-author reviewers prefer the current-package version for L01 conclusion scope and L05 placement of web-application scope.",
+    "disagreement": "L02 trades brevity against preserving the source statement about regular access review; independent reviewers split. Peer synthesis favors retaining the claim once.",
+    "ties": "L03, L04 and L06 outputs are identical across packages.",
+    "local_repairs": "Restore original generality in L01 package Q; retain one regular-review claim in L02 package P. All four reviewers accept the exact repairs; first outputs and initial ratings remain intact.",
+    "skill_decision": "No new canonical rule. Existing preservation and sentence-contribution checks cover the local failures.",
+    "stop": "Bounded extension complete after two output repairs. A broader claim requires fresh repeated evaluations and human-reader evidence, not another rule derived from these same cases."
+  },
+  "claims": {
+    "general_skill_superiority_established": false,
+    "authorship_accuracy_measured": false,
+    "human_reader_validation": false
+  },
+  "verification": {
+    "status": "passed local record and repository checks",
+    "canonical_validation": "48 source skills passed",
+    "generated_packages": "Current; strict local links passed; no additional version increment",
+    "unittest": "50 tests, OK with 2 optional environment-dependent skips (FastAPI/httpx and TypeScript/Zod)",
+    "record_checks": "Frozen corpus hash, first-output hashes, case coverage, reviewer independence disclosures and separate repair records passed",
+    "whitespace": "git diff --check passed"
+  }
+}

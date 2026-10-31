@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "frozen_at": "2026-10-31",
+  "purpose": "Fresh long-form diagnostic extension after the initial research PR; not a human/AI authorship benchmark.",
+  "provenance": "Original synthetic passages, including fictional first-person statements. No new personal facts about the user.",
+  "generation_protocol": "Editors receive only id, language, request and text. Evaluation anchors are withheld until output review. First outputs are retained, without rerolls.",
+  "cases": [
+    {
+      "id": "L01", "language": "en",
+      "request": "Humanize this engineering post. Keep it recognizably mine and preserve what I am claiming.",
+      "text": "I spent most of Monday making the retry loop shorter. By lunch I had removed 38 lines. It looked like progress. The diff was smaller, the helper was cleaner, and the implementation felt easier to explain.\n\nThen I opened the failing test. It wasn't checking whether a request eventually succeeded. It was checking that a cancelled request never started another attempt. That was the bit I'd moved out of sight.\n\nThis is where the real lesson became clear. Simplicity isn't just about fewer lines. It's about keeping the important behaviour visible. And visibility matters, because invisible behaviour is the behaviour we forget to protect.\n\nI put the cancellation check back next to the retry. The loop is six lines longer than the version I had at lunch. I still think two branches can go, but I haven't worked out how to remove them without hiding the same distinction again.\n\nThat is the change I'm taking from this: a smaller diff isn't always a simpler change. Have you kept an ugly branch because it made a failure case easier to see?",
+      "evaluation_anchors": ["Monday and by lunch", "38 lines removed", "cancelled request never starts another attempt", "check restored next to retry", "six lines longer than lunch version", "two branches only tentatively removable", "genuine final question", "retain uncertainty and first-person self-critique"],
+      "evaluation_focus": "Distinguish repeated moral framing from the concrete realization and unfinished technical judgement."
+    },
+    {
+      "id": "L02", "language": "ru",
+      "request": "Отредактируй этот рабочий отчёт: он должен звучать естественно и оставаться точным.",
+      "text": "В рамках проверки нового порядка выдачи доступа было проведено сопоставление заявок и фактически назначенных ролей. В проверку вошли 42 заявки, поступившие с 3 по 7 июня. При этом следует отметить, что заявки подрядчиков в данную выборку не включались.\n\nПо результатам проведённого сопоставления было установлено наличие двух расхождений. В одном случае роль сохранилась после закрытия заявки. Во втором роль была назначена до согласования руководителем. Причины обоих расхождений пока устанавливаются, поэтому говорить об общей ошибке процесса преждевременно.\n\nВажно подчеркнуть, что обнаружение расхождений подчёркивает важность регулярной проверки доступа. Регулярная проверка, в свою очередь, является важным условием поддержания актуальности ролей.\n\nПовторную проверку планируется провести 14 июня, если к этому времени будет доступна выгрузка изменений. До её получения нельзя подтвердить, что исправления охватили все затронутые учётные записи. Решение о расширении проверки на заявки подрядчиков пока не принято.",
+      "evaluation_anchors": ["42 заявки с 3 по 7 июня", "подрядчики исключены", "два разных расхождения с разным порядком событий", "причины неизвестны, общая ошибка процесса не установлена", "14 июня условно при наличии выгрузки", "полнота исправлений не подтверждена", "расширение на подрядчиков не решено", "не придумывать исполнителя"],
+      "evaluation_focus": "Remove bureaucratic scaffolding and repeated claims while preserving exclusions, uncertainty and conditions."
+    },
+    {
+      "id": "L03", "language": "en",
+      "request": "Make this design note read naturally. Keep its technical meaning.",
+      "text": "The lease holder may renew a lease until the renewal deadline. After that deadline, the coordinator may assign the lease to another worker. The lease holder must stop writing when it can no longer confirm that its lease is current. A missed heartbeat does not, by itself, prove that another worker has taken over.\n\nThe renewal deadline is therefore important. It is not merely a timestamp; it is a vital boundary that ensures a robust coordination experience. This distinction highlights the importance of carefully considering time in distributed systems.\n\nThe draft uses a 20-second lease and sends a heartbeat every five seconds. Those values are examples, not recommended defaults. The tests cover a delayed heartbeat and a worker restart. They do not yet cover a coordinator restart while a renewal is in flight.\n\nI'd keep the lease holder and coordinator checks separate until that case is tested. Combining them would make the example shorter, but I don't yet know whether the combined version would preserve the same stop-writing rule.",
+      "evaluation_anchors": ["lease holder, renewal deadline and coordinator are stable terms", "may renew until deadline", "coordinator may assign after deadline", "must stop writing without confirmation", "missed heartbeat is not proof of takeover", "20 seconds and five seconds are examples only", "two tested cases and one untested case", "tentative recommendation and unknown equivalence"],
+      "evaluation_focus": "Improve generic framing without synonym churn or stronger guarantees than the design note supports."
+    },
+    {
+      "id": "L04", "language": "ru",
+      "request": "Сделай этот личный текст естественнее, если правка действительно нужна. Сохрани мой голос.",
+      "text": "Я вернулся к этому письму в воскресенье. Оно лежало в черновиках почти месяц, и я всё находил причину его не отправлять. Сначала хотел дописать объяснение. Потом решил, что объяснений уже слишком много.\n\nВ итоге убрал два абзаца и оставил главное: мне было обидно, когда встречу отменили без предупреждения. Не из-за самой отмены. Я понимаю, что планы меняются. Из-за того, что я узнал об этом, уже приехав.\n\nЯ не прошу назначить новую встречу и не хочу спорить о том, кто сильнее занят. Мне хотелось сказать, как это выглядело с моей стороны. Наверное, можно было написать спокойнее. Может быть, стоило написать раньше. Сейчас письмо звучит так, как я могу сказать это сам.\n\nПока не отправил. Хочу утром ещё раз перечитать последние две строчки.",
+      "evaluation_anchors": ["воскресенье", "почти месяц в черновиках", "убраны два абзаца", "обида за отсутствие предупреждения и узнавание по приезде, не за отмену", "нет просьбы о новой встрече и спора о занятости", "сохранить сомнения", "письмо ещё не отправлено", "последние две строчки перечитать утром"],
+      "evaluation_focus": "Control: fragments and a real contrast carry personal feeling; avoid treating every contrast as template residue."
+    },
+    {
+      "id": "L05", "language": "en",
+      "request": "Humanize this customer update without making it more promotional.",
+      "text": "We have completed the first stage of the export update. CSV exports now include the account identifier in the first column. Existing saved exports keep their previous format; you need to create a new export to receive the additional column.\n\nThis update marks an important step forward in our ongoing commitment to making data more accessible. By bringing identifiers directly into the export, we are empowering teams to work with their data more effectively and confidently.\n\nThe change applies to exports created in the web application. API exports are unchanged. We plan to add the same column to API exports later, but we do not have a date to share.\n\nIf you import CSV files into a system that assumes a fixed column order, check that import before switching. You can keep using an existing saved export while you update the import. Our support team can help you locate the account identifier, but they cannot change the mapping in your other system.",
+      "evaluation_anchors": ["first stage complete", "account identifier first column", "existing saved exports unchanged", "new export needed", "web application only", "API plan without a date", "check fixed-column imports before switching", "can keep existing saved export", "support scope is locate identifier, not change another system's mapping"],
+      "evaluation_focus": "Remove promotional generalities while preserving operational distinctions and useful caution."
+    },
+    {
+      "id": "L06", "language": "ru",
+      "request": "Помоги сделать этот ответ коллеге живее и естественнее. Новых фактов добавлять не нужно.",
+      "text": "Спасибо, что написал. Я понял, что тебя больше всего беспокоит неопределённость со сроками, а не сам объём работы. Важно признать, что неопределённость действительно может быть непростой. И твои переживания в этой ситуации совершенно понятны.\n\nИз того, что я знаю сейчас: решение по бюджету обещали в четверг, но подтверждения ещё нет. Поэтому я не могу обещать, что в пятницу мы уже сможем назвать дату запуска. Я могу собрать открытые вопросы к встрече и отдельно отметить, какие ответы нужны именно для твоего участка.\n\nТебе было бы полезнее заранее увидеть этот список или сначала обсудить его вдвоём? Если сейчас нет сил ещё на один созвон, можем начать с переписки. Не хочу назначать тебе разговор только ради того, чтобы у нас в календаре появился разговор.\n\nДавай двигаться шаг за шагом и помнить, что открытая коммуникация — это ключ к совместному преодолению любых трудностей.",
+      "evaluation_anchors": ["беспокоит неопределённость сроков, не объём", "бюджет обещали в четверг, подтверждения нет", "нет обещания назвать дату запуска в пятницу", "может собрать вопросы и выделить нужные коллеге", "реальный выбор списка или разговора", "переписка как вариант", "не превращать ответ в терапию, не добавлять опыт"],
+      "evaluation_focus": "Remove stock reassurance and empty closing while retaining acknowledgement, concrete limits and the real choice offered."
+    }
+  ]
+}
