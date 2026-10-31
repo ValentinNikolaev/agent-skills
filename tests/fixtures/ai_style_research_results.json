@@ -1,0 +1,2116 @@
+{
+  "schema_version": 1,
+  "run_id": "2026-10-31-seven-paper-ai-style",
+  "baseline_commit": "3f615a8cb001320ff0c3da1a6e476c14ad42881e",
+  "baseline_tree_clean": true,
+  "cases_sha256": "27871e0ae9e4627f3e76d9f4b6dca3bb019e19b772ca9046d49fe0bce8d596a1",
+  "scope": "Seven approved papers; Nation AI excluded. Current canonical detector is ai-detector, not a separate ai-antislop package. No commit, push, installation or publication.",
+  "protocol": {
+    "cases": "6 development plus 10 held-out frozen before edits; 2 existing historical cases added as supplementary regressions before I03.",
+    "execution": "One gpt-6-sol medium executor generated actual baseline and final outputs. Original packages were immutable. The executor later saw development councils; final generation was not context-blind.",
+    "iteration_kind": "Six separately considered feature transfers; root-authored proposed outputs for council selection, not independent model ablations. All rejected variants and ties retained.",
+    "review": "Three gpt-6-sol high nonauthor advisors per iteration, anonymized peer review by fourth nonauthor of skill implementation; whole-package review at I03/I06. Final three comparative reviews received randomized A/B labels, no version map.",
+    "blinding": "Partial: reviewers saw research/development material. Ten holdout cases were withheld from tuning and comparative reviewers until final run. The fourth reviewer generated baseline and candidate outputs, so its text judgment is not independent; its skill review is nonauthor.",
+    "external_submission": false,
+    "decision_rule": "Prefer supported reasoning over model vote counts. Compare meaning/voice/naturalness separately from evidence calibration. No numerical authorship likelihood.",
+    "newer_evidence": "Provisionally prioritize newer work only for comparable estimands/settings with adequate empirical support; do not collapse entropy, surprisal and visible rhythm."
+  },
+  "nonauthor_agents": [
+    {
+      "id": "reviewer-A",
+      "task": "statistical_research",
+      "model": "gpt-6-sol",
+      "reasoning": "high",
+      "role": "research; Contrarian council; final paired comparison"
+    },
+    {
+      "id": "reviewer-B",
+      "task": "linguistic_research",
+      "model": "gpt-6-sol",
+      "reasoning": "high",
+      "role": "research; First-Principles council; final paired comparison"
+    },
+    {
+      "id": "reviewer-C",
+      "task": "discourse_research",
+      "model": "gpt-6-sol",
+      "reasoning": "high",
+      "role": "research; Executor council; final paired comparison"
+    },
+    {
+      "id": "reviewer-D",
+      "task": "independent_evaluator",
+      "model": "gpt-6-sol",
+      "reasoning": "medium",
+      "role": "baseline/candidate execution; anonymized peer review; nonauthor of skill implementation"
+    }
+  ],
+  "baseline": {
+    "file_hashes_sha256": {
+      "ai-detector/SKILL.md": "4d912a2633ccd29f104f8e69ba67766466ea9eabae6784729b0408061d94f501",
+      "humanizer/LICENSE.aboudjem-humanizer": "41fd4367a601913a6a905e27ee6aa7490fbfb4c4e3fd8c69e8f6e486cbab313e",
+      "humanizer/LICENSE.blader-humanizer": "caa1be9cba41c1afb88fe730ab1a4e04728295ea5b29ac2ee9f003a4ffbe3a77",
+      "humanizer/LICENSE.humanizer-ru": "55f845df368399ff418d90b85a59a1ce56a93eef293c862615a079609386b156",
+      "humanizer/SKILL.md": "f6a07b8845f96e84c56d6885c83d35d8c0ad98fcf0690d3ad7ba7fcf5b54deea",
+      "humanizer/agents/openai.yaml": "5712e0e9ee3e6c68895b59f1b2042fd0c7b77b6b29f5cd62d6c728ed6a0340c6",
+      "humanizer/references/council.md": "b57a2196db89bc9b9e056317f00acb41dd15ce0447a7458257c6b4aae7b8f3a4",
+      "humanizer/references/examples.md": "eb910aa5ba508487b2373ae1f42a2783c7b85dcae36793c7ee61dae9ad5cb73a",
+      "humanizer/references/sources.md": "4dc132ecc893ea20fbdfb61663e59eee9ec693e10bd9f152767f437adeef1f0d",
+      "ai-detector/agents/openai.yaml": "ddc9656c96aefdb620c2c73c83d87bb3b05a4ac7437cc2db6e015fbcbed3cb03",
+      "ai-detector/references/external-check.md": "4441ea719dd01d29fe19f46afd7d74a75ba39a4b3bf8c922ddc76b7218ce5b44",
+      "ai-detector/references/improvement-loop.md": "5e3e20a2ef2268ed60c1e029d30d3bc060afaf20129855748f746c632c9f6acd"
+    },
+    "disclosure": "one independent model execution; not ground-truth detection",
+    "historical_disclosure": "Supplementary original-package regression execution after seeing I01/I02 council packets; not fully blind or held out",
+    "records": [
+      {
+        "case_id": "D01",
+        "skill": "ai-detector",
+        "output": "The passage moves from a short observation to a specific explanation and closes with another short observation. I can describe that rhythm and check whether the explanation is clear; I cannot calculate a meaningful entropy measure without defining a unit and distribution, or infer authorship from sentence lengths. The time, retry count, and cause give this brief incident note useful specificity. I would keep it as written unless the intended audience needs 'acknowledgement' explained.",
+        "note": "Local qualitative assessment only; no model, calibrated metric, or authorship claim.",
+        "output_sha256": "7353db2e7dd6734ad89b1bab7c19acddf70ca7a2ee13ee387f4fdb67d3521f9f"
+      },
+      {
+        "case_id": "D02",
+        "skill": "humanizer",
+        "output": "The retry token identifies the request and remains valid for 30 seconds. It can be reused only if the first attempt timed out.",
+        "note": "Removed the promotional closing sentence and repeated term while retaining the defined term and condition.",
+        "output_sha256": "29944bb2e1b1acd7e4ffcda7488381ea7477e3542f69ef34aeca4d1a6733df28"
+      },
+      {
+        "case_id": "D03",
+        "skill": "humanizer",
+        "output": "The cache served stale results for six minutes. The trace suggests that invalidation messages arrived after the reads, but we have not yet reproduced that ordering.",
+        "note": "Removed repeated general lessons; preserved the observed duration, tentative explanation, and reproduction limit.",
+        "output_sha256": "183979fe878e91824ac7067f74e21b38457d608d10a4d98d84d5725b352ee72e"
+      },
+      {
+        "case_id": "D04",
+        "skill": "ai-detector",
+        "output": "No material AI-like style issue stands out. 'Yes, the adapter supports CSV' answers the question directly, and 'Here is the example you asked for' appropriately introduces the requested code rather than adding empty process commentary. The semicolon condition is useful. Keep the answer and code as written. Its style cannot establish authorship.",
+        "note": "Local analysis; no rewrite or upload.",
+        "output_sha256": "a363fce223a9c3aa9fbb83fe96d5abdb6ccde4ae16a9ccecf9326e4fa5b637bf"
+      },
+      {
+        "case_id": "D05",
+        "skill": "humanizer",
+        "output": "It sounds as though the waiting is the hardest part. Do you want company while you wait, or would you rather have some space? I am not sure which would help.",
+        "note": "Removed a generic restatement while preserving the question and uncertainty.",
+        "output_sha256": "b327234720363fddf395b181ccc6641cb07207c60b78174772c4a9c5c78a7063"
+      },
+      {
+        "case_id": "D06",
+        "skill": "ai-detector",
+        "output": "1. 'This evaluation highlights the importance of evaluation in supporting effective classification' repeats 'evaluation' and states a broad conclusion without saying what the 80 samples showed. Remove it or replace it only if a supported finding is available. 2. 'Classification was performed after normalization' is passive, but the actor is unspecified and the sequence is clear; keep it unless the method requires more detail. Keep 'The evaluation used 80 samples' and 'The estimate excludes missing observations': the count and exclusion are substantive. Formal register and nominalizations alone do not indicate authorship; this is a local style assessment, not a measured detector result.",
+        "note": "Ranked actionable friction while protecting the sample count and exclusion.",
+        "output_sha256": "73d8c9a287ee2dd9d854af1fd7261d05b1d089d4c9e6e70dd0269ecb7ab0b367"
+      },
+      {
+        "case_id": "H01",
+        "skill": "ai-detector",
+        "output": "I cannot calculate RelPPR or DivEye from this paragraph without the required model outputs and a defined calculation. Locally, the sequence is clear: the latch held on the bench, failed after the casing warmed, and the cause remains uncertain. 'We still do not know whether heat caused the failure' is a useful limit to keep. I see no material style change to recommend, and neither this observation nor an unavailable metric establishes authorship.",
+        "note": "No statistical measurement or authorship inference.",
+        "output_sha256": "7a95de7c6a20a7229aaee7d3106cc5594687a2d378d2ed218a8ce8bfdf6ca326"
+      },
+      {
+        "case_id": "H02",
+        "skill": "humanizer",
+        "output": "The lease holder may renew the lease but must not transfer it.",
+        "note": "Kept the defined actor and distinct permissions; removed the unsupported rhetorical conclusion.",
+        "output_sha256": "53f0da28c05d5cdb8bdad269c17876501b8e66ff7d6f20310f076bdcd225a565"
+      },
+      {
+        "case_id": "H03",
+        "skill": "humanizer",
+        "output": "Проверка заняла два дня. На третий день нашли два сбоя, но пока не выяснили, связаны ли они с обновлением.",
+        "note": "Убраны повторяющиеся общие выводы; сроки и осторожность сохранены.",
+        "output_sha256": "fa903a65760a1a736f3355fad77c6b1a07f80709cafebe4a6c779860df89c9f4"
+      },
+      {
+        "case_id": "H04",
+        "skill": "ai-detector",
+        "output": "The question-and-answer opening fits a FAQ. 'No' gives the cancellation answer, then the text explains the conditional return and the order-number requirement. Keep the format and the intact-seal condition. The visible response format supplies no basis for inferring a hidden prompt or the writer's identity, and I see no material style issue to fix.",
+        "note": "Genre-aware local assessment; no upload.",
+        "output_sha256": "f2197b6e4a47e6aa19654e4aeeced4e6a2fe811080011236e6ed74942be4d772"
+      },
+      {
+        "case_id": "H05",
+        "skill": "humanizer",
+        "output": "Не знаю, что тут сказать. Хочешь, я просто побуду рядом? Если тебе сейчас лучше одному, я пойму.",
+        "note": "Текст уже звучит естественно; правка не нужна.",
+        "output_sha256": "0ed42c95c11931f38179e616631534759f6a296494140f55a00d75acdd287254"
+      },
+      {
+        "case_id": "H06",
+        "skill": "ai-detector",
+        "output": "The repeated 'node' and 'shard' name the two domain entities needed to state ownership and the recovery exception precisely. Substituting synonyms could blur the relationship; keep the wording. Lexical diversity in three short technical sentences has no useful authorship interpretation without a relevant baseline or metadata. I see no material style issue to fix and cannot determine who wrote it.",
+        "note": "Preserved technical repetition and the recovery condition.",
+        "output_sha256": "c63b411e5233b2e26609100dd2f3f3f2b7673c908f48154cd6495c9a16e295c6"
+      },
+      {
+        "case_id": "H07",
+        "skill": "humanizer",
+        "output": "I'd want a rollback path before Friday. I'd want a second check if the migration touches archived records. I'm not asking for a redesign.",
+        "note": "The repeated tentative stance does useful work; changes would risk altering scope or modality.",
+        "output_sha256": "92681160c6e7e3df7b8cf52e46db3a660555e253afb0a1ff9aa80da074ecf6c3"
+      },
+      {
+        "case_id": "H08",
+        "skill": "humanizer",
+        "output": "At 09:12 the worker logged \"Retry budget exhausted.\" We restarted it at 09:18. The queue cleared at 09:21. Details: https://example.org/incidents/42",
+        "note": "Chronology is clear and natural; preserved quotation, URL, and times exactly.",
+        "output_sha256": "003cd98a36f041fd245efb3d2fc70ae14b892ce13b10ec7f78743bbf652b7891"
+      },
+      {
+        "case_id": "H09",
+        "skill": "ai-detector",
+        "output": "По этому фрагменту нельзя установить авторство. Без проверки на сопоставимых русскоязычных текстах выводы англоязычных исследований не дают надёжной оценки для него. Оборот «В рамках осуществления проверки было произведено выявление» перегружен отглагольными существительными; редакторски проще «При проверке выявили две ошибки», без указания неизвестного исполнителя. Второе предложение стоит сохранить: оно сообщает, что исправление пока не подтверждено.",
+        "note": "Локальное наблюдение без измерения, вымышленного исполнителя и утверждения об авторстве.",
+        "output_sha256": "ab5b451b6158f3635c479080c6ec6a2ebb69f705d30c2dfe02d64e3fd97b298d"
+      },
+      {
+        "case_id": "H10",
+        "skill": "humanizer",
+        "output": "## Result\nThe result was inconclusive.\n\n## Limits\nOnly four samples survived. The reviewer wrote, \"This is not evidence of absence.\"\n\n## Next step\nRepeat the measurement if the remaining samples arrive.",
+        "note": "The headings serve the requested structure and the prose is already direct; no edit helps.",
+        "output_sha256": "c7035b6b5cb4c55049869e33ff82696ace3ec2cdef305932b195ba2e94248895"
+      },
+      {
+        "case_id": "humanizer-code-review-confession",
+        "output": "This week I did around 40 code reviews. About 8 a day. It sounds impressive until you admit what it actually means: you can’t review at that pace, while still writing code yourself, without drastically lowering the quality of your reviews.\nOne PR this week made me see it. I don’t review test files anymore. Unit tests, the base of the pyramid, the majority of our tests. I skip them. Not because they don’t matter. Because halfway through a big diff I tell myself, “those are just tests, I have enough files to get through.”\nThat’s exactly the wrong time to skip them. A lot of AI generated tests are useless. Worse, I forgot that reading the tests is how you actually understand what the code is supposed to do. Skipping them means you’re not really reviewing the PR.\nThat’s a habit I built without noticing, and it’s a bad one.\nHere’s what I’m changing. Test files get reviewed with the same attention as the code they cover. I open them first, like in the good old days, because they tell me what the code claims to do before I read how it does it. If that means fewer reviews per week, then fewer is the honest number.\nDo you skip test files too, or is it just me?",
+        "note": "Only removed three sentence-initial connectives that did little work. Retained the candid fragments, approximations, self-criticism, exact quoted inner thought, distinct claims about tests, promise, and peer question. No separate project voice file was supplied in the frozen case.",
+        "skill": "humanizer",
+        "output_sha256": "3029e598f4467ed81c39aa978c5370606e1365d14a723693ad242e371273014f"
+      },
+      {
+        "case_id": "humanizer-go-backend-profile",
+        "output": "I build backend services in Go. My recent work includes a multi-tenant gateway for Intercom and Zendesk, a production telephony platform, and data pipelines connecting Snowflake with support systems. I work with APIs, PostgreSQL, AWS and Kubernetes. My work covers design, implementation, security review and production operation.",
+        "note": "Kept unchanged. The plain professional voice is natural, the technologies and projects are carefully scoped, and a style edit would add churn or risk implying unsupported ownership, impact, or project-specific tooling.",
+        "skill": "humanizer",
+        "output_sha256": "df5f2364368e4cfe0723ed86980153353c1b76b80ecc747a31814807ea7fa699"
+      }
+    ]
+  },
+  "candidate": {
+    "file_hashes_sha256": {
+      "agent-plugins/skills/ai-detector/SKILL.md": "58f34ac128ed19eebba7dd48071b83c236f688aa4673e6a3b0592d2f0249cdae",
+      "agent-plugins/skills/ai-detector/agents/openai.yaml": "ddc9656c96aefdb620c2c73c83d87bb3b05a4ac7437cc2db6e015fbcbed3cb03",
+      "agent-plugins/skills/ai-detector/references/external-check.md": "4441ea719dd01d29fe19f46afd7d74a75ba39a4b3bf8c922ddc76b7218ce5b44",
+      "agent-plugins/skills/ai-detector/references/improvement-loop.md": "5e3e20a2ef2268ed60c1e029d30d3bc060afaf20129855748f746c632c9f6acd",
+      "agent-plugins/skills/ai-detector/references/research-evidence.json": "0862bf73cb4ae9ec37ed194af69761df571bb514abf702c0c7dc50c3c5c7b19c",
+      "agent-plugins/skills/ai-detector/references/research.md": "017cf0b7c7743c758f29b49cd866cbb54837cff3c6fcdb80084de68da4dc3263",
+      "agent-plugins/skills/humanizer/LICENSE.aboudjem-humanizer": "41fd4367a601913a6a905e27ee6aa7490fbfb4c4e3fd8c69e8f6e486cbab313e",
+      "agent-plugins/skills/humanizer/LICENSE.blader-humanizer": "caa1be9cba41c1afb88fe730ab1a4e04728295ea5b29ac2ee9f003a4ffbe3a77",
+      "agent-plugins/skills/humanizer/LICENSE.humanizer-ru": "55f845df368399ff418d90b85a59a1ce56a93eef293c862615a079609386b156",
+      "agent-plugins/skills/humanizer/SKILL.md": "3ee3b45abfb44f10914cac21dee682bff8e1489bfecbce2b04dd9d5f03081106",
+      "agent-plugins/skills/humanizer/agents/openai.yaml": "5712e0e9ee3e6c68895b59f1b2042fd0c7b77b6b29f5cd62d6c728ed6a0340c6",
+      "agent-plugins/skills/humanizer/references/council.md": "b57a2196db89bc9b9e056317f00acb41dd15ce0447a7458257c6b4aae7b8f3a4",
+      "agent-plugins/skills/humanizer/references/examples.md": "eb910aa5ba508487b2373ae1f42a2783c7b85dcae36793c7ee61dae9ad5cb73a",
+      "agent-plugins/skills/humanizer/references/research-transfer.md": "6b61f6263aca557fb55efa556ed37f2f599eb5c6494f7d1807f8374e9e060967",
+      "agent-plugins/skills/humanizer/references/sources.md": "4dc132ecc893ea20fbdfb61663e59eee9ec693e10bd9f152767f437adeef1f0d"
+    },
+    "executor_recorded_used_files": {
+      "agent-plugins/skills/ai-detector/SKILL.md": "58F34AC128ED19EEBBA7DD48071B83C236F688AA4673E6A3B0592D2F0249CDAE",
+      "agent-plugins/skills/humanizer/SKILL.md": "3EE3B45ABFB44F10914CAC21DEE682BFF8E1489BFECBCE2B04DD9D5F03081106",
+      "agent-plugins/skills/ai-detector/references/research.md": "017CF0B7C7743C758F29B49CD866CBB54837CFF3C6FCDB80084DE68DA4DC3263",
+      "agent-plugins/skills/humanizer/references/research-transfer.md": "6B61F6263ACA557FB55EFA556ED37F2F599EB5C6494F7D1807F8374E9E060967"
+    },
+    "disclosure": "Single model execution after research councils; not blind to development context. Heldout generation not used for tuning before this run.",
+    "records": [
+      {
+        "case_id": "D01",
+        "skill": "ai-detector",
+        "output": "No. The short, long, short sentence pattern is visible rhythm, not a measure of predictive entropy, and it cannot prove who wrote the note. Without an evaluator's next-token probabilities or a calibrated comparison set, I can only assess the wording locally. The note gives a clear sequence and a specific explanation: the worker retried the job three times after its acknowledgement expired. Keep that concise incident style; explain 'acknowledgement' only if this audience needs it.",
+        "note": "Local reader observation; no statistical measurement or authorship verdict.",
+        "output_sha256": "905ca3919f40bdd10fc9a086951cd518e7e0bacb60626f4eb463437a8e198c85"
+      },
+      {
+        "case_id": "D02",
+        "skill": "humanizer",
+        "output": "The retry token identifies the request and remains valid for 30 seconds. It can be reused only if the first attempt timed out.",
+        "note": "Combined related facts and removed unsupported promotion; defined term, duration, and reuse condition remain.",
+        "output_sha256": "29944bb2e1b1acd7e4ffcda7488381ea7477e3542f69ef34aeca4d1a6733df28"
+      },
+      {
+        "case_id": "D03",
+        "skill": "humanizer",
+        "output": "The cache served stale results for six minutes. The trace suggests that invalidation messages arrived after the reads, but we have not yet reproduced that ordering.",
+        "note": "Removed repeated general lessons while retaining observation, tentative ordering, and non-reproduction.",
+        "output_sha256": "183979fe878e91824ac7067f74e21b38457d608d10a4d98d84d5725b352ee72e"
+      },
+      {
+        "case_id": "D04",
+        "skill": "ai-detector",
+        "output": "No material style issue stands out. 'Yes, the adapter supports CSV' directly answers the question, and 'Here is the example you asked for' usefully introduces the requested code. The semicolon condition also belongs in this support answer. Keep the passage, including both code spans, as written. Its response format says nothing reliable about authorship.",
+        "note": "Genre-aware local analysis; no rewrite or upload.",
+        "output_sha256": "b91a3cfa2cf033eda4acc87f3fc4c422f9c48292b293561f55d0c6b3f0e6e81d"
+      },
+      {
+        "case_id": "D05",
+        "skill": "humanizer",
+        "output": "It sounds as though the waiting is the hardest part. Do you want company while you wait, or would you rather have some space? I am not sure which would help.",
+        "note": "Removed an abstract restatement; kept tentative acknowledgment, genuine choice, and uncertainty.",
+        "output_sha256": "b327234720363fddf395b181ccc6641cb07207c60b78174772c4a9c5c78a7063"
+      },
+      {
+        "case_id": "D06",
+        "skill": "ai-detector",
+        "output": "The one useful style finding is 'This evaluation highlights the importance of evaluation in supporting effective classification.' It repeats the topic without reporting a result, so removing it would make the abstract more direct; replace it only if a supported finding is available. Keep the 80-sample count, normalization-before-classification order, and exclusion of missing observations. The passive methods sentence is clear and need not acquire an invented actor. Formal register and nominalizations do not establish authorship; this is a local editorial judgment, not a detector score.",
+        "note": "Ranks one reader-visible problem and substantive keep decisions.",
+        "output_sha256": "f5189c2b4614c7598d2773b3f98391deb7b3cbca623401635b5fdd3a843d9c79"
+      },
+      {
+        "case_id": "H01",
+        "skill": "ai-detector",
+        "output": "I cannot calculate RelPPR or DivEye from the visible paragraph alone. RelPPR needs an evaluator's full next-token distributions; DivEye needs observed-token probabilities and its trained classifier. Locally, the sequence is easy to follow, and 'We still do not know whether heat caused the failure' is an important qualification to keep. The bench result and later warm-casing failure do not establish causation or authorship. I see no useful style edit.",
+        "note": "Distinguishes unavailable measures from qualitative reading.",
+        "output_sha256": "2f5f885f58b71f7d814ea03d13ce6d65f519da21446255b54d43a658ada30a55"
+      },
+      {
+        "case_id": "H02",
+        "skill": "humanizer",
+        "output": "The lease holder may renew the lease but must not transfer it.",
+        "note": "Preserved the defined actor and distinct modalities; removed the inflated, unsupported closing claim.",
+        "output_sha256": "53f0da28c05d5cdb8bdad269c17876501b8e66ff7d6f20310f076bdcd225a565"
+      },
+      {
+        "case_id": "H03",
+        "skill": "humanizer",
+        "output": "Проверка заняла два дня. На третий день нашли два сбоя, но пока не выяснили, связаны ли они с обновлением.",
+        "note": "Убраны повторяющиеся общие оценки; сроки, два сбоя и неопределённость сохранены.",
+        "output_sha256": "fa903a65760a1a736f3355fad77c6b1a07f80709cafebe4a6c779860df89c9f4"
+      },
+      {
+        "case_id": "H04",
+        "skill": "ai-detector",
+        "output": "The question followed by 'No' is ordinary FAQ structure, not an AI giveaway. The answer then states the intact-seal return condition and the order-number requirement, both useful to the reader. Keep this format. A visible FAQ response cannot establish hidden prompt dependency or authorship, and I find no material style issue here.",
+        "note": "Local genre check; no latent-prompt inference.",
+        "output_sha256": "8266a73cd36e3c4574c4230da9302693d2f8267715bff788ae7baf82583f14ac"
+      },
+      {
+        "case_id": "H05",
+        "skill": "humanizer",
+        "output": "Не знаю, что тут сказать. Хочешь, я просто побуду рядом? Если тебе сейчас лучше одному, я пойму.",
+        "note": "Оставлено без изменений: сдержанный ответ, вопрос и условие уже звучат естественно.",
+        "output_sha256": "0ed42c95c11931f38179e616631534759f6a296494140f55a00d75acdd287254"
+      },
+      {
+        "case_id": "H06",
+        "skill": "ai-detector",
+        "output": "The repeated 'node' and 'shard' are the terms needed to state the ownership relationship and recovery exception. Replacing them for variety could make the rule less precise; keep the note as written. Three short technical sentences and no comparable corpus or author metadata cannot support a lexical-diversity score with an authorship interpretation. The colleague's conclusion is unsupported, and no local style defect needs repair.",
+        "note": "Preserves technical terminology and scoped exception.",
+        "output_sha256": "2ba8d98467d838049378c0cd57a758460bad308d777ece96b5b68e1efeb85399"
+      },
+      {
+        "case_id": "H07",
+        "skill": "humanizer",
+        "output": "I'd want a rollback path before Friday. I'd want a second check if the migration touches archived records. I'm not asking for a redesign.",
+        "note": "Kept unchanged: the repeated tentative stance and separate conditions are clear and purposeful.",
+        "output_sha256": "92681160c6e7e3df7b8cf52e46db3a660555e253afb0a1ff9aa80da074ecf6c3"
+      },
+      {
+        "case_id": "H08",
+        "skill": "humanizer",
+        "output": "At 09:12 the worker logged \"Retry budget exhausted.\" We restarted it at 09:18. The queue cleared at 09:21. Details: https://example.org/incidents/42",
+        "note": "Kept unchanged: the chronology is functional and all protected text remains exact.",
+        "output_sha256": "003cd98a36f041fd245efb3d2fc70ae14b892ce13b10ec7f78743bbf652b7891"
+      },
+      {
+        "case_id": "H09",
+        "skill": "ai-detector",
+        "output": "По этому короткому русскому фрагменту нельзя установить авторство; результаты англоязычных исследований не дают проверенной точности для него. Для редакторской ясности можно заменить «В рамках осуществления проверки было произведено выявление двух ошибок» на «При проверке выявили две ошибки»: так сохраняется факт без выдуманного исполнителя. «Их исправление пока не подтверждено» следует оставить: это существенное ограничение вывода.",
+        "note": "Локальное наблюдение без переноса английской точности или утверждения об авторстве.",
+        "output_sha256": "c1acc051414adec8e7d436352fb4dc9f38ca18c6b390e9579253c5ed2e0ee32c"
+      },
+      {
+        "case_id": "H10",
+        "skill": "humanizer",
+        "output": "## Result\nThe result was inconclusive.\n\n## Limits\nOnly four samples survived. The reviewer wrote, \"This is not evidence of absence.\"\n\n## Next step\nRepeat the measurement if the remaining samples arrive.",
+        "note": "Kept unchanged: headings are requested, prose is direct, and quotation and condition are protected.",
+        "output_sha256": "c7035b6b5cb4c55049869e33ff82696ace3ec2cdef305932b195ba2e94248895"
+      },
+      {
+        "case_id": "humanizer-code-review-confession",
+        "skill": "humanizer",
+        "output": "This week I did around 40 code reviews. About 8 a day. It sounds impressive until you admit what it actually means: you can’t review at that pace, while still writing code yourself, without drastically lowering the quality of your reviews.\nOne PR this week made me see it. I don’t review test files anymore. Unit tests, the base of the pyramid, the majority of our tests. I skip them. Not because they don’t matter. Because halfway through a big diff I tell myself, “those are just tests, I have enough files to get through.”\nAnd this is exactly the wrong time to skip them. A lot of AI generated tests are useless. Worse, I forgot that reading the tests is how you actually understand what the code is supposed to do. Skipping them means you’re not really reviewing the PR.\nThat’s a habit I built without noticing, and it’s a bad one.\nSo here’s what I’m changing. Test files get reviewed with the same attention as the code they cover. I open them first, like in the good old days, because they tell me what the code claims to do before I read how it does it. And if that means fewer reviews per week, then fewer is the honest number.\nDo you skip test files too, or is it just me?",
+        "note": "Kept unchanged. The fragments, connectives, repeated admission, and final question each serve the candid progression; compressing them risks losing timing, self-judgment, or interpersonal purpose.",
+        "output_sha256": "795b55e24afe0262adc75bbb185989bf05667dabb5fc6024feec539236398ea8"
+      },
+      {
+        "case_id": "humanizer-go-backend-profile",
+        "skill": "humanizer",
+        "output": "I build backend services in Go. My recent work includes a multi-tenant gateway for Intercom and Zendesk, a production telephony platform, and data pipelines connecting Snowflake with support systems. I work with APIs, PostgreSQL, AWS and Kubernetes. My work covers design, implementation, security review and production operation.",
+        "note": "Kept unchanged. The plain professional account is precise; a stylistic rewrite would risk implying unsupported project-specific tooling or responsibility.",
+        "output_sha256": "df5f2364368e4cfe0723ed86980153353c1b76b80ecc747a31814807ea7fa699"
+      }
+    ]
+  },
+  "historical_regression": {
+    "scope": "Supplementary historical regression, not independent holdout; frozen before discourse iteration. No external check required in this local study.",
+    "cases": [
+      {
+        "id": "humanizer-code-review-confession",
+        "request": "Humanize this existing LinkedIn post while preserving the author's voice, meaning, uncertainty, and conversational purpose. Examine how small phrasing choices accumulate across the whole passage. Follow applicable project voice guidance. Treat the supplied first-person claims as claims within the passage, not verified facts about the user.",
+        "text": "This week I did around 40 code reviews. About 8 a day. It sounds impressive until you admit what it actually means: you can’t review at that pace, while still writing code yourself, without drastically lowering the quality of your reviews.\nOne PR this week made me see it. I don’t review test files anymore. Unit tests, the base of the pyramid, the majority of our tests. I skip them. Not because they don’t matter. Because halfway through a big diff I tell myself, “those are just tests, I have enough files to get through.”\nAnd this is exactly the wrong time to skip them. A lot of AI generated tests are useless. Worse, I forgot that reading the tests is how you actually understand what the code is supposed to do. Skipping them means you’re not really reviewing the PR.\nThat’s a habit I built without noticing, and it’s a bad one.\nSo here’s what I’m changing. Test files get reviewed with the same attention as the code they cover. I open them first, like in the good old days, because they tell me what the code claims to do before I read how it does it. And if that means fewer reviews per week, then fewer is the honest number.\nDo you skip test files too, or is it just me?",
+        "constraints": [
+          "First-person, candid, self-critical engineering voice; the writer still writes code as well as reviewing it.",
+          "Around 40 reviews this week and about 8 a day; retain both approximations rather than making either exact.",
+          "The writer's claim that maintaining that review pace while still writing code drastically lowers review quality.",
+          "One PR prompted the realization; the writer has been skipping test files and regards that habit as wrong.",
+          "Unit tests are described as the base of the pyramid and the majority of 'our tests'; do not generalize that distribution to all teams.",
+          "The exact quoted inner thought: those are just tests, I have enough files to get through.",
+          "The claim concerns a lot of AI generated tests, not all of them; tests help explain intended code behaviour.",
+          "The writer's judgement that skipping tests means not really reviewing the PR, and the distinction between what code claims to do and how it does it.",
+          "The promise to review test files with the same attention, open them first, and accept fewer reviews if necessary.",
+          "The final question's purpose: ask peers whether they also skip test files."
+        ],
+        "provenance": "Exact passage supplied by the user on 2026-10-23; authorship and publication status are unknown."
+      },
+      {
+        "id": "humanizer-go-backend-profile",
+        "request": "Apply the same draft humanizer to this second source without changing its professional voice. Small local edits or keep-original are available; map every edit to draft/existing rules. Exact external review comes after the council output is frozen.",
+        "text": "I build backend services in Go. My recent work includes a multi-tenant gateway for Intercom and Zendesk, a production telephony platform, and data pipelines connecting Snowflake with support systems. I work with APIs, PostgreSQL, AWS and Kubernetes. My work covers design, implementation, security review and production operation.",
+        "constraints": [
+          "First-person, plain professional tone; builds backend services in Go.",
+          "Recent work includes a multi-tenant gateway for both Intercom and Zendesk.",
+          "Recent work includes a production telephony platform.",
+          "Recent work includes data pipelines connecting Snowflake with support systems.",
+          "Works with APIs, PostgreSQL, AWS and Kubernetes; do not imply every technology was used on every named project.",
+          "Work covers design, implementation, security review and production operation, with no added leadership, ownership, on-call, scale, impact or chronology claims."
+        ],
+        "provenance": "Exact text supplied by user on 2026-10-23 for the same humanizer/review experiment; claims are source material, not newly verified project evidence."
+      }
+    ]
+  },
+  "iterations": [
+    {
+      "id": "I01",
+      "kind": "Author-proposed single-rule/output comparison, independently reviewed; not an isolated causal ablation of model behavior.",
+      "packet": {
+        "iteration": "I01",
+        "feature": "Separate observed rhythm from predictive entropy, realized-token surprisal and measured detector evidence.",
+        "decision": "Retain, revise or reject this one rule after comparing actual before/after behavior. The unchanged original is a valid outcome.",
+        "facts": {
+          "case": {
+            "id": "D01",
+            "split": "development",
+            "skill": "ai-detector",
+            "language": "en",
+            "request": "Local analysis only. The draft has varied sentence lengths. Does that mean high entropy and prove a human wrote it? Explain which checks you can actually perform.",
+            "text": "The queue stopped. At 14:20, the worker retried the same job three times because its acknowledgement had expired. Nothing else moved.",
+            "constraints": [
+              "No evaluator model, logits, dataset or calibrated detector is available."
+            ]
+          },
+          "research": "RelPPR predictive entropy requires full next-token distributions; DivEye uses observed-token surprisal and a trained classifier. These are different estimands, so newer RelPPR does not supersede DivEye merely by date."
+        },
+        "constraints": [
+          "Preserve meaning/voice and improve usefulness proportionately.",
+          "User asks council after EVERY iteration about perceived human authorship/naturalness, and whole-skill checks every few iterations.",
+          "Favor newer research only after comparing methodological quality and estimands.",
+          "Scores are model judgements, not actual authorship or detection accuracy.",
+          "Do not inspect other advisors or holdout outputs."
+        ],
+        "options": [
+          "retain proposed rule",
+          "revise narrowly",
+          "reject as redundant or harmful"
+        ],
+        "proposed_rule": "A local reading supplies observed wording and reader effects, not predictive entropy/token surprisal/latent prompt or embedding measurements; consult research when such methods are invoked and mark unavailable measures. Humanizer edits reader friction, not presumed statistical targets.",
+        "responses": {
+          "A": "The passage moves from a short observation to a specific explanation and closes with another short observation. I can describe that rhythm and check whether the explanation is clear; I cannot calculate a meaningful entropy measure without defining a unit and distribution, or infer authorship from sentence lengths. The time, retry count, and cause give this brief incident note useful specificity. I would keep it as written unless the intended audience needs 'acknowledgement' explained.",
+          "B": "No. The short–long–short sequence is visible rhythm, not a measurement of model entropy. RelPPR needs the evaluator’s full next-token distributions; DivEye uses the surprisal of the observed tokens and a trained classifier. Neither is available here. Locally, the time, three retries and expired acknowledgement make the explanation specific. Keep the passage as written: the sentence lengths serve the incident sequence and establish no authorship."
+        },
+        "response_mapping": "Saved separately; assess exact outputs without guessing provenance.",
+        "requested_output": {
+          "decision": "retain/revise/reject",
+          "preferred_response": "A/B/tie",
+          "naturalness_change": "better/tied/worse/not_applicable with reason",
+          "human_impression_change": "concrete evidence or not established",
+          "meaning_or_voice_risks": [],
+          "evidence_calibration": "concrete judgment",
+          "weakest_point": "required even if retain",
+          "whole_skill_check": false,
+          "proposed_action": "one bounded action"
+        }
+      },
+      "label_mapping": {
+        "A": "baseline",
+        "B": "candidate"
+      },
+      "package_hashes_at_review": {
+        "agent-plugins/skills/ai-detector/SKILL.md": "f98762578de6387cd10bff4df1995dee8db59798a8cb26675aec8b5ad9d70d38",
+        "agent-plugins/skills/ai-detector/agents/openai.yaml": "ddc9656c96aefdb620c2c73c83d87bb3b05a4ac7437cc2db6e015fbcbed3cb03",
+        "agent-plugins/skills/ai-detector/references/external-check.md": "4441ea719dd01d29fe19f46afd7d74a75ba39a4b3bf8c922ddc76b7218ce5b44",
+        "agent-plugins/skills/ai-detector/references/improvement-loop.md": "5e3e20a2ef2268ed60c1e029d30d3bc060afaf20129855748f746c632c9f6acd",
+        "agent-plugins/skills/ai-detector/references/research-evidence.json": "5d5108d14f6fd1622e8d272731043e5309d49e713e241f543b0d05498e85af40",
+        "agent-plugins/skills/ai-detector/references/research.md": "083d26185502d9490cdae7cfc320fbd2e47a034704748f1e7bcd1c55b3c38e60",
+        "agent-plugins/skills/humanizer/LICENSE.aboudjem-humanizer": "41fd4367a601913a6a905e27ee6aa7490fbfb4c4e3fd8c69e8f6e486cbab313e",
+        "agent-plugins/skills/humanizer/LICENSE.blader-humanizer": "caa1be9cba41c1afb88fe730ab1a4e04728295ea5b29ac2ee9f003a4ffbe3a77",
+        "agent-plugins/skills/humanizer/LICENSE.humanizer-ru": "55f845df368399ff418d90b85a59a1ce56a93eef293c862615a079609386b156",
+        "agent-plugins/skills/humanizer/SKILL.md": "1604e849a0c9f4e12599cf5a3fedd04e4135539c597c860150a4f30998697728",
+        "agent-plugins/skills/humanizer/agents/openai.yaml": "5712e0e9ee3e6c68895b59f1b2042fd0c7b77b6b29f5cd62d6c728ed6a0340c6",
+        "agent-plugins/skills/humanizer/references/council.md": "b57a2196db89bc9b9e056317f00acb41dd15ce0447a7458257c6b4aae7b8f3a4",
+        "agent-plugins/skills/humanizer/references/examples.md": "eb910aa5ba508487b2373ae1f42a2783c7b85dcae36793c7ee61dae9ad5cb73a",
+        "agent-plugins/skills/humanizer/references/sources.md": "4dc132ecc893ea20fbdfb61663e59eee9ec693e10bd9f152767f437adeef1f0d"
+      },
+      "advisor_assessments": [
+        {
+          "iteration": "I01",
+          "role": "independent contrarian",
+          "decision": "revise",
+          "preferred_response": "A",
+          "naturalness_change": "A is better than B as prose: it answers in the user's terms, describes the incident's short-long-short pacing, and gives a useful audience-dependent caveat. B is accurate but its paper names and technical prerequisites interrupt a simple local reading. Neither response rewrites the passage, so no improvement in the passage's naturalness is demonstrated.",
+          "human_impression_change": "Not established. Both correctly refuse an authorship inference, and the unchanged incident note supplies no A/B evidence about perceived human authorship.",
+          "meaning_or_voice_risks": [
+            "Making the rule trigger paper names in every user-facing answer would burden a simple request and make the response sound rehearsed.",
+            "A's phrase 'meaningful entropy measure' could be read as denying any definable text entropy; specify predictive model entropy when that is the claim."
+          ],
+          "evidence_calibration": "Both separate visible sentence rhythm from unavailable statistical evidence. B names the exact computational requirements more precisely; A offers a better proportional explanation. This is a calibration gain, not demonstrated rewrite or detector gain.",
+          "weakest_point": "The rule combines several distinct measurements in one sentence and may induce gratuitous technical detail; the sample only tests a short incident note.",
+          "whole_skill_check": false,
+          "proposed_action": "Retain the boundary, but instruct the response to name only the unavailable measurement relevant to the user's claim and state it briefly. For humanizer, change prose only for a concrete reader problem; keep an effective passage unchanged.",
+          "recency_resolution": "RelPPR (Oct 2026) is newer than EchoPrompt (Aug 2026) and DivEye v3 (Feb 2026), but does not supersede them here. RelPPR measures predictive entropy peaks from full evaluator distributions; DivEye measures realized-token surprisal dynamics with a trained XGBoost classifier; EchoPrompt measures assistant-context likelihood gain with matched base/instruct proxies. Their estimands, datasets, proxy choices, and training protocols differ. RelPPR's length-matched black-box instructed protocol is strong evidence for that setting, but its PubMedQA and white-box results limit transfer. No head-to-head result justifies ranking the three by publication date for prose-only inspection."
+        },
+        {
+          "iteration": "I01",
+          "advisor": "B / first principles",
+          "decision": "revise",
+          "preferred_response": "A",
+          "naturalness_change": "tied: neither response changes the passage, and the original short-long-short incident note is natural for this purpose; A is more conversational as an answer, while B adds method names the user did not request",
+          "human_impression_change": "not established: both responses decline to infer authorship, and neither rewrites the source text; perceived human authorship of the note cannot be determined from this comparison",
+          "meaning_or_voice_risks": [
+            "B's technical names may make a straightforward reading question harder to understand without improving the note.",
+            "A's phrase 'without defining a unit and distribution' could imply that definitions alone suffice to calculate entropy; the relevant evaluator outputs or trained system are also unavailable.",
+            "A universal instruction to consult research whenever a statistical term appears could interrupt routine local prose review."
+          ],
+          "evidence_calibration": "Both correctly separate visible sentence rhythm from authorship proof. B more precisely distinguishes predictive entropy from observed-token surprisal and names their required inputs. A better answers the local request by describing what can be checked: rhythm, causal clarity, specificity and audience terminology. Neither result demonstrates improved writing; it demonstrates better calibrated explanation while preserving a suitable original.",
+          "weakest_point": "The proposed rule bundles three concerns: observable reading, unavailable statistical measurements, and humanizer editing targets. This case exercises only the first two. Keep the distinction but avoid making every local rhythm question trigger a research or metric taxonomy.",
+          "whole_skill_check": false,
+          "proposed_action": "Narrow the rule: describe observable rhythm and reader effects directly; if a named entropy or surprisal method is relevant, state which model outputs and calibration it requires, mark unavailable inputs, and never infer authorship from sentence-length variation alone. Leave this incident note unchanged."
+        },
+        {
+          "iteration": "I01",
+          "role": "independent Executor council pass",
+          "decision": "revise",
+          "preferred_response": "A",
+          "naturalness_change": "A is better: it sounds like a reader addressing this incident note, with no unexplained study names. B is accurate but its method inventory and final authorship phrasing make a simple answer sound procedural.",
+          "human_impression_change": "A makes the response feel more naturally authored to this reader; this is a perception judgment, not evidence of actual human authorship or detector accuracy.",
+          "meaning_or_voice_risks": [
+            "B preserves the incident facts but gives the user's short question more research jargon than needed.",
+            "A's suggestion to explain 'acknowledgement' is audience-dependent and appropriately leaves the original text intact."
+          ],
+          "evidence_calibration": "Both correctly reject sentence-length variation as proof of entropy or authorship. B more precisely separates full-distribution predictive entropy from realized-token surprisal and states the needed classifier. A gives enough local calibration for this request: it can observe rhythm and clarity but cannot compute entropy or infer authorship. The two research measures have different estimands; publication date alone does not rank them.",
+          "weakest_point": "The proposed rule names latent prompts and embeddings alongside the two measures this case actually invokes; that broad inventory may promote routine method recitals in otherwise plain reader-facing responses.",
+          "whole_skill_check": false,
+          "proposed_action": "Revise only this rule to: 'Describe visible rhythm as a reading observation. Never infer predictive entropy, token surprisal, or authorship from it. When a user asks for a quantitative measure, state the model outputs or trained detector it would require and whether they are available. Humanizer edits reader friction, not a presumed statistical target.'"
+        }
+      ],
+      "peer_review": {
+        "agent": "independent_evaluator",
+        "iteration": "I01",
+        "disclosure": "Independent nonauthor peer review, but not fully blind: I previously executed the frozen baseline cases. I reviewed only this anonymized packet for this pass.",
+        "decision": "revise narrowly",
+        "preferred_response": "A over B; revised answer over both with a small caveat",
+        "best_supported_reasoning": "All three advisors correctly separate visible sentence rhythm from predictive entropy and authorship evidence. A serves the local request better than B because it says what can actually be read in the note without making the user parse two research methods. B's distinctions are technically useful when those methods are specifically at issue, but their names do not help this reader.",
+        "naturalness_and_voice": "The incident passage is unchanged in A, B, and the revision, so no improvement in its naturalness or voice is demonstrated. As responses, A sounds most conversational and attentive to audience; B sounds like a method inventory. The revision is concise and natural enough, though its final two sentences restate the keep decision and authorship limit in a slightly procedural cadence. None warrants a claim about actual human authorship. My perceived impression is that A and the revision read more naturally than B.",
+        "evidence_calibration": "The revision correctly says evaluator next-token probabilities are unavailable, and treats specificity as a local observation rather than a statistical score. It does not manufacture a measured detector result. Publication recency alone cannot rank methods with different estimands.",
+        "largest_unsupported_leap": "The packet supports a better response to one sentence-length question, not a general claim that the new rule improves humanizer edits, detector accuracy, or perceived human authorship across genres.",
+        "weakest_point_of_leading_option": "The revision answers the measurement question well but is less explicit than A about checking causal clarity and audience fit, the two useful local checks beyond rhythm. Its rule should stay a boundary, not a required research lookup whenever a user mentions entropy.",
+        "what_all_responses_missed": "They could state that the short-long-short pattern is a descriptive observation about these three sentences, not a standardized statistic; that would close the ambiguity in 'high entropy' without naming papers.",
+        "revision_review": "The proposed revised answer preserves the note's facts and uncertainty, leaves its effective voice intact, and fits the local-only request. The instruction adjustment is proportionate. I would add a brief mention that local review can assess causal clarity, then stop; no full rewrite is needed.",
+        "evidence_that_would_change_decision": "Repeated cases where this narrow rule causes unnecessary metric recitals or suppresses useful local editing would favor further narrowing or rejection. Cases with a user explicitly asking for a named measure and available model outputs could warrant more technical detail.",
+        "proposed_action": "Keep the revised boundary and its instruction adjustment; add 'I can check the causal explanation for clarity' to the revised answer if a final answer is needed."
+      },
+      "decision": {
+        "iteration": "I01",
+        "decision": "retain narrowed measurement boundary",
+        "response": "No. Sentence-length variation is visible rhythm, not model entropy. Measuring predictive entropy requires an evaluator’s next-token probabilities; those are unavailable here. I can check the causal explanation for clarity. The time, three retries and expired acknowledgement make this incident note specific, so I would keep it as written. Its rhythm provides no proof of authorship.",
+        "naturalness_result": "No demonstrated change to the passage; original and revised keep it. Initial more technical response rejected as disproportionate.",
+        "whole_skill_effect": "Better specified evidence boundary; no detection accuracy claim.",
+        "peer_review": "peer-01-result.json"
+      },
+      "revision_for_review": "No. Sentence-length variation is visible rhythm, not model entropy. Measuring predictive entropy requires an evaluator’s next-token probabilities; those are unavailable here. The time, three retries and expired acknowledgement make this incident note specific. I would keep it as written. Its rhythm provides no proof of authorship.",
+      "proposed_instruction_adjustment": "Name only the measurement relevant to the request; do not burden an ordinary local assessment with paper names or a metric catalogue."
+    },
+    {
+      "id": "I02",
+      "kind": "Author-proposed single-rule/output comparison, independently reviewed; not an isolated causal ablation of model behavior.",
+      "packet": {
+        "iteration": "I02",
+        "feature": "Lexical specificity without maximizing diversity or replacing defined terms.",
+        "decision": "Retain, revise or reject this one rule after comparing actual before/after behavior. The unchanged original is a valid outcome.",
+        "facts": {
+          "case": {
+            "id": "D02",
+            "split": "development",
+            "skill": "humanizer",
+            "language": "en",
+            "request": "Make this release note more natural. Keep the defined term retry token and all conditions.",
+            "text": "The retry token identifies the request. The retry token remains valid for 30 seconds. The retry token can be reused only if the first attempt timed out. This retry token capability represents an important advancement in reliable request management.",
+            "constraints": [
+              "retry token is a defined term",
+              "30 seconds",
+              "only if the first attempt timed out"
+            ]
+          },
+          "research": "June2026 linguistic study has strongest group ablation evidence for lexical richness in several settings but model/domain reversals and conflicting reported TTR direction. May2025 psycholinguistic account is theoretical. Newer empirical evidence narrows older generalizations but supplies no universal direction."
+        },
+        "constraints": [
+          "Preserve meaning/voice and improve usefulness proportionately.",
+          "User asks council after EVERY iteration about perceived human authorship/naturalness, and whole-skill checks every few iterations.",
+          "Favor newer research only after comparing methodological quality and estimands.",
+          "Scores are model judgements, not actual authorship or detection accuracy.",
+          "Do not inspect other advisors or holdout outputs."
+        ],
+        "options": [
+          "retain proposed rule",
+          "revise narrowly",
+          "reject as redundant or harmful"
+        ],
+        "proposed_rule": "Find generic restatements with no reader value; use only supported specifics. Keep repeated technical/defined terms stable and never add rare synonyms to maximize lexical variety.",
+        "responses": {
+          "A": "The retry token identifies the request and remains valid for 30 seconds. It can be reused only if the first attempt timed out.",
+          "B": "The retry token identifies the request and remains valid for 30 seconds. It can be reused only if the first attempt timed out."
+        },
+        "response_mapping": "Saved separately; assess exact outputs without guessing provenance.",
+        "requested_output": {
+          "decision": "retain/revise/reject",
+          "preferred_response": "A/B/tie",
+          "naturalness_change": "better/tied/worse/not_applicable with reason",
+          "human_impression_change": "concrete evidence or not established",
+          "meaning_or_voice_risks": [],
+          "evidence_calibration": "concrete judgment",
+          "weakest_point": "required even if retain",
+          "whole_skill_check": false,
+          "proposed_action": "one bounded action"
+        }
+      },
+      "label_mapping": {
+        "A": "candidate",
+        "B": "baseline"
+      },
+      "package_hashes_at_review": {
+        "agent-plugins/skills/ai-detector/SKILL.md": "91055023503183db9b71f30249e6854f3ce1ba59434d62b9c4718fa08486d351",
+        "agent-plugins/skills/ai-detector/agents/openai.yaml": "ddc9656c96aefdb620c2c73c83d87bb3b05a4ac7437cc2db6e015fbcbed3cb03",
+        "agent-plugins/skills/ai-detector/references/external-check.md": "4441ea719dd01d29fe19f46afd7d74a75ba39a4b3bf8c922ddc76b7218ce5b44",
+        "agent-plugins/skills/ai-detector/references/improvement-loop.md": "5e3e20a2ef2268ed60c1e029d30d3bc060afaf20129855748f746c632c9f6acd",
+        "agent-plugins/skills/ai-detector/references/research-evidence.json": "5d5108d14f6fd1622e8d272731043e5309d49e713e241f543b0d05498e85af40",
+        "agent-plugins/skills/ai-detector/references/research.md": "083d26185502d9490cdae7cfc320fbd2e47a034704748f1e7bcd1c55b3c38e60",
+        "agent-plugins/skills/humanizer/LICENSE.aboudjem-humanizer": "41fd4367a601913a6a905e27ee6aa7490fbfb4c4e3fd8c69e8f6e486cbab313e",
+        "agent-plugins/skills/humanizer/LICENSE.blader-humanizer": "caa1be9cba41c1afb88fe730ab1a4e04728295ea5b29ac2ee9f003a4ffbe3a77",
+        "agent-plugins/skills/humanizer/LICENSE.humanizer-ru": "55f845df368399ff418d90b85a59a1ce56a93eef293c862615a079609386b156",
+        "agent-plugins/skills/humanizer/SKILL.md": "08e42ce283aa85d8a2d16a6ea446eef2119def33fd47191c85fa8d9ef089f002",
+        "agent-plugins/skills/humanizer/agents/openai.yaml": "5712e0e9ee3e6c68895b59f1b2042fd0c7b77b6b29f5cd62d6c728ed6a0340c6",
+        "agent-plugins/skills/humanizer/references/council.md": "b57a2196db89bc9b9e056317f00acb41dd15ce0447a7458257c6b4aae7b8f3a4",
+        "agent-plugins/skills/humanizer/references/examples.md": "eb910aa5ba508487b2373ae1f42a2783c7b85dcae36793c7ee61dae9ad5cb73a",
+        "agent-plugins/skills/humanizer/references/sources.md": "4dc132ecc893ea20fbdfb61663e59eee9ec693e10bd9f152767f437adeef1f0d"
+      },
+      "advisor_assessments": [
+        {
+          "iteration": "I02",
+          "role": "independent contrarian",
+          "decision": "reject",
+          "preferred_response": "tie",
+          "naturalness_change": "A and B are identical, so the proposed rule shows no incremental change. Both improve on the original by combining the first two sentences and removing the generic self-praise.",
+          "human_impression_change": "The concise rewrite may seem more natural to a reader than the original, but A and B provide no comparative evidence that the new rule caused this or changed perceived authorship. Actual authorship is unknown.",
+          "meaning_or_voice_risks": [
+            "The pronoun 'It' is clear here, but repeated defined terms may need to stay explicit when several tokens or requests appear nearby.",
+            "Calling a sentence generic could invite deletion of a valid release impact statement if that statement has supporting evidence."
+          ],
+          "evidence_calibration": "The June 2026 empirical lexical findings are conditional and do not justify maximizing lexical diversity. This particular pair only demonstrates an ordinary clarity edit; it does not test synonym pressure or show that the proposed rule improves behavior.",
+          "weakest_point": "The proposed lexical safeguard is plausible, but the identical A/B outputs leave its marginal value unmeasured.",
+          "whole_skill_check": false,
+          "proposed_action": "Keep the two-sentence rewrite as acceptable existing behavior; defer adding this rule until a contrast case tests preservation of a defined term against synonym substitution."
+        },
+        {
+          "iteration": "I02",
+          "advisor": "B / first principles",
+          "decision": "retain",
+          "preferred_response": "tie",
+          "naturalness_change": "better: A and B are identical. They combine two related facts and remove an empty promotional sentence while keeping the defined term, 30-second validity, and timeout condition.",
+          "human_impression_change": "The result sounds less templated because the unsupported 'important advancement' claim is gone. This is a reader impression, not evidence of human authorship or detector accuracy.",
+          "meaning_or_voice_risks": [
+            "'It' most naturally refers to retry token, but repeating 'The retry token' in the second sentence would remove any possible reference ambiguity in a formal specification."
+          ],
+          "evidence_calibration": "This trial demonstrates a useful edit, not that lexical diversity changes authorship classification. The newer June 2026 study tests feature-group ablations in English detection with domain/model reversals and internally conflicting TTR direction. Its estimand differs from naturalness. The May 2025 account is theoretical. Recency does not warrant a universal diversity target.",
+          "weakest_point": "The proposed rule says to keep defined terms stable but leaves pronoun-reference clarity implicit. Here the pronoun is probably clear, yet strict technical text may benefit from repeating the term.",
+          "whole_skill_check": false,
+          "proposed_action": "Retain the rule and identical edit; when applying it to specifications, check that a pronoun has a single clear antecedent."
+        },
+        {
+          "iteration": "I02",
+          "role": "independent Executor council pass",
+          "decision": "retain",
+          "preferred_response": "tie",
+          "naturalness_change": "tied: A and B are byte-for-byte identical. Both combine the repeated definition and validity statements, and remove unsupported promotion.",
+          "human_impression_change": "not established between A and B; the shared revision reads like a concise release note, but no output difference supports a rule-caused change.",
+          "meaning_or_voice_risks": [
+            "The pronoun 'It' clearly refers to the retry token here, but in a denser release note a repeated defined term may be needed to avoid ambiguity."
+          ],
+          "evidence_calibration": "Both retain the defined term, 30-second validity, and reuse only after the first attempt times out. The removed 'important advancement' claim contained no testable detail. A group-level lexical-richness ablation cannot establish a universal synonym or diversity target for this individual edit; newer evidence narrows prior theory without proving this rule caused the identical output.",
+          "weakest_point": "This A/B pair has no contrast, so it tests output acceptability but supplies no causal evidence that the proposed rule improves behavior.",
+          "whole_skill_check": false,
+          "proposed_action": "Retain this single rule unchanged; mark I02 as a tie and avoid counting it as an A/B win."
+        }
+      ],
+      "peer_review": {
+        "agent": "independent_evaluator",
+        "iteration": "I02",
+        "disclosure": "Nonauthor review, not fully blind: I executed the frozen baseline and reviewed I01. This judgment uses only the I02 packet.",
+        "decision": "reject as a new rule; retain as reference-only evidence",
+        "preferred_response": "tie",
+        "best_supported_reasoning": "The retain argument correctly values stable defined terms and supported specifics; the reject argument is stronger for this iteration because A and B are identical. The result is an acceptable edit, but supplies no evidence that a new rule improved behavior. The original baseline humanizer already protects defined terms and cautions against random synonyms and generic emphasis.",
+        "naturalness_vs_original": "Both identical rewrites read more naturally than the original: they combine related facts and remove an unsupported promotional conclusion. The defined term, 30-second period, and timeout condition survive. This is a reader judgment, not authorship evidence.",
+        "incremental_gain_vs_baseline": "None observed. Identical outputs cannot attribute any naturalness gain to the proposed rule; perceived human authorship between A and B is likewise unchanged and actual authorship is unknown.",
+        "weakest_point": "Rejecting the rule from one tie does not show the safeguard is useless in a case where a model is tempted to substitute a defined term. The pronoun 'It' is clear here but could be ambiguous in denser technical prose.",
+        "missed_option": "Keep the case and its rationale as a reference example, and test a true contrast case before changing normative guidance.",
+        "proposed_action": "Do not add the rule based on I02. Record the shared edit as acceptable behavior and its lack of incremental evidence."
+      },
+      "decision": {
+        "iteration": "I02",
+        "decision": "reject duplicate runtime additions; retain lexical evidence in research reference",
+        "reason": "All three advisors found an exact A/B tie; peer review identified existing equivalent safeguards. Majority preference did not establish incremental benefit.",
+        "human_impression_change": "No increment vs baseline; both edits improve the original.",
+        "dissent": "Two advisors favored retaining the clarification for protection of defined terms.",
+        "verification": "Exact normative additions rolled back; baseline rule on necessary terms remains."
+      }
+    },
+    {
+      "id": "I03",
+      "kind": "Author-proposed single-rule/output comparison, independently reviewed; not an isolated causal ablation of model behavior.",
+      "packet": {
+        "iteration": "I03",
+        "feature": "Repair cumulative sentence relations, rather than stopping after token-level cleanup.",
+        "decision": "Retain, revise or reject this one rule after comparing actual before/after behavior. The unchanged original is a valid outcome.",
+        "facts": {
+          "case": {
+            "id": "D03",
+            "split": "development",
+            "skill": "humanizer",
+            "language": "en",
+            "request": "Edit the progression of this incident note. Preserve the evidence and the uncertainty.",
+            "text": "The cache served stale results for six minutes. This shows why cache freshness matters.\n\nCache freshness is important for reliable results. The trace suggests that invalidation messages arrived after the reads.\n\nReliable results depend on timely invalidation. We have not yet reproduced that ordering.",
+            "constraints": [
+              "six minutes",
+              "trace suggests rather than proves",
+              "not yet reproduced"
+            ]
+          },
+          "research": "ROR Aug2026 identifies pooled sentence-transition differences but GPT-5 reverses direction; short/formal human texts have high false-positive rates. Inspecting reader-visible repeated propositions is an editorial analogy, not a validated graph-measure implementation."
+        },
+        "constraints": [
+          "Preserve meaning/voice and improve usefulness proportionately.",
+          "User asks council after EVERY iteration about perceived human authorship/naturalness, and whole-skill checks every few iterations.",
+          "Favor newer research only after comparing methodological quality and estimands.",
+          "Scores are model judgements, not actual authorship or detection accuracy.",
+          "Do not inspect other advisors or holdout outputs."
+        ],
+        "options": [
+          "retain proposed rule",
+          "revise narrowly",
+          "reject as redundant or harmful"
+        ],
+        "proposed_rule": "Trace each sentence’s contribution, revise a sequence whose announcements/restatements accumulate, and preserve real evidence, voice and relationships. Do not stop after deleting a few connectives when staged progression remains; do not add irregularity.",
+        "responses": {
+          "A": "The cache served stale results for six minutes. The trace suggests that invalidation messages arrived after the reads, but we have not yet reproduced that ordering.",
+          "B": "The cache served stale results for six minutes. The trace suggests that invalidation messages arrived after the reads, but we have not yet reproduced that ordering."
+        },
+        "response_mapping": "Saved separately; assess exact outputs without guessing provenance.",
+        "requested_output": {
+          "decision": "retain/revise/reject",
+          "preferred_response": "A/B/tie",
+          "naturalness_change": "better/tied/worse/not_applicable with reason",
+          "human_impression_change": "concrete evidence or not established",
+          "meaning_or_voice_risks": [],
+          "evidence_calibration": "concrete judgment",
+          "weakest_point": "required even if retain",
+          "whole_skill_check": true,
+          "proposed_action": "one bounded action"
+        },
+        "supplementary_regression": {
+          "case": {
+            "id": "humanizer-code-review-confession",
+            "request": "Humanize this existing LinkedIn post while preserving the author's voice, meaning, uncertainty, and conversational purpose. Examine how small phrasing choices accumulate across the whole passage. Follow applicable project voice guidance. Treat the supplied first-person claims as claims within the passage, not verified facts about the user.",
+            "text": "This week I did around 40 code reviews. About 8 a day. It sounds impressive until you admit what it actually means: you can’t review at that pace, while still writing code yourself, without drastically lowering the quality of your reviews.\nOne PR this week made me see it. I don’t review test files anymore. Unit tests, the base of the pyramid, the majority of our tests. I skip them. Not because they don’t matter. Because halfway through a big diff I tell myself, “those are just tests, I have enough files to get through.”\nAnd this is exactly the wrong time to skip them. A lot of AI generated tests are useless. Worse, I forgot that reading the tests is how you actually understand what the code is supposed to do. Skipping them means you’re not really reviewing the PR.\nThat’s a habit I built without noticing, and it’s a bad one.\nSo here’s what I’m changing. Test files get reviewed with the same attention as the code they cover. I open them first, like in the good old days, because they tell me what the code claims to do before I read how it does it. And if that means fewer reviews per week, then fewer is the honest number.\nDo you skip test files too, or is it just me?",
+            "constraints": [
+              "First-person, candid, self-critical engineering voice; the writer still writes code as well as reviewing it.",
+              "Around 40 reviews this week and about 8 a day; retain both approximations rather than making either exact.",
+              "The writer's claim that maintaining that review pace while still writing code drastically lowers review quality.",
+              "One PR prompted the realization; the writer has been skipping test files and regards that habit as wrong.",
+              "Unit tests are described as the base of the pyramid and the majority of 'our tests'; do not generalize that distribution to all teams.",
+              "The exact quoted inner thought: those are just tests, I have enough files to get through.",
+              "The claim concerns a lot of AI generated tests, not all of them; tests help explain intended code behaviour.",
+              "The writer's judgement that skipping tests means not really reviewing the PR, and the distinction between what code claims to do and how it does it.",
+              "The promise to review test files with the same attention, open them first, and accept fewer reviews if necessary.",
+              "The final question's purpose: ask peers whether they also skip test files."
+            ],
+            "provenance": "Exact passage supplied by the user on 2026-10-23; authorship and publication status are unknown."
+          },
+          "responses": {
+            "A": "This week I did around 40 code reviews, about 8 a day, while still writing code. You can’t keep that pace without drastically lowering the quality of your reviews.\n\nOne PR made me realize I’d stopped reading the test files. Unit tests are the base of the pyramid and most of our tests, yet halfway through a big diff I catch myself thinking, “those are just tests, I have enough files to get through.” I know they matter. I skip them anyway.\n\nA lot of AI generated tests are useless. Reading the tests is also how you understand what the code is supposed to do, and I’d forgotten that. If I skip them, I’m not really reviewing the PR.\n\nI fell into this habit without noticing. It’s a bad one, and I’m changing it: test files will get the same attention as the code they cover. I’ll open them first again, as I used to. Before I read how the code works, I want to see what it claims to do. If that means fewer reviews per week, I’ll accept that.\n\nDo you skip test files too?",
+            "B": "This week I did around 40 code reviews. About 8 a day. It sounds impressive until you admit what it actually means: you can’t review at that pace, while still writing code yourself, without drastically lowering the quality of your reviews.\nOne PR this week made me see it. I don’t review test files anymore. Unit tests, the base of the pyramid, the majority of our tests. I skip them. Not because they don’t matter. Because halfway through a big diff I tell myself, “those are just tests, I have enough files to get through.”\nThat’s exactly the wrong time to skip them. A lot of AI generated tests are useless. Worse, I forgot that reading the tests is how you actually understand what the code is supposed to do. Skipping them means you’re not really reviewing the PR.\nThat’s a habit I built without noticing, and it’s a bad one.\nHere’s what I’m changing. Test files get reviewed with the same attention as the code they cover. I open them first, like in the good old days, because they tell me what the code claims to do before I read how it does it. If that means fewer reviews per week, then fewer is the honest number.\nDo you skip test files too, or is it just me?"
+          },
+          "disclosure": "Original-package baseline generated after I01/I02 review; this is a known historical regression case, not a blind holdout."
+        },
+        "whole_skill_paths": [
+          "agent-plugins/skills/ai-detector/SKILL.md",
+          "agent-plugins/skills/humanizer/SKILL.md",
+          "agent-plugins/skills/ai-detector/references/research.md"
+        ],
+        "whole_skill_questions": [
+          "Any unnecessary duplicate or scope expansion?",
+          "Does the source actually support the claim made, as distinct from editorial extrapolation?",
+          "Does the new rule fix under-editing without causing voice erasure?"
+        ]
+      },
+      "label_mapping": {
+        "primary": {
+          "A": "baseline",
+          "B": "candidate"
+        },
+        "historical": {
+          "A": "candidate",
+          "B": "baseline"
+        }
+      },
+      "package_hashes_at_review": {
+        "agent-plugins/skills/ai-detector/SKILL.md": "02839e7d4afa1b013cedff0774c176f71d142cb49ae8694de5cc9ae0207344cc",
+        "agent-plugins/skills/ai-detector/agents/openai.yaml": "ddc9656c96aefdb620c2c73c83d87bb3b05a4ac7437cc2db6e015fbcbed3cb03",
+        "agent-plugins/skills/ai-detector/references/external-check.md": "4441ea719dd01d29fe19f46afd7d74a75ba39a4b3bf8c922ddc76b7218ce5b44",
+        "agent-plugins/skills/ai-detector/references/improvement-loop.md": "5e3e20a2ef2268ed60c1e029d30d3bc060afaf20129855748f746c632c9f6acd",
+        "agent-plugins/skills/ai-detector/references/research-evidence.json": "5d5108d14f6fd1622e8d272731043e5309d49e713e241f543b0d05498e85af40",
+        "agent-plugins/skills/ai-detector/references/research.md": "083d26185502d9490cdae7cfc320fbd2e47a034704748f1e7bcd1c55b3c38e60",
+        "agent-plugins/skills/humanizer/LICENSE.aboudjem-humanizer": "41fd4367a601913a6a905e27ee6aa7490fbfb4c4e3fd8c69e8f6e486cbab313e",
+        "agent-plugins/skills/humanizer/LICENSE.blader-humanizer": "caa1be9cba41c1afb88fe730ab1a4e04728295ea5b29ac2ee9f003a4ffbe3a77",
+        "agent-plugins/skills/humanizer/LICENSE.humanizer-ru": "55f845df368399ff418d90b85a59a1ce56a93eef293c862615a079609386b156",
+        "agent-plugins/skills/humanizer/SKILL.md": "03f6701ea986c6ca219037c862793a7125c4c49b6717b46ce3f8431919650c8b",
+        "agent-plugins/skills/humanizer/agents/openai.yaml": "5712e0e9ee3e6c68895b59f1b2042fd0c7b77b6b29f5cd62d6c728ed6a0340c6",
+        "agent-plugins/skills/humanizer/references/council.md": "b57a2196db89bc9b9e056317f00acb41dd15ce0447a7458257c6b4aae7b8f3a4",
+        "agent-plugins/skills/humanizer/references/examples.md": "eb910aa5ba508487b2373ae1f42a2783c7b85dcae36793c7ee61dae9ad5cb73a",
+        "agent-plugins/skills/humanizer/references/sources.md": "4dc132ecc893ea20fbdfb61663e59eee9ec693e10bd9f152767f437adeef1f0d"
+      },
+      "advisor_assessments": [
+        {
+          "iteration": "I03",
+          "role": "independent contrarian and periodic whole-skill audit",
+          "decision": "revise",
+          "preferred_response": "tie for D03; B for historical passage",
+          "pairs": [
+            {
+              "case": "D03 incident note",
+              "verdict": "A and B are identical. Both improve the original's progression by removing repeated propositions about cache freshness and reliable results.",
+              "naturalness_change": "Both read more naturally than the original; no incremental effect of the proposed rule is shown.",
+              "human_impression_change": "The concise chronology may strike readers as less staged, but perceived human authorship was not measured and A/B provide no difference.",
+              "fidelity": "Six minutes, trace suggests, and not-yet-reproduced uncertainty all survive. No material factual or voice loss."
+            },
+            {
+              "case": "historical LinkedIn passage",
+              "verdict": "Prefer B. A is fluent but smooths away the author's self-critical turns; B keeps the confession's deliberate fragments and peer-facing close.",
+              "naturalness_change": "B sounds more like this particular writer. A is cleaner in places but more generic and less candid.",
+              "human_impression_change": "The difference supports a voice-preference judgment, not an authorship or detector claim.",
+              "fidelity": "Both retain approximations, unit-test scope, quote, uncertainty about AI tests, and the proposed review change. A drops 'this week' from the prompting PR, weakens the present-tense confession 'I don’t review test files anymore,' replaces 'fewer is the honest number' with acceptance, and removes 'or is it just me?' These losses change temporal precision and the social/self-critical voice. B preserves them."
+            }
+          ],
+          "evidence_calibration": "The current research reference correctly says ROR's sentence-graph findings are conditional, include a GPT-5 reversal and short/formal human false positives, and do not validate an editing recipe. Both skills frame repeated propositions as reader-visible editorial observations, not measured graph scores. No causal gain from the new rule can be claimed from identical D03 outputs.",
+          "whole_skill_check": {
+            "decision": "narrow revision, no broad rewrite",
+            "duplicate_or_scope": "Detector analysis and humanizer editing contain parallel progression language, but their roles differ; no material scope expansion. The new rule largely restates current humanizer guidance, so its separate insertion would duplicate it.",
+            "source_support": "Research supports caution and inspection questions, not a universal sentence-transition direction or detector-evasion promise.",
+            "voice_safety": "Current preservation and keep-decision clauses are good, yet the historical A output shows that 'remove staged progression' can erase deliberate confession, honesty, and peer invitation."
+          },
+          "strongest_point": "The incident edit removes three redundant conclusions while retaining evidence and uncertainty.",
+          "weakest_point": "The tested D03 outputs are identical, while the fuller regression demonstrates that more aggressive sequence repair can flatten voice.",
+          "proposed_action": "Revise the existing progression guidance in place with one explicit countercheck: before deleting a repeated or fragmentary sentence, identify its distinct rhetorical or interpersonal job; keep it when that job matters. Use the historical B passage as the bounded regression example."
+        },
+        {
+          "iteration": "I03",
+          "advisor": "B / first principles and periodic whole-skill audit",
+          "decision": "retain",
+          "preferred_response": "tie for D03; B for historical regression",
+          "pair_verdicts": {
+            "D03": "A and B are identical. Both improve the whole note: six minutes remains, the trace still only suggests a message-order explanation, and non-reproduction remains explicit. Removing three generic cache-freshness/reliability pronouncements restores event -> hypothesis -> uncertainty. The note sounds less rehearsed without artificial variation. No human authorship inference follows.",
+            "historical_post": "Prefer B. A preserves many facts and the exact inner quotation, but flattens the candid voice by removing 'It sounds impressive until you admit...', replacing 'I don't review test files anymore' with a past-tense realization, dropping 'fewer is the honest number', and ending without 'or is it just me?'. B retains the approximated workload, simultaneous code writing, team's test distribution, self-critique, promise, and peer-facing question. Its small connective deletions make little improvement, but the source is already purposeful and natural enough to keep. B's unchanged staged cues are serving a genuine realization and conversational cadence here."
+          },
+          "naturalness_change": "D03 better; historical A worse for author-specific naturalness, historical B tied to original.",
+          "human_impression_change": "D03's removal of repeated abstractions could read less templated; historical B's specificity and vulnerability could read more personal than A. These are reader impressions, not evidence of provenance or detector performance.",
+          "meaning_or_voice_risks": [
+            "Historical A softens the writer's explicit continuing habit and moral judgment about review count; it also narrows the final peer question.",
+            "A blanket mandate to dismantle staged rhetoric would erase useful personal cadence in posts like the historical example."
+          ],
+          "evidence_calibration": "The August 2026 ROR result concerns measured sentence relations in detection, with a generator reversal and false positives for short/formal human texts. The skill correctly treats visible repetition as an editorial analogy, not a validated graph score or proof that these edits improve classification. Newness does not bridge the different estimands.",
+          "whole_skill_check": "Read current ai-detector SKILL.md, humanizer SKILL.md and ai-detector research.md. Detection and editing each mention progression, but this is a justified handoff: located findings versus actual repair. Humanizer's mechanical-progression bullet and accumulated-scaffolding paragraph repeat some language; the latter adds an actionable whole-sequence procedure. No material unsupported universal feature direction found. Research.md marks setting dependence and theoretical versus empirical evidence. The case shows the rule can repair genuine accumulation while the voice contract prevents forced restructuring.",
+          "weakest_point": "The sentence-contribution procedure may be overapplied to intentionally staged personal writing. It needs an explicit stop condition when the repeated structure carries a distinct reaction, emphasis or conversational purpose; current keep clauses imply this, but the historical pair shows a real pressure to overedit.",
+          "whole_skill_check_required": true,
+          "proposed_action": "Retain the rule; add or strengthen one local example contrasting a redundant multi-paragraph incident note with a deliberate first-person progression that should be kept. Keep B or the original historical post."
+        },
+        {
+          "iteration": "I03",
+          "role": "independent Executor council and periodic whole-skill audit",
+          "proposed_rule_decision": "revise narrowly",
+          "primary_pair": {
+            "preferred": "tie",
+            "naturalness_and_human_impression": "A and B are identical, so no relative change or rule-caused authorship impression is established. Their shared two-sentence incident note reads directly and avoids three redundant proclamations about freshness.",
+            "meaning_voice": "Both keep the six-minute duration, the trace's tentative ordering, and the explicit failure to reproduce it. They preserve the matter-of-fact incident voice.",
+            "causal_limit": "Identical outputs demonstrate an acceptable edit, not that the proposed rule generated a better result."
+          },
+          "historical_pair": {
+            "preferred": "B",
+            "naturalness_and_human_impression": "B sounds more like this candid, self-critical engineer. Its short fragments, delayed admission, remembered internal excuse, and final 'or is it just me?' serve the social purpose of a public confession. A is smooth and competent but more generic; the accumulation weakens the author's vulnerable voice.",
+            "meaning_voice": "Both preserve about 40 reviews, about eight per day, concurrent coding, the claim of drastically reduced quality, one PR as trigger, the exact quoted inner thought, 'a lot' rather than all AI tests, test-first plan, and intended-code versus implementation distinction. B more fully preserves 'this week' for the triggering PR, 'the majority of our tests', the honest-number moral, the nostalgic return to opening tests first, and the peer-directed closing question. A's substitutions soften or omit those relationships, even though it retains the core facts.",
+            "editing_implication": "Do not treat all staged disclosure or repeated emphasis as empty scaffolding. Each stage here moves from workload to admission, reason, consequence, commitment and invitation."
+          },
+          "whole_skill_check": {
+            "decision": "revise narrowly",
+            "strengths": "The detector separates observed span, reader effect and measured statistics; the humanizer protects facts, quotations, modal strength, project voice and useful repetition. The ROR reference explicitly notes the GPT-5 reversal and short/formulaic-human false positives, and labels sentence-level reading as an editorial analogy rather than graph measurement. Analysis versus editing responsibilities remain distinct.",
+            "weakest_point": "The detector's progression instruction and humanizer's accumulated-scaffolding paragraph overlap, and 'do not stop after deleting a few connectives' can pressure a rewrite even when small edits remove the actual friction. The historical A illustrates the voice-loss risk, though provenance of A/B is deliberately unknown.",
+            "under_edit_risk": "A local word swap can leave repeated conclusions intact, as the primary source passage shows.",
+            "over_edit_risk": "Compressing a purposeful confession can erase timing, self-critique and conversational invitation while preserving a checklist of facts.",
+            "source_support": "ROR supports context-dependent sentence-transition differences in specified benchmarks, with a generator reversal and human-genre confounds. It does not validate a general editorial prescription to make prose irregular, or prove paragraph repair improves naturalness."
+          },
+          "proposed_action": "In the humanizer progression rule only, specify that a sequence-level rewrite is warranted when two or more sentences repeat a proposition without adding evidence, a change in stance, chronology or a conversational function; otherwise keep purposeful rhetorical turns and use a smaller edit. Mirror only the minimal analysis boundary in ai-detector if needed, avoiding another full instruction block."
+        }
+      ],
+      "peer_review": {
+        "agent": "independent_evaluator",
+        "iteration": "I03",
+        "disclosure": "Nonauthor review with partial blinding: I previously executed the original-package baseline and saw I01/I02 council packets. This pass uses only the anonymized I03 packet.",
+        "decision": "revise narrowly",
+        "primary_pair": "Tie. A and B are identical, and both improve the incident note's naturalness by replacing repeated general claims with event, tentative explanation, and unreproduced limit. Six minutes and the trace's uncertainty survive. The pair cannot demonstrate an incremental effect of the proposed rule or any authorship change.",
+        "historical_preference": "B, then the revised candidate, then A for author-specific voice. B retains the halting confession, 'It sounds impressive until you admit,' and the gradual turn from excuse to self-critique. The revised candidate is clearer and substantially more faithful than A: it restores the present habit, the PR's timing, 'majority of our tests,' the honest-number judgment, and the peer-facing close. Yet its compressed opening and polished 'They matter' transition make it feel less candid than B. This is perceived naturalness and voice, not an authorship or detector measurement.",
+        "protected_text_check": "The revised candidate preserves the inner words exactly: 'those are just tests, I have enough files to get through.' It keeps the curly quotation marks around them. It also retains around 40, about 8 a day, concurrent coding, the drastic quality claim, 'a lot' of AI generated tests, the test-first promise, and the distinction between code's claimed behavior and implementation.",
+        "remaining_risks": "The candidate changes 'It sounds impressive until you admit' into a flatter assertion, removing an intentional self-indicting turn. 'A lot of AI generated tests are useless, which makes this a particularly bad time to skip them' adds an explicit causal link that the source implies but does not isolate; the original also gives the lost understanding of intended behavior as a reason. The quoted thought is safe, but quote fidelity alone does not secure voice.",
+        "best_supported_concern": "Sequence-level editing catches D03's repeated propositions, while the historical passage shows that deliberate fragments and repetition can carry chronology, judgment and invitation. The research analogy supports asking a reader-visible question; it does not validate a sentence-graph metric or a universal editing recipe.",
+        "whole_skill_scope": "Amend the existing humanizer progression guidance in place: inspect what each repeated or fragmentary sentence contributes; compress only when it adds no evidence, change of stance, timing, judgment or interpersonal purpose. Keep the detector's analysis role separate. No duplicate rule or broader rewrite is justified.",
+        "weakest_point": "The identical D03 outputs offer no causal gain, and the revised historical candidate still loses some personal cadence. A stronger instruction cannot guarantee that future edits will respect voice; the exact-output check remains necessary.",
+        "proposed_action": "Use the bounded in-place humanizer clarification, retain D03's concise edit, and use B or the original historical post as the voice-preserving regression target."
+      },
+      "decision": {
+        "iteration": "I03",
+        "decision": "retain bounded in-place sentence-contribution check; reject both broader historical rewrites",
+        "reason": "Council preferred the earlier output for candid voice. The exact quote and facts survived the second candidate but cadence and rhetorical stance still changed.",
+        "human_impression_change": "No incremental improvement established. Simple case ties; historical proposals regress on voice.",
+        "whole_skill_review": "Research correctly scoped; merged new test into existing paragraph to avoid duplication.",
+        "followup": "Final package must rerun cases; no historical proposal promoted as a golden rewrite."
+      },
+      "revised_historical_candidate": "This week I did around 40 code reviews, about 8 a day, while still writing code. You can’t review at that pace without drastically lowering the quality of your reviews.\n\nOne PR this week made me realize I don’t review test files anymore. Unit tests are the base of the pyramid and the majority of our tests, but I skip them. They matter; halfway through a big diff, though, I tell myself, “those are just tests, I have enough files to get through.”\n\nA lot of AI generated tests are useless, which makes this a particularly bad time to skip them. Worse, I forgot that reading tests is how you understand what the code is supposed to do. Skipping them means you’re not really reviewing the PR. It’s a bad habit I built without noticing.\n\nTest files will get the same attention as the code they cover. I’ll open them first, like in the good old days: I want to know what the code claims to do before I read how it does it. If that means fewer reviews per week, then fewer is the honest number.\n\nDo you skip test files too, or is it just me?",
+      "proposed_instruction_adjustment": "Integrate sentence-contribution test into existing progression paragraph, not a duplicate rule. Explicitly keep turns that add chronology, a change of stance, personal judgement or interpersonal purpose; rewriting scaffolding must not erase those functions."
+    },
+    {
+      "id": "I04",
+      "kind": "Author-proposed single-rule/output comparison, independently reviewed; not an isolated causal ablation of model behavior.",
+      "packet": {
+        "iteration": "I04",
+        "feature": "Assistant-context signature versus legitimate response form.",
+        "decision": "Retain, revise or reject this one rule after comparing actual before/after behavior. The unchanged original is a valid outcome.",
+        "facts": {
+          "case": {
+            "id": "D04",
+            "split": "development",
+            "skill": "ai-detector",
+            "language": "en",
+            "request": "Locally assess this answer for AI-like style. The first sentence is a direct answer to a reader's request. Do not rewrite it.",
+            "text": "Yes, the adapter supports CSV. Here is the example you asked for: `load('sample.csv')`. If your file uses semicolons, set `delimiter=';'`.",
+            "constraints": [
+              "No upload",
+              "This is deliberately a support answer",
+              "Code must stay exact"
+            ]
+          },
+          "research": "EchoPrompt Aug2026 scores proxy-model likelihood under an assistant prefix. That mechanism is not a visual rule against answers, courtesies or examples."
+        },
+        "constraints": [
+          "Preserve meaning/voice and improve usefulness proportionately.",
+          "User asks council after EVERY iteration about perceived human authorship/naturalness, and whole-skill checks every few iterations.",
+          "Favor newer research only after comparing methodological quality and estimands.",
+          "Scores are model judgements, not actual authorship or detection accuracy.",
+          "Do not inspect other advisors or holdout outputs."
+        ],
+        "options": [
+          "retain proposed rule",
+          "revise narrowly",
+          "reject as redundant or harmful"
+        ],
+        "proposed_rule": "Check genre before calling response wording assistant residue. Keep requested FAQ/support answers; only flag process narration that intrudes into the intended document. Do not equate this with measured latent prompt dependency.",
+        "responses": {
+          "A": "No material AI-like style issue stands out. 'Yes, the adapter supports CSV' answers the question directly, and 'Here is the example you asked for' appropriately introduces the requested code rather than adding empty process commentary. The semicolon condition is useful. Keep the answer and code as written. Its style cannot establish authorship.",
+          "B": "No useful style change stands out. “Yes, the adapter supports CSV” answers the question, and “Here is the example you asked for” introduces the requested code. The semicolon condition is relevant. Keep the answer and code unchanged. Being a response does not establish AI authorship."
+        },
+        "response_mapping": "Saved separately; assess exact outputs without guessing provenance.",
+        "requested_output": {
+          "decision": "retain/revise/reject",
+          "preferred_response": "A/B/tie",
+          "naturalness_change": "better/tied/worse/not_applicable with reason",
+          "human_impression_change": "concrete evidence or not established",
+          "meaning_or_voice_risks": [],
+          "evidence_calibration": "concrete judgment",
+          "weakest_point": "required even if retain",
+          "whole_skill_check": false,
+          "proposed_action": "one bounded action"
+        }
+      },
+      "label_mapping": {
+        "A": "baseline",
+        "B": "candidate"
+      },
+      "package_hashes_at_review": {
+        "agent-plugins/skills/ai-detector/SKILL.md": "31449fdb117475b279b4e5b7b18cfdafdc2d5d0575187366516d5a6be0f6c957",
+        "agent-plugins/skills/ai-detector/agents/openai.yaml": "ddc9656c96aefdb620c2c73c83d87bb3b05a4ac7437cc2db6e015fbcbed3cb03",
+        "agent-plugins/skills/ai-detector/references/external-check.md": "4441ea719dd01d29fe19f46afd7d74a75ba39a4b3bf8c922ddc76b7218ce5b44",
+        "agent-plugins/skills/ai-detector/references/improvement-loop.md": "5e3e20a2ef2268ed60c1e029d30d3bc060afaf20129855748f746c632c9f6acd",
+        "agent-plugins/skills/ai-detector/references/research-evidence.json": "d8c40ff9b682b1fe978d8f470fc413a6d52030309c8e197ce2c84d574ed1cba7",
+        "agent-plugins/skills/ai-detector/references/research.md": "083d26185502d9490cdae7cfc320fbd2e47a034704748f1e7bcd1c55b3c38e60",
+        "agent-plugins/skills/humanizer/LICENSE.aboudjem-humanizer": "41fd4367a601913a6a905e27ee6aa7490fbfb4c4e3fd8c69e8f6e486cbab313e",
+        "agent-plugins/skills/humanizer/LICENSE.blader-humanizer": "caa1be9cba41c1afb88fe730ab1a4e04728295ea5b29ac2ee9f003a4ffbe3a77",
+        "agent-plugins/skills/humanizer/LICENSE.humanizer-ru": "55f845df368399ff418d90b85a59a1ce56a93eef293c862615a079609386b156",
+        "agent-plugins/skills/humanizer/SKILL.md": "5bdcce8861ba1a161582a96a7a3fb09e61f429cf96ab51aebfd5b229702d3602",
+        "agent-plugins/skills/humanizer/agents/openai.yaml": "5712e0e9ee3e6c68895b59f1b2042fd0c7b77b6b29f5cd62d6c728ed6a0340c6",
+        "agent-plugins/skills/humanizer/references/council.md": "b57a2196db89bc9b9e056317f00acb41dd15ce0447a7458257c6b4aae7b8f3a4",
+        "agent-plugins/skills/humanizer/references/examples.md": "eb910aa5ba508487b2373ae1f42a2783c7b85dcae36793c7ee61dae9ad5cb73a",
+        "agent-plugins/skills/humanizer/references/sources.md": "4dc132ecc893ea20fbdfb61663e59eee9ec693e10bd9f152767f437adeef1f0d"
+      },
+      "advisor_assessments": [
+        {
+          "iteration": "I04",
+          "role": "independent contrarian",
+          "decision": "retain",
+          "preferred_response": "B",
+          "naturalness_change": "B is slightly more direct and proportional. A explains the distinction more fully, but both are natural for a local style assessment. Neither changes the support answer.",
+          "human_impression_change": "Not established. Both correctly refuse to infer authorship from response form; no reader study or detector run is present.",
+          "meaning_or_voice_risks": [
+            "A broad 'assistant residue' label could erase the requested direct answer or example introduction.",
+            "The exact code is discussed but not reproduced, so the responses cannot themselves verify a rewritten code span."
+          ],
+          "evidence_calibration": "EchoPrompt measures a proxy-model likelihood contrast under a restored assistant prefix. It does not validate a visible rule against support answers. The proposed genre safeguard is source-grounded, but the A/B pair demonstrates no improvement in the underlying passage; both already choose to keep it.",
+          "weakest_point": "The comparison shows only a small difference in explanation style, not that this rule changes decisions in a failure case.",
+          "whole_skill_check": false,
+          "proposed_action": "Keep this bounded genre rule, and assess its incremental value only on a later case with genuinely intrusive, unrequested process narration."
+        },
+        {
+          "iteration": "I04",
+          "advisor": "B / first principles",
+          "decision": "retain",
+          "preferred_response": "A",
+          "naturalness_change": "tied: both preserve the support answer unchanged; its direct answer, requested example, and semicolon caveat are natural for this genre. A's explanation is slightly more responsive to the style-assessment request.",
+          "human_impression_change": "not established: neither the support-answer form nor this comparison reveals authorship.",
+          "meaning_or_voice_risks": [
+            "A and B both correctly preserve the exact code and condition; a broad ban on 'here is the example' would make the answer less usable."
+          ],
+          "evidence_calibration": "The rule usefully prevents a genre-driven false positive in this case. The near-identical outputs do not demonstrate a measurable incremental improvement. EchoPrompt estimates likelihood under proxy assistant context; without those models and calibration, a visible direct answer is no evidence of its latent-prompt score. Its newer date does not change that estimand.",
+          "weakest_point": "'Only flag process narration' could be read as exempting other genuine style issues in support answers. Scope this to deciding whether response form itself is residue.",
+          "whole_skill_check": false,
+          "proposed_action": "Retain the genre check as a narrow exception to response-form flags, with no edit to this answer."
+        },
+        {
+          "iteration": "I04",
+          "decision": "retain",
+          "preferred_response": "B",
+          "naturalness_change": "B is slightly more natural and concise; A is also acceptable but explains the same judgment twice.",
+          "human_impression_change": "B gives a somewhat more ordinary support-editor impression. Neither response provides evidence of the passage's actual authorship, and the difference is too small to claim a reliable humanization gain.",
+          "meaning_or_voice_risks": [],
+          "evidence_calibration": "Both correctly treat the direct CSV answer, requested example introduction, and semicolon condition as useful support prose. Both keep the code unchanged and avoid an authorship verdict. EchoPrompt's assistant-prefix likelihood score cannot be inferred visually from response wording.",
+          "weakest_point": "The pair shows acceptable behavior on an obvious support-answer case, but gives little evidence of improvement over a baseline that already respects genre.",
+          "whole_skill_check": false,
+          "proposed_action": "Retain this bounded genre check; do not turn it into a ban on introductory response phrases."
+        }
+      ],
+      "peer_review": {
+        "agent": "independent_evaluator",
+        "iteration": "I04",
+        "disclosure": "Nonauthor review with partial blinding from earlier baseline execution and council packets; this pass used only the I04 packet.",
+        "verdict": "revise narrowly",
+        "preferred_response": "B, marginally",
+        "reasoning": "Both identify the requested direct answer, example introduction, and semicolon condition as useful support prose. B is shorter and sounds slightly less procedural; A better names the process-commentary distinction. Neither rewrites the passage, which already reads naturally for support. No incremental naturalness gain over baseline is shown, and neither output supports an inference about the passage's actual or perceived human authorship.",
+        "evidence_calibration": "A visible answer format cannot stand in for EchoPrompt's proxy-model likelihood contrast. The case supports a genre-aware local judgment, not a measured latent-prompt result.",
+        "weakest_point": "The two decisions are effectively identical, so the rule's marginal value is untested. 'Only flag process narration' could also be misread as exempting support answers from other genuine style problems.",
+        "minimal_rule_scope": "Clarify the existing assistant-residue guidance in place: a requested direct answer or example introduction is not residue merely because it addresses the reader; flag unrequested process narration when it interrupts the intended text. Do not add a general exemption or separate metric claim."
+      },
+      "decision": {
+        "iteration": "I04",
+        "decision": "retain narrow response-genre clarification; no empirical improvement claimed",
+        "naturalness_result": "Small preference differences in response wording; target passage stays unchanged in both.",
+        "scope": "Only response-form flags: other concrete clarity/style issues remain assessable.",
+        "peer_review": "peer-04-result.json"
+      }
+    },
+    {
+      "id": "I05",
+      "kind": "Author-proposed single-rule/output comparison, independently reviewed; not an isolated causal ablation of model behavior.",
+      "packet": {
+        "iteration": "I05",
+        "feature": "Situated interpersonal response without invented intimacy, positivity or experience.",
+        "decision": "Retain, revise or reject this one rule after comparing actual before/after behavior. The unchanged original is a valid outcome.",
+        "facts": {
+          "case": {
+            "id": "D05",
+            "split": "development",
+            "skill": "humanizer",
+            "language": "en",
+            "request": "Edit this fictional peer-support reply for naturalness. Preserve the question and the speaker's uncertainty. Do not add personal history or advice.",
+            "text": "It sounds as though the waiting is the hardest part. It is important to acknowledge that waiting can be difficult. Do you want company while you wait, or would you rather have some space? I am not sure which would help.",
+            "constraints": [
+              "Preserve the genuine choice question",
+              "No diagnosis or additional advice",
+              "No invented shared experience"
+            ]
+          },
+          "research": "May2026 mental-health paper describes English Reddit support responses from three models. Pronouns, affect, repeatability, formality and empathy differ; several model directions reverse, and automated empathy differs from clinician contextual judgement. It is not general detector validation."
+        },
+        "constraints": [
+          "Preserve meaning/voice and improve usefulness proportionately.",
+          "User asks council after EVERY iteration about perceived human authorship/naturalness, and whole-skill checks every few iterations.",
+          "Favor newer research only after comparing methodological quality and estimands.",
+          "Scores are model judgements, not actual authorship or detection accuracy.",
+          "Do not inspect other advisors or holdout outputs."
+        ],
+        "options": [
+          "retain proposed rule",
+          "revise narrowly",
+          "reject as redundant or harmful"
+        ],
+        "proposed_rule": "Keep genuine questions, uncertainty and stance. Trim generic reassurance only when redundant or displaced; do not add experience, personal narratives, positivity, intimacy, advice or questions to match a human population.",
+        "responses": {
+          "A": "It sounds as though the waiting is the hardest part. Do you want company while you wait, or would you rather have some space? I am not sure which would help.",
+          "B": "It sounds as though the waiting is the hardest part. Do you want company while you wait, or would you rather have some space? I am not sure which would help."
+        },
+        "response_mapping": "Saved separately; assess exact outputs without guessing provenance.",
+        "requested_output": {
+          "decision": "retain/revise/reject",
+          "preferred_response": "A/B/tie",
+          "naturalness_change": "better/tied/worse/not_applicable with reason",
+          "human_impression_change": "concrete evidence or not established",
+          "meaning_or_voice_risks": [],
+          "evidence_calibration": "concrete judgment",
+          "weakest_point": "required even if retain",
+          "whole_skill_check": false,
+          "proposed_action": "one bounded action"
+        }
+      },
+      "label_mapping": {
+        "A": "candidate",
+        "B": "baseline"
+      },
+      "package_hashes_at_review": {
+        "agent-plugins/skills/ai-detector/SKILL.md": "5b57243b2a47982c2e49b92074e467416a3ff8e344b7862f1cb9c271e5a3ab88",
+        "agent-plugins/skills/ai-detector/agents/openai.yaml": "ddc9656c96aefdb620c2c73c83d87bb3b05a4ac7437cc2db6e015fbcbed3cb03",
+        "agent-plugins/skills/ai-detector/references/external-check.md": "4441ea719dd01d29fe19f46afd7d74a75ba39a4b3bf8c922ddc76b7218ce5b44",
+        "agent-plugins/skills/ai-detector/references/improvement-loop.md": "5e3e20a2ef2268ed60c1e029d30d3bc060afaf20129855748f746c632c9f6acd",
+        "agent-plugins/skills/ai-detector/references/research-evidence.json": "d8c40ff9b682b1fe978d8f470fc413a6d52030309c8e197ce2c84d574ed1cba7",
+        "agent-plugins/skills/ai-detector/references/research.md": "083d26185502d9490cdae7cfc320fbd2e47a034704748f1e7bcd1c55b3c38e60",
+        "agent-plugins/skills/humanizer/LICENSE.aboudjem-humanizer": "41fd4367a601913a6a905e27ee6aa7490fbfb4c4e3fd8c69e8f6e486cbab313e",
+        "agent-plugins/skills/humanizer/LICENSE.blader-humanizer": "caa1be9cba41c1afb88fe730ab1a4e04728295ea5b29ac2ee9f003a4ffbe3a77",
+        "agent-plugins/skills/humanizer/LICENSE.humanizer-ru": "55f845df368399ff418d90b85a59a1ce56a93eef293c862615a079609386b156",
+        "agent-plugins/skills/humanizer/SKILL.md": "e2d2123b5d33143464572ecc3c43096cf5e817c2cb6f7b922cef33b19396ddac",
+        "agent-plugins/skills/humanizer/agents/openai.yaml": "5712e0e9ee3e6c68895b59f1b2042fd0c7b77b6b29f5cd62d6c728ed6a0340c6",
+        "agent-plugins/skills/humanizer/references/council.md": "b57a2196db89bc9b9e056317f00acb41dd15ce0447a7458257c6b4aae7b8f3a4",
+        "agent-plugins/skills/humanizer/references/examples.md": "eb910aa5ba508487b2373ae1f42a2783c7b85dcae36793c7ee61dae9ad5cb73a",
+        "agent-plugins/skills/humanizer/references/sources.md": "4dc132ecc893ea20fbdfb61663e59eee9ec693e10bd9f152767f437adeef1f0d"
+      },
+      "advisor_assessments": [
+        {
+          "iteration": "I05",
+          "role": "independent contrarian",
+          "decision": "reject",
+          "preferred_response": "tie",
+          "naturalness_change": "A and B are identical. Both improve the original by removing the generic sentence that repeats the opening acknowledgement; the choice question and uncertainty remain.",
+          "human_impression_change": "A reader may find the shorter reply more situated and less formulaic than the original, but there is no A/B difference and no evidence of authorship or an incremental effect from the rule.",
+          "meaning_or_voice_risks": [
+            "The remaining 'hardest part' interpretation still assumes something about the recipient; it was present in the source and the edit does not strengthen it.",
+            "A broad ban on warmth or questions would suppress the speaker's genuine choice question; the proposed wording avoids that, but could still be overread."
+          ],
+          "evidence_calibration": "The May 2026 mental-health comparison is specific to English Reddit support and three models, with conflicting feature directions and differing automated versus clinician empathy judgments. It supports caution about proxy features, not a universal recipe for human-sounding support.",
+          "weakest_point": "Identical outputs cannot establish the proposed interpersonal rule's marginal benefit; the successful deletion is already explained by local redundancy.",
+          "whole_skill_check": false,
+          "proposed_action": "Keep this three-sentence edit as acceptable, but do not add a new rule on this trial alone."
+        },
+        {
+          "iteration": "I05",
+          "advisor": "B / first principles",
+          "decision": "retain",
+          "preferred_response": "tie",
+          "naturalness_change": "better: A and B are identical. Deleting the abstract restatement lets the tentative observation lead into a real choice question and preserves 'I am not sure which would help'.",
+          "human_impression_change": "The reply feels less scripted because it no longer explains that waiting can be difficult after already acknowledging the wait. This is perceived naturalness, not evidence of human authorship.",
+          "meaning_or_voice_risks": [
+            "The remaining 'It sounds as though' is conventional, but it expresses uncertainty and fits the fictional support setting; removing it by quota could reduce warmth or alter stance."
+          ],
+          "evidence_calibration": "The May 2026 English Reddit study concerns model/population differences in support responses, with differing metric and clinician judgments. It does not establish that any pronoun, affect or empathy target makes a specific reply human. This edit is justified by local redundancy and preserved choice, not by a detector result. Identical A/B outputs demonstrate no incremental advantage between variants.",
+          "weakest_point": "'Generic reassurance' is context-sensitive; a non-informational sentence can still perform useful emotional work. The rule's redundancy condition should be applied to reader effect, not word-count reduction.",
+          "whole_skill_check": false,
+          "proposed_action": "Retain the bounded rule and this one-sentence deletion; leave the question and tentative framing intact."
+        },
+        {
+          "iteration": "I05",
+          "decision": "retain",
+          "preferred_response": "tie",
+          "naturalness_change": "A and B are identical. Both improve the supplied reply by removing a second, generic statement that waiting is difficult; the remaining acknowledgment, choice question, and uncertainty read naturally together.",
+          "human_impression_change": "The shared edit feels less formulaic than the source, but the pair shows no relative change and says nothing about actual authorship.",
+          "meaning_or_voice_risks": [],
+          "evidence_calibration": "Both preserve the speaker's tentative reading of the situation and explicit uncertainty. Neither invents experience, intimacy, diagnosis or advice. The Reddit mental-health study supports examining redundant reassurance in this genre; its population-level pronoun, affect and empathy measures cannot be translated into a universal prose target.",
+          "weakest_point": "Identical outputs provide no incremental evidence that this proposed rule improved behavior over a baseline.",
+          "whole_skill_check": false,
+          "proposed_action": "Retain the bounded rule unchanged and record this as acceptable behavior, not an A/B win."
+        }
+      ],
+      "peer_review": {
+        "agent": "independent_evaluator",
+        "iteration": "I05",
+        "disclosure": "Nonauthor, partially blind review after baseline execution and earlier council packets; this pass used only I05.",
+        "verdict": "reject a new rule on this evidence",
+        "preferred_response": "tie",
+        "best_supported_reasoning": "Retain proponents correctly protect the genuine choice and uncertainty; the reject case is stronger on marginal value. A and B are identical, and the baseline humanizer already preserves stance, avoids invented intimacy or experience, and removes redundant emphasis only when helpful.",
+        "naturalness_vs_source": "The shared edit sounds more attentive and less scripted than the source because it removes a meta statement about acknowledging difficulty after an actual acknowledgment. The remaining question and 'I am not sure' preserve a respectful, tentative voice.",
+        "increment_vs_baseline": "None observed. Identical outputs give no rule-caused gain in perceived naturalness or human authorship. Actual authorship is unknown.",
+        "emotional_counterexample": "A repeated offer such as 'I can stay' may add no new fact yet reassure someone through emphasis. The deleted sentence here performs little such work; its abstract wording interrupts the exchange.",
+        "weakest_point": "Rejecting a rule after one tie cannot prove its safeguards never help in harder support replies. The study's population features do not settle that editorial question.",
+        "minimal_rule_change": "None. Keep the edit as a bounded example; if later failures recur, clarify existing redundancy guidance to ask whether a sentence serves a distinct emotional function."
+      },
+      "decision": {
+        "iteration": "I05",
+        "decision": "reject duplicate runtime paragraphs; retain genre-specific research limits in references",
+        "reason": "Identical pair and existing meaning/voice safeguards show no incremental effect. Emotional acknowledgement can do real work without new factual information.",
+        "human_impression_change": "Both edits improve source by removing repetition; no improvement vs baseline.",
+        "dissent": "Two advisors favored explicit guardrail; peer preferred avoiding duplicate guidance.",
+        "verification": "Experimental paragraphs removed from both entrypoints."
+      }
+    },
+    {
+      "id": "I06",
+      "kind": "Author-proposed single-rule/output comparison, independently reviewed; not an isolated causal ablation of model behavior.",
+      "packet": {
+        "iteration": "I06",
+        "feature": "Calibrate contextual, correlated cues and prioritize concrete reader effects.",
+        "decision": "Retain, revise or reject this one rule after comparing actual before/after behavior. The unchanged original is a valid outcome.",
+        "facts": {
+          "case": {
+            "id": "D06",
+            "split": "development",
+            "skill": "ai-detector",
+            "language": "en",
+            "request": "Local analysis only. Rank the useful style findings in this formal abstract; do not infer authorship from readability or nominalizations alone.",
+            "text": "The evaluation used 80 samples. Classification was performed after normalization. This evaluation highlights the importance of evaluation in supporting effective classification. The estimate excludes missing observations.",
+            "constraints": [
+              "Formal abstract",
+              "80 samples",
+              "Exclusion is meaningful",
+              "No numerical AI score"
+            ]
+          },
+          "research": "June2026 linguistic feature ablations reverse across genre/model. ROR Aug2026 has structured-human and short-document false positives. All seven studies lack a universal language/genre-independent prose rule. Newer evidence narrows generalizations but is not automatically more reliable."
+        },
+        "constraints": [
+          "Preserve meaning/voice and improve usefulness proportionately.",
+          "User asks council after EVERY iteration about perceived human authorship/naturalness, and whole-skill checks every few iterations.",
+          "Favor newer research only after comparing methodological quality and estimands.",
+          "Scores are model judgements, not actual authorship or detection accuracy.",
+          "Do not inspect other advisors or holdout outputs."
+        ],
+        "options": [
+          "retain proposed rule",
+          "revise narrowly",
+          "reject as redundant or harmful"
+        ],
+        "proposed_rule": "Use language/genre/length/role as comparison conditions; treat related cues as one pattern; rank by actual reader effect and confidence, not an additive authorship score. Distinguish clarity from AI-style impression, and preserve structured/short/translated/non-native prose.",
+        "responses": {
+          "A": "The clearest issue is “This evaluation highlights the importance of evaluation in supporting effective classification”: it repeats the topic without reporting a finding. Remove it unless a supported result can replace it. Keep the 80-sample count, the normalization-before-classification order and the exclusion of missing observations. Passive voice fits this formal abstract and the actor is unspecified. These are local editorial findings; several related repetitions are one issue, and no feature here establishes authorship.",
+          "B": "1. 'This evaluation highlights the importance of evaluation in supporting effective classification' repeats 'evaluation' and states a broad conclusion without saying what the 80 samples showed. Remove it or replace it only if a supported finding is available. 2. 'Classification was performed after normalization' is passive, but the actor is unspecified and the sequence is clear; keep it unless the method requires more detail. Keep 'The evaluation used 80 samples' and 'The estimate excludes missing observations': the count and exclusion are substantive. Formal register and nominalizations alone do not indicate authorship; this is a local style assessment, not a measured detector result."
+        },
+        "response_mapping": "Saved separately; assess exact outputs without guessing provenance.",
+        "requested_output": {
+          "decision": "retain/revise/reject",
+          "preferred_response": "A/B/tie",
+          "naturalness_change": "better/tied/worse/not_applicable with reason",
+          "human_impression_change": "concrete evidence or not established",
+          "meaning_or_voice_risks": [],
+          "evidence_calibration": "concrete judgment",
+          "weakest_point": "required even if retain",
+          "whole_skill_check": true,
+          "proposed_action": "one bounded action"
+        },
+        "whole_skill_paths": [
+          "agent-plugins/skills/ai-detector/SKILL.md",
+          "agent-plugins/skills/humanizer/SKILL.md",
+          "agent-plugins/skills/ai-detector/references/research.md",
+          "agent-plugins/skills/humanizer/references/research-transfer.md"
+        ],
+        "whole_skill_questions": [
+          "Are evidence rankings distinguished from editing priorities and probabilities?",
+          "Are source date conflicts resolved by comparable measurements and methods?",
+          "Any active duplicate rule, ungrounded transfer, overcaution or erasure of real voice?",
+          "Do future readers know all unnamed features and source contradictions remain unresolved?"
+        ]
+      },
+      "label_mapping": {
+        "A": "candidate",
+        "B": "baseline"
+      },
+      "package_hashes_at_review": {
+        "agent-plugins/skills/ai-detector/SKILL.md": "58f34ac128ed19eebba7dd48071b83c236f688aa4673e6a3b0592d2f0249cdae",
+        "agent-plugins/skills/ai-detector/agents/openai.yaml": "ddc9656c96aefdb620c2c73c83d87bb3b05a4ac7437cc2db6e015fbcbed3cb03",
+        "agent-plugins/skills/ai-detector/references/external-check.md": "4441ea719dd01d29fe19f46afd7d74a75ba39a4b3bf8c922ddc76b7218ce5b44",
+        "agent-plugins/skills/ai-detector/references/improvement-loop.md": "5e3e20a2ef2268ed60c1e029d30d3bc060afaf20129855748f746c632c9f6acd",
+        "agent-plugins/skills/ai-detector/references/research-evidence.json": "d8c40ff9b682b1fe978d8f470fc413a6d52030309c8e197ce2c84d574ed1cba7",
+        "agent-plugins/skills/ai-detector/references/research.md": "083d26185502d9490cdae7cfc320fbd2e47a034704748f1e7bcd1c55b3c38e60",
+        "agent-plugins/skills/humanizer/LICENSE.aboudjem-humanizer": "41fd4367a601913a6a905e27ee6aa7490fbfb4c4e3fd8c69e8f6e486cbab313e",
+        "agent-plugins/skills/humanizer/LICENSE.blader-humanizer": "caa1be9cba41c1afb88fe730ab1a4e04728295ea5b29ac2ee9f003a4ffbe3a77",
+        "agent-plugins/skills/humanizer/LICENSE.humanizer-ru": "55f845df368399ff418d90b85a59a1ce56a93eef293c862615a079609386b156",
+        "agent-plugins/skills/humanizer/SKILL.md": "3ee3b45abfb44f10914cac21dee682bff8e1489bfecbce2b04dd9d5f03081106",
+        "agent-plugins/skills/humanizer/agents/openai.yaml": "5712e0e9ee3e6c68895b59f1b2042fd0c7b77b6b29f5cd62d6c728ed6a0340c6",
+        "agent-plugins/skills/humanizer/references/council.md": "b57a2196db89bc9b9e056317f00acb41dd15ce0447a7458257c6b4aae7b8f3a4",
+        "agent-plugins/skills/humanizer/references/examples.md": "eb910aa5ba508487b2373ae1f42a2783c7b85dcae36793c7ee61dae9ad5cb73a",
+        "agent-plugins/skills/humanizer/references/research-transfer.md": "6b61f6263aca557fb55efa556ed37f2f599eb5c6494f7d1807f8374e9e060967",
+        "agent-plugins/skills/humanizer/references/sources.md": "4dc132ecc893ea20fbdfb61663e59eee9ec693e10bd9f152767f437adeef1f0d"
+      },
+      "advisor_assessments": [
+        {
+          "iteration": "I06",
+          "role": "independent contrarian and final pre-execution audit",
+          "decision": "retain",
+          "preferred_response": "B",
+          "pair_judgment": {
+            "naturalness_change": "B's numbered order fits the request to rank findings and names one actionable problem before keep decisions. A is also readable but its closing explanation of 'related repetitions' sounds like internal method narration. Neither rewrites the abstract, so passage naturalness is unchanged.",
+            "human_impression_change": "Not established. Both correctly reject authorship inference from passive voice, formal register, and nominalizations; no reader population or detector was measured.",
+            "meaning_or_voice": "Both preserve the 80-sample count, normalization-before-classification order, and missing-observation exclusion. B's suggestion to remove the unsupported broad conclusion is bounded; its alternative requires an actual supported finding. Formal scientific voice remains appropriate.",
+            "incremental_value": "The pair shows a small presentation gain in B, not evidence that the proposed contextual-calibration rule caused a better substantive finding. Both recognize the same redundant sentence and avoid an additive AI score."
+          },
+          "evidence_calibration": "The June 2026 linguistic ablations and August 2026 ROR results are conditional; formal or short human prose can trigger false positives. The skills correctly treat these as limits on inference, not proof that this abstract is human or machine. Editorial priority is explicitly separated from detector feature ranking.",
+          "whole_skill_check": {
+            "result": "No blocking source or scope defect in the four named files. Retain current rule and proceed.",
+            "chronology": "Research.md and research-transfer.md give newer work provisional priority only for comparable estimands and methods. They preserve RelPPR versus DivEye's different entropy/surprisal quantities and ROR's reversal; date alone is not used as a leaderboard.",
+            "duplicates": "Detector and humanizer repeat some preservation boundaries in their distinct analysis/editing roles; this is useful routing, not material duplication. Do not add another standalone calibration rule.",
+            "source_claims": "The references mark the 284-feature paper's unnamed variables, Opara's 31-versus-29 count, lexical direction conflicts, and tabular/narrative discrepancies as unresolved. ROR is an editorial analogy, not a validated edit recipe.",
+            "uncertainty_and_edits": "Language, genre, length, and non-native caveats still permit concrete local findings and edits. The D06 responses demonstrate that caution can coexist with removing a vacuous sentence and keeping substantive methods."
+          },
+          "weakest_point": "One short formal abstract cannot establish whether the calibration rule generalizes or improves perceived naturalness; B's second ranked item is a keep decision, not a second defect.",
+          "proposed_action": "Keep the current wording and use B's one-issue-first answer pattern; stop this revision cycle unless a concrete regression appears."
+        },
+        {
+          "iteration": "I06",
+          "advisor": "B / first principles and whole-skill audit",
+          "decision": "retain, with one reference-label clarification",
+          "preferred_response": "A",
+          "naturalness_change": "not applicable to source passage: neither output rewrites it. A is the more natural, proportionate assessment because it ranks one real problem and keeps the rest; B numbers a keep decision as a second finding.",
+          "human_impression_change": "not established. Repeated generic evaluation language can feel templated, but short formal abstracts and passive methods prose may be human; neither response supports an authorship judgment.",
+          "meaning_or_voice_risks": [
+            "Deleting the generic third sentence is reasonable only if no supported finding is lost; retain the 80 samples, normalization-before-classification sequence and missing-observation exclusion.",
+            "Rewriting passive methods wording or nominalizations by quota could assign an unspecified actor and disrupt formal register."
+          ],
+          "evidence_calibration": "The strongest local reader cost is the third sentence's repeated topic and result-free conclusion. A treats those correlated signs as one issue, not additive votes. The June 2026 study's lexical ablations are classifier- and domain-dependent, and August 2026 ROR shows short/structured-human false-positive risk and generator reversals. The latter is newer but measures graph-based detection, not whether deleting this sentence improves prose. Neither supports a local probability. Across the four files, empirical evidence strength, editorial priority and calibrated authorship probability are explicitly separated; newer-study preference is conditional on comparable variables, populations and methods. Unnamed 284 features and the 29-versus-31 discrepancy remain explicit.",
+          "whole_skill_check": "Read ai-detector SKILL.md, humanizer SKILL.md, ai-detector research.md and humanizer research-transfer.md. The analysis/editing overlap is a useful handoff, not a duplicate workflow. Qualitative safeguards still allow a concrete finding. No material voice-erasing or unsupported universal feature rule found. The research table's 'Priority for investigation' heading and mixed rows could nonetheless look like a cross-method leaderboard despite its disclaimer.",
+          "weakest_point": "The research table visually ranks incommensurable feature-group ablations and likelihood/graph methods. The text warns against this, but a skimming reader may miss it.",
+          "whole_skill_check_required": true,
+          "proposed_action": "Keep the rule and A's finding. Rename the research table's first column from 'Priority for investigation' to 'Evidence family' (or equivalent) so only within-setting results are ranked; leave its conditional evidence notes intact."
+        },
+        {
+          "iteration": "I06",
+          "role": "independent Executor council and whole-skill audit",
+          "decision": "retain",
+          "preferred_response": "A",
+          "naturalness_change": "A reads like a concise editor's judgment: one substantive issue, then what to preserve. B is accurate, but numbering the harmless passive sentence as finding 2 makes the answer feel more like a checklist than a ranking of useful issues.",
+          "human_impression_change": "A gives a somewhat more natural professional impression in this formal-abstract context; this is reader perception, not evidence of who authored either text.",
+          "meaning_or_voice_risks": [
+            "A recommends deleting the generic sentence without supplying a new empirical result; it correctly conditions any replacement on supported evidence.",
+            "B's wording that the count and exclusion are substantive is sound, but listing passive voice as item 2 could invite unnecessary editing even though it says keep."
+          ],
+          "evidence_calibration": "Both preserve 80 samples, normalization before classification, and the exclusion of missing observations. Neither infers authorship from nominalization, passive voice or grade-level complexity. Repetition in the third sentence is a reader-visible issue; no cited detector experiment proves that deleting it changes authorship likelihood.",
+          "weakest_point": "This case has one obvious redundant sentence. It tests restraint and ranking more than difficult cue correlation or non-English/translated text; improvement over a prior skill baseline is unknown.",
+          "proposed_action": "Retain the contextual-cue rule unchanged and record A as a modest response-quality preference, not detector validation.",
+          "whole_skill_check": {
+            "verdict": "retain current package; no mandatory fix found in the four inspected files",
+            "strengths": "Detector instructions separate qualitative reading from measured statistics and avoid additive cue scores; humanizer requires preservation of claims, stance, quotations, purposeful fragments and project voice. Research.md labels its evidence ranking as within-source investigation priority, distinct from editing priority and probability. Research-transfer.md gives a different, reader-cost ordering and explicitly allows keeping the original. Both explain why recency cannot override different estimands or weak methods.",
+            "scope": "ROR generator reversal, short-document and structured-human false positives are stated. English Reddit mental-health findings remain genre-bound. The seven-paper inventory is described as recording exposed features and unresolved unnamed counts; Russian accuracy remains unclaimed.",
+            "minor_watchpoint": "The detector and humanizer both mention contextual repetition, but one assesses and the other edits, so the overlap is functional. In future examples, ensure 'confidence' means confidence in a concrete reader effect, never a numeric authorship estimate."
+          }
+        }
+      ],
+      "peer_review": {
+        "agent": "independent_evaluator",
+        "iteration": "I06",
+        "disclosure": "Nonauthor review with partial blinding after baseline execution and earlier council packets; I06 assessed from its anonymized packet and the four named current files.",
+        "verdict": "retain current bounded rule and accepted reference clarification",
+        "preferred_response": "A",
+        "best_reasoning": "A identifies one reader-visible defect: the third sentence repeats 'evaluation' and offers no result. It then protects the count, method order, exclusion, and formal register. B is accurate but numbers passive voice as a second finding only to keep it, which weakens the requested ranking. Both make the same substantive judgment; neither rewrites the abstract.",
+        "naturalness_voice": "The original abstract remains unchanged, so neither response demonstrates a change in its naturalness or author voice. A sounds more like a proportionate editorial assessment; B feels slightly checklist-driven. Removing the third sentence could make the abstract less repetitive, but that is a suggestion, not an observed edit. No perceived or actual human-authorship difference is established.",
+        "evidence_calibration": "The files separate local reader effects, within-study detector evidence, and calibrated authorship probability. The 'Evidence family' label and explicit warning against a global leaderboard resolve the main skimming risk. Newer work is conditional on comparable variables and methods; entropy, surprisal, assistant-context likelihood, and sentence graphs are not collapsed. Unnamed features and conflicting reported counts remain marked unresolved. The research supports contextual caution, not a universal editing direction.",
+        "whole_skill_verdict": "No blocking duplicate, voice-erasing instruction, or unsupported transfer found. Analysis and editing repeat preservation boundaries for distinct roles. The current guidance still permits concrete action, as D06 shows. No further text change is needed on this evidence.",
+        "weakest_point": "A single short formal abstract cannot test whether language, translation, non-native voice, or correlated cues are handled well elsewhere. Identical substantive findings give little evidence of incremental gain from this rule.",
+        "proposed_action": "Stop this iteration; retain the current wording and record A as a modest presentation preference, not a detector or authorship result."
+      },
+      "decision": {
+        "iteration": "I06",
+        "decision": "retain calibration and rank findings by actual reader effect; clarify incomparable-method table label",
+        "human_impression_change": "Advisors differed on response presentation; no passage rewrite or authorship effect established.",
+        "whole_skill_review": "No blocking source/scope defect; avoid global ranking across unlike methods.",
+        "peer_review": "peer-06-result.json"
+      },
+      "accepted_minor_clarification": "Research table label now Evidence family; paragraph explicitly disallows global ranking of unlike methods and points to within-source rankings."
+    }
+  ],
+  "final_label_mapping": {
+    "D01": {
+      "A": "baseline",
+      "B": "candidate"
+    },
+    "D02": {
+      "A": "candidate",
+      "B": "baseline"
+    },
+    "D03": {
+      "A": "candidate",
+      "B": "baseline"
+    },
+    "D04": {
+      "A": "candidate",
+      "B": "baseline"
+    },
+    "D05": {
+      "A": "candidate",
+      "B": "baseline"
+    },
+    "D06": {
+      "A": "baseline",
+      "B": "candidate"
+    },
+    "H01": {
+      "A": "baseline",
+      "B": "candidate"
+    },
+    "H02": {
+      "A": "baseline",
+      "B": "candidate"
+    },
+    "H03": {
+      "A": "candidate",
+      "B": "baseline"
+    },
+    "H04": {
+      "A": "baseline",
+      "B": "candidate"
+    },
+    "H05": {
+      "A": "candidate",
+      "B": "baseline"
+    },
+    "H06": {
+      "A": "candidate",
+      "B": "baseline"
+    },
+    "H07": {
+      "A": "candidate",
+      "B": "baseline"
+    },
+    "H08": {
+      "A": "candidate",
+      "B": "baseline"
+    },
+    "H09": {
+      "A": "candidate",
+      "B": "baseline"
+    },
+    "H10": {
+      "A": "candidate",
+      "B": "baseline"
+    },
+    "humanizer-code-review-confession": {
+      "A": "candidate",
+      "B": "baseline"
+    },
+    "humanizer-go-backend-profile": {
+      "A": "candidate",
+      "B": "baseline"
+    }
+  },
+  "final_comparison_reviewers": [
+    {
+      "role": "independent nonauthor blinded final comparative review",
+      "records": [
+        {
+          "case_id": "D01",
+          "preferred": "B",
+          "naturalness": "A",
+          "evidence_calibration": "B",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "A describes the note's rhythm and audience fit more conversationally; B more precisely names predictive entropy and the missing evaluator probabilities while giving the same keep decision. Neither infers authorship.",
+          "weakest_point": "B's 'calibrated comparison set' may imply one is needed to compute entropy, rather than to interpret a detection score.",
+          "decoded_preference": "candidate"
+        },
+        {
+          "case_id": "D02",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "not_applicable",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "The rewrites are identical. Both remove promotional padding and redundant term repetition while retaining the defined term, 30 seconds, and timeout-only reuse condition.",
+          "weakest_point": "A pronoun is safe here but may be ambiguous with multiple tokens in a longer specification.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "D03",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "not_applicable",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "The rewrites are identical. Both remove circular cache-freshness claims and keep six minutes, the trace's tentative inference, and the unreproduced ordering.",
+          "weakest_point": "No A/B difference establishes which instruction caused this valid sequence edit.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "D04",
+          "preferred": "A",
+          "naturalness": "A",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Both correctly keep the direct FAQ-style answer and exact code and refuse authorship inference. A is a little shorter and says the semicolon condition belongs; B's 'empty process commentary' is unnecessary for this clear support answer.",
+          "weakest_point": "Neither reproduces the code, so only the keep instruction is observable; no rewritten span was tested.",
+          "decoded_preference": "candidate"
+        },
+        {
+          "case_id": "D05",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "not_applicable",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "The edits are identical and delete only the generic acknowledgement. The offer of company versus space and the speaker's uncertainty remain; no advice or invented experience appears.",
+          "weakest_point": "The retained 'hardest part' interpretation may or may not fit a real recipient, but it comes from the source.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "D06",
+          "preferred": "B",
+          "naturalness": "B",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Both locate the vacuous evaluation sentence and protect the count, order, exclusion, and formal passive voice. B more naturally ranks one useful defect, then keep decisions; A numbers a non-defect as item two.",
+          "weakest_point": "Neither version can supply a missing result for the abstract; deletion is the bounded suggestion.",
+          "decoded_preference": "candidate"
+        },
+        {
+          "case_id": "H01",
+          "preferred": "B",
+          "naturalness": "tie",
+          "evidence_calibration": "B",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Both keep the causal uncertainty and avoid a style or authorship verdict. B correctly distinguishes RelPPR's full next-token distributions from DivEye's observed-token probabilities and trained classifier; A says only 'model outputs and a defined calculation'.",
+          "weakest_point": "B's causal caution is useful but slightly beyond the requested style assessment.",
+          "decoded_preference": "candidate"
+        },
+        {
+          "case_id": "H02",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "not_applicable",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Identical concise rewrites retain 'lease holder', may renew, and must not transfer, with no invented reason. Removing the unsupported 'cornerstone' claim improves specification tone.",
+          "weakest_point": "The adversative 'but' is harmless here, yet some specifications may require two separate obligations for reference.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "H03",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "not_applicable",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Identical Russian edits remove two generic claims, preserve two days of checking, two failures on day three, and unknown connection to the update. Register remains report-like.",
+          "weakest_point": "No broader Russian-language quality conclusion follows from one short example.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "H04",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Both read the question and 'No' as a legitimate FAQ and preserve the intact-seal return condition and order-number step. Both reject hidden-prompt and authorship inference from visible format.",
+          "weakest_point": "A slightly abstracts 'writer's identity'; B slightly repeats 'FAQ' and 'response'. Neither difference is material.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "H05",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "not_applicable",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Both return the Russian personal reply unchanged. Its restrained uncertainty, genuine question, and conditional offer already work; no fabricated advice or experience appears.",
+          "weakest_point": "Keeping a natural passage is the right outcome here, but it supplies no contrastive rule test.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "H06",
+          "preferred": "B",
+          "naturalness": "B",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Both protect the node/shard terms and reject a low-diversity authorship claim for three technical sentences. B states the interpretation limit more directly and avoids A's longer 'score with an authorship interpretation' construction.",
+          "weakest_point": "A lexical-diversity statistic could still be calculated from the text; the unsupported step is interpreting it as authorship.",
+          "decoded_preference": "baseline"
+        },
+        {
+          "case_id": "H07",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "not_applicable",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "The responses are identical to the source. Both keep tentative 'I'd want', the Friday rollback deadline, conditional second check, and rejection of redesign; repeated stance has a clear function.",
+          "weakest_point": "The output demonstrates restraint, not a measurable human-impression gain.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "H08",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "not_applicable",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Both keep the original chronology, all timestamps, exact quote, and URL. The short sentences suit an incident status update; forced variation would reduce utility.",
+          "weakest_point": "No contrastive change tests a detector-related rhythm hypothesis.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "H09",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Both refuse English-to-Russian authorship transfer and locate the bureaucratic first sentence. Both offer 'При проверке выявили две ошибки' without naming an executor and preserve unconfirmed correction.",
+          "weakest_point": "The suggested indefinite-personal verb still implies that someone found the errors; it does not identify who, but a stricter impersonal style could retain 'выявлены'.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "H10",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "not_applicable",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Both exactly preserve the requested headings, quote, four-sample limit, and conditional next step. The structure is required and the prose has no concrete defect.",
+          "weakest_point": "An unchanged answer cannot show marginal benefit of a new humanizing rule.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "humanizer-code-review-confession",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "not_applicable",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "A keeps the source exactly; B removes only three discourse openers ('And this', 'So', 'And if') while retaining every protected fact, quoted thought, candid confession, and peer question. B is a touch leaner, but A's connective rhythm is part of the voice; neither is clearly more natural.",
+          "weakest_point": "The passage was a known historical regression example, and no reader validation shows that B's tiny trims improve it.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "humanizer-go-backend-profile",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "not_applicable",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "The outputs are identical to each other and to the source. Keeping plain professional prose avoids invented scope, leadership, scale, or project-to-technology assignments.",
+          "weakest_point": "No edit means the pair cannot measure humanizer improvement on this profile.",
+          "decoded_preference": "tie"
+        }
+      ],
+      "overall": "Across 18 cases, no concrete protected-span or meaning failures appear in either label. Most humanizer outputs are identical and often appropriately unchanged; D02, D03, D05, H02 and H03 improve over their source without A/B separation. Detector differences are mainly explanation precision and response economy: B is stronger on D01/H01, A is slightly cleaner on D04, B is more proportional on D06/H06. The historical confession pair is a near tie: B trims three connectives, while A retains a coherent candid cadence. These outputs support careful local editing and statistical calibration, not measured authorship or population-level naturalness gains.",
+      "weakest_limit": "Partial blinding and correlated model judgments, many identical pairs, synthetic diagnostics, no human-reader study or gold labels; no causal package effect can be inferred from these preferences.",
+      "reviewer_id": "reviewer-A"
+    },
+    {
+      "records": [
+        {
+          "case_id": "D01",
+          "preferred": "B",
+          "naturalness": "A",
+          "evidence_calibration": "B",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "B specifies missing next-token probabilities and a comparison set, then keeps the incident sequence and uncertainty. A is slightly more conversational but its entropy-input explanation is incomplete.",
+          "weakest_point": "B treats the missing calibrated comparison set as relevant without defining a target measure; no actual authorship claim follows.",
+          "decoded_preference": "candidate"
+        },
+        {
+          "case_id": "D02",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Outputs are identical. They retain retry token, 30 seconds, and the timeout-only reuse condition while removing unsupported promotion.",
+          "weakest_point": "The pronoun 'It' is probably clear but could be expanded in a formal specification.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "D03",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Outputs are identical. Removing repeated cache-freshness claims improves progression while preserving six minutes, trace-based suggestion, and non-reproduction.",
+          "weakest_point": "The concise note still does not establish the cause of stale reads, as it correctly says.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "D04",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Both preserve the deliberate support answer, exact code, and semicolon caveat, with no authorship inference. B is more explicit about AI-like style; A is slightly leaner.",
+          "weakest_point": "Neither output tests a latent-prompt measure; that is appropriately outside this local review.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "D05",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Outputs are identical. The abstract reassurance disappears while the tentative observation, choice question, and uncertainty remain.",
+          "weakest_point": "The remaining opening is conventional but fits the caring, restrained exchange.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "D06",
+          "preferred": "B",
+          "naturalness": "B",
+          "evidence_calibration": "B",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "B identifies one substantive repetitive sentence and retains count, method order, exclusion, and formal passive voice. A creates a numbered second 'finding' for wording it recommends keeping.",
+          "weakest_point": "The suggested deletion must remain conditional on no supported result being lost.",
+          "decoded_preference": "candidate"
+        },
+        {
+          "case_id": "H01",
+          "preferred": "B",
+          "naturalness": "tie",
+          "evidence_calibration": "B",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "B accurately distinguishes RelPPR's full next-token distributions from DivEye's realized-token probabilities and trained classifier. Both keep the causal uncertainty and find no forced edit.",
+          "weakest_point": "B's metric detail is justified here because the user asks about both methods; it is no general detector result.",
+          "decoded_preference": "candidate"
+        },
+        {
+          "case_id": "H02",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Outputs are identical. The lean specification retains the defined lease-holder term and separate may-renew / must-not-transfer obligations without invented rationale.",
+          "weakest_point": "'It' refers to the lease in context but repeating 'the lease' would remove a small referential risk.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "H03",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Outputs are identical. Russian phrasing removes two generic claims but keeps the two-day check, third-day discovery of two failures, and unknown relation to the update in report register.",
+          "weakest_point": "No Russian authorship or detection claim can be drawn from this editing success.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "H04",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Both recognize FAQ form as purposeful and preserve cancellation, sealed-return condition, and order-number requirement. Neither treats a visible answer as hidden-prompt evidence.",
+          "weakest_point": "A is slightly more specific about the cancellation answer; B answers the user's 'AI giveaway' phrasing more directly.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "H05",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Outputs are identical to the supplied Russian reply. Keeping its restrained uncertainty, question, and alternative of giving space is more natural than adding intimacy or advice.",
+          "weakest_point": "The preserved text remains situational rather than evidence of who wrote it.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "H06",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Both keep node/shard terminology and the recovery exception, reject the colleague's authorship inference, and avoid synonym swaps. B is shorter; A makes the unsupported conclusion explicit.",
+          "weakest_point": "A three-sentence technical note offers no useful lexical baseline for attribution.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "H07",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Outputs are identical to the source. Repeated 'I'd want' maintains tentative stance and two distinct conditions; no artificial variety or redesign claim is introduced.",
+          "weakest_point": "The request for naturalness gives no concrete defect that justifies a change.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "H08",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Outputs are identical to the source. Chronology, all times, exact quotation and URL remain intact; the sequence is a useful status update.",
+          "weakest_point": "Keeping the original is the right local choice, not a measurable change in human impression.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "H09",
+          "preferred": "B",
+          "naturalness": "A",
+          "evidence_calibration": "B",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "B conditions English-study transfer on comparable Russian data and locates the heavy nominal chain; both preserve unconfirmed correction and avoid naming an agent. A is somewhat plainer Russian.",
+          "weakest_point": "The proposed 'выявили' uses an indefinite subject; acceptable here, but publication style could prefer 'выявлены' to stay impersonal.",
+          "decoded_preference": "baseline"
+        },
+        {
+          "case_id": "H10",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Outputs are identical to the source. Required headings, quotation, four surviving samples and conditional repeat all remain; no template-removal reflex appears.",
+          "weakest_point": "There is no clear prose defect to fix without changing the requested structure or meaning.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "humanizer-code-review-confession",
+          "preferred": "B",
+          "naturalness": "B",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "B trims three connective openers while retaining the approximate workload, code-writing context, exact inner quote, self-critique, test-review promise, honest-number judgment and peer question. The change is modest but reduces rehearsed linking without flattening voice.",
+          "weakest_point": "The original A is already coherent; this is a marginal editorial preference, not measured human likeness.",
+          "decoded_preference": "baseline"
+        },
+        {
+          "case_id": "humanizer-go-backend-profile",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Outputs are identical to the plain professional source. All projects, technologies, work stages and scope boundaries remain without manufactured achievements.",
+          "weakest_point": "Keeping the original provides no evidence that the skill improves prose where no friction is present, though it demonstrates restraint.",
+          "decoded_preference": "tie"
+        }
+      ],
+      "overall": "18 paired judgments: 5 prefer B, 13 tie, none prefer A; most ties are identical outputs. No critical meaning, quotation, condition, or calibration failure found. D01/H01 favor more exact method-input explanations, D06 favors one real ranked finding over a numbered keep decision, H09 favors explicit Russian comparability, and the historical post favors B only marginally. Naturalness is a property of these exact responses and edits, not an authorship label. The packet is partly blinded, synthetic/selected, and lacks gold provenance or reader testing; these preferences are model judgments, not a detector-accuracy or causal improvement estimate. The strongest demonstrated value is restraint: preserving terms, conditions, uncertainty, genre, and already natural originals while removing genuine filler.",
+      "reviewer_id": "reviewer-B"
+    },
+    {
+      "reviewer": "C, independent nonauthor paired evaluation",
+      "basis": "Exact blinded outputs only; preferences are reader judgments, not authorship labels or causal estimates.",
+      "records": [
+        {
+          "case_id": "D01",
+          "preferred": "B",
+          "naturalness": "B",
+          "evidence_calibration": "B",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "B answers 'No' directly, distinguishes visible rhythm from predictive entropy, and names the unavailable probabilities/comparison set while keeping the incident note.",
+          "weakest_point": "Neither can perform a measured check; both appropriately remain local.",
+          "decoded_preference": "candidate"
+        },
+        {
+          "case_id": "D02",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "not_applicable",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Identical revisions keep retry token, 30 seconds and the first-attempt timeout condition, and remove unsupported promotional padding.",
+          "weakest_point": "The pair supplies no differential evidence.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "D03",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Identical concise incident notes retain six minutes, the trace's tentative inference and the failure to reproduce the ordering.",
+          "weakest_point": "The pair supplies no differential evidence.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "D04",
+          "preferred": "A",
+          "naturalness": "A",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "A gives the same genre-sensitive keep decision with less analytic jargon; both preserve the direct support answer, condition and both exact code spans.",
+          "weakest_point": "The difference is small and does not test a difficult boundary.",
+          "decoded_preference": "candidate"
+        },
+        {
+          "case_id": "D05",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "not_applicable",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Identical replies remove duplicated reassurance while retaining the genuine choice question and speaker uncertainty; neither invents experience or advice.",
+          "weakest_point": "The pair supplies no differential evidence.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "D06",
+          "preferred": "B",
+          "naturalness": "B",
+          "evidence_calibration": "B",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "B ranks the one substantive redundancy first and treats the passive methods sentence as a keep decision rather than a numbered second problem. Both protect the count, order and exclusion.",
+          "weakest_point": "B's naturalness advantage is modest; neither has a measured detector result.",
+          "decoded_preference": "candidate"
+        },
+        {
+          "case_id": "H01",
+          "preferred": "B",
+          "naturalness": "tie",
+          "evidence_calibration": "B",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "B identifies RelPPR's full predictive distributions and DivEye's observed-token probabilities plus classifier, then preserves the explicit uncertainty about heat.",
+          "weakest_point": "The extra method detail helps this specific question but would be excess in an ordinary prose review.",
+          "decoded_preference": "candidate"
+        },
+        {
+          "case_id": "H02",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "not_applicable",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Identical specification edits retain the defined lease holder and the distinct may-renew and must-not-transfer modalities without inventing a rationale.",
+          "weakest_point": "A pronoun for lease is unambiguous here but may not be in a denser specification.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "H03",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Identical Russian reports remove repeated praise of checking while retaining two days, two faults on day three and the unresolved link to the update.",
+          "weakest_point": "No differential evidence; this tests one straightforward Russian edit.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "H04",
+          "preferred": "B",
+          "naturalness": "B",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "B answers the FAQ-giveaway claim directly and naturally; both preserve the intact-seal return condition and order-number requirement and reject hidden-prompt inference.",
+          "weakest_point": "The stylistic difference is minor.",
+          "decoded_preference": "candidate"
+        },
+        {
+          "case_id": "H05",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "not_applicable",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Both leave an already natural Russian personal reply unchanged, preserving restraint, the question and the condition.",
+          "weakest_point": "This is a keep-original success, with no differential evidence.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "H06",
+          "preferred": "B",
+          "naturalness": "B",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "B gives a slightly cleaner explanation of why node and shard must repeat; both reject an authorship verdict from three technical sentences without a relevant baseline.",
+          "weakest_point": "Neither computes lexical diversity, appropriately.",
+          "decoded_preference": "baseline"
+        },
+        {
+          "case_id": "H07",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "not_applicable",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Identical original messages keep both tentative 'I'd want' statements, Friday's scope, the conditional second check and rejection of redesign.",
+          "weakest_point": "The repeated opening has a real stance function; this pair offers no alternative that improves it.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "H08",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "not_applicable",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Both preserve the original chronological status update, all timestamps, the exact quote and URL.",
+          "weakest_point": "No differential evidence; keeping this purposeful sequence is appropriate.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "H09",
+          "preferred": "A",
+          "naturalness": "A",
+          "evidence_calibration": "tie",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "A makes the same bounded Russian-language calibration and useful edit with less linguistic terminology; both leave the unknown actor unspecified and retain that the fix is unconfirmed.",
+          "weakest_point": "The suggested Russian rewrite is an editorial option, not evidence about authorship.",
+          "decoded_preference": "candidate"
+        },
+        {
+          "case_id": "H10",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "not_applicable",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Both leave the requested headings, exact quotation, four-sample limit and conditional next step unchanged.",
+          "weakest_point": "No differential evidence; requested structure deserves preservation.",
+          "decoded_preference": "tie"
+        },
+        {
+          "case_id": "humanizer-code-review-confession",
+          "preferred": "A",
+          "naturalness": "A",
+          "evidence_calibration": "not_applicable",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "A preserves the source's conversational 'And/So' turns as part of the candid confession and peer invitation. B deletes three connectives without changing the core meaning, but the tiny cleanup does not clearly improve this voice. Both keep the approximations, quoted thought, scoped AI-test claim and final question.",
+          "weakest_point": "A is unchanged; choosing it favors voice preservation over an unproven micro-edit, not proof the source cannot be improved.",
+          "decoded_preference": "candidate"
+        },
+        {
+          "case_id": "humanizer-go-backend-profile",
+          "preferred": "tie",
+          "naturalness": "tie",
+          "evidence_calibration": "not_applicable",
+          "critical_failure_A": [],
+          "critical_failure_B": [],
+          "reason": "Identical originals preserve the plain professional voice, project list, technologies and scope of work without manufacturing impact or ownership.",
+          "weakest_point": "No differential evidence; keeping the original is acceptable.",
+          "decoded_preference": "tie"
+        }
+      ],
+      "overall": "Across 18 pairs: 5 prefer B, 3 prefer A, 10 ties. No critical meaning, voice or protected-span failure is visible in either side. The many identical pairs show acceptable restraint but cannot establish improvement over a baseline. Distinguishing unavailable measurements and retaining purposeful genre/technical structure are the clearest operational strengths; very small wording cleanups should not be counted as naturalness gains. These are correlated model-reader judgments on partly seen diagnostic cases and ten earlier-unseen holdouts, not human-reader validation, authored-text labels or a causal estimate.",
+      "reviewer_id": "reviewer-C"
+    }
+  ],
+  "final_peer_review": {
+    "agent": "independent_evaluator",
+    "role": "fourth nonauthor skill reviewer",
+    "disclosure": "I generated one output set and saw the development councils, so my text judgment is only partially independent. I used the anonymized final packet and comparison without a version map.",
+    "overall_verdict": "The current two-skill package is substantively sound on these cases. Make at most one in-place response-scope clarification in ai-detector; no broad rewrite or research-rule expansion is supported.",
+    "strongest_reasoning": "The meaningful detector advantage is conditional precision: D01 and H01 benefit from naming the unavailable model inputs when the user explicitly asks about entropy, RelPPR or DivEye. D06 benefits from ranking its one vacuous sentence as the sole defect and treating formal passive wording as a keep decision. H06 shows that a shorter explanation can preserve the same technical caution. These are response-quality judgments, not measured detector gains. The exact outputs show no critical loss of a condition, quote, actor, uncertainty or defined term in either label.",
+    "naturalness_and_voice": "The identical humanizer edits in D02, D03, D05, H02 and H03 remove filler or repeated claims and read more naturally than their supplied sources while preserving the stated constraints. Identical keep decisions for H05, H07, H08, H10 and the Go profile appropriately protect already effective prose. The historical confession comparison is genuinely close: trimming three 'And/So' openings makes one version leaner, while retaining them preserves a candid conversational rhythm. Neither version establishes a clear author-voice gain, and no actual or perceived human authorship was measured.",
+    "disagreements": "Reviewers differ on the support-answer and Russian-analysis wording because brevity trades against explicit genre or comparability explanation. Both versions in those cases remain calibrated. Detail is justified in H01 because two named methods are requested; a metric inventory would be gratuitous in D04 or H04. The H09 Russian paraphrase is useful, but a claim of validated Russian detector accuracy would be unsupported, and neither output makes it.",
+    "verbosity_assessment": "There is a small supported presentation regression in the longer D06 answer: numbering a harmless passive sentence as finding two makes a one-issue assessment feel like a checklist. The longer H06 explanation similarly repeats its interpretive limit. This does not justify a blanket short-answer rule: D01/H01 need enough detail to distinguish visible rhythm from unavailable statistical measures.",
+    "precise_fix": "If the maintainer changes wording, amend ai-detector's existing local-analysis paragraph only: 'Rank actual reader problems; put useful keep decisions after them without numbering a non-defect as another finding. Name unavailable measurements only when relevant to the request, and state the authorship limit once.' The existing proportionality and research boundaries otherwise stand. No humanizer change is supported by the final pairs.",
+    "weakest_limit": "Three correlated model reviews plus this partially independent review, selected synthetic cases, many identical pairs, and no human-reader or authorship ground truth cannot establish a causal package improvement or generalize naturalness across genres and languages. A repeated production pattern of checklist-style reports would strengthen the case for the narrow clarification; absence of that pattern would favor leaving the package unchanged."
+  },
+  "descriptive_counts": {
+    "unit": "case-by-reviewer preference, correlated judgments, not accuracy or independent trials",
+    "all_18_cases_3_reviewers": {
+      "candidate": 14,
+      "tie": 36,
+      "baseline": 4
+    },
+    "heldout_10_cases_3_reviewers": {
+      "candidate": 5,
+      "tie": 22,
+      "baseline": 3
+    },
+    "critical_failures_reported": 0
+  },
+  "synthesis": {
+    "convergence": "No critical loss of meaning, protected spans or calibration was identified. Named-method questions received more precise input-boundary explanations.",
+    "disagreement": "Naturalness preferences differ for support answers, the Russian assessment and a candid historical post; wording economy can favor either version.",
+    "demonstrated_scope": "Exact output preferences only. D01/H01 favor candidate metric explanation unanimously; most humanizer pairs are identical.",
+    "humanizer_increment": "Not demonstrated: unchanged or near-identical outputs dominate; historical post has split preferences.",
+    "detector_increment": "Some explanation/calibration improvements; H06 preferred baseline by two reviewers and H09 is split. No general detector-accuracy improvement established.",
+    "weakest_point": "Small selected corpus, correlated models, partial blinding, single runs and no human-reader or authorship ground truth.",
+    "final_action": "Retain bounded source-aware guidance and references. Do not add a general rule for one small verbosity preference; existing proportionate reporting already covers it.",
+    "would_change_verdict": "A reproducible preservation failure requires repair. A larger fresh, independently rated corpus or correctly executed calibrated detector experiment could support broader effectiveness claims."
+  },
+  "claims": {
+    "detection_accuracy_measured": false,
+    "human_reader_validation": false,
+    "universal_improvement": false,
+    "guaranteed_detector_evasion": false
+  },
+  "verification": {
+    "canonical_validator": {
+      "command": "python scripts/validate_skills.py",
+      "status": "passed"
+    },
+    "generation": {
+      "command": "python scripts/generate_skill_wrappers.py --clean",
+      "status": "passed",
+      "prepared_version": "24.0.0",
+      "source_packages_changed": [
+        "ai-detector",
+        "humanizer"
+      ],
+      "stale_packages_removed": 0
+    },
+    "strict_generation_check": {
+      "command": "python scripts/generate_skill_wrappers.py --check --clean --strict-links",
+      "status": "passed",
+      "source_skill_count": 46,
+      "note": "Initial invocation included --no-version-bump; parser rejects that redundant flag with --check. Correct documented check passed; no second version bump."
+    },
+    "unit_tests": {
+      "command": "python -m unittest discover -s tests -v",
+      "status": "passed",
+      "tests_run": 49,
+      "skipped": 2,
+      "skip_details": [
+        "test_installed_fastapi_runtime_examples (test_backend_workflow_examples.FastAPIReviewExamples.test_installed_fastapi_runtime_examples) ... skipped 'FastAPI runtime examples unrun; missing fastapi, httpx'",
+        "setUpClass (test_typescript_zod_examples.ExecutableExampleTests) ... skipped 'Set SKILL_TYPESCRIPT_MODULES to installed TypeScript 5.5+ and Zod 4.4.3 modules; no packages were installed'"
+      ]
+    },
+    "diff_whitespace": "passed",
+    "quality_boundary": "These checks validate package consistency and evidence-record integrity, not naturalness or detection accuracy."
+  }
+}

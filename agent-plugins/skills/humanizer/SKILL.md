@@ -74,6 +74,11 @@ under the cover of a style edit.
 
 ## Identify what creates the AI-generated impression
 
+Optimize the reader's experience within the editing contract. Statistical
+detector features are not prose targets: visible rhythm does not reveal model
+entropy or token surprisal. A useful edit needs a concrete effect on meaning,
+flow or voice; a presumed change in an unmeasured detector score is not a reason.
+
 Read the whole passage before changing isolated phrases. Identify the wording or
 recurring structure behind the impression, then choose the review depth below.
 Look for:
@@ -94,11 +99,16 @@ Look for:
   emphasis. A position must not become neutral merely because it is emphatic.
 - **Assistant residue:** prefatory offers, generic praise, or process commentary
   outside the intended text. Distinguish residue from the writer's own courtesy,
-  deliberate meta-commentary, quotations, and required source attribution.
+  deliberate meta-commentary, quotations, and required source attribution. In
+  an answer or FAQ, retain response wording that performs the requested job.
 
 Choose the smallest edit that resolves the problem. Rework a paragraph when its
-progression is the problem, rather than replacing every flagged word. Preserve
-the reasoning and useful detail that earn the conclusion. A short text needs no
+progression is the problem, rather than replacing every flagged word. Trace what
+each sentence contributes before compressing a sequence: preserve a distinct
+fact, inference, qualification, chronology, change of stance, personal judgement
+or interpersonal purpose. Repeated propositions with no added function can go;
+fragments or repeated wording with a real function can stay. Preserve the
+reasoning and useful detail that earn the conclusion. A short text needs no
 extra argument; an analytical passage need not become a short reaction.
 
 Repeated stance can do useful work. Replacing a second `I'd want` with `must`
@@ -176,3 +186,6 @@ keep decisions. Ordinary editing requires no upload and no detector disclaimer.
 This is a substantially rewritten adaptation of selected MIT-licensed guidance.
 Read [source decisions and licenses](references/sources.md) for maintenance or
 attribution work, not for every rewrite. No upstream scripts or services are required.
+For research-based editing requests or maintenance, read
+[research transfers and their limits](references/research-transfer.md). These
+studies inform contextual questions; their statistics are not editing targets.

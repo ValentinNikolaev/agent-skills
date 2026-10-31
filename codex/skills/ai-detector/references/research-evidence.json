@@ -1,0 +1,2287 @@
+{
+  "schema_version": 1,
+  "reviewed": "2026-10-31",
+  "purpose": "Source-grounded feature inventory for maintenance; facts and original analysis, not executable detector weights.",
+  "source_count": 7,
+  "coverage": "All feature names and groups exposed in the seven approved papers. Unenumerated members of the claimed 284 and discrepant 31-feature count are explicitly unresolved, not invented.",
+  "recency_policy": "Prefer newer evidence provisionally only when estimands and settings are comparable and its methods, uncertainty and replication justify supersession; otherwise retain conditional or unresolved findings.",
+  "dispositions": {
+    "computed_features": "Measurement-only: all numerical model, NLP, classifier and corpus features require the stated tools and calibration. None is claimed to have been measured by this prose skill.",
+    "editorial_transfer": "Only visible wording or discourse problems with a concrete reader effect may motivate a scoped edit; these analogies are not validated substitutes for the numerical features.",
+    "theoretical_claims": "Hypothesis-only unless independently tested; do not use as a causal account of a particular writer.",
+    "missing_or_inconsistent": "Unresolved; preserve source disagreement and do not infer unnamed variables, a universal sign or a threshold.",
+    "research_suggestions": "Suggestions recorded inside research notes are analyst hypotheses, not runtime instructions. Skill transfers are selected and constrained separately; an editing skill never invents clarifications, experiences, facts or questions just to imitate source-population behavior."
+  },
+  "research": {
+    "statistical": {
+      "scope": "Independent primary-source research for ai-detector and humanizer; no implementation copied.",
+      "provenance": {
+        "date": "2026-10-31",
+        "method": "Read version-pinned arXiv HTML full texts, including appendices; downloaded HTML copies to this scratch directory. Factual paraphrase only.",
+        "license": "Each arXiv HTML page displays the arXiv.org perpetual non-exclusive license. That is not a grant to copy paper prose or implementation into the repository."
+      },
+      "sources": [
+        {
+          "id": "relppr",
+          "title": "Local Entropy Fluctuations for Black-Box LLM-Generated Text Detection",
+          "url": "https://arxiv.org/html/2610.33767v1",
+          "version": "v1, 2026-10-24"
+        },
+        {
+          "id": "echoprompt",
+          "title": "Once a Response, Always a Response: Detecting LLM-generated Text via Latent Prompt Restoration",
+          "url": "https://arxiv.org/html/2608.05741v1",
+          "version": "v1, 2026-08-06"
+        },
+        {
+          "id": "diveye",
+          "title": "Diversity Boosts AI-Generated Text Detection",
+          "url": "https://arxiv.org/html/2509.18880v3",
+          "version": "v3, 2026-02-25"
+        }
+      ],
+      "computation_boundary": {
+        "predictive_entropy": "H[p(.|prefix)] summarizes the evaluator's full next-token distribution at each position.",
+        "realized_surprisal": "-log p(observed token|prefix) scores the actual token. It differs from predictive entropy, and neither can be recovered from printed prose.",
+        "editorial_proxies": "Sentence rhythm, paragraph shape, specificity, and assistant-like rhetoric may be observed in prose but have no validated numerical equivalence to these papers' entropy, surprisal, or likelihood scores. Use as editorial cues only; never assert author identity from them.",
+        "black_box": "Black-box means the source model and original prompt are unavailable. RelPPR and DivEye still require evaluator models; EchoPrompt requires a matched base/instruct proxy pair. DivEye also trains a labeled classifier."
+      },
+      "relppr": {
+        "method_anchor": "https://arxiv.org/html/2610.33767v1#S4.SS2",
+        "features": [
+          {
+            "id": "token_predictive_entropy",
+            "definition": "At token i, entropy of full evaluator next-token distribution p(.|x_<i).",
+            "direction": "Paper reports mean entropy generally higher for human than machine text with its black-box evaluator; not universal.",
+            "requires": "Full token distribution from evaluator at each position; one model forward pass."
+          },
+          {
+            "id": "raw_ppr",
+            "definition": "Identify strict interior local peaks h_i>h_(i-1),h_i>h_(i+1). Each peak prominence is height above the higher of its two enclosing valley floors up to nearest higher peaks or boundaries. Sum prominence/L.",
+            "direction": "Hypothesized higher for machine, but confounded by overall entropy. Weak main AUROC .597 and white-box .404.",
+            "evidence": "https://arxiv.org/html/2610.33767v1#S5.T1"
+          },
+          {
+            "id": "relppr",
+            "definition": "PPR divided by sequence mean predictive entropy.",
+            "direction": "Higher means more machine-like only in studied black-box instruction-conditioned regime.",
+            "evidence": "Main Table 1 mean AUROC .871, vs entropy .812; PubMedQA .563 vs entropy .703. White-box Table 7 mean .727 vs IRM .922.",
+            "anchors": [
+              "https://arxiv.org/html/2610.33767v1#S5.T1",
+              "https://arxiv.org/html/2610.33767v1#A2.T7"
+            ]
+          },
+          {
+            "id": "diffppr",
+            "definition": "PPR minus sequence mean predictive entropy.",
+            "direction": "Higher machine score in paper's black-box protocol.",
+            "evidence": "Main Table 1 mean AUROC .858; PubMedQA .670; white-box mean .757.",
+            "anchors": [
+              "https://arxiv.org/html/2610.33767v1#S5.T1",
+              "https://arxiv.org/html/2610.33767v1#A2.T7"
+            ]
+          },
+          {
+            "id": "diffppr_s",
+            "definition": "PPR minus mean observed-token surprisal; tested in white-box appendix.",
+            "direction": "Higher machine score in white-box test only.",
+            "evidence": "White-box mean AUROC .840, best single-model criterion there.",
+            "anchor": "https://arxiv.org/html/2610.33767v1#A2.SS6"
+          }
+        ],
+        "other_analyzed_statistics": [
+          {
+            "id": "mean_observed_surprisal",
+            "definition": "Mean -log p_2(observed token|prefix); conditional score component, not PPR.",
+            "anchor": "https://arxiv.org/html/2610.33767v1#S3.SS2"
+          },
+          {
+            "id": "cross_entropy",
+            "definition": "Mean cross-entropy H(p_1,p_2) of two evaluator distributions; equals mean H(p_1)+KL(p_1||p_2).",
+            "finding": "Instruction conditioning shrinks cross-entropy through lower entropy and/or KL, collapsing dual-model scores in this black-box protocol.",
+            "anchors": [
+              "https://arxiv.org/html/2610.33767v1#S3.SS2",
+              "https://arxiv.org/html/2610.33767v1#A1.SS3"
+            ]
+          },
+          {
+            "id": "fast_detectgpt_numerator",
+            "definition": "L times [cross-entropy minus observed-token surprisal]. Removing variance denominator barely changes AUROC in Appendix Table 3.",
+            "anchor": "https://arxiv.org/html/2610.33767v1#A1.T3"
+          },
+          {
+            "id": "binoculars_ratio",
+            "definition": "Negative observed-token surprisal divided by cross-entropy; fails under tested prompt-conditioning shift.",
+            "anchor": "https://arxiv.org/html/2610.33767v1#A1.SS2"
+          }
+        ],
+        "population": "Seven datasets: XSum, WritingPrompts, SQuAD, WikiText-103, CNN/DailyMail, ELI5, PubMedQA. Five listed source models: OLMo-3-7B, OLMo-3.1-32B, Qwen3.5-35B-A3B, Gemma-4-31B, Mistral-Small-4-119B. Main evaluator Qwen3.5-2B-Base. Usually 500 matched human/machine pairs per dataset/source; SQuAD 143. Pairwise length trimming; most about 200 tokens, PubMedQA 32-34.",
+        "benchmark_anchors": [
+          "https://arxiv.org/html/2610.33767v1#S5.T1",
+          "https://arxiv.org/html/2610.33767v1#S5.T2",
+          "https://arxiv.org/html/2610.33767v1#A2.SS3"
+        ],
+        "robustness": "Length and decoding ablations show shorter and more stochastic text harder; one ELI5 ROC plot reports low-FPR advantage; T5 paraphrase attack retained leading post-attack AUROC. Seven of nine evaluator models ranked first. White-box performance reverses ranking; IRM leads.",
+        "failure_limits": "PubMedQA is near chance for RelPPR and short (~33 tokens). WritingPrompts is exception in failure analysis: observed-token surprisal rises with hidden prompt. No global false-positive calibration. Paper prose inconsistently says six source models and 12 baselines although five source models are listed/tabulated.",
+        "appendix_anchors": [
+          "https://arxiv.org/html/2610.33767v1#A1.SS4",
+          "https://arxiv.org/html/2610.33767v1#A2.SS4",
+          "https://arxiv.org/html/2610.33767v1#A2.SS5",
+          "https://arxiv.org/html/2610.33767v1#A2.SS6"
+        ]
+      },
+      "echoprompt": {
+        "method_anchor": "https://arxiv.org/html/2608.05741v1#S3.SS2",
+        "features": [
+          {
+            "id": "restored_assistant_context",
+            "definition": "Prepend empirically selected generic assistant-response prefix that frames passage as generated in response to a user request.",
+            "direction": "Prompt-component ablation: response-relation clause contributes most; full prefix beats empty prompt.",
+            "requires": "Model scoring with exact prefix; visible assistant rhetoric is only an unvalidated editorial analogy.",
+            "anchors": [
+              "https://arxiv.org/html/2608.05741v1#S3.SS2",
+              "https://arxiv.org/html/2608.05741v1#A3",
+              "https://arxiv.org/html/2608.05741v1#A7"
+            ]
+          },
+          {
+            "id": "context_calibrated_score",
+            "definition": "Mean over t=2..n of log P_instruct(x_t|assistant prefix,x_<t) minus log P_base(x_t|x_<t).",
+            "direction": "Higher score interpreted as more machine-like; binary decision requires threshold tau.",
+            "requires": "Matched base/instruct proxy checkpoints, aligned token log-probabilities, generic prefix, threshold.",
+            "evidence": "Chosen Llama-3-8B proxy: mean AUROC 95.56%, F1 91.98%; IRM 94.87%/89.34%.",
+            "anchor": "https://arxiv.org/html/2608.05741v1#S4.T1"
+          },
+          {
+            "id": "same_model_context_gain",
+            "definition": "Within one fixed proxy, mean log P(x_t|prefix,x_<t) minus log P(x_t|x_<t). Mechanism probe, distinct from final two-model score.",
+            "direction": "Machine-side mean gain exceeds human-side mean on four small proxy base families and two DetectRL subsets.",
+            "requires": "Same model scored twice, with and without prefix.",
+            "evidence": "Appendix Table 8: 1,000 randomly sampled pairs per DetectRL Multi-Domain and Multi-LLM; human gains -0.0483 to +0.0209, machine gains +0.0257 to +0.0486.",
+            "anchor": "https://arxiv.org/html/2608.05741v1#A4.T8"
+          },
+          {
+            "id": "irm_baseline",
+            "definition": "Sum log P_instruct(x_t|x_<t) / P_base(x_t|x_<t), without restored prefix.",
+            "direction": "Higher implicit reward associated with machine in IRM baseline; compare against EchoPrompt rather than treating as its component.",
+            "anchor": "https://arxiv.org/html/2608.05741v1#S3.SS1"
+          }
+        ],
+        "population": "DetectRL Multi-Domain 3,975 pairs, Multi-LLM 3,991, Multi-Attack 4,967; balanced RealDet and RAID subsets of 1,000 human plus 1,000 machine each. Proxy pairs: Qwen2.5 1.5B/3B, Llama-3.2 1B/3B, Llama-3.1 8B, Llama-3 8B, Falcon 7B. Input capped at 1,024 tokens.",
+        "metrics": "AUROC and threshold-dependent F1. Separate normalized F1-optimal threshold stability plot.",
+        "benchmark_anchors": [
+          "https://arxiv.org/html/2608.05741v1#S4.T1",
+          "https://arxiv.org/html/2608.05741v1#S4.T2",
+          "https://arxiv.org/html/2608.05741v1#A7.T9",
+          "https://arxiv.org/html/2608.05741v1#A7.T10"
+        ],
+        "ablations": "Prefix selection used 500 human and 500 machine DetectRL Multi-Domain texts from same benchmark pool, though proxy pair differs from highlighted main result. In prompt-component ablation, full prefix boosts AUROC 14.73/12.57 points on Qwen2.5-3B and 5.63/5.33 on Llama-3.1-8B versus empty; response-relation clause strongest. Prompt choice and proxy choice matter.",
+        "limitations": "Appendix A explicitly warns of proxy-family dependence, no globally optimal prefix, false positives/negatives, and use only as auxiliary evidence. Qwen2.5-1.5B full main mean AUROC 76.78%; Qwen2.5-3B RealDet 63.24%, below entropy baseline 84.79%. 1-40 words: mean 75.8% AUROC across three Llama proxies; 81-120: 93.1%; 321-360: 98.9%. The strong selected Llama result cannot be generalized across all proxies or domains.",
+        "limit_anchors": [
+          "https://arxiv.org/html/2608.05741v1#A1",
+          "https://arxiv.org/html/2608.05741v1#A3",
+          "https://arxiv.org/html/2608.05741v1#A7.T9",
+          "https://arxiv.org/html/2608.05741v1#S4.SS4"
+        ]
+      },
+      "diveye": {
+        "method_anchor": "https://arxiv.org/html/2509.18880v3#S3.SS2",
+        "requirements": "Autoregressive evaluator token log-probabilities, tokenizer, enough tokens, nine-feature vector, task-specific labeled XGBoost classifier for published detection performance; 20 bins for second-difference entropy; input truncated at 1,024 tokens.",
+        "features": [
+          {
+            "id": "mean_surprisal",
+            "group": "distribution",
+            "definition": "Mean observed-token surprisal.",
+            "proposed_direction": "Higher human on 200+200 matched essay pilot; not general.",
+            "leave_one_out_auc_drop": 0.0013,
+            "p": 0.032
+          },
+          {
+            "id": "surprisal_variance",
+            "group": "distribution",
+            "definition": "Sample variance of observed-token surprisal.",
+            "proposed_direction": "Higher human on essay pilot.",
+            "leave_one_out_auc_drop": 0.0115,
+            "p": 0.016
+          },
+          {
+            "id": "surprisal_skewness",
+            "group": "distribution",
+            "definition": "Third standardized central moment.",
+            "proposed_direction": "Positive skew interpreted as rare surprising human tokens; no per-feature benchmark direction demonstrated.",
+            "leave_one_out_auc_drop": 0.0239,
+            "p": 0.004
+          },
+          {
+            "id": "surprisal_excess_kurtosis",
+            "group": "distribution",
+            "definition": "Fourth standardized central moment minus 3.",
+            "proposed_direction": "High heavy tails interpreted as human; no per-feature benchmark direction demonstrated.",
+            "leave_one_out_auc_drop": 0.0091,
+            "p": 0.019
+          },
+          {
+            "id": "first_difference_mean",
+            "group": "first_order",
+            "definition": "Mean signed S_t-S_(t-1), mathematically (S_n-S_1)/(n-1).",
+            "proposed_direction": "Paper calls this typical shift magnitude, but signed mean is an endpoint term; no reliable class direction shown.",
+            "leave_one_out_auc_drop": 0.0056,
+            "p": 0.027
+          },
+          {
+            "id": "first_difference_variance",
+            "group": "first_order",
+            "definition": "Sample variance of adjacent surprisal differences.",
+            "proposed_direction": "Hypothesized more human local volatility; no individual class-conditional sign shown.",
+            "leave_one_out_auc_drop": 0.0103,
+            "p": 0.017
+          },
+          {
+            "id": "second_difference_variance",
+            "group": "second_order",
+            "definition": "Sample variance of differences of adjacent first differences.",
+            "proposed_direction": "Hypothesized more human rapid variation; no individual class-conditional sign shown.",
+            "leave_one_out_auc_drop": 0.0008,
+            "p": 0.034
+          },
+          {
+            "id": "second_difference_binned_entropy",
+            "group": "second_order",
+            "definition": "Shannon entropy over histogram of numerical second differences; 20 bins in experiments. This is not predictive token entropy.",
+            "proposed_direction": "Hypothesized more human irregularity; no direct per-feature direction shown.",
+            "leave_one_out_auc_drop": 0.0263,
+            "p": 0.001
+          },
+          {
+            "id": "second_difference_lag1_autocorrelation",
+            "group": "second_order",
+            "definition": "Lag-one autocorrelation of second differences.",
+            "proposed_direction": "Paper says human bursts cluster; coefficient sign/magnitude direction not established independently.",
+            "leave_one_out_auc_drop": 0.0152,
+            "p": 0.012
+          }
+        ],
+        "feature_evidence_anchor": "https://arxiv.org/html/2509.18880v3#A4.T8",
+        "feature_ablations": "Each feature removed separately, XGBoost retrained, paired bootstrap on MAGE Testbed 4. All listed p<0.05; no multiple-test adjustment stated. Adding temporal block to static four raises AUROC .82 to .88 and average accuracy 74.25% to 78.15%. Group importance given as second order 39.4%, distribution 34.2%, first order 23.7% (sum 97.3%, unexplained). Feature importance ranks/ablation do not establish the human-vs-machine sign of each feature.",
+        "ablation_anchors": [
+          "https://arxiv.org/html/2509.18880v3#A2",
+          "https://arxiv.org/html/2509.18880v3#S4.SS6",
+          "https://arxiv.org/html/2509.18880v3#A4.SS6"
+        ],
+        "expanded_candidates": "Appendix F.3 explores first-order entropy, second-order mean, and mean/variance/entropy of third and fourth differences (17 total features). Hierarchical addition plateaus after original ninth; no compelling gain. Appendix G LookForward forward-vs-bidirectional planning discrepancy fails at about .50 AUROC.",
+        "expanded_anchors": [
+          "https://arxiv.org/html/2509.18880v3#A6.SS3",
+          "https://arxiv.org/html/2509.18880v3#A7"
+        ],
+        "population": "MAGE eight testbeds: 1-4 train/validation/test; 5-8 OOD evaluated using Testbed 4-trained classifier; over 27 generator models in benchmark. RAID adversarial benchmark; HC3 English/Chinese 80/20 split. Pilot: 200 human + 200 GPT-4-Turbo essays using GPT-2 scorer. Extra COREFL 1,426 non-native English essays and LEDGAR legal provisions use task-specific 75/25 training splits.",
+        "population_anchor": "https://arxiv.org/html/2509.18880v3#A8",
+        "metrics": "AUROC, average accuracy, TPR at 5% FPR, F1, leave-one-out AUC changes, paired-bootstrap p values. Median of three runs on DGX A100 reported in Appendix I.",
+        "results": "MAGE Testbed 4 AUROC .88. RAID Table 3 TPR@5%FPR 80.52% and AUROC .951. Non-native COREFL held-out human accuracy 82.07%, A1 most difficult. Short text AUROC .62 at 10 tokens, .88 at 256. Temperature/top-p perturbations relatively stable in sampled tests; 21 abstracts per commercial paraphraser tested. Legal LEDGAR 99.49% with task-specific train/test split. Boosting requires a new trained meta-classifier.",
+        "results_anchors": [
+          "https://arxiv.org/html/2509.18880v3#S4.T1",
+          "https://arxiv.org/html/2509.18880v3#S4.T3",
+          "https://arxiv.org/html/2509.18880v3#A4.T11",
+          "https://arxiv.org/html/2509.18880v3#A4.T12",
+          "https://arxiv.org/html/2509.18880v3#A4.SS9",
+          "https://arxiv.org/html/2509.18880v3#A5"
+        ],
+        "false_positives_and_limits": "Non-native test leaves substantial errors even after targeted training; short fragments poor. Tokenization and scorer changes may alter features. Variance-zero sequences make standardized moments/autocorrelation undefined unless handled. Authors recommend probabilistic auxiliary use and human review in high-stakes decisions.",
+        "internal_inconsistencies": "Section 4.5 says all detector boosts exceed 18.7%, but Table 4 lists 8.81%-18.7%. Table 13 header says FPR@TPR=5% while Table 3 uses TPR@FPR=5% and surrounding prose says classification accuracy. Table 10 OOD unseen domains+models DivEye .924 vs Table 1 .87 without clear reconciliation. Section 3.2 calls signed first-difference mean shift magnitude though it telescopes to endpoints. Treat all comparative claims within their stated split, metric, and training protocol."
+      },
+      "cross_paper_conflicts": [
+        "RelPPR hypothesizes human predictive entropy trajectories smoother and machine peaks stronger; DivEye hypothesizes human realized-token surprisal more temporally irregular. These are different quantities and protocols, so no unconditional 'more variation means AI/human' rule follows.",
+        "RelPPR's black-box instruction-conditioned advantage conflicts with its own white-box ranking; evaluator/source access changes the preferred statistic.",
+        "EchoPrompt's latent assistant-response dependence is a measured proxy-model likelihood gain, not a directly visible collection of assistant phrases.",
+        "DivEye's term zero-shot applies to generator independence and feature extraction, yet its detector is a supervised XGBoost classifier; no training-free prose score follows."
+      ],
+      "conditional_rankings": [
+        {
+          "task": "Black-box instruction-conditioned completions around 150-200 tokens with full evaluator distributions",
+          "order": [
+            "RelPPR",
+            "DiffPPR",
+            "mean predictive entropy"
+          ],
+          "caveat": "Only within RelPPR's benchmark protocol; PubMedQA short text reverses ranking.",
+          "anchor": "https://arxiv.org/html/2610.33767v1#S5.T1"
+        },
+        {
+          "task": "Assistant-response-like text with matched base/instruct proxy pair and representative calibration",
+          "order": [
+            "EchoPrompt score as candidate",
+            "IRM comparator"
+          ],
+          "caveat": "Proxy and prefix dependence substantial; selected Llama result is not general.",
+          "anchors": [
+            "https://arxiv.org/html/2608.05741v1#S4.T1",
+            "https://arxiv.org/html/2608.05741v1#A7.T9"
+          ]
+        },
+        {
+          "task": "Labeled MAGE-like classifier training",
+          "order": [
+            "DivEye nine-feature vector",
+            "second-difference entropy and surprisal skewness as strongest single-feature ablation losses"
+          ],
+          "caveat": "Use full classifier and held-out validation, not one-feature authorship rules.",
+          "anchor": "https://arxiv.org/html/2509.18880v3#A4.T8"
+        },
+        {
+          "task": "Prose-only editorial review",
+          "order": [
+            "Content accuracy, specificity, redundancy, task fit, paragraph and sentence rhythm as editorial observations"
+          ],
+          "caveat": "No measured detector AUROC transfers to visual cue lists or humanization efficacy.",
+          "anchors": [
+            "https://arxiv.org/html/2610.33767v1#S4.SS2",
+            "https://arxiv.org/html/2608.05741v1#S3.SS2",
+            "https://arxiv.org/html/2509.18880v3#S3.SS2"
+          ]
+        }
+      ]
+    },
+    "linguistic": {
+      "scope": "Primary-source review of arXiv 2606.04177v1 and 2505.01800v1, including appendices; no canonical skill edits",
+      "source_2606": {
+        "title": "A Systematic Analysis of Linguistic Features in AI-Generated Text Detection Across Domains and Models",
+        "url": "https://arxiv.org/html/2606.04177v1",
+        "license": "CC BY-SA 4.0, per arXiv HTML header",
+        "status": "empirical English-language classification study, not a human-reviewer validation of prose judgments",
+        "population": "MAGE English passages: ten source domains; 27 generation models in seven families; continuation prompts only. Train 93,318 human and 194,839 AI; validation 28,799 human and 24,151 AI; test 28,741 human and 24,226 AI. Separate GPT-4 test: CNN/DailyMail, DialogSum, IMDb, PubMed. CMV prompt pilot also used direct-response prompts.",
+        "source_refs": [
+          "§3.1–3.4; Table 1",
+          "Appendix A.1 Tables 6–7",
+          "Appendix A.3.1–A.3.11",
+          "§4.1 Tables 2–4",
+          "§4.2 Table 5",
+          "§4.3 Figures 5–6",
+          "Appendix B Tables 9–15",
+          "Appendix C Table 16; C.2–C.4",
+          "Appendix D Figures 19–20",
+          "§5 Limitations"
+        ],
+        "inventory_caveat": "The paper calls Appendix A.3 a full list, but gives grouped descriptions for several categories, not 284 unique machine-readable feature names. Counts below are from Table 5 and sum to 284. Do not invent missing variable names or map unnamed members to specific lexicons/UD labels without the ELFEN extraction schema.",
+        "feature_groups": [
+          {
+            "group": "surface",
+            "count": 6,
+            "named_features": [
+              "token count",
+              "character count",
+              "sentence count",
+              "lemma count",
+              "count of words longer than five characters",
+              "raw sequence length including spaces and special characters"
+            ],
+            "definition_ref": "Appendix A.3.1",
+            "direction": "No stable human-vs-AI direction established at individual-feature level; raw length can track prompt/source domain. Appendix E.1 notes sequence length, token, syllable and lemma counts differ among human domains."
+          },
+          {
+            "group": "lexical richness",
+            "count": 3,
+            "named_features": [
+              "type-token ratio (number of distinct tokens divided by token count)",
+              "global token hapax legomena (tokens in a passage appearing only once in the full corpus, per A.3.4)",
+              "lexical density (adjective+noun+verb+adverb tokens divided by token count)"
+            ],
+            "definition_ref": "Appendix A.3.4; Appendix C.4.3; Appendix D.2",
+            "direction": "Paper's distribution prose claims greater human values for all three, but also reports human TTR near 0.6 and AI TTR near 0.8; Appendix D.2 explicitly says human TTR lower and AI TTR/lexical density higher. Human raw global-hapax count is reported higher, with passage-length dependence. Do not impose a universal sign."
+          },
+          {
+            "group": "emotion and sentiment",
+            "count": 36,
+            "named_features": [
+              "positive-sentiment token count",
+              "negative-sentiment token count",
+              "high-valence token count",
+              "low-valence token count",
+              "high-arousal token count",
+              "low-arousal token count",
+              "high-dominance token count",
+              "low-dominance token count",
+              "mean valence",
+              "mean arousal",
+              "mean dominance",
+              "mean intensity",
+              "high-intensity token counts by Plutchik emotion",
+              "low-intensity token counts by Plutchik emotion"
+            ],
+            "definition_ref": "Appendix A.3.10; D.1",
+            "direction": "Illustrative Yelp pairs show higher human anger/disgust intensity and low-valence counts; AI samples have higher valence. This is a selected domain-model illustration, not a general direction. Group ablation changes sign by domain."
+          },
+          {
+            "group": "psycholinguistic",
+            "count": 77,
+            "named_features": [
+              "high/low concreteness token counts and average rating",
+              "high/low age-of-acquisition token counts and average rating",
+              "high/low prevalence token counts and average rating",
+              "high/low socialness token counts and average rating",
+              "high/low iconicity token counts and average rating",
+              "high/low sensorimotor-association token counts and average rating"
+            ],
+            "definition_ref": "Appendix A.3.11",
+            "direction": "No individual-direction claim. Group's value reverses across domains; removing it helps unseen WritingPrompts/ROCStories but harms unseen CMV/XSum/SciGen in the reported ablations."
+          },
+          {
+            "group": "readability",
+            "count": 2,
+            "named_features": [
+              "syllable count",
+              "Flesch reading ease"
+            ],
+            "definition_ref": "Appendix A.3.3",
+            "direction": "No stable human-vs-AI direction. Ablation effect small or adverse in aggregate and domain dependent."
+          },
+          {
+            "group": "morphological",
+            "count": 58,
+            "named_features": [
+              "all nonuniform Universal Dependencies morphological features in the data; individual features are not enumerated"
+            ],
+            "definition_ref": "Appendix A.3.8",
+            "direction": "Group helps some seen settings, hurts some unseen domains, notably DialogSum."
+          },
+          {
+            "group": "parts of speech",
+            "count": 18,
+            "named_features": [
+              "token frequency for each Universal Dependencies POS tag; tags not enumerated in paper",
+              "POS variability (number of distinct POS tags divided by token count)"
+            ],
+            "definition_ref": "Appendix A.3.2",
+            "direction": "No stable individual direction; POS group especially useful for short SQuAD responses in one in-domain ablation."
+          },
+          {
+            "group": "syntactic dependencies",
+            "count": 47,
+            "named_features": [
+              "count for each Universal Dependencies dependency-relation type; labels not enumerated",
+              "dependency-tree width",
+              "dependency-tree depth",
+              "tree branching factor",
+              "ramification factor",
+              "noun-chunk count"
+            ],
+            "definition_ref": "Appendix A.3.9",
+            "direction": "No stable individual direction; group depends on text and model domain."
+          },
+          {
+            "group": "semantic",
+            "count": 16,
+            "named_features": [
+              "hedge count",
+              "mean synset count overall and separately for nouns, verbs, adjectives, adverbs",
+              "high-synset-count token count overall and separately for nouns, verbs, adjectives, adverbs",
+              "low-synset-count token count overall and separately for nouns, verbs, adjectives, adverbs"
+            ],
+            "definition_ref": "Appendix A.3.7",
+            "direction": "No stable individual direction; removing semantic group hurts unseen DialogSum in Appendix C.2."
+          },
+          {
+            "group": "named entities",
+            "count": 19,
+            "named_features": [
+              "entity count for each entity type; type names not enumerated",
+              "overall named-entity count"
+            ],
+            "definition_ref": "Appendix A.3.6",
+            "direction": "No stable individual direction. Group often marginal; source/topic naturally affects entity counts."
+          },
+          {
+            "group": "information theoretic",
+            "count": 2,
+            "named_features": [
+              "compressibility",
+              "Shannon entropy"
+            ],
+            "definition_ref": "Appendix A.3.5",
+            "direction": "No stable human-vs-AI sign. Second most influential group on mixed in-domain TB4 but often hurts unseen text-domain performance (Appendix C.1)."
+          }
+        ],
+        "features_explicitly_excluded": [
+          "type count alone",
+          "sentence-normalized versions of count features",
+          "average word length",
+          "additional theoretically equivalent surface, readability, and lexical-richness metrics"
+        ],
+        "feature_preprocessing": "Most counts are divided by token count; raw type, sentence, character, lemma, and syllable counts are exceptions. Uniform features are removed; missing/infinite values imputed by feature type; z-score scaling is fit on train data. Linear balanced SVM, C=1.0, seed 42. §3.2 and Appendix A.2.",
+        "task_conditional_ranks": [
+          {
+            "setting": "TB4 mixed in-domain",
+            "evidence": "Table 5 full macro F1 .827; remove lexical richness .696 (about -13.1 percentage points); remove information .809 (about -1.8); all other removals at most about -0.6 points by printed rounded values. Lexical-only cumulative experiment retains .776, about -5.0 points versus all features. This ranks feature groups for this classifier, not individual features."
+          },
+          {
+            "setting": "TB7 four new domains plus GPT-4",
+            "evidence": "Table 5 full macro F1 .808; remove lexical richness .531 (about -27.7 points); most other removals increase F1, particularly morphology .846 and psycholinguistics .834. Appendix C.4 says lexical-only exceeded full model by 14.29 points, yet domain F1 spans CNN .9682 to DialogSum .5024 (Table 11)."
+          },
+          {
+            "setting": "TB2 seen model family, mixed domains",
+            "evidence": "Table 16: removing lexical richness improves OpenAI +.003, LLaMA +.022, GLM +.025, but harms FLAN-T5 -.095, OPT -.032, BigScience -.057, Eleuther -.024. Apparent lexical ranking reverses for several families."
+          },
+          {
+            "setting": "TB5 unseen model family",
+            "evidence": "Table 16: removing lexical richness harms all seven families, from Eleuther -.029 to LLaMA -.174. Information group also harms each family when removed (roughly -.015 to -.026)."
+          },
+          {
+            "setting": "TB3 seen text domain",
+            "evidence": "Table 16: removing lexical richness harms nine of ten domains, worst ELI5 -.118; SQuAD improves +.002. For SQuAD, removing surface -.034, emotion -.019, POS -.014. Other groups vary."
+          },
+          {
+            "setting": "TB6 unseen text domain",
+            "evidence": "Table 16: removing lexical richness harms every domain, from SQuAD -.003 to XSum -.274. Removing psycholinguistic improves WritingPrompts +.037 and lowers CMV -.011, XSum -.011; information removal lowers most domains but improves ROCStories +.036. Thus category rankings are setting-specific."
+          },
+          {
+            "setting": "TB8 unseen text AND model families, 70 pairs",
+            "evidence": "Table 12 mean macro F1 .587, range .345-.889. Full ablation performed only for 16 selected pairs (Appendix C.3). Lexical-only versus full for 70 pairs (Appendix C.4): ROCStories +10.1 to +15.3 points; WritingPrompts mostly improves but OPT -20.0, LLaMA -16.6; SciGen, SQuAD and HellaSwag mostly worsen. OpenAI mean +.0528. No universal lexical-only rule."
+          }
+        ],
+        "direction_and_internal_consistency": [
+          "Appendix C.4.3 says human values exceed AI on all three lexical metrics, yet its TTR centers (human ~0.6, AI ~0.8) imply the opposite. Appendix D.2 explicitly supports lower human TTR and higher AI TTR and lexical density; human raw hapax count is higher with longer passages. Treat the all-three-human-higher assertion as internally inconsistent.",
+          "Appendix A.3.4 defines hapax as corpus-global singleton tokens per passage; Appendix C.4.3 and D.2 sometimes describe words appearing once in a text. These are different measures, so do not collapse them.",
+          "Ablation measures a group's marginal effect in a trained multifeature classifier; it does not assign an authorship direction, causal mechanism, or calibrated confidence to a single passage.",
+          "Text and model domain reversals make a categorical checklist or universal weights unsupported."
+        ],
+        "false_positives_and_limits": [
+          "Paper reports macro F1/AUROC and sometimes per-class recall, but no calibrated false-positive rate or human false-positive analysis in its main comparison. Cannot translate F1 to a probability that a single passage was machine-written.",
+          "TB8 cross-generalization F1 as low as .345; DialogSum GPT-4 F1 .5024, so transfer can approach poor performance. Tables 11–12.",
+          "Prompts mostly held to continuation; pilot changing prompt also changed model composition. Appendix B.2's model-family alignment claim is suggestive rather than isolated causal proof.",
+          "Benchmark generations do not cover newest models as of study; no direct evidence for edited/hybrid prose or adversarial rewriting; language is English. §5 Limitations.",
+          "Most counts can reflect passage length, prompt, topic, register, quotations, and document conventions; authors warn about domain/model and dataset confounds in §2 and §5.",
+          "Tool extraction and lexicons require language-specific validation; do not transfer these English distributions to Russian or another language."
+        ],
+        "qualitative_skill_implications": [
+          "Inspect lexical repetition, generic word reuse, specific word choice and content-word density as review prompts, then verify against genre, passage length, topic and author voice; do not demand maximized TTR or novelty.",
+          "Use meaning-first checks for unsupported claims, generic filler, redundant transitions, and unnatural sentiment in the actual rhetorical context, without presenting them as diagnostic features proven here.",
+          "Describe evidence as observed text features with excerpts and uncertainty, never authorship verdict or numeric risk without a calibrated detector.",
+          "Preserve useful repetitions, terminology, natural formality, and intentional reader guidance during revision. Humanization should improve substance and voice, not optimize a detector score."
+        ],
+        "needs_tools_and_calibration": [
+          "Exact TTR, global hapax, lexical density, POS, UD morphology/dependencies, NER, sentiment, psycholinguistic ratings, synset metrics, entropy, compressibility and readability require defined tokenizer/lexicon/parser plus validation for the target language/genre.",
+          "A classifier-style ranking or authorship probability requires matched human and model baselines, evaluation across new generators and prompts, predeclared thresholds, and a reported human false-positive rate.",
+          "A corpus-global hapax metric is impossible from a lone passage without its reference corpus; passage-local hapax is a different measure."
+        ]
+      },
+      "source_2505": {
+        "title": "Distinguishing AI-Generated and Human-Written Text Through Psycholinguistic Analysis",
+        "url": "https://arxiv.org/html/2505.01800v1",
+        "pdf_url": "https://arxiv.org/pdf/2505.01800v1",
+        "license": "CC BY-NC-SA 4.0, per arXiv HTML header",
+        "status": "theoretical mapping of prior StyloAI stylometric features to psycholinguistic interpretations; no new classifier, benchmark, ablation, sample count, error analysis, or feature ranking is reported in this paper",
+        "population": "No new evaluated population reported. Examples are said to be from a previous StyloAI dataset, with isolated passages and no representativeness data in this paper.",
+        "source_refs": [
+          "Abstract",
+          "§1.1",
+          "§2.1–2.4",
+          "§3 and Table 1",
+          "§3.1",
+          "Appendix Table 2 (PDF p.8; HTML lines 184–215)",
+          "§4"
+        ],
+        "count_discrepancy": "Text claims 31 features and Table 1 says 18 mapped; Appendix Table 2 lists 29 distinct named rows (6 lexical, 11 syntactic, 4 sentiment, 2 readability, 4 named-entity category, 2 uniqueness), while Table 1 lists 19 distinct names. Verified in HTML and PDF. Do not supply two invented names to reach 31.",
+        "inventory_appendix_table_2": [
+          [
+            "WordCount",
+            "lexical",
+            "number of words"
+          ],
+          [
+            "UniqueWordCount",
+            "lexical",
+            "number of distinct words"
+          ],
+          [
+            "CharCount",
+            "lexical",
+            "number of characters"
+          ],
+          [
+            "AvgWordLength",
+            "lexical",
+            "mean word length"
+          ],
+          [
+            "TTR",
+            "lexical",
+            "distinct words divided by total words"
+          ],
+          [
+            "HapaxLegomenonRate",
+            "lexical",
+            "fraction of words appearing once"
+          ],
+          [
+            "SentenceCount",
+            "syntactic",
+            "number of sentences"
+          ],
+          [
+            "AvgSentenceLength",
+            "syntactic",
+            "words per sentence"
+          ],
+          [
+            "PunctuationCount",
+            "syntactic",
+            "number of punctuation marks"
+          ],
+          [
+            "StopWordCount",
+            "syntactic",
+            "number of common function words"
+          ],
+          [
+            "ComplexSentenceCount",
+            "syntactic",
+            "sentences with more than one clause"
+          ],
+          [
+            "QuestionCount",
+            "syntactic",
+            "number of question marks"
+          ],
+          [
+            "ExclamationCount",
+            "syntactic",
+            "number of exclamation marks"
+          ],
+          [
+            "ContractionCount",
+            "syntactic",
+            "number of contractions"
+          ],
+          [
+            "AbstractNounCount",
+            "syntactic",
+            "number of nouns for intangible concepts"
+          ],
+          [
+            "ComplexVerbCount",
+            "syntactic",
+            "number of less frequent verbs; threshold unspecified"
+          ],
+          [
+            "SophisticatedAdjectiveCount",
+            "syntactic",
+            "number of adjectives treated as complex; examples use -ive/-ous suffixes, operational rule unspecified"
+          ],
+          [
+            "EmotionWordCount",
+            "sentiment",
+            "number of words in an emotion lexicon"
+          ],
+          [
+            "Polarity",
+            "sentiment",
+            "overall positive versus negative orientation"
+          ],
+          [
+            "Subjectivity",
+            "sentiment",
+            "degree of opinion language"
+          ],
+          [
+            "VaderCompound",
+            "sentiment",
+            "VADER overall sentiment score"
+          ],
+          [
+            "FleschReadingEase",
+            "readability",
+            "reading ease formula score"
+          ],
+          [
+            "GunningFog",
+            "readability",
+            "estimated education years needed for first reading"
+          ],
+          [
+            "FirstPersonCount",
+            "named-entity category",
+            "number of first-person pronouns; despite category label this is not NER"
+          ],
+          [
+            "DirectAddressCount",
+            "named-entity category",
+            "reader-address instances; despite category label this is not NER"
+          ],
+          [
+            "PersonEntities",
+            "named-entity category",
+            "named people"
+          ],
+          [
+            "DateEntities",
+            "named-entity category",
+            "date mentions"
+          ],
+          [
+            "UniqueNgramCount",
+            "uniqueness",
+            "count of novel bigram/trigram combinations; novelty baseline unspecified"
+          ],
+          [
+            "SyntacticVariety",
+            "uniqueness",
+            "range of sentence structures; operational definition unspecified"
+          ]
+        ],
+        "mapped_19_names_in_table_1": [
+          "word_count",
+          "hapax_legomenon_rate",
+          "unique_word_count",
+          "ttr",
+          "avg_word_length",
+          "char_count",
+          "avg_sentence_length",
+          "complex_sentence_count",
+          "punctuation_count",
+          "question_count",
+          "contraction_count",
+          "syntax_variety",
+          "subjectivity",
+          "emotion_word_count",
+          "vader_compound",
+          "gunning_fog",
+          "flesch_reading_ease",
+          "first_person_count",
+          "direct_address_count"
+        ],
+        "theoretical_directions": [
+          "§3.1 suggests humans often use more context-specific vocabulary, varied syntax, situated sentiment, and grounded entities; AI may be more repetitive, generic, or tonally flat. These are hypotheses/interpretations, not measured direction estimates in this paper.",
+          "§2 also admits human cognitive load can cause simplification, errors, repeated words, abrupt shifts, and weak transitions, so those are possible human traits too.",
+          "The paper's claim that AI cannot self-monitor, revise deliberately, or adapt rhetorically is a theoretical stance; these internal cognitive properties cannot be inferred from text alone.",
+          "High word count, long words, first-person pronouns, emotion words and unusual phrasing are not independently verified indicators of human authorship here."
+        ],
+        "ranking_evidence": "None in this paper. No weights, ablation, F1, effect sizes, false-positive rates, or model/genre comparisons for the 29 listed features. Do not rank them by Table 1 grouping or cited cognitive theory.",
+        "limitations_and_false_positives": [
+          "No false-positive evaluation, thus no basis for individual authorship judgments or academic-integrity sanctions.",
+          "Table 2's 29/31 and Table 1's 19/18 discrepancies undermine treating the inventory as a validated, complete 31-feature set.",
+          "Examples are selected and drawn from prior work; no sampling method or control for genre, topic, length or learner style is supplied here.",
+          "Several descriptions are nonoperational (complex verbs/adjectives, novel n-grams, syntax variety); lexical metrics depend on length and tokenization.",
+          "Feature category mislabels first-person reference and direct address as named entities.",
+          "English examples and formulas cannot be presumed validated for Russian or other languages; no multilingual evaluation here.",
+          "Claims about emotional authenticity, lived experience, metacognition and cognitive load should not be used as text-based proofs of author identity."
+        ],
+        "qualitative_skill_implications": [
+          "As a theory-informed editing lens, consider whether vocabulary, sentence shape, emotional tone, entity use and reader address fit the author's purpose and subject.",
+          "Treat apparent repetition, complexity, pronouns, punctuation, or sentiment as questions for contextual review, never deterministic AI flags.",
+          "For revision, explain concrete effects on clarity, specificity and voice; do not add personal anecdotes, mistakes, emotions or entities to imitate humans."
+        ],
+        "needs_tools_and_calibration": [
+          "Actual feature extraction needs operational definitions, suitable language resources, human reference samples, genre/length matching, and prospective false-positive testing.",
+          "The psycholinguistic mapping itself needs controlled empirical testing before it can justify ranking or diagnosis."
+        ]
+      },
+      "copyright_note": "Only short technical feature names and original paraphrased descriptions/findings are recorded; no source tables, prose passages, scripts or figure assets are copied. The second source is noncommercial share-alike licensed; a derivative reproduction would need separate license review. This research-note JSON records factual observations and attribution, not adapted source prose.",
+      "overall_recommendation": "For an ai-detector skill, use feature families as context-dependent prompts and explicitly avoid numerical or categorical authorship claims without calibrated evidence. For a humanizer skill, revise one meaningful prose issue at a time to support the author's purpose and preserve factual content, rather than optimizing a surface-feature score. Explicitly distinguish empirically tested English category ablations (2606) from theoretical cognitive interpretations (2505)."
+    },
+    "discourse": {
+      "created": "2026-10-31",
+      "note_type": "Original factual research synthesis; no source prose, tables, scripts or examples copied for adaptation",
+      "sources": [
+        {
+          "id": "ror",
+          "url": "https://arxiv.org/html/2608.26694v1",
+          "title": "Relational Over-Regularization: Graph-Based AI-Generated Text Detection via Sentence Transition Deviation",
+          "license": "CC BY 4.0, arXiv header",
+          "scope": "arXiv v1 preprint, 27 August 2026. Four benchmark pools (HC3 professional/ChatGPT; M4 multi-domain/multi-generator; MULTITuDE multilingual/eight generators; AIGTBench social-media/twelve generators). ROR validation: each pool 1000 human and 1000 AI documents. Held-out: 500 continuations each from Claude Sonnet 4.6, GPT-5, Gemini 2.5 Flash Lite against a shared set of 500 human documents. Continuation prompt supplies first 30 document tokens; temperature 1.0; no per-language feature results. Standard supervised evaluation 70/15/15 split and ten runs (§4, Appendix A/E).",
+          "definitions": [
+            {
+              "feature": "transition variance",
+              "computation": "Variance, per document, of cosine similarities between consecutive frozen RoBERTa CLS sentence embeddings; compare distributions of per-document values with Mann-Whitney U and rank-biserial r (§3.1, Table 1).",
+              "direction": "Higher AI in the four pooled benchmarks, but GPT-5 held-out is lower than human (Appendix C Table 9)."
+            },
+            {
+              "feature": "signed transition deviation delta_ij",
+              "computation": "Cosine similarity of sentence pair minus that document's mean cosine similarity over all unordered sentence pairs; positive = unusually similar pair, negative = unusually dissimilar pair (§3.2 Eq.4).",
+              "direction": "Some AI output has local similarity bursts; GPT-5 has smaller absolute deviations. This is a graph feature, not a universal prose target."
+            },
+            {
+              "feature": "absolute cosine similarity",
+              "computation": "Cosine similarity of any graph-linked pair (§3.2 Eq.3).",
+              "direction": "No standalone human/AI means reported."
+            },
+            {
+              "feature": "normalized positional distance",
+              "computation": "Absolute sentence-index gap divided by sentence count minus one (§3.2 Eq.3).",
+              "direction": "No standalone group direction; its ablation causes largest of four edge-component accuracy losses (0.25 pp; Appendix B.3)."
+            },
+            {
+              "feature": "sequential adjacency indicator",
+              "computation": "Binary edge feature for neighboring sentences; all neighbors linked; additional long-range edges if cosine similarity exceeds theta=0.6 (§3.2).",
+              "direction": "No standalone group direction."
+            },
+            {
+              "feature": "ten sentence-node style inputs",
+              "computation": "Hedge-word ratio, modal-verb ratio, first-person pronoun ratio, question and exclamation marks, token count, type-token ratio, comma density, discourse-marker presence, long-word ratio (§3.2 Node Features).",
+              "direction": "Listed as model inputs, with no separate feature directions or ablations in this paper."
+            },
+            {
+              "feature": "paragraph-boundary/topic-restatement/template bursts",
+              "computation": "Authors' proposed explanation of variance pattern; each mechanism lacks a separate annotation count or isolated test (§1, §3.1, §5.1).",
+              "direction": "Proposed for some AI generators; formulaic human news also exhibits recurring patterns (Appendix D.1)."
+            }
+          ],
+          "benchmark_variance": [
+            {
+              "pool": "HC3",
+              "human": 5.72e-07,
+              "AI": 1.05e-06,
+              "r": 0.38,
+              "p": 3.34e-45
+            },
+            {
+              "pool": "M4",
+              "human": 2.52e-06,
+              "AI": 3.06e-06,
+              "r": 0.25,
+              "p": 5.21e-22
+            },
+            {
+              "pool": "MULTITuDE",
+              "human": 1.13e-06,
+              "AI": 2.12e-06,
+              "r": 0.32,
+              "p": 9.73e-60
+            },
+            {
+              "pool": "AIGTBench",
+              "human": 1.95e-06,
+              "AI": 2.84e-06,
+              "r": 0.22,
+              "p": 1.34e-73
+            }
+          ],
+          "heldout_generator_variance": [
+            {
+              "group": "Human",
+              "n": 500,
+              "mean": 0.0011,
+              "sd": 0.0006
+            },
+            {
+              "group": "GPT-5",
+              "n": 500,
+              "mean": 0.0008,
+              "sd": 0.0005,
+              "ks_D": 0.2389,
+              "p_vs_human": 6.05e-13,
+              "detector_accuracy_percent": 68.85,
+              "fpr_percent": 0.66,
+              "fnr_percent": 61.64
+            },
+            {
+              "group": "Claude Sonnet 4.6",
+              "n": 500,
+              "mean": 0.0015,
+              "sd": 0.0005,
+              "ks_D": 0.2915,
+              "p_vs_human": 1.09e-19,
+              "detector_accuracy_percent": 89.45,
+              "fpr_percent": 0.66,
+              "fnr_percent": 20.46
+            },
+            {
+              "group": "Gemini 2.5 Flash Lite",
+              "n": 500,
+              "mean": 0.0023,
+              "sd": 0.0006,
+              "ks_D": 0.6482,
+              "p_vs_human": 8.88e-102,
+              "detector_accuracy_percent": 92.26,
+              "fpr_percent": 0.66,
+              "fnr_percent": 14.81
+            }
+          ],
+          "detector_results": [
+            "Standard balanced Setting 1: CSFG accuracy/FPR/FNR = 97.14/1.57/4.15%; CoCo graph baseline 86.00/23.00/5.00%; SeqXGPT 93.02/12.43/1.53% (§5.2 Table 2). These are classifier outcomes, not prevalence estimates of stylistic traits.",
+            "Source-attribution auxiliary-loss lambda 0 to 1: accuracy 96.25→97.22%; FPR 2.27→1.48%; FNR 5.23→4.08%. The prose says both error rates decline consistently, but the intermediate table values are not strictly monotone (Appendix B.1 Table 5).",
+            "Semantic-edge theta 0.3–0.7: accuracy 97.14–97.23%, FPR 1.45–1.58%, FNR 4.01–4.16%; validation AUROC selects 0.6 (Appendix B.2 Table 6).",
+            "Edge ablation full accuracy/FPR/FNR 97.14/1.57/4.15%; omit cosine 96.92/1.59/4.57; omit distance 96.89/1.54/4.67; omit adjacency flag 96.94/1.69/4.42; omit delta 96.97/1.65/4.40 (Appendix B.3 Table 7). Effects are small, with no isolated confidence test.",
+            "GNN layers 1/2/3/4 accuracy 96.59/97.09/97.15/97.10%, FPR 2.06/1.53/1.42/1.53%, FNR 4.75/4.29/4.27/4.26% (Appendix B.4 Table 8)."
+          ],
+          "perturbation_and_boundary_results": [
+            "Claude-generated AI after Claude paraphrase/humanization/back-translation: CSFG accuracy 90.59/87.43/90.96%, FPR on perturbed human documents 88.24/84.31/49.80%, FNR 1.22/5.10/4.79% (§5.4 Table 4). LLM rewriting of human controls drives FPR; no human rewrite or separate-family rewriter control.",
+            "Gemini equivalent accuracy/FPR/FNR: paraphrase 85.98/92.16/5.91%, humanization 76.43/82.35/17.48%, back-translation 91.53/37.25/5.49%. GPT-5: 77.86/36.73/20.63%, 47.93/20.00/55.35%, 86.31/22.58/12.84%. GPT-5 humanization is a severe exception (Appendix D.2 Table 14).",
+            "Under 500 characters, N=125 per generator, accuracy/FPR/FNR Claude 56.00/63.86/4.76%; Gemini 51.20/71.08/4.76%; GPT-5 74.40/18.07/40.48%. Too few pairs destabilize the statistic (Appendix D.1 Table 12).",
+            "Professionally edited XSum human news, N=100, reported FPR 25% versus 1.57% standard. Its recurring conventional restatements overlap the proposed signal (Appendix D.1 Table 13)."
+          ],
+          "limits_and_anomalies": [
+            "Pooled-benchmark variance is on a 10^-6 scale, held-out Appendix C variance on a 10^-3 scale; no explanation given for direct numerical comparability.",
+            "Appendix D Tables 10–11 label 0.xx accuracy/error entries as percentages; Table 14 supplies corresponding xx% values. Use Table 14.",
+            "Human-only XSum Table 13 reports FPR 25%, accuracy 85%, and FNR 6%; those three values cannot all be interpreted as defined in §4. Do not reuse accuracy/FNR.",
+            "The delta ablation's FPR shift is 0.08 pp with no significance test; its claimed false-positive calibration role is a tentative interpretation.",
+            "Mechanism attribution to next-token training and RLHF was proposed, not experimentally manipulated. Potential confounds include genre, length, prompt, generator, embedding representation, creative/high-temperature writing. Semantic edge computation quadratic (§6)."
+          ],
+          "safe_transfer": "For longer prose, inspect whether adjacent sentences or paragraphs redundantly restate the same idea; edit only when purpose and meaning allow. Treat structural similarity as a contextual question, never an authorship verdict or a target score. Preserve legitimate repetitive structure in short, academic, news and instructional work.",
+          "unsafe_transfer": "Do not prescribe arbitrary topic drift, jagged similarity, random sentence-length changes or damaged coherence to appear human. Do not assert every generator has inflated variance. Do not infer universal detector accuracy from this benchmark or treat a single short sample as proof of AI authorship."
+        },
+        {
+          "id": "mental_health",
+          "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13245432/",
+          "title": "Linguistic comparison of AI- and human-written responses to online mental health queries",
+          "doi": "10.1038/s44387-026-00099-x",
+          "publication": "npj Artificial Intelligence, 2026-05-27",
+          "license": "CC BY-NC-ND 4.0. Noncommercial redistribution with attribution permitted; adapted material is not licensed. Notes below independently paraphrase factual observations. Do not adapt source prose, tables, examples or code.",
+          "scope": "English Reddit mental-health peer-support genre: 24,114 posts and 138,758 peer replies from 55 subreddits, 2018-01-01 to 2024-03-31. One zero-shot GPT-4-Turbo, Llama-3.1, Mistral-7B reply generated for each post using default parameters and no added system/role/style/safety prompt. GPT is main comparison; Llama and Mistral robustness checks. Paired tests compare each model reply to the mean of all human replies to that post, giving one matched pair per post. Qualitative 50 posts; separate random 100 AI responses rated by one psychologist (§Methods, Tables 1-5).",
+          "measurement_methods": {
+            "LIWC": "Normalized occurrences in eight psycholinguistic categories; paired t and KS tests with Bonferroni correction; GPT Cohen d. Many tiny differences are significant at large N, so attend to effect size (§Results Table 1; §Methods).",
+            "verbosity": "Words per reply and mean words per sentence.",
+            "Coleman_Liau": "CLI = 0.0588L - 0.296S - 15.8, where L is letters per 100 words and S is sentences per 100 words. Higher grade means more demanding surface form, not better comprehension.",
+            "repeatability": "Normalized frequency of non-unique words.",
+            "complexity": "Mean word length per sentence as defined by authors; a narrow proxy, not semantic sophistication.",
+            "categorical_dynamic_index": "30 + articles + prepositions - personal pronouns - impersonal pronouns - auxiliary verbs - conjunctions - adverbs - negations, using LIWC frequencies; higher = more categorical/analytical style.",
+            "formality_empathy_politeness": "Separate classifier scores 0-1, not user-rated outcomes. Sanity check on 185 AI replies gives 98.9%, 98.4%, 98.4% label agreement with human judgment. Empathy classifier trained on reactions to news.",
+            "query_semantic_similarity": "Cosine similarity of query and response from 300-dimensional Google News word embeddings.",
+            "style_accommodation": "Cosine similarity of normalized function-word LIWC vectors for query and reply.",
+            "cross_reply_diversity": "Each reply's cosine distance to centroid of its own group's word-embedding vectors; population-level measure, not a single-answer creativity test.",
+            "emotional_informational_support": "Binary support SVMs trained/validated in prior peer-support work, validation accuracy 0.71 and 0.77 respectively; outputs are linguistic proxies (§Methods)."
+          },
+          "lexicosemantic_inventory_format": "Each row = [feature, OC human mean, GPT mean, GPT Cohen d, Llama mean, Mistral mean], from Results Tables 2 and 5. Tables mark most pairwise tests p<.001; measurement meaning in Methods.",
+          "lexicosemantic_inventory": [
+            [
+              "words_per_response",
+              77.35,
+              160.35,
+              0.63,
+              470.55,
+              332.03
+            ],
+            [
+              "words_per_sentence",
+              13.76,
+              19.28,
+              0.17,
+              18.19,
+              20.11
+            ],
+            [
+              "Coleman_Liau_grade",
+              6.58,
+              11.19,
+              0.71,
+              10.11,
+              10.1
+            ],
+            [
+              "normalized_repeated_words",
+              0.2,
+              0.33,
+              0.88,
+              0.53,
+              0.48
+            ],
+            [
+              "mean_word_length_complexity",
+              3.31,
+              4.63,
+              0.75,
+              4.17,
+              4.39
+            ],
+            [
+              "categorical_dynamic_index",
+              6.9,
+              9.66,
+              0.29,
+              15.87,
+              14.0
+            ],
+            [
+              "formality_classifier",
+              0.67,
+              0.87,
+              0.97,
+              0.03,
+              0.04
+            ],
+            [
+              "empathy_classifier",
+              0.71,
+              0.84,
+              0.63,
+              0.03,
+              0.03
+            ],
+            [
+              "politeness_classifier",
+              0.67,
+              0.79,
+              0.57,
+              0.03,
+              0.03
+            ],
+            [
+              "query_semantic_similarity",
+              0.59,
+              0.71,
+              0.52,
+              0.75,
+              0.76
+            ],
+            [
+              "query_style_accommodation",
+              0.71,
+              0.77,
+              0.21,
+              0.81,
+              0.83
+            ],
+            [
+              "cross_response_diversity",
+              0.13,
+              0.06,
+              -0.89,
+              0.09,
+              0.08
+            ],
+            [
+              "emotional_support_classifier",
+              0.49,
+              0.79,
+              0.78,
+              0.82,
+              0.86
+            ],
+            [
+              "informational_support_classifier",
+              0.52,
+              0.62,
+              0.24,
+              0.94,
+              0.96
+            ]
+          ],
+          "liwc_inventory_format": "Each row = [feature, OC human mean, GPT mean, GPT relative percent, GPT Cohen d, Llama mean, Mistral mean], from Results Tables 1 and 4. Means rounded; zero/equal at shown precision does not imply exact zero/equality.",
+          "liwc_inventory": {
+            "affect": [
+              [
+                "positive_affect",
+                0.038,
+                0.032,
+                -16.59,
+                -0.12,
+                0.027,
+                0.035
+              ],
+              [
+                "negative_affect",
+                0,
+                0,
+                -97.39,
+                -0.03,
+                0,
+                0
+              ],
+              [
+                "anxiety",
+                0.005,
+                0.006,
+                22.3,
+                0.08,
+                0.007,
+                0.007
+              ],
+              [
+                "anger",
+                0.002,
+                0,
+                -90,
+                -0.2,
+                0,
+                0
+              ],
+              [
+                "sadness",
+                0.005,
+                0.008,
+                74.25,
+                0.24,
+                0.003,
+                0.004
+              ]
+            ],
+            "cognition_perception": [
+              [
+                "insight",
+                0.021,
+                0.023,
+                9.15,
+                0.08,
+                0.024,
+                0.029
+              ],
+              [
+                "causation",
+                0.011,
+                0.006,
+                -47.02,
+                -0.3,
+                0.008,
+                0.009
+              ],
+              [
+                "discrepancy",
+                0.015,
+                0.014,
+                -6.11,
+                -0.05,
+                0.009,
+                0.013
+              ],
+              [
+                "tentativeness",
+                0.028,
+                0.029,
+                2.31,
+                0.02,
+                0.032,
+                0.039
+              ],
+              [
+                "certainty",
+                0.012,
+                0.005,
+                -58,
+                -0.29,
+                0.007,
+                0.007
+              ],
+              [
+                "differentiation",
+                0.032,
+                0.054,
+                68.01,
+                0.63,
+                0.033,
+                0.036
+              ],
+              [
+                "perception",
+                0.017,
+                0.017,
+                -1.12,
+                -0.01,
+                0.014,
+                0.015
+              ],
+              [
+                "see",
+                0.005,
+                0.002,
+                -67.19,
+                -0.26,
+                0.002,
+                0.002
+              ],
+              [
+                "hear",
+                0.004,
+                0.003,
+                -18.03,
+                -0.06,
+                0.002,
+                0.003
+              ],
+              [
+                "feel",
+                0.008,
+                0.012,
+                49.22,
+                0.23,
+                0.009,
+                0.009
+              ]
+            ],
+            "social_personal": [
+              [
+                "family",
+                0.002,
+                0.001,
+                -62,
+                -0.14,
+                0.002,
+                0.002
+              ],
+              [
+                "friend",
+                0.002,
+                0.001,
+                -58.52,
+                -0.13,
+                0.002,
+                0.002
+              ],
+              [
+                "female",
+                0.004,
+                0.002,
+                -58.43,
+                -0.17,
+                0.002,
+                0.002
+              ],
+              [
+                "male",
+                0.004,
+                0.001,
+                -70.69,
+                -0.22,
+                0.002,
+                0.001
+              ],
+              [
+                "work",
+                0.006,
+                0.006,
+                2.48,
+                0.01,
+                0.01,
+                0.011
+              ],
+              [
+                "leisure",
+                0.002,
+                0.001,
+                -49.01,
+                -0.1,
+                0.002,
+                0.002
+              ],
+              [
+                "home",
+                0.001,
+                0.001,
+                -41.39,
+                -0.09,
+                0.002,
+                0.002
+              ],
+              [
+                "money",
+                0.001,
+                0.001,
+                -31.97,
+                -0.06,
+                0.001,
+                0.001
+              ],
+              [
+                "religion",
+                0.001,
+                0,
+                -92.23,
+                -0.1,
+                0,
+                0
+              ],
+              [
+                "death",
+                0.001,
+                0,
+                -53.16,
+                -0.08,
+                0,
+                0
+              ],
+              [
+                "motion",
+                0.011,
+                0.005,
+                -50.36,
+                -0.31,
+                0.009,
+                0.009
+              ],
+              [
+                "space",
+                0.037,
+                0.034,
+                -7.15,
+                -0.08,
+                0.03,
+                0.033
+              ],
+              [
+                "time",
+                0.029,
+                0.011,
+                -60.17,
+                -0.57,
+                0.014,
+                0.015
+              ],
+              [
+                "affiliation",
+                0.013,
+                0.016,
+                25.04,
+                0.13,
+                0.017,
+                0.019
+              ],
+              [
+                "achievement",
+                0.01,
+                0.012,
+                17.6,
+                0.11,
+                0.011,
+                0.013
+              ],
+              [
+                "power",
+                0.011,
+                0.031,
+                192.6,
+                0.96,
+                0.017,
+                0.023
+              ],
+              [
+                "reward",
+                0.014,
+                0.007,
+                -53.2,
+                -0.33,
+                0.009,
+                0.01
+              ],
+              [
+                "risk",
+                0.004,
+                0.008,
+                80.22,
+                0.29,
+                0.004,
+                0.004
+              ]
+            ],
+            "biological": [
+              [
+                "body",
+                0.003,
+                0.002,
+                -26.01,
+                -0.07,
+                0.002,
+                0.003
+              ],
+              [
+                "health",
+                0.006,
+                0.019,
+                206.96,
+                0.68,
+                0.008,
+                0.01
+              ],
+              [
+                "sexual",
+                0.001,
+                0,
+                -88.34,
+                -0.09,
+                0,
+                0
+              ],
+              [
+                "ingest",
+                0.001,
+                0.001,
+                -29.78,
+                -0.05,
+                0.001,
+                0.001
+              ]
+            ],
+            "function_words": [
+              [
+                "article",
+                0.036,
+                0.042,
+                18.8,
+                0.23,
+                0.038,
+                0.04
+              ],
+              [
+                "preposition",
+                0.09,
+                0.103,
+                14.16,
+                0.27,
+                0.096,
+                0.111
+              ],
+              [
+                "auxiliary_verb",
+                0.074,
+                0.094,
+                26.4,
+                0.43,
+                0.068,
+                0.08
+              ],
+              [
+                "adverb",
+                0.052,
+                0.044,
+                -16.57,
+                -0.21,
+                0.026,
+                0.029
+              ],
+              [
+                "conjunction",
+                0.056,
+                0.066,
+                17.69,
+                0.28,
+                0.063,
+                0.075
+              ],
+              [
+                "negation",
+                0.015,
+                0.008,
+                -43.22,
+                -0.26,
+                0.01,
+                0.008
+              ],
+              [
+                "verb",
+                0.158,
+                0.127,
+                -19.72,
+                -0.46,
+                0.109,
+                0.133
+              ],
+              [
+                "adjective",
+                0.041,
+                0.053,
+                27.44,
+                0.26,
+                0.042,
+                0.047
+              ],
+              [
+                "compare",
+                0.021,
+                0.017,
+                -20.15,
+                -0.14,
+                0.015,
+                0.016
+              ],
+              [
+                "interrogative",
+                0.012,
+                0.012,
+                -4.54,
+                -0.03,
+                0.009,
+                0.008
+              ],
+              [
+                "number",
+                0.004,
+                0.001,
+                -67.65,
+                -0.28,
+                0.002,
+                0.002
+              ],
+              [
+                "quantifier",
+                0.018,
+                0.009,
+                -50.38,
+                -0.4,
+                0.01,
+                0.013
+              ]
+            ],
+            "pronouns": [
+              [
+                "first_singular",
+                0.058,
+                0.017,
+                -70.1,
+                -0.93,
+                0.007,
+                0.008
+              ],
+              [
+                "first_plural",
+                0.003,
+                0.001,
+                -71.3,
+                -0.23,
+                0.001,
+                0.001
+              ],
+              [
+                "second",
+                0.034,
+                0.047,
+                38.6,
+                0.32,
+                0.052,
+                0.052
+              ],
+              [
+                "third_singular",
+                0.006,
+                0.003,
+                -56.77,
+                -0.22,
+                0.003,
+                0.003
+              ],
+              [
+                "third_plural",
+                0.005,
+                0.005,
+                -1.53,
+                -0.01,
+                0.004,
+                0.005
+              ],
+              [
+                "impersonal",
+                0.05,
+                0.065,
+                29.32,
+                0.37,
+                0.041,
+                0.05
+              ]
+            ],
+            "temporal": [
+              [
+                "past",
+                0.035,
+                0.013,
+                -61.9,
+                -0.48,
+                0.01,
+                0.013
+              ],
+              [
+                "present",
+                0.109,
+                0.126,
+                15.41,
+                0.27,
+                0.097,
+                0.114
+              ],
+              [
+                "future",
+                0.01,
+                0.006,
+                -38.76,
+                -0.24,
+                0.007,
+                0.011
+              ]
+            ],
+            "additional_Table4_only": [
+              [
+                "relativity",
+                0.076,
+                0.051,
+                null,
+                null,
+                0.053,
+                0.057
+              ],
+              [
+                "drives",
+                0.046,
+                0.06,
+                null,
+                null,
+                0.046,
+                0.056
+              ]
+            ],
+            "informal": [
+              [
+                "swear",
+                0.001,
+                0,
+                -99.22,
+                -0.14,
+                0,
+                0
+              ],
+              [
+                "netspeak",
+                0.007,
+                0,
+                -96.89,
+                -0.26,
+                0,
+                0
+              ],
+              [
+                "assent",
+                0.008,
+                0.003,
+                -63.48,
+                -0.13,
+                0.002,
+                0.002
+              ],
+              [
+                "nonfluent",
+                0.002,
+                0,
+                -80.11,
+                -0.18,
+                0.001,
+                0.002
+              ],
+              [
+                "filler",
+                0,
+                0,
+                -100,
+                -0.07,
+                0,
+                0
+              ]
+            ]
+          },
+          "qualitative_observations": "In 50 sampled threads, GPT replies often began by acknowledging difficulty then gave ordered, reusable general advice, commonly in bullets; human peers often focused on one suggestion, sought clarification or follow-up, and related actual experiences. GPT more often supplied a neutral account of treatment tradeoffs while peers explained their own positions. GPT sometimes answered experience-seeking with generic information or referral. Authors observed one reply that inserted a nonexistent situation detail. These are themes, with no prevalence counts (§Robustness qualitative findings).",
+          "clinical_check": "One psychologist rated random N=100 AI replies on 1-5 scales. Factual accuracy mean 5.00 (SD 0; 100% at least 4); potential harmfulness mean 1.14 (SD .35; 0% at least 4); emotional attunement mean 1.82 (SD .99; 0% at least 4); contextual responsiveness mean 2.64 (SD .67; 0% at least 4). No direct unsafe advice in this sample; possible indirect concerns from vague reassurance, low acknowledgment of distress, and absent risk-sensitive language. This sample and qualitative hallucination example differ (§Robustness Table 3).",
+          "generator_exceptions": "Sadness higher than OC for GPT, lower for Llama/Mistral. Auxiliary verbs higher for GPT/Mistral, lower for Llama. Impersonal pronouns higher for GPT, lower for Llama, approximately equal for Mistral. Present focus higher for GPT/Mistral, lower for Llama; future focus lower for GPT/Llama, slightly higher for Mistral. Most striking: formality/empathy/politeness classifier scores 0.03-0.04 for Llama/Mistral versus 0.67-0.71 for OC and 0.79-0.87 for GPT, contradicting broad prose about AI being higher on these (§Results Tables 4-5).",
+          "limitations_and_quality_flags": [
+            "Self-selected English Reddit mental-health community participants; single-response exchanges; no multi-turn tests. Human replies often served different purposes from one-shot AI answers. Do not universalize to other genres, languages, or models (§Discussion).",
+            "Large word-count gap (GPT 160 vs OC 77; Llama 471; Mistral 332). Some normalized measures, but no explicit length matching/control (§Methods; §Discussion).",
+            "Automated empathy/support scores are proxies, not perceived help or emotional effect. Support SVM validation only .71/.77. Clinical sample small with one rater; full source corpus unavailable for privacy (§Methods; Data availability).",
+            "Paper says higher 'readability' but CLI 11.19 versus 6.58 actually means higher grade burden. Prose says OC CLI 6.90 while tables give 6.58; use tabulated value (§Results Table 2).",
+            "GPT CDI percentage is 40.04% in Table 2 but 60% in prose. Style-accommodation d .21 in table but .76 in prose. Diversity d -.89 in table but -1.21 in prose. Sexual LIWC difference -88.34% in Table 1 but -30% in prose. Prefer tables and avoid disputed statistics.",
+            "Table 4 significance stars appear on some rounded-equal rows or rows Table 1 labels nonsignificant. Table 5 Llama/Mistral classifier scores are striking and unexplained; do not extend GPT proxy claims to all AI.",
+            "Table 3's generic footnote says higher score means stronger safety, while its potential-harmfulness dimension is reverse-valued. Interpret that column by its label and text."
+          ],
+          "ranked_editorial_transfer": [
+            {
+              "rank": 1,
+              "feature": "unnecessary repetition and length",
+              "evidence": "GPT repeatability d=.88, words per response d=.63; same direction in Llama/Mistral; qualitative generic advice (§Results Tables 2/5).",
+              "safe": "Trim repeated meaning and unnecessary list items if message remains complete."
+            },
+            {
+              "rank": 2,
+              "feature": "contextual grounding",
+              "evidence": "Qualitative 50-thread themes plus clinician contextual mean 2.64/5.",
+              "safe": "Use known facts of the user's situation; ask one relevant clarification when needed."
+            },
+            {
+              "rank": 3,
+              "feature": "surface empathy versus attunement",
+              "evidence": "GPT automated empathy .84 versus .71 OC, but clinician attunement 1.82/5.",
+              "safe": "If support fits, acknowledge the actual concern without stock phrasing or claiming feelings."
+            },
+            {
+              "rank": 4,
+              "feature": "reading burden",
+              "evidence": "CLI grade 11.19 versus 6.58, d=.71; longer words d=.75.",
+              "safe": "Match vocabulary to reader and preserve technical accuracy."
+            },
+            {
+              "rank": 5,
+              "feature": "cross-reply reuse",
+              "evidence": "Centroid distance .06 GPT versus .13 OC, d=-.89.",
+              "safe": "Tailor advice to supplied details; do not add novelty for its own sake."
+            },
+            {
+              "rank": 6,
+              "feature": "first-person narrative, temporal/social details, informal diction",
+              "evidence": "LIWC contrasts arise from peers' actual lived experience and Reddit conventions.",
+              "safe": "Preserve real first-person material if provided; do not manufacture it."
+            },
+            {
+              "rank": 7,
+              "feature": "formality, pronouns, empathy/support proxy scores",
+              "evidence": "Model-specific reversals and genre dependence.",
+              "safe": "Only use as context questions, never quotas or authorship evidence."
+            }
+          ],
+          "unsafe_transfer": "Never fabricate first-person memories, relationships, chronology, medical facts or a human identity. Do not add profanity, slang, misplaced questions, an ungrounded treatment stance, or reduce safety language to imitate peers. Do not claim classifier-rated empathy proves emotional benefit or that the observed genre pattern establishes authorship."
+        }
+      ]
+    }
+  },
+  "sources": [
+    {
+      "id": "relppr",
+      "url": "https://arxiv.org/html/2610.33767v1",
+      "version": "v1",
+      "date": "2026-10-24",
+      "license": "arXiv perpetual non-exclusive distribution license",
+      "study_kind": "empirical model-based detector",
+      "transfer": "computed_only; visible rhythm is not its measurement"
+    },
+    {
+      "id": "echoprompt",
+      "url": "https://arxiv.org/html/2608.05741v1",
+      "version": "v1",
+      "date": "2026-08-06",
+      "license": "arXiv perpetual non-exclusive distribution license",
+      "study_kind": "empirical proxy-model detector",
+      "transfer": "computed_only; response form is not latent prompt measurement"
+    },
+    {
+      "id": "diveye",
+      "url": "https://arxiv.org/html/2509.18880v3",
+      "version": "v3",
+      "date": "2026-02-25",
+      "first_version_date": "2025-09-23",
+      "license": "arXiv perpetual non-exclusive distribution license",
+      "study_kind": "empirical supervised detector over surprisal features",
+      "transfer": "computed_only; no visual proxy or zero-training implementation"
+    },
+    {
+      "id": "ror",
+      "url": "https://arxiv.org/html/2608.26694v1",
+      "version": "v1",
+      "date": "2026-08-27",
+      "license": "CC BY 4.0",
+      "study_kind": "empirical graph detector; generator reversal and false-positive boundaries",
+      "transfer": "computed_only; qualitative repetition/continuity checks are editorial extrapolations"
+    },
+    {
+      "id": "linguistic_284",
+      "url": "https://arxiv.org/html/2606.04177v1",
+      "version": "v1",
+      "date": "2026-06-02",
+      "license": "CC BY-SA 4.0",
+      "study_kind": "empirical feature-family classifier ablations",
+      "transfer": "contextual family evidence; no universal feature signs or prose thresholds"
+    },
+    {
+      "id": "mental_health",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13245432/",
+      "version": "published article",
+      "date": "2026-05-27",
+      "license": "CC BY-NC-ND 4.0",
+      "study_kind": "genre-specific observational language comparison",
+      "transfer": "contextual descriptive evidence; no general detector validation or fabricated human experience"
+    },
+    {
+      "id": "psycholinguistic_31",
+      "url": "https://arxiv.org/html/2505.01800v1",
+      "version": "v1",
+      "date": "2025-05-03",
+      "license": "CC BY-NC-SA 4.0",
+      "study_kind": "theoretical mapping without new detection evaluation",
+      "transfer": "hypothesis_only"
+    }
+  ],
+  "within_source_rankings": {
+    "policy": "Rank only comparable quantities. Descriptive effect sizes and classifier ablations are different rankings, not interchangeable editing weights. Unreported individual ranks remain unranked.",
+    "diveye_leave_one_out_auc_drop": {
+      "source": "diveye",
+      "anchor": "Appendix D.6.1",
+      "metric": "decrease in AUC after omitting one feature within the tested trained classifier",
+      "items": [
+        {
+          "rank": 1,
+          "feature": "second_difference_binned_entropy",
+          "auc_drop": 0.0263
+        },
+        {
+          "rank": 2,
+          "feature": "surprisal_skewness",
+          "auc_drop": 0.0239
+        },
+        {
+          "rank": 3,
+          "feature": "second_difference_lag1_autocorrelation",
+          "auc_drop": 0.0152
+        },
+        {
+          "rank": 4,
+          "feature": "surprisal_variance",
+          "auc_drop": 0.0115
+        },
+        {
+          "rank": 5,
+          "feature": "first_difference_variance",
+          "auc_drop": 0.0103
+        },
+        {
+          "rank": 6,
+          "feature": "surprisal_excess_kurtosis",
+          "auc_drop": 0.0091
+        },
+        {
+          "rank": 7,
+          "feature": "first_difference_mean",
+          "auc_drop": 0.0056
+        },
+        {
+          "rank": 8,
+          "feature": "mean_surprisal",
+          "auc_drop": 0.0013
+        },
+        {
+          "rank": 9,
+          "feature": "second_difference_variance",
+          "auc_drop": 0.0008
+        }
+      ]
+    },
+    "mental_health_lexicosemantic": {
+      "source": "mental_health",
+      "anchor": "Results Table 2 (reported tabular values; prose conflicts retained in limitations)",
+      "metric": "absolute GPT-vs-human Cohen d; descriptive separation only, not detector accuracy",
+      "items": [
+        {
+          "rank": 1,
+          "feature": "formality_classifier",
+          "signed_d": 0.97
+        },
+        {
+          "rank": 2,
+          "feature": "cross_response_diversity",
+          "signed_d": -0.89
+        },
+        {
+          "rank": 3,
+          "feature": "normalized_repeated_words",
+          "signed_d": 0.88
+        },
+        {
+          "rank": 4,
+          "feature": "emotional_support_classifier",
+          "signed_d": 0.78
+        },
+        {
+          "rank": 5,
+          "feature": "mean_word_length_complexity",
+          "signed_d": 0.75
+        },
+        {
+          "rank": 6,
+          "feature": "Coleman_Liau_grade",
+          "signed_d": 0.71
+        },
+        {
+          "rank": 7,
+          "feature": "words_per_response",
+          "signed_d": 0.63
+        },
+        {
+          "rank": 7,
+          "feature": "empathy_classifier",
+          "signed_d": 0.63
+        },
+        {
+          "rank": 9,
+          "feature": "politeness_classifier",
+          "signed_d": 0.57
+        },
+        {
+          "rank": 10,
+          "feature": "query_semantic_similarity",
+          "signed_d": 0.52
+        },
+        {
+          "rank": 11,
+          "feature": "categorical_dynamic_index",
+          "signed_d": 0.29
+        },
+        {
+          "rank": 12,
+          "feature": "informational_support_classifier",
+          "signed_d": 0.24
+        },
+        {
+          "rank": 13,
+          "feature": "query_style_accommodation",
+          "signed_d": 0.21
+        },
+        {
+          "rank": 14,
+          "feature": "words_per_sentence",
+          "signed_d": 0.17
+        }
+      ],
+      "tie_policy": "Equal absolute effect sizes share a competition rank; order within a tie is not evidence of priority."
+    },
+    "mental_health_liwc": {
+      "source": "mental_health",
+      "anchor": "Results Table 1 (reported tabular values)",
+      "metric": "absolute GPT-vs-human Cohen d; overlapping word categories, not independent evidence or detector weights",
+      "items": [
+        {
+          "rank": 1,
+          "feature": "power",
+          "signed_d": 0.96
+        },
+        {
+          "rank": 2,
+          "feature": "first_singular",
+          "signed_d": -0.93
+        },
+        {
+          "rank": 3,
+          "feature": "health",
+          "signed_d": 0.68
+        },
+        {
+          "rank": 4,
+          "feature": "differentiation",
+          "signed_d": 0.63
+        },
+        {
+          "rank": 5,
+          "feature": "time",
+          "signed_d": -0.57
+        },
+        {
+          "rank": 6,
+          "feature": "past",
+          "signed_d": -0.48
+        },
+        {
+          "rank": 7,
+          "feature": "verb",
+          "signed_d": -0.46
+        },
+        {
+          "rank": 8,
+          "feature": "auxiliary_verb",
+          "signed_d": 0.43
+        },
+        {
+          "rank": 9,
+          "feature": "quantifier",
+          "signed_d": -0.4
+        },
+        {
+          "rank": 10,
+          "feature": "impersonal",
+          "signed_d": 0.37
+        },
+        {
+          "rank": 11,
+          "feature": "reward",
+          "signed_d": -0.33
+        },
+        {
+          "rank": 12,
+          "feature": "second",
+          "signed_d": 0.32
+        },
+        {
+          "rank": 13,
+          "feature": "motion",
+          "signed_d": -0.31
+        },
+        {
+          "rank": 14,
+          "feature": "causation",
+          "signed_d": -0.3
+        },
+        {
+          "rank": 15,
+          "feature": "certainty",
+          "signed_d": -0.29
+        },
+        {
+          "rank": 15,
+          "feature": "risk",
+          "signed_d": 0.29
+        },
+        {
+          "rank": 17,
+          "feature": "conjunction",
+          "signed_d": 0.28
+        },
+        {
+          "rank": 17,
+          "feature": "number",
+          "signed_d": -0.28
+        },
+        {
+          "rank": 19,
+          "feature": "preposition",
+          "signed_d": 0.27
+        },
+        {
+          "rank": 19,
+          "feature": "present",
+          "signed_d": 0.27
+        },
+        {
+          "rank": 21,
+          "feature": "see",
+          "signed_d": -0.26
+        },
+        {
+          "rank": 21,
+          "feature": "negation",
+          "signed_d": -0.26
+        },
+        {
+          "rank": 21,
+          "feature": "adjective",
+          "signed_d": 0.26
+        },
+        {
+          "rank": 21,
+          "feature": "netspeak",
+          "signed_d": -0.26
+        },
+        {
+          "rank": 25,
+          "feature": "sadness",
+          "signed_d": 0.24
+        },
+        {
+          "rank": 25,
+          "feature": "future",
+          "signed_d": -0.24
+        },
+        {
+          "rank": 27,
+          "feature": "feel",
+          "signed_d": 0.23
+        },
+        {
+          "rank": 27,
+          "feature": "article",
+          "signed_d": 0.23
+        },
+        {
+          "rank": 27,
+          "feature": "first_plural",
+          "signed_d": -0.23
+        },
+        {
+          "rank": 30,
+          "feature": "male",
+          "signed_d": -0.22
+        },
+        {
+          "rank": 30,
+          "feature": "third_singular",
+          "signed_d": -0.22
+        },
+        {
+          "rank": 32,
+          "feature": "adverb",
+          "signed_d": -0.21
+        },
+        {
+          "rank": 33,
+          "feature": "anger",
+          "signed_d": -0.2
+        },
+        {
+          "rank": 34,
+          "feature": "nonfluent",
+          "signed_d": -0.18
+        },
+        {
+          "rank": 35,
+          "feature": "female",
+          "signed_d": -0.17
+        },
+        {
+          "rank": 36,
+          "feature": "family",
+          "signed_d": -0.14
+        },
+        {
+          "rank": 36,
+          "feature": "compare",
+          "signed_d": -0.14
+        },
+        {
+          "rank": 36,
+          "feature": "swear",
+          "signed_d": -0.14
+        },
+        {
+          "rank": 39,
+          "feature": "friend",
+          "signed_d": -0.13
+        },
+        {
+          "rank": 39,
+          "feature": "affiliation",
+          "signed_d": 0.13
+        },
+        {
+          "rank": 39,
+          "feature": "assent",
+          "signed_d": -0.13
+        },
+        {
+          "rank": 42,
+          "feature": "positive_affect",
+          "signed_d": -0.12
+        },
+        {
+          "rank": 43,
+          "feature": "achievement",
+          "signed_d": 0.11
+        },
+        {
+          "rank": 44,
+          "feature": "leisure",
+          "signed_d": -0.1
+        },
+        {
+          "rank": 44,
+          "feature": "religion",
+          "signed_d": -0.1
+        },
+        {
+          "rank": 46,
+          "feature": "home",
+          "signed_d": -0.09
+        },
+        {
+          "rank": 46,
+          "feature": "sexual",
+          "signed_d": -0.09
+        },
+        {
+          "rank": 48,
+          "feature": "anxiety",
+          "signed_d": 0.08
+        },
+        {
+          "rank": 48,
+          "feature": "insight",
+          "signed_d": 0.08
+        },
+        {
+          "rank": 48,
+          "feature": "death",
+          "signed_d": -0.08
+        },
+        {
+          "rank": 48,
+          "feature": "space",
+          "signed_d": -0.08
+        },
+        {
+          "rank": 52,
+          "feature": "body",
+          "signed_d": -0.07
+        },
+        {
+          "rank": 52,
+          "feature": "filler",
+          "signed_d": -0.07
+        },
+        {
+          "rank": 54,
+          "feature": "hear",
+          "signed_d": -0.06
+        },
+        {
+          "rank": 54,
+          "feature": "money",
+          "signed_d": -0.06
+        },
+        {
+          "rank": 56,
+          "feature": "discrepancy",
+          "signed_d": -0.05
+        },
+        {
+          "rank": 56,
+          "feature": "ingest",
+          "signed_d": -0.05
+        },
+        {
+          "rank": 58,
+          "feature": "negative_affect",
+          "signed_d": -0.03
+        },
+        {
+          "rank": 58,
+          "feature": "interrogative",
+          "signed_d": -0.03
+        },
+        {
+          "rank": 60,
+          "feature": "tentativeness",
+          "signed_d": 0.02
+        },
+        {
+          "rank": 61,
+          "feature": "perception",
+          "signed_d": -0.01
+        },
+        {
+          "rank": 61,
+          "feature": "work",
+          "signed_d": 0.01
+        },
+        {
+          "rank": 61,
+          "feature": "third_plural",
+          "signed_d": -0.01
+        }
+      ],
+      "unranked": [
+        "relativity",
+        "drives"
+      ],
+      "tie_policy": "Equal absolute effect sizes share a competition rank; order within a tie is not evidence of priority."
+    },
+    "linguistic_families": {
+      "source": "linguistic_284",
+      "metric": "conditional group-removal effects, not per-feature weights",
+      "settings": [
+        {
+          "setting": "TB4 mixed in-domain",
+          "evidence": "Table 5 full macro F1 .827; remove lexical richness .696 (about -13.1 percentage points); remove information .809 (about -1.8); all other removals at most about -0.6 points by printed rounded values. Lexical-only cumulative experiment retains .776, about -5.0 points versus all features. This ranks feature groups for this classifier, not individual features."
+        },
+        {
+          "setting": "TB7 four new domains plus GPT-4",
+          "evidence": "Table 5 full macro F1 .808; remove lexical richness .531 (about -27.7 points); most other removals increase F1, particularly morphology .846 and psycholinguistics .834. Appendix C.4 says lexical-only exceeded full model by 14.29 points, yet domain F1 spans CNN .9682 to DialogSum .5024 (Table 11)."
+        },
+        {
+          "setting": "TB2 seen model family, mixed domains",
+          "evidence": "Table 16: removing lexical richness improves OpenAI +.003, LLaMA +.022, GLM +.025, but harms FLAN-T5 -.095, OPT -.032, BigScience -.057, Eleuther -.024. Apparent lexical ranking reverses for several families."
+        },
+        {
+          "setting": "TB5 unseen model family",
+          "evidence": "Table 16: removing lexical richness harms all seven families, from Eleuther -.029 to LLaMA -.174. Information group also harms each family when removed (roughly -.015 to -.026)."
+        },
+        {
+          "setting": "TB3 seen text domain",
+          "evidence": "Table 16: removing lexical richness harms nine of ten domains, worst ELI5 -.118; SQuAD improves +.002. For SQuAD, removing surface -.034, emotion -.019, POS -.014. Other groups vary."
+        },
+        {
+          "setting": "TB6 unseen text domain",
+          "evidence": "Table 16: removing lexical richness harms every domain, from SQuAD -.003 to XSum -.274. Removing psycholinguistic improves WritingPrompts +.037 and lowers CMV -.011, XSum -.011; information removal lowers most domains but improves ROCStories +.036. Thus category rankings are setting-specific."
+        },
+        {
+          "setting": "TB8 unseen text AND model families, 70 pairs",
+          "evidence": "Table 12 mean macro F1 .587, range .345-.889. Full ablation performed only for 16 selected pairs (Appendix C.3). Lexical-only versus full for 70 pairs (Appendix C.4): ROCStories +10.1 to +15.3 points; WritingPrompts mostly improves but OPT -20.0, LLaMA -16.6; SciGen, SQuAD and HellaSwag mostly worsen. OpenAI mean +.0528. No universal lexical-only rule."
+        }
+      ]
+    },
+    "theory_only": {
+      "source": "psycholinguistic_31",
+      "status": "unranked for predictive effectiveness: no empirical ranking in this paper"
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "frozen_at": "2026-10-31",
+  "baseline_commit": "3f615a8cb001320ff0c3da1a6e476c14ad42881e",
+  "purpose": "Controlled editorial and evidence-calibration cases; not an authorship-labelled detection corpus.",
+  "provenance": "Original synthetic passages authored for this evaluation. No real personal experience or medical advice is asserted.",
+  "protocol": {
+    "external_submission": false,
+    "output": "For edits, return exact edited prose and a short decision note. For analysis, return located findings, keep decisions and evidentiary limits. Never manufacture a measured detector result.",
+    "criteria": ["meaning_preserved", "voice_preserved", "naturalness", "specificity", "coherence", "evidence_calibration", "unnecessary_changes"],
+    "critical_failures": ["invented fact or experience", "changed modality, scope, actor or condition", "invented measurement or authorship certainty", "unauthorized upload"],
+    "scale": "Reviewers compare exact outputs as better, tied or worse, with concrete reasons; no human-authorship probability."
+  },
+  "cases": [
+    {
+      "id": "D01", "split": "development", "skill": "ai-detector", "language": "en",
+      "request": "Local analysis only. The draft has varied sentence lengths. Does that mean high entropy and prove a human wrote it? Explain which checks you can actually perform.",
+      "text": "The queue stopped. At 14:20, the worker retried the same job three times because its acknowledgement had expired. Nothing else moved.",
+      "constraints": ["No evaluator model, logits, dataset or calibrated detector is available."]
+    },
+    {
+      "id": "D02", "split": "development", "skill": "humanizer", "language": "en",
+      "request": "Make this release note more natural. Keep the defined term retry token and all conditions.",
+      "text": "The retry token identifies the request. The retry token remains valid for 30 seconds. The retry token can be reused only if the first attempt timed out. This retry token capability represents an important advancement in reliable request management.",
+      "constraints": ["retry token is a defined term", "30 seconds", "only if the first attempt timed out"]
+    },
+    {
+      "id": "D03", "split": "development", "skill": "humanizer", "language": "en",
+      "request": "Edit the progression of this incident note. Preserve the evidence and the uncertainty.",
+      "text": "The cache served stale results for six minutes. This shows why cache freshness matters.\n\nCache freshness is important for reliable results. The trace suggests that invalidation messages arrived after the reads.\n\nReliable results depend on timely invalidation. We have not yet reproduced that ordering.",
+      "constraints": ["six minutes", "trace suggests rather than proves", "not yet reproduced"]
+    },
+    {
+      "id": "D04", "split": "development", "skill": "ai-detector", "language": "en",
+      "request": "Locally assess this answer for AI-like style. The first sentence is a direct answer to a reader's request. Do not rewrite it.",
+      "text": "Yes, the adapter supports CSV. Here is the example you asked for: `load('sample.csv')`. If your file uses semicolons, set `delimiter=';'`.",
+      "constraints": ["No upload", "This is deliberately a support answer", "Code must stay exact"]
+    },
+    {
+      "id": "D05", "split": "development", "skill": "humanizer", "language": "en",
+      "request": "Edit this fictional peer-support reply for naturalness. Preserve the question and the speaker's uncertainty. Do not add personal history or advice.",
+      "text": "It sounds as though the waiting is the hardest part. It is important to acknowledge that waiting can be difficult. Do you want company while you wait, or would you rather have some space? I am not sure which would help.",
+      "constraints": ["Preserve the genuine choice question", "No diagnosis or additional advice", "No invented shared experience"]
+    },
+    {
+      "id": "D06", "split": "development", "skill": "ai-detector", "language": "en",
+      "request": "Local analysis only. Rank the useful style findings in this formal abstract; do not infer authorship from readability or nominalizations alone.",
+      "text": "The evaluation used 80 samples. Classification was performed after normalization. This evaluation highlights the importance of evaluation in supporting effective classification. The estimate excludes missing observations.",
+      "constraints": ["Formal abstract", "80 samples", "Exclusion is meaningful", "No numerical AI score"]
+    },
+    {
+      "id": "H01", "split": "holdout", "skill": "ai-detector", "language": "en",
+      "request": "Local analysis only: give an evidence-based AI-style assessment. Can you calculate RelPPR or DivEye from this paragraph without a model?",
+      "text": "I checked the latch twice. It held on the bench, then failed when the casing warmed up. We still do not know whether heat caused the failure.",
+      "constraints": ["No model logits or classifier available", "Do not confuse a style observation with a statistical measurement"]
+    },
+    {
+      "id": "H02", "split": "holdout", "skill": "humanizer", "language": "en",
+      "request": "Humanize this specification without changing its requirements or terminology.",
+      "text": "The lease holder may renew the lease. The lease holder must not transfer the lease. This distinction is not merely procedural; it is a fundamental cornerstone of lease integrity.",
+      "constraints": ["lease holder is a defined term", "may renew", "must not transfer", "Do not add an explanation of why transfer is forbidden"]
+    },
+    {
+      "id": "H03", "split": "holdout", "skill": "humanizer", "language": "ru",
+      "request": "Сделай этот отчёт естественнее, сохрани осторожность выводов и все сроки.",
+      "text": "Проверка заняла два дня. Это подчёркивает важность тщательной проверки.\n\nТщательная проверка важна для качества. На третий день нашли два сбоя, но пока не выяснили, связаны ли они с обновлением.",
+      "constraints": ["два дня проверки", "на третий день два сбоя", "связь с обновлением неизвестна", "Не превращать отчёт в разговорный пост"]
+    },
+    {
+      "id": "H04", "split": "holdout", "skill": "ai-detector", "language": "en",
+      "request": "Check locally whether the response format is an AI giveaway. This passage is a deliberate FAQ answer.",
+      "text": "Can I cancel after dispatch? No. You can return the parcel after delivery, provided the seal is intact. The form asks for your order number.",
+      "constraints": ["No upload", "FAQ genre", "Do not diagnose latent prompt dependency from visible response format"]
+    },
+    {
+      "id": "H05", "split": "holdout", "skill": "humanizer", "language": "ru",
+      "request": "Отредактируй вымышленный личный ответ, если это поможет. Сохрани сдержанность; ничего не добавляй о моём опыте.",
+      "text": "Не знаю, что тут сказать. Хочешь, я просто побуду рядом? Если тебе сейчас лучше одному, я пойму.",
+      "constraints": ["Допустимо оставить без изменений", "Не добавлять опыт, совет или обещание", "Сохранить вопрос и условие"]
+    },
+    {
+      "id": "H06", "split": "holdout", "skill": "ai-detector", "language": "en",
+      "request": "Assess this short technical note locally. A colleague says repeated nouns and low lexical diversity prove it is AI-written.",
+      "text": "A node owns one shard. A shard belongs to one node. A node may own no shard during recovery.",
+      "constraints": ["node and shard are domain terms", "Short technical note", "No corpus baseline or author metadata"]
+    },
+    {
+      "id": "H07", "split": "holdout", "skill": "humanizer", "language": "en",
+      "request": "Make this message natural, preserving its tentative stance and separate conditions.",
+      "text": "I'd want a rollback path before Friday. I'd want a second check if the migration touches archived records. I'm not asking for a redesign.",
+      "constraints": ["Do not turn I'd want into must or should", "Friday applies to the rollback path", "Second check is conditional", "Preserve rejection of redesign", "Unchanged is acceptable"]
+    },
+    {
+      "id": "H08", "split": "holdout", "skill": "humanizer", "language": "en",
+      "request": "Humanize this status update; keep the quoted message and URL exact. Do not manufacture sentence-length variation.",
+      "text": "At 09:12 the worker logged \"Retry budget exhausted.\" We restarted it at 09:18. The queue cleared at 09:21. Details: https://example.org/incidents/42",
+      "constraints": ["All timestamps", "Exact quotation", "Exact URL", "Intentional chronological structure"]
+    },
+    {
+      "id": "H09", "split": "holdout", "skill": "ai-detector", "language": "ru",
+      "request": "Только локальный разбор: можно ли перенести выводы англоязычных исследований на авторство этого русского текста? Дай полезное редакторское наблюдение, если оно есть.",
+      "text": "В рамках осуществления проверки было произведено выявление двух ошибок. Их исправление пока не подтверждено.",
+      "constraints": ["Не заявлять проверенную точность на русском", "Не придумывать исполнителя", "Исправление не подтверждено", "Авторство неизвестно"]
+    },
+    {
+      "id": "H10", "split": "holdout", "skill": "humanizer", "language": "en",
+      "request": "Edit only the prose in this answer. Preserve the user's requested headings and quotation.",
+      "text": "## Result\nThe result was inconclusive.\n\n## Limits\nOnly four samples survived. The reviewer wrote, \"This is not evidence of absence.\"\n\n## Next step\nRepeat the measurement if the remaining samples arrive.",
+      "constraints": ["Exact headings and quotation", "Only four samples", "Conditional repeat", "Do not remove structure merely because it looks templated"]
+    }
+  ]
+}
