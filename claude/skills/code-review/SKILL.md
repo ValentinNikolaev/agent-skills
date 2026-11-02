@@ -10,9 +10,9 @@ This complete skill and its bundled resources are generated from `agent-plugins/
 
 # Code Review
 
-Review the requested changes as an independent engineer. Report confirmed defects, security problems, contract violations, and material test gaps. Do not edit files.
+Review the requested changes as an independent engineer. Discover failure scenarios first, then independently verify them. Report confirmed defects and plausible risks with explicit evidence and verification verdicts. Do not edit files.
 
-Approve changes that preserve or improve overall code health without blocking on personal preference or unrelated pre-existing debt. Prefer a few high-conviction findings over a long list of speculative or cosmetic comments.
+Approve changes that preserve or improve overall code health without blocking on personal preference or unrelated pre-existing debt. Do not discard a reachable failure merely because it is rare or depends on timing, environment, or configuration.
 
 ## Route exclusively
 
@@ -23,6 +23,16 @@ Approve changes that preserve or improve overall code health without blocking on
 - Use `fix-pr` when the user asks to apply or triage GitHub review comments.
 - Use `php-modernization` for a requested PHP version or tooling migration, `go-security-audit` for a bounded Go security audit beyond the diff, and `go-benchmark` for reproducible Go measurements. Ordinary language-specific diff review stays here.
 - On a later explicit request to fix a finding, leave this read-only workflow and treat the accepted finding as implementation input.
+
+## Choose depth and output
+
+Accept `quick | standard | deep` (also `--depth <value>`), defaulting to `standard`:
+
+- `quick`: inspect hunks only, favor precision, and disclose the enclosing-function and cross-file coverage limit. Keep discovery separate from verification; do not silently downgrade a retained plausible risk or claim standard coverage.
+- `standard`: use the existing file, caller, test, language, and conditional checks plus the finder angles and independent verifier below.
+- `deep`: use standard coverage, retain a finding when any verifying reviewer gives a non-`REFUTED` verdict, and perform the post-verification gap sweep.
+
+Accept `--max-findings N` for a nonnegative integer cap on displayed findings, and `--format compact` for automated handoff; neither option reduces the review scope or changes the merge verdict. Default to no finding cap and the full report. Reject invalid values rather than silently substituting defaults.
 
 ## Establish scope and intent
 
@@ -46,7 +56,7 @@ If the scope is empty, report that and stop. If it is unusually large or contain
 
 ## Complete the baseline review first
 
-Perform the useful bounded review before asking about optional, token-intensive work.
+Perform the useful bounded review before asking about optional, token-intensive work. Standard and deep follow the steps below; quick inspects the hunks and supplied evidence without the broader context expansion. Record coverage limits.
 
 1. Inspect every changed hunk and every non-generated changed path.
 2. Review changed and nearby tests before implementation when they reveal intended behavior.
@@ -56,7 +66,9 @@ Perform the useful bounded review before asking about optional, token-intensive 
 6. Trace one normal scenario and the highest-risk edge scenario through non-trivial logic. Skip traces for mechanical changes and say why.
 7. For serialized-input matchers and behavior-driving classifications, apply the [matcher](references/conditional-checks.md#matchers-on-serialized-input) and [classification-boundary](references/conditional-checks.md#classification-boundaries) checks to each new or changed decision. For a re-push after review fixes, also apply the [review-fix delta checks](references/conditional-checks.md#review-fix-deltas). These are part of the baseline review.
 
-Read [references/conditional-checks.md](references/conditional-checks.md) only for languages and change patterns present in the scope, including serialized-input matching, classification boundaries, review-fix deltas, configuration/bootstrap changes, and tests that replace framework behavior. Do not load or apply unrelated sections.
+Use [finder angles and reviewer roles](references/finder-and-verifier.md) for discovery, assignment, verification handoffs, and the deep gap sweep. Standard and deep must check enclosing functions, removed behavior, callers and changed callees, forwarding wrappers, exact repository rules, and whether a shared mechanism should own the fix. Preserve every candidate with a nameable failure scenario until verification; discovery does not retract candidates.
+
+Read [references/conditional-checks.md](references/conditional-checks.md) only for languages and change patterns present in the scope, including serialized-input matching, classification boundaries, review-fix deltas, persisted shortcuts guarded at write time, configuration/bootstrap changes, and tests that replace framework behavior. Load its [CI workflows checks](references/conditional-checks.md#ci-workflows) only when `.github/workflows/` or other CI configuration changes. Do not load or apply unrelated sections.
 
 Load only the language references needed by changed behavior and its tests:
 
@@ -100,21 +112,23 @@ Evaluate only dimensions touched by the change. Mark the rest `not-applicable`.
 
 For structural concerns, name the smallest useful move: remove an unnecessary abstraction, make a type boundary explicit, consolidate duplicate branches, separate orchestration from business logic, reuse the canonical helper, or move feature logic to its owning module. A refactor should remove concepts or branches, not merely relocate them.
 
-## Ground every finding
+## Generate candidates, then verify
 
-Report a finding only when the repository and diff confirm it.
+The finder records stable CR IDs, location, category, a concise summary, and `inputs/state -> wrong result or crash` for every candidate with a nameable failure scenario. Record uncertainties without filtering or retracting candidates. Grounding is a later pass; a bare preference without a scenario is not a candidate.
 
-For each candidate:
+When an Agent/subagent tool is available, assign one fresh verifier who did not find the candidates. Give it the diff, relevant files, applicable instructions, intended behavior, and candidate list, without the finder's reasoning or proposed verdicts. This verifier is part of the baseline, not an optional high-cost extension. Without that tool, verify inline after discovery and disclose the lack of an independent reviewer. Quick keeps the verifier within the same hunk-only scope.
 
-1. Re-read the cited current code and patch hunk.
-2. Trace the relevant call or data path.
-3. Check callers, guards, configuration, and tests for mitigation.
-4. State the strongest intentional-design counterargument.
-5. Retract the candidate when the counterargument or mitigation is stronger.
+The verifier re-reads the current lines and diff, traces the path, checks callers, guards, configuration, and tests, and considers the strongest intentional-design counterargument. Give each candidate one outcome:
 
-Do not convert uncertainty into a high-priority finding. Put unresolved, high-impact hypotheses in `Questions` with the missing evidence and a concrete verification step.
+- `CONFIRMED`: name the trigger and wrong result and quote the supporting line. Execution is useful but not required when the source trace establishes both.
+- `PLAUSIBLE`: name the real mechanism and conditional trigger (timing, environment, configuration, or state), quote the relevant line, and state what would confirm it. Realistic races, nil on error/cold-cache/optional-field paths, partial failure plus retry, boundary off-by-one errors, and regex/allowlist anchor loss remain findings when not disproved.
+- `REFUTED`: cite and quote contradicting code, an invariant or type making the scenario impossible, a guard in this diff, or a source trace proving no observable effect. A stronger-sounding counterargument, low frequency, a happy-path test, or lack of reproduction is not refutation.
 
-Do not report formatter-owned style, generated-file noise, unrelated debt, or theoretical failures without a plausible path. Quantify impact only when evidence supports the estimate.
+Keep `CONFIRMED` and `PLAUSIBLE` in Findings with the verdict shown. Questions are only for hypotheses requiring evidence outside the repository, such as production data, database or prompt contents, or undocumented provider behavior. A source-grounded plausible mechanism stays in Findings even if a production sample would help confirm occurrence. Missing local inspection or unrun checks are verification limits, not a reason to park a candidate in Questions. Severity follows the demonstrated impact; uncertainty alone does not raise priority.
+
+Exclude formatter-owned style, generated-file noise, and unrelated debt. An unchanged line inside a touched function is in scope when this change re-exposes its defect or the stated fix should have addressed it; explain that causal connection. Conventions require the exact quoted rule, its file path, and the violating line. Quantify impact only when evidence supports the estimate. References retain their technical checks; candidate disposition follows this three-outcome contract.
+
+In deep mode, run the bounded gap sweep after verification and verify its additions the same way. A non-refuted verification vote retains the finding; unresolved disagreement with a refutation is shown as `PLAUSIBLE` with both pieces of evidence, not silently suppressed.
 
 ## Verify the verification story
 
@@ -130,7 +144,7 @@ Separate repository evidence from commands actually executed.
 
 Run cheap, targeted, read-only checks or isolated scratch controls when they are normal for the repository and materially verify a candidate. Do not silently expand into the high-cost checks below.
 
-Before the final verdict, revisit exclusions and assumptions that could hide a reachable failure in the changed path. A development-only label does not exclude supported configuration variants. Do not issue `APPROVE` while a material assumption remains unverified; record the missing evidence and a concrete check in `Questions` and let that limit constrain the verdict.
+Before the final verdict, revisit exclusions and assumptions that could hide a reachable failure in the changed path. A development-only label does not exclude supported configuration variants. Do not issue `APPROVE` while a material assumption remains unverified; record the missing evidence and a concrete check in the finding or verification limits, using Questions only for external-evidence hypotheses, and let that limit constrain the verdict.
 
 ## Learn from external review evidence
 
@@ -145,7 +159,7 @@ Do not run token-, context-, time-, network-, or compute-intensive extensions ou
 - profiling, benchmarks, load tests, or bundle analysis;
 - broad security, dependency-advisory, supply-chain, accessibility, or observability audits;
 - external changelog, migration-guide, maintenance, license, or vulnerability research;
-- independent sub-agent, model, or council review.
+- additional sub-agent, model, or council review beyond the baseline finder/verifier and requested deep sweep.
 
 After completing every other report section, list only plausible extensions and give each:
 
@@ -166,7 +180,7 @@ Use stable IDs independent of severity: `CR-001`, `CR-002`, and so on.
 - `P2`: meaningful reliability, test, or maintainability risk.
 - `P3`: optional evidence-backed improvement.
 
-Use one disposition: `open`, `question`, or `retracted`. Include only `open` findings in the findings list, retain `question` items in `Questions`, and omit retracted candidates.
+Use one disposition: `open`, `question`, or `retracted`. Both `CONFIRMED` and `PLAUSIBLE` findings are `open`. Only externally dependent hypotheses are `question`; only evidence-backed `REFUTED` candidates are `retracted`. Keep refutations in the verification record, not the public findings list. Stable IDs survive sorting, deduplication, truncation, and later fixes.
 
 Return one verdict:
 
@@ -176,12 +190,12 @@ Return one verdict:
 
 ## Report
 
-Return, in this order:
+For the full report, return in this order:
 
 1. scope and intent: base, included change sources, path filters, exclusions, and assumptions;
 2. review depth: files and tests inspected, traces performed, and baseline limits;
 3. applicable-dimension summary with `pass`, `concern`, or `not-applicable`;
-4. confirmed findings ordered by priority;
+4. confirmed and plausible findings ordered by priority, each with its verification verdict;
 5. actionable changed-path test coverage;
 6. verification evidence and commands not run;
 7. questions and verification limits;
@@ -198,9 +212,13 @@ Priority: P1
 Disposition: open
 Location: path/to/file:line
 Summary: <one sentence>
-Evidence: <exact changed snippet and traced call/data path>
+Failure scenario: <inputs/state -> wrong result or crash>
+Verdict: CONFIRMED | PLAUSIBLE
+Category: correctness | security | reliability | performance | coverage | cleanup | conventions
+Evidence: <quoted relevant line and traced call/data path; rule path and quote for conventions>
 Impact: <concrete failure and affected users or systems>
 Counterargument: <strongest plausible intentional rationale>
+Confirmation: <for PLAUSIBLE: the observation or check that would confirm it>
 Remediation: <smallest safe approach>
 ```
 
@@ -216,4 +234,10 @@ Missing tests, ordered by risk:
 
 Every `partial` or `uncovered` status must map to at least one missing-test item. Do not report only that coverage is incomplete. If evidence is unavailable, use `unknown`, explain what is missing, and give the exact verification step. Write `None` only when all significant changed paths have grounded coverage evidence.
 
-When no findings remain after verification, say so clearly and retain any coverage or verification limits. Never edit, stage, commit, push, or comment on the pull request.
+Before applying `--max-findings`, deduplicate by failure mechanism, then sort by P0 through P3. At equal priority, correctness/security/reliability outrank performance/coverage, which outrank cleanup/conventions; preserve CR-ID order within a tier. Report the number cut, even zero. A cap never changes the verdict derived from all retained findings and material verification limits. Use [the report contract](references/report-contract.md) and `scripts/prepare_review_report.py` to validate structured findings and apply the cap when Python is available; otherwise apply the same rules inline and disclose that the mechanical check was not run.
+
+For `--format compact`, emit only: one scope line (including depth, reviewer independence, verification limits and cut count), Findings using the CR block, coverage mapping and gaps, and the merge verdict. Keep the explicit `Failure scenario` and `Verdict` labels in each finding; shorten their values, not the evidence fields. Put any essential external-evidence question or external-review learning assessment in the scope/limits line. Omit the dimension table, strengths, and high-cost offers or approval questions. Coverage still covers every significant path, but must not re-render cut findings to bypass the display cap. Compact changes presentation, not verification.
+
+If the caller asks for host rendering and a `ReportFindings` tool is exposed, use its actual schema to report file, line, summary, `short_summary` (at most 60 characters), failure_scenario, category, and verification verdict. Keep CR-ID mapping and the text coverage/verdict summary. If fixes are later authorized in the same session, re-verify the affected findings and re-report with the supported outcome (fixed, unresolved, or refuted); do not infer a fix from an author's claim. If the tool is absent or lacks a field/outcome, report the limit and use the text report rather than inventing tool capabilities.
+
+When no findings remain after verification, say so clearly and retain any coverage or verification limits; distinguish no findings from all findings cut by a display cap. Never edit, stage, commit, push, or comment on the pull request as part of this review. Host rendering is allowed only when requested above.

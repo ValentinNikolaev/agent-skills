@@ -66,7 +66,7 @@ README_SKILL_GROUPS = (
     (
         "Review and verification",
         {
-            "code-review": "Review a diff for confirmed defects and actionable test gaps, with evidence for each finding.",
+            "code-review": "Review a diff for confirmed defects, plausible risks, and actionable test gaps, with evidence for each finding.",
             "fix-pr": "Assess existing GitHub PR feedback, apply valid fixes, and verify them.",
             "plan-review": "Check whether an implementation plan is feasible, complete, and verifiable.",
             "review-spec": "Review proposed requirements for gaps, feasibility, and testability.",
@@ -858,7 +858,7 @@ def render_repo_readme(repo_root: Path, skills: Sequence[SourceSkill]) -> str:
     skill_catalog = render_readme_skill_catalog(skills)
     skill_names = {skill.name for skill in skills}
     starting_points = (
-        ("A diff to review", "code-review", "Confirmed defects, evidence, and missing test scenarios."),
+        ("A diff to review", "code-review", "Confirmed defects, plausible risks, evidence, and missing test scenarios."),
         ("A failing test or runtime error", "debugging-and-error-recovery", "A traced cause, a focused fix, and verification."),
         ("A feature that needs clearer scope", "write-spec", "Requirements and boundaries you can test."),
         ("A green check you want to trust", "prove-checks", "Evidence that the check can detect the claimed failure."),

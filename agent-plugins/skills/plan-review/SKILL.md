@@ -54,6 +54,27 @@ Check applicable concerns:
 
 Report only issues that improve correctness, safety, completeness, or maintainability. Omit preferences and speculative alternatives.
 
+## Worst-case arithmetic
+
+When the reviewed plan, specification, or architecture contains timeouts, deadlines, budgets, retries, pauses, backoff, rate limits, or queue or pool sizes, calculate the worst case step by step with concrete numbers. Consistent wording is not evidence that the promises are feasible.
+
+1. Extract the stated limits, units, deadline start, scope of each budget, and every promise they support. Distinguish per-attempt caps, reserves for later work, and the overall task deadline. Use authoritative numbers; identify missing bounds or assumptions instead of silently inventing values or claiming a finite worst case.
+2. List every step on each relevant path in execution order, including queue or slot waits, calls, pauses/backoff, retries, and work after a decision point such as follow-up, cleanup, or release. Give each step its maximum duration or resource use. Include a reachable case where an earlier step consumes its entire allowance.
+3. At every decision point (retry or stop, continue or abort, acquire a slot or wait), calculate the remaining budget or free capacity, substitute the numbers into the actual proposed condition, and state whether it holds. Then account for all work permitted after that decision; passing a guard does not prove the remaining path fits.
+4. Sum sequential costs and account for overlap under a reachable concurrent schedule. For queues, pools, and rate limits, calculate peak occupancy, held and requested slots, release order, burst arrivals per stated interval, and retry or fan-out amplification where applicable. Do not substitute averages for worst cases or add a reserve twice when it already represents the follow-up work.
+5. Check every promise against those calculations, including "a timeout is retried", "N seconds remain for follow-up", and "the pool cannot be exhausted". Separate a condition that safely refuses work from a promise that the refused work will happen. If missing bounds prevent verification, state the exact missing input and leave the promise unverified.
+6. Show the ordered calculation, decision conditions, and violated promise in the finding. A promise the numbers cannot satisfy is a blocking design contradiction even when the prose is consistent. A per-attempt cap, reserve, and task deadline that do not add up require a design correction, not merely tuning advice.
+
+For example, with a 12 s task deadline, a queue wait capped at 2 s, attempts capped at 6 s, a 1 s retry pause, and 4 s of reserved follow-up work:
+
+- After the full queue wait, `12 - 2 = 10 s` remain; a start condition `remaining >= attempt cap + reserve` holds: `10 >= 6 + 4`.
+- After the first attempt times out, `12 - 2 - 6 = 4 s` remain. A retry condition `remaining >= pause + attempt cap + reserve` fails: `4 >= 1 + 6 + 4` is false.
+- The promised retry path would require `2 + 6 + 1 + 6 + 4 = 19 s > 12 s`. Skipping the retry preserves the 4 s follow-up but contradicts a promise that every timeout is retried.
+
+For a pool of two slots, if two workers each hold one slot and each must acquire another before releasing, free capacity is `2 - 2 = 0`; each acquisition needs `0 >= 1`, which is false. Waiting cannot fulfill an always-available-slot promise when release depends on that acquisition.
+
+Apply this check in quick, deep, and final modes. Report a confirmed arithmetic contradiction as an open `P1` Blocker (or `P0` if its impact warrants it) and return `REVISE`; reserve `BLOCKED` for missing essential review evidence.
+
 ## Evidence and finding contract
 
 Use stable IDs `PLAN-001`, `PLAN-002`, and so on. For every finding include:
@@ -92,6 +113,7 @@ For each finding use:
 PLAN-001 | P1 | open | <short summary>
 Plan: Step <id>, "<short excerpt>"
 Evidence: <requirement or repository file:line>
+Calculation: <when applicable: ordered worst case, remaining budgets, and decision conditions>
 Risk: <concrete implementation consequence>
 Correction: <smallest plan-level change or precise question>
 ```

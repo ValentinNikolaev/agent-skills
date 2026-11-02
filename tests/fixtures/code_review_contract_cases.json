@@ -1,0 +1,43 @@
+[
+  {
+    "id": "removed-guard",
+    "context": "An absent user must return None. This refactor removes the branch while preserving the public lookup contract.",
+    "file": "lookup.py",
+    "before": "def user_name(user):\n    if user is None:\n        return None\n    return user['name']\n",
+    "after": "def user_name(user):\n    return user['name']\n",
+    "probe": "try:\n    print(repr(user_name(None)))\nexcept TypeError:\n    print('TypeError')\nprint(user_name({'name': 'Ada'}))\n",
+    "before_stdout": "None\nAda\n",
+    "after_stdout": "TypeError\nAda\n",
+    "candidate": {
+      "id": "CR-001", "finder": "finder-1", "angle": "removed-behavior",
+      "file": "lookup.py", "line": 2, "priority": "P1", "category": "correctness",
+      "summary": "Removing the absent-user guard changes a miss into a crash",
+      "failure_scenario": "user=None -> subscript raises TypeError instead of returning None",
+      "assessments": [{
+        "reviewer": "verifier-1", "verdict": "CONFIRMED",
+        "evidence": {"file": "lookup.py", "line": 2, "quote": "    return user['name']"}
+      }]
+    }
+  },
+  {
+    "id": "cold-cache-optional",
+    "context": "The store is initially empty when lazy initialization is enabled, a supported deployment configuration. A miss must return None. No production configuration or cache contents are provided to the reviewer.",
+    "file": "cache.py",
+    "before": "def cached_name(store, key):\n    entry = store.get(key)\n    if entry is None:\n        return None\n    return entry['name']\n",
+    "after": "def cached_name(store, key):\n    entry = store.get(key)\n    return entry['name']\n",
+    "probe": "try:\n    print(repr(cached_name({}, 'u1')))\nexcept TypeError:\n    print('TypeError')\nprint(cached_name({'u1': {'name': 'Ada'}}, 'u1'))\n",
+    "before_stdout": "None\nAda\n",
+    "after_stdout": "TypeError\nAda\n",
+    "candidate": {
+      "id": "CR-002", "finder": "finder-1", "angle": "enclosing-function",
+      "file": "cache.py", "line": 3, "priority": "P1", "category": "correctness",
+      "summary": "Lazy initialization leaves the cache result optional",
+      "failure_scenario": "supported cold-cache configuration -> entry=None -> TypeError on first request",
+      "assessments": [{
+        "reviewer": "verifier-1", "verdict": "PLAUSIBLE",
+        "evidence": {"file": "cache.py", "line": 3, "quote": "    return entry['name']"},
+        "confirmation": "Run the first request with lazy initialization enabled and an empty store."
+      }]
+    }
+  }
+]

@@ -37,7 +37,7 @@ Use humanizer to edit this draft. Keep the facts and my voice.
 
 | What you have | Start with | Result |
 | --- | --- | --- |
-| A diff to review | [`code-review`](agent-plugins/skills/code-review/SKILL.md) | Confirmed defects, evidence, and missing test scenarios. |
+| A diff to review | [`code-review`](agent-plugins/skills/code-review/SKILL.md) | Confirmed defects, plausible risks, evidence, and missing test scenarios. |
 | A failing test or runtime error | [`debugging-and-error-recovery`](agent-plugins/skills/debugging-and-error-recovery/SKILL.md) | A traced cause, a focused fix, and verification. |
 | A feature that needs clearer scope | [`write-spec`](agent-plugins/skills/write-spec/SKILL.md) | Requirements and boundaries you can test. |
 | A green check you want to trust | [`prove-checks`](agent-plugins/skills/prove-checks/SKILL.md) | Evidence that the check can detect the claimed failure. |
@@ -80,7 +80,7 @@ Each link opens the skill's full instructions, including when to use it and how 
 
 ### Review and verification
 
-- [`code-review`](agent-plugins/skills/code-review/SKILL.md) — Review a diff for confirmed defects and actionable test gaps, with evidence for each finding.
+- [`code-review`](agent-plugins/skills/code-review/SKILL.md) — Review a diff for confirmed defects, plausible risks, and actionable test gaps, with evidence for each finding.
 - [`fix-pr`](agent-plugins/skills/fix-pr/SKILL.md) — Assess existing GitHub PR feedback, apply valid fixes, and verify them.
 - [`plan-review`](agent-plugins/skills/plan-review/SKILL.md) — Check whether an implementation plan is feasible, complete, and verifiable.
 - [`review-spec`](agent-plugins/skills/review-spec/SKILL.md) — Review proposed requirements for gaps, feasibility, and testability.

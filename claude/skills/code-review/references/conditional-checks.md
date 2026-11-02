@@ -8,7 +8,9 @@ Read only the sections that match the changed languages or change patterns.
 - [Matchers on serialized input](#matchers-on-serialized-input)
 - [Classification boundaries](#classification-boundaries)
 - [Review-fix deltas](#review-fix-deltas)
+- [Persisted shortcuts guarded at write time](#persisted-shortcuts-guarded-at-write-time)
 - [Configuration and bootstrap](#configuration-and-bootstrap)
+- [CI workflows](#ci-workflows)
 - [Build and runtime identity](#build-and-runtime-identity)
 - [Recoverable failures and process lifetime](#recoverable-failures-and-process-lifetime)
 - [Locking and callbacks](#locking-and-callbacks)
@@ -55,6 +57,16 @@ Read only the sections that match the changed languages or change patterns.
 - For each fix, verify the cited scenario and at least one concrete input on the opposite side of every boundary it touched, including different causes that share an error type or message. Record expected and actual branches or classes for both sides; carry forward any unverified side as a verification limit.
 - Do not accept a fix merely because it resolves the cited scenario or its new regression test passes. Report a fix that moves the defect to the opposite side, with the discriminating signal and both expected outcomes.
 
+## Persisted shortcuts guarded at write time
+
+Apply when the change persists a derived value (a stamped attribute, cached ID, or memoized decision) under a condition checked only when writing, and later reads use it to skip a fallback or recheck.
+
+- Trace the full lifetime: write the value while the condition holds, let that condition change through lapse, cancellation, revocation, or migration, then make a better answer available elsewhere. Inspect every read path for revalidation, re-derivation, or invalidation before trusting the shortcut.
+- Distinguish "found something" from "found a currently valid answer". A non-empty set of obsolete or canceled records can suppress the fallback even when none satisfies the current requirement.
+- If a diff comment or commit message names the hazard the write guard avoids, verify that the guard's protection lasts as long as the persisted value can be read. A correct write-time check alone does not establish lifetime safety. Cite the write, changed condition, shortcut read, and skipped fallback in a candidate; preserve the normal case where the cached answer remains valid.
+
+For example, a saved lookup key selects eligible record A. A later becomes ineligible while replacement B becomes available. A still has non-empty obsolete child records, so a reader treats A as found and never runs the broader lookup that would discover B. Check the invalidation and read-time validation paths before concluding the stale shortcut is reachable.
+
 ## Configuration and bootstrap
 
 - Identify application-wide defaults changed alongside a narrow feature. When they can be rolled back independently, recommend a separate atomic commit consistent with repository policy; commit organization alone is not a runtime defect.
@@ -63,6 +75,15 @@ Read only the sections that match the changed languages or change patterns.
 - For initialization that writes secrets or other durable state, verify that the existence check and writer use the same effective source and target. Trace a normal first start, preservation of existing state, and the highest-risk supported override or restart path. Do not generate or expose real credentials during review.
 - Treat removal of a configuration input as a compatibility change. Check existing callers, Compose/CI declarations, documentation, and tests for users supplying that input. Separate a demonstrated break from a maintainer's preference for how optional settings are presented.
 - Do not exclude a supported path solely because the environment is for development or the variant was absent from the happy-path fixture. If support or reachability is uncertain, state the evidence needed rather than inventing a defect or assuming safety. Keep this trace scoped to changed behavior; it does not require a deployment matrix or broad framework audit.
+
+## CI workflows
+
+Load this section only when `.github/workflows/` or other CI configuration changes.
+
+- **Concurrency and event data:** GitHub Actions' default concurrency queue keeps one pending run and replaces it when another arrives, even with `cancel-in-progress: false`. Trace one running run, a pending run, and its replacement. If each carries event-scoped data such as a push's `before..after` range or a payload, identify what the replaced run loses and whether a surviving run reconstructs it. Evaluate `queue: max`, a per-SHA group, or no group against the required serialization and data retention. Verify the target host's support and queue limits before recommending an option; do not bake project-specific availability into this skill. See [GitHub's concurrency semantics](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/control-workflow-concurrency).
+- **Branch/ref regexes:** Test against actual names from `git branch -r` in the repository under review, mapping remote names to the branch or full-ref form the workflow receives. Include relevant matching and non-matching names; do not validate solely against the author's naming convention. If refs are missing or stale, disclose that evidence limit.
+- **Structured payloads:** Trace free-text inputs into JSON or YAML assembled with interpolation, heredocs, or `echo`. Try quotes, newlines, and field-like text to expose invalid serialization or injected fields. Prefer a structured builder such as `jq --arg` or `gh api -f 'key[sub]=value'`, with proper shell quoting, and check the resulting structure locally without sending the payload.
+- **Owner verification:** When a proposed fix can only be verified through external side effects, such as `repository_dispatch` to another repository, flag the finding and required verification for the workflow owner. Do not recommend blind edits or trigger the external action as a review probe. State what can be checked locally and what evidence the owner must supply; do not hard-code project-specific ownership here.
 
 ## Build and runtime identity
 
