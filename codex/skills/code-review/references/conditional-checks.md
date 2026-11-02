@@ -5,6 +5,9 @@ Read only the sections that match the changed languages or change patterns.
 ## Contents
 
 - [Tests and verification](#tests-and-verification)
+- [Matchers on serialized input](#matchers-on-serialized-input)
+- [Classification boundaries](#classification-boundaries)
+- [Review-fix deltas](#review-fix-deltas)
 - [Configuration and bootstrap](#configuration-and-bootstrap)
 - [Build and runtime identity](#build-and-runtime-identity)
 - [Recoverable failures and process lifetime](#recoverable-failures-and-process-lifetime)
@@ -30,6 +33,27 @@ Read only the sections that match the changed languages or change patterns.
 - Mock system boundaries such as databases, clocks, filesystems, and remote services; do not mock the business logic under test without a repository-specific reason.
 - Check that asynchronous failures are awaited and asserted rather than silently swallowed.
 - Distinguish `not run`, `unknown`, and `not covered`; they are different claims.
+
+## Matchers on serialized input
+
+- For each new or changed substring, prefix, or regex matcher on a serialized form (DSN, URL, query string, JSON, header, error text, or log line), identify the key or structural position it is intended to detect.
+- Construct at least two concrete inputs: one adversarial input with the pattern inside a value instead of the intended key or position, and one with the pattern in the expected position. For example, a query-key matcher for `mode=` must distinguish `note=mode=admin` from `mode=admin`. Use inputs accepted by the actual format and reachable caller, accounting for decoding or normalization before matching.
+- Trace or execute both inputs through the changed matcher and its consumers. Record each input, expected branch, actual branch, and supporting source trace or execution evidence. Report the matcher if either input takes the wrong branch, with the resulting behavior and affected path.
+- Never mark a matcher verified from the happy path alone. If either case cannot be verified, retain that limit in the report and name the missing check.
+
+## Classification boundaries
+
+- For each new or changed classification that drives different behavior (such as retryable versus final, decode versus transport error, or 4xx versus 5xx), list concrete inputs on both sides of each boundary and their expected classes under the repository's contract. Trace the resulting behavior, not just the assigned label.
+- Include cases where the same error type or message can arise from different causes. For example, `unexpected end of JSON input` can describe a truncated transfer or a complete but malformed body; the shared message alone does not establish the cause.
+- Identify the discriminating signal available to the classifier, such as declared length versus bytes received, completion status, HTTP status, or a typed transport error. Where the contract distinguishes transport from decode failures, a body shorter than its applicable declared length belongs on the transport side, while a complete malformed JSON body belongs on the decode side. Derive retryable versus final behavior separately from repository policy. If no reliable signal is available, state the ambiguity and missing evidence instead of assuming the message distinguishes the causes.
+- A boundary finding must name the discriminating signal, concrete inputs and expected class on each side, and the actual misclassification. Keep this evidence in the finding so remediation preserves the opposite case instead of simply flipping the classification.
+
+## Review-fix deltas
+
+- When reviewing a re-push after review fixes, identify the previously reviewed revision and current head, and inspect their changed hunks alongside the current review scope. Map each fix to the finding and decision boundary it touched. If the prior revision is unavailable, disclose that limit rather than claiming the delta was reviewed.
+- Re-review those hunks with the serialized-input matcher and classification-boundary checks above wherever applicable. A small corrective diff still needs both sides checked.
+- For each fix, verify the cited scenario and at least one concrete input on the opposite side of every boundary it touched, including different causes that share an error type or message. Record expected and actual branches or classes for both sides; carry forward any unverified side as a verification limit.
+- Do not accept a fix merely because it resolves the cited scenario or its new regression test passes. Report a fix that moves the defect to the opposite side, with the discriminating signal and both expected outcomes.
 
 ## Configuration and bootstrap
 

@@ -54,8 +54,9 @@ Perform the useful bounded review before asking about optional, token-intensive 
 4. Search callers, implementations, guards, configuration, and nearby tests before claiming missing use, broken contracts, or absent coverage.
 5. Exclude generated artifacts as findings targets unless the source change generated them incorrectly.
 6. Trace one normal scenario and the highest-risk edge scenario through non-trivial logic. Skip traces for mechanical changes and say why.
+7. For serialized-input matchers and behavior-driving classifications, apply the [matcher](references/conditional-checks.md#matchers-on-serialized-input) and [classification-boundary](references/conditional-checks.md#classification-boundaries) checks to each new or changed decision. For a re-push after review fixes, also apply the [review-fix delta checks](references/conditional-checks.md#review-fix-deltas). These are part of the baseline review.
 
-Read [references/conditional-checks.md](references/conditional-checks.md) only for languages and change patterns present in the scope, including configuration/bootstrap changes and tests that replace framework behavior. Do not load or apply unrelated sections.
+Read [references/conditional-checks.md](references/conditional-checks.md) only for languages and change patterns present in the scope, including serialized-input matching, classification boundaries, review-fix deltas, configuration/bootstrap changes, and tests that replace framework behavior. Do not load or apply unrelated sections.
 
 Load only the language references needed by changed behavior and its tests:
 
