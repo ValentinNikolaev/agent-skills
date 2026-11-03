@@ -7,6 +7,7 @@ Read only the sections that match the changed languages or change patterns.
 - [Tests and verification](#tests-and-verification)
 - [Matchers on serialized input](#matchers-on-serialized-input)
 - [Classification boundaries](#classification-boundaries)
+- [Invariants under event order](#invariants-under-event-order)
 - [Review-fix deltas](#review-fix-deltas)
 - [Persisted shortcuts guarded at write time](#persisted-shortcuts-guarded-at-write-time)
 - [Configuration and bootstrap](#configuration-and-bootstrap)
@@ -52,6 +53,10 @@ Read only the sections that match the changed languages or change patterns.
 - Include cases where the same error type or message can arise from different causes. For example, `unexpected end of JSON input` can describe a truncated transfer or a complete but malformed body; the shared message alone does not establish the cause.
 - Identify the discriminating signal available to the classifier, such as declared length versus bytes received, completion status, HTTP status, or a typed transport error. Where the contract distinguishes transport from decode failures, a body shorter than its applicable declared length belongs on the transport side, while a complete malformed JSON body belongs on the decode side. Derive retryable versus final behavior separately from repository policy. If no reliable signal is available, state the ambiguity and missing evidence instead of assuming the message distinguishes the causes.
 - A boundary finding must name the discriminating signal, concrete inputs and expected class on each side, and the actual misclassification. Keep this evidence in the finding so remediation preserves the opposite case instead of simply flipping the classification.
+
+## Invariants under event order
+
+Apply when changed code groups, merges, deduplicates, or assigns ownership to identities, anchors, leases, chains, or equivalent entities. State the promised invariants from the contract, then trace creation-order permutations, concurrent first writes, and entry through a stale or left-behind handle. Track which identity each read and write uses, including conflicting winners and write-once records; a stable key on one path does not prove that all paths converge. Report the concrete order that breaks an invariant, with the normal order as a control.
 
 ## Review-fix deltas
 
@@ -108,6 +113,7 @@ Load this section only when `.github/workflows/` or other CI configuration chang
 ## Locking and callbacks
 
 - Identify the synchronization primitive and its actual semantics. Trace nested calls and callbacks made while a lock is held for reacquisition of the same non-reentrant lock, including indirect calls through another module.
+- For every lock, lease, or advisory lock, list values read before acquisition and consumed afterward. Revalidate each under the lock, or prove an immutable/versioned invariant makes reuse safe; serializing the write alone does not refresh its inputs. Compare comments claiming a lock or transaction is held with actual statement order, including helper calls and the transaction handle used.
 - Compare acquisition order on reachable overlapping paths when multiple locks are involved. Demonstrate the wait cycle and execution context before reporting a deadlock; different lock order alone is insufficient if the paths cannot overlap.
 - Check blocking I/O, waits, and callbacks inside a critical section against the primitive, callback contract, and execution context. Do not forbid all callbacks, timer locks, or blocking operations under every kind of lock.
 - Check release and ownership on success, exceptions, early returns, and cancellation. Consider reentrant locks, calls made after unlocking, and established ordering as possible mitigations; prove that the proposed remedy preserves the protected state.
@@ -158,6 +164,7 @@ Regression example: a client deadline expires, then its installed cleanup path i
 ## Web UI and accessibility
 
 - Check native semantics, keyboard reachability, visible focus, form labels and errors, heading order, image alternatives, and focus behavior for dialogs or dynamic content touched by the change.
+- For modals with variable content, verify that content and actions remain reachable on short viewports and at zoom: inspect maximum height and scrolling, including long errors, summaries, and narrow-screen wrapping. Compare sibling dialogs in the repository and identify the concrete clipping or unreachable action; a desktop screenshot alone is insufficient.
 - Check authorization and validation on the server even when the UI hides or disables an action.
 - Treat automated accessibility tools, browser audits, screen-reader passes, screenshots, and visual regression suites as high-cost follow-ups unless the user already requested them.
 
@@ -175,7 +182,8 @@ Do not assume one platform's convention, such as returning `nil` or an error, ap
 
 - Trace database, queue, cache, and external API effects in execution order.
 - At every failure boundary, determine whether state rolls back, remains intentionally partial, or converges through an idempotent retry.
-- Trace every refusal or early return, including a disabled feature flag, validation failure, conflict, or 503/409 response, and list side effects already committed before it. A refusal after committing the requested mutation is a defect; identify the commit and misleading refusal, distinguishing unrelated audit records from the requested effect.
+- Trace every refusal or early return, including a disabled feature flag, validation failure, conflict, or 503/409 response, and list side effects already committed before it. Irreversible request effects, including identity pins, external calls, and durable inserts, must follow every refusal decision for that request. A refusal after committing such an effect is a defect; identify both, distinguishing unrelated audit records from the requested effect.
+- On resume/retry paths, trace every operation argument sent to an external call to the persisted record. New request values must not replace the recorded subject, owner, destination, or other operation input; a stale entry handle can now identify a different entity. If an argument is derived, prove the derivation uses the persisted record.
 - An optional or side path placed before the primary call on a request path must preserve the caller's deadline for the primary operation. Trace its maximum wait, retries, and cancellation/cleanup; a best-effort label or swallowed error does not bound how much of the caller's budget it consumes.
 - Look for orphaned records, published events for rolled-back data, dangling references, and retries that duplicate completed steps.
 - Verify that readers cannot observe an invalid intermediate state when operations overlap.
@@ -192,6 +200,7 @@ Regression examples: an endpoint commits a new record, then checks a disabled fe
 ## External services and fallbacks
 
 - Separate expected absence from timeouts, authentication failures, malformed responses, and service outages.
+- When a fallback returns the caller's own input (return the resolved value if present, otherwise the input), follow later equality and ownership checks against that input. On the fallback branch they are vacuous unless provenance is preserved and checked: fallback equality proves no resolution or ownership. Trace an unresolved input and a genuinely resolved equal value as separate cases.
 - Require unexpected fallback paths to remain observable according to repository logging policy.
 - Check empty successful responses as well as empty and non-JSON error bodies. For a new or upgraded client, inspect the [installed failure paths](#dependencies-and-lockfiles): establish whether failure is signaled by a thrown exception, a returned error value, or HTTP status. A falsey error value does not establish a successful status; trace decoding exceptions and cancellation/cleanup through the caller's fallback and deadline handling.
 - Verify that logs and metrics contain operation and entity metadata without raw user content, credentials, prompts, payment data, or response bodies.

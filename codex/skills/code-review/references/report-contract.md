@@ -2,6 +2,8 @@
 
 The reviewer decides what the code means; the helper validates evidence fields, keeps plausible findings, applies deep disagreement retention, and caps the display without hiding blockers from the merge decision. It does not discover bugs, prove quotes true, or measure review recall. Verify every quote against the cited current file (or the named before-image when explaining removed behavior).
 
+The accompanying report's scope line lists the paths of references actually read and the required/completed finder passes with their partitions (or a linked pass ledger). An unread applicable reference or a pass deficit remains a named coverage limit. The helper does not observe file reads or executed passes; valid finding JSON alone cannot establish either.
+
 Run `python scripts/prepare_review_report.py --input <json-file> --depth standard --max-findings 5`. Omit the cap for all findings. A JSON input path of `-` reads stdin. The helper is read-only and prints JSON; it does not contact the host or write a report. Keep temporary input outside the working checkout. When Python is unavailable, apply this contract inline and report the limit.
 
 The input is an object with `verification_mode` (`independent` or `inline`) and a `candidates` array. Inline mode must be disclosed in the review. Keep externally dependent Questions in the review record separately; do not invent an assessment when the mechanism cannot be established without outside evidence. Each assessed candidate has:

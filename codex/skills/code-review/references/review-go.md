@@ -24,6 +24,7 @@ Apply these checks only to changed Go behavior and nearby tests. The repository'
 ## Cancellation and bounded work
 
 - Follow the incoming context through HTTP, database, retry, and goroutine boundaries. Check that cancel functions are called or ownership is explicitly transferred. A fresh `Background` or `WithoutCancel` needs a justified lifetime, shutdown owner, and bound; detaching cancellation does not create those guarantees.
+- For each promised timeout, name the call it must bound and verify that the actual operation observes cancellation, including connection acquisition, transaction/lock waits, and cleanup. Passing a context to a wrapper does not bind a context-free transaction or client beneath it. A deadline checked only after a blocking call returns bounds nothing; budget arithmetic is incomplete while any step can block indefinitely. Test with that operation held pending, not just a slow but returning call.
 - Identify both the number of active workers and the amount of queued work under untrusted or large input. `WaitGroup.Go` handles bookkeeping, not a concurrency limit or error propagation. Use it only on a supported Go version; do not reject a justified worker pool or mutex because another idiom exists.
 - For channels, trace cancellation while blocked on either send or receive. Check who observes worker errors and who drains or stops work after the first failure. A buffer alone does not establish a shutdown path.
 
