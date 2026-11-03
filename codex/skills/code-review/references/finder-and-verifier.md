@@ -41,6 +41,10 @@ Timing/configuration dependence is sufficient for `PLAUSIBLE` when the repositor
 
 In standard, the independent verifier supplies the disposition. In deep, one evidence-bearing non-`REFUTED` verification vote keeps the finding; do not use a majority vote or confidence threshold to erase it. If another reviewer provides conflicting refutation evidence, retain it as `PLAUSIBLE` and show the conflict and resolution check. A bare finder nomination is not a verification vote, and unsupported conventions still fail the quoted-rule gate.
 
+When a finding is confirmed, sweep the rest of the diff for the same failure pattern before moving on. Trace each sibling's trigger and guards, pass new candidates through the same verification, and report all affected locations, grouping only when the mechanism and remedy are shared. Keep distinct triggers and counterexamples; textual similarity alone is insufficient. This bounded search applies at every depth and stays within that depth's scope.
+
+Regression example: one changed editor retains stale local state after its input changes, and four sibling editors copy the same initialization pattern. Confirm the input-change path in each and report all five affected locations. An editor that explicitly resynchronizes or is guaranteed to be recreated on the relevant transition is a clean control. Deduplication must not silently drop sibling locations.
+
 ## Deep gap sweep
 
 After verification, give the sweep reviewer the same diff/files/intent and the verified findings list, including refutations to avoid rediscovering settled candidates. Ask only for new defects, not a second verdict on the whole list. Inspect:

@@ -14,6 +14,8 @@ Read only the sections that match the changed languages or change patterns.
 - [Build and runtime identity](#build-and-runtime-identity)
 - [Recoverable failures and process lifetime](#recoverable-failures-and-process-lifetime)
 - [Locking and callbacks](#locking-and-callbacks)
+- [Concurrent writers of the same rows](#concurrent-writers-of-the-same-rows)
+- [Resumable scans and pagination](#resumable-scans-and-pagination)
 - [Optimization claims](#optimization-claims)
 - [Readability and architecture](#readability-and-architecture)
 - [Dependencies and lockfiles](#dependencies-and-lockfiles)
@@ -34,6 +36,7 @@ Read only the sections that match the changed languages or change patterns.
 - Check happy path, the highest-risk edge case, and meaningful error or partial-failure behavior introduced by the change.
 - Mock system boundaries such as databases, clocks, filesystems, and remote services; do not mock the business logic under test without a repository-specific reason.
 - Check that asynchronous failures are awaited and asserted rather than silently swallowed.
+- For timeout or deadline assertions, require a forced slow path; use the language-neutral [deadline test guidance](testing-patterns.md#test-anti-patterns) with the repository's runner.
 - Distinguish `not run`, `unknown`, and `not covered`; they are different claims.
 
 ## Matchers on serialized input
@@ -59,22 +62,27 @@ Read only the sections that match the changed languages or change patterns.
 
 ## Persisted shortcuts guarded at write time
 
-Apply when the change persists a derived value (a stamped attribute, cached ID, or memoized decision) under a condition checked only when writing, and later reads use it to skip a fallback or recheck.
+Apply when the change writes or trusts a persisted shortcut: a stamped attribute, cached ID, memoized decision, coverage journal, watermark, checkpoint, or "already processed" marker used to skip a fallback, recheck, or scan. Also apply when retention, cleanup, or erasure changes the lifetime of the underlying data while the marker survives.
 
-- Trace the full lifetime: write the value while the condition holds, let that condition change through lapse, cancellation, revocation, or migration, then make a better answer available elsewhere. Inspect every read path for revalidation, re-derivation, or invalidation before trusting the shortcut.
+- Trace the full lifetime: write the value while the condition holds, let that condition change through lapse, cancellation, revocation, migration, retention, cleanup, or erasure, then make a better answer or recoverable history available elsewhere. Inspect every read path for revalidation, re-derivation, or invalidation before trusting the shortcut. Check whether deleting covered data also invalidates the marker that claims it exists; preserve any intentional erasure policy when considering re-reads.
 - Distinguish "found something" from "found a currently valid answer". A non-empty set of obsolete or canceled records can suppress the fallback even when none satisfies the current requirement.
 - If a diff comment or commit message names the hazard the write guard avoids, verify that the guard's protection lasts as long as the persisted value can be read. A correct write-time check alone does not establish lifetime safety. Cite the write, changed condition, shortcut read, and skipped fallback in a candidate; preserve the normal case where the cached answer remains valid.
 
 For example, a saved lookup key selects eligible record A. A later becomes ineligible while replacement B becomes available. A still has non-empty obsolete child records, so a reader treats A as found and never runs the broader lookup that would discover B. Check the invalidation and read-time validation paths before concluding the stale shortcut is reachable.
+
+Regression example: retention drops an old event partition but leaves its interval in a coverage journal. Retention is later raised while the source still offers that history; the rescan subtracts the journal intervals and never restores the missing events. Trace deletion, surviving coverage, and the skipped read. A control that invalidates the deleted interval makes it eligible for collection again.
 
 ## Configuration and bootstrap
 
 - Identify application-wide defaults changed alongside a narrow feature. When they can be rolled back independently, recommend a separate atomic commit consistent with repository policy; commit organization alone is not a runtime defect.
 - When a diff changes configuration loading or startup, trace the effective value from its supported sources through the framework loader to every changed consumer or writer. Check source selection and precedence, including environment-specific files, overrides, and cached configuration where reachable. Read the installed loader or existing contract tests instead of assuming a direct dotenv parser matches framework bootstrap.
 - Distinguish absent, empty, and explicitly supplied values. Check whether a value captured at container creation, image build, or process start shadows a file changed later; writing a file does not update an existing process environment or cache.
+- When startup validation guards a runtime check, compare their exact inequalities and effective inputs, including elapsed time, reserves, units, and rounding. Exercise the accepted boundary at runtime; validating a total duration does not establish that the remaining duration can satisfy the same budget.
 - For initialization that writes secrets or other durable state, verify that the existence check and writer use the same effective source and target. Trace a normal first start, preservation of existing state, and the highest-risk supported override or restart path. Do not generate or expose real credentials during review.
 - Treat removal of a configuration input as a compatibility change. Check existing callers, Compose/CI declarations, documentation, and tests for users supplying that input. Separate a demonstrated break from a maintainer's preference for how optional settings are presented.
 - Do not exclude a supported path solely because the environment is for development or the variant was absent from the happy-path fixture. If support or reachability is uncertain, state the evidence needed rather than inventing a defect or assuming safety. Keep this trace scoped to changed behavior; it does not require a deployment matrix or broad framework audit.
+
+Regression example: startup accepts `budget <= handler_deadline`, but each message requires `budget <= handler_deadline - elapsed`. With both configured to 10 seconds and positive setup time, every message is refused. Compare a boundary input with one that leaves sufficient setup margin; merely changing `<=` to `<` need not reserve enough time.
 
 ## CI workflows
 
@@ -104,6 +112,22 @@ Load this section only when `.github/workflows/` or other CI configuration chang
 - Check blocking I/O, waits, and callbacks inside a critical section against the primitive, callback contract, and execution context. Do not forbid all callbacks, timer locks, or blocking operations under every kind of lock.
 - Check release and ownership on success, exceptions, early returns, and cancellation. Consider reentrant locks, calls made after unlocking, and established ordering as possible mitigations; prove that the proposed remedy preserves the protected state.
 
+## Concurrent writers of the same rows
+
+- For each table the diff writes, list every writer of its rows or storage, including background retention, cleanup, erasure, rescans, and retries. Search beyond the changed files to identify writers sharing those rows.
+- Interleave each pair across read → decide → write. Check that the lock protecting a dependent write also protects its read: for example, read with `FOR UPDATE`, or acquire the shared advisory lock before reading. Verify that all writers participate; a lock acquired only after computing a replacement leaves stale state. An atomic conditional update or version check may instead reject the stale write.
+- Trace `SKIP LOCKED` claims against writers that saved an earlier copy. Skipping a currently locked row does not protect a committed claim from a later stale replacement. Include deletion of storage used by in-flight work: identify what happens to pending writes and retries when a partition or equivalent storage disappears.
+- Report only with a concrete interleaving: writer identities, the reads and lock boundaries, commit order, and the resulting lost update, resurrected state, or stranded work. Different lock usage alone is insufficient.
+
+Regression examples: a cleanup job reads a pending row without a lock; a worker claims it with `FOR UPDATE SKIP LOCKED` and commits; cleanup then acquires a lock and saves its old copy, undoing the claim. Reading under the shared lock or rejecting a stale version prevents that overwrite. Separately, a worker reads a task targeting partition P; retention drops P; each insert retry targets missing P until attempts run out. Verify coordination with in-flight work or an explicit terminal outcome before claiming the task is stranded.
+
+## Resumable scans and pagination
+
+- Prove each nonterminal iteration advances the cursor without skipping eligible rows. Use the smallest permitted page/work cap and the maximum number of equal sort keys; if ties are unbounded, use more tied rows than fit in one page. Trace the last emitted key, next predicate, and checkpoint after interruption.
+- Pin pages to a snapshot or an insertion-monotonic key with a stable tie-breaker. Business timestamps can be preceded by late or backfilled rows. Verify actual insertion/visibility ordering and the scan contract; a generated ID or captured timestamp maximum alone does not prove that later-visible rows cannot fall behind the cursor.
+
+Regression examples: with cap 1, rows A and B share timestamp T; resuming with `timestamp >= T` repeats A forever, while `timestamp > T` loses B. A `(timestamp, unique_key)` cursor handles ties but still misses a later insertion dated before T. A snapshot can cover the initial population; an insertion-ordered continuation must pick up later eligible rows under the supported contract.
+
 ## Optimization claims
 
 - Check that a claimed speedup compares a baseline and candidate under comparable workload, build/runtime configuration, dependencies, hardware, and cache or warm-up conditions. Read the supplied measurements before accepting the claim.
@@ -124,9 +148,12 @@ Load this section only when `.github/workflows/` or other CI configuration chang
 
 - Confirm a new dependency is needed instead of an existing project or standard-library facility.
 - Review manifest and lockfile changes together. Check unexpected transitive additions, source or registry changes, install scripts, and hand-edited lockfile patterns.
+- For a new or upgraded client on a changed path, read the installed library implementation at the resolved version (module cache, `node_modules`, or equivalent), including the failure paths the caller relies on. Follow deadline cancellation and cleanup, empty or non-JSON error decoding, and error-value truthiness versus HTTP status through to the caller; use the [external-service checks](#external-services-and-fallbacks). Record the version and source locations. If the installed source is unavailable, disclose the unverified contract instead of inferring it from an API name or type.
 - For an upgrade, identify behavior and migration risk from repository evidence first. Offer external changelog or advisory research as a high-cost follow-up when it could change the verdict.
 - Do not run installs, audits, or lifecycle scripts merely to inspect the diff. Require the normal authorization and cost gate.
 - Treat a green install as insufficient evidence; relevant behavior still needs tests.
+
+Regression example: a client deadline expires, then its installed cleanup path interprets a zero cleanup timeout as an unbounded background context. A slow cancellation request holds the caller past its deadline. Trace that branch and configuration; a separately bounded cleanup path is the control. Do not assume zero means disabled or immediate without reading the resolved implementation.
 
 ## Web UI and accessibility
 
@@ -148,8 +175,12 @@ Do not assume one platform's convention, such as returning `nil` or an error, ap
 
 - Trace database, queue, cache, and external API effects in execution order.
 - At every failure boundary, determine whether state rolls back, remains intentionally partial, or converges through an idempotent retry.
+- Trace every refusal or early return, including a disabled feature flag, validation failure, conflict, or 503/409 response, and list side effects already committed before it. A refusal after committing the requested mutation is a defect; identify the commit and misleading refusal, distinguishing unrelated audit records from the requested effect.
+- An optional or side path placed before the primary call on a request path must preserve the caller's deadline for the primary operation. Trace its maximum wait, retries, and cancellation/cleanup; a best-effort label or swallowed error does not bound how much of the caller's budget it consumes.
 - Look for orphaned records, published events for rolled-back data, dangling references, and retries that duplicate completed steps.
 - Verify that readers cannot observe an invalid intermediate state when operations overlap.
+
+Regression examples: an endpoint commits a new record, then checks a disabled feature flag and returns 503; the caller sees refusal although the write survives. Move the refusal ahead of the mutation or prove rollback before returning it. Separately, optional enrichment waits out the shared deadline before invoking the primary operation, so that operation always starts canceled on the slow path. Check that skipping or bounding enrichment actually preserves the primary operation's required budget.
 
 ## Dependency injection and registries
 
@@ -162,10 +193,12 @@ Do not assume one platform's convention, such as returning `nil` or an error, ap
 
 - Separate expected absence from timeouts, authentication failures, malformed responses, and service outages.
 - Require unexpected fallback paths to remain observable according to repository logging policy.
-- Check empty successful responses as well as explicit errors.
+- Check empty successful responses as well as empty and non-JSON error bodies. For a new or upgraded client, inspect the [installed failure paths](#dependencies-and-lockfiles): establish whether failure is signaled by a thrown exception, a returned error value, or HTTP status. A falsey error value does not establish a successful status; trace decoding exceptions and cancellation/cleanup through the caller's fallback and deadline handling.
 - Verify that logs and metrics contain operation and entity metadata without raw user content, credentials, prompts, payment data, or response bodies.
 - Confirm metric names match their expressions, units, cardinality, and boolean polarity.
 - Treat model or tool output as untrusted input; check permission enforcement, output validation, and token, rate, and loop bounds.
+
+Regression example: an installed client returns a non-2xx response with an absent or empty-string error for an empty body; `if error` falls through to success. A non-JSON proxy error can instead throw during decoding and bypass the intended error branch. Trace both responses alongside a valid 2xx control, checking status and the installed decoder's actual result rather than assuming all failures carry a truthy structured error.
 
 ## Provenance
 

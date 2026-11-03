@@ -33,8 +33,17 @@ Apply only to changed TypeScript behavior, declarations, module/build configurat
 ## Conditional framework and security checks
 
 - In UI or server frameworks, trace the actual client/server boundary, permission check, and side effect. Apply framework-specific rules only after identifying the installed version and local pattern. Check closure freshness, effects, teardown, and hydration only where that framework and changed behavior make them relevant.
+- In React/Next.js, trace state, refs, and effects derived from props or URL values across navigations that reuse the component. Verify required resynchronization and reset behavior, including no-op navigations intended to reset local edits. Initial state/ref values do not resynchronize on prop changes; changed dependencies may cover a new URL but cannot alone trigger a reset when the URL stays the same. Respect an explicit contract to preserve drafts.
+- For server-rendered React, expand child components to their actual HTML tags. A block element such as `<div>` rendered inside `<p>` causes the browser to repair the tree before hydration; component boundaries do not make invalid nesting valid.
+- For date inputs, trace parse → edit → serialize and require a round-trip of the accepted calendar value and promised precision. JavaScript `Date` can normalize impossible calendar dates and stores only milliseconds. Check calendar components, unchanged submissions, and fractional seconds before accepting a validity check or conversion.
 - For client caches, inspect keys and invalidation across tenant/user changes, mutations, and stale requests. Demonstrate a reachable data leak or stale result using the installed framework's semantics before reporting it; do not require a particular query library.
 - Check authorization and validation at the server boundary even when shared TypeScript types or client-side schemas exist. Trace untrusted values into HTML, SQL, shell arguments, URLs, dynamic property writes, and logs using the shared security checklist only when relevant.
+
+Regression examples:
+
+- A filter initializes `useState` and `useRef` from a query parameter and starts an effect only on mount. Navigation from A to B reuses it, so the displayed draft, ref, or effect still uses A. Also edit the draft while the URL is already the reset target, then press Reset: replacing that same URL may trigger neither remount nor dependency change. Verify both transitions; explicit synchronization/reset or a proven remount is the control.
+- `<p><Status /></p>` hydrates incorrectly when `Status` renders `<div>Ready</div>`. Trace the expanded server markup and browser repair; a phrasing-content child such as `<span>` is the control. See [React state preservation](https://react.dev/learn/preserving-and-resetting-state) and [Next.js hydration causes](https://nextjs.org/docs/messages/react-hydration-error).
+- Parsing February 30 with `new Date(Date.UTC(2025, 1, 30))` yields March 2, so a non-NaN check accepts an invalid calendar input. Separately, converting `2025-01-01T00:00:00.123456Z` through `Date` and submitting it unchanged loses the final three fractional digits. Reject impossible dates and preserve precision when the input contract requires it; a deliberately millisecond-only contract is a control for the precision claim. See [Date normalization and precision](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date).
 
 ## Tests
 

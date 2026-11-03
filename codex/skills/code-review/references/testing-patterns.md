@@ -236,3 +236,8 @@ test('user can create and complete a task', async ({ page }) => {
 | Using `test.skip` permanently | Dead code | Remove or fix it |
 | Overly broad assertions | Doesn't catch regressions | Be specific |
 | No async error handling | Swallowed errors, false passes | Always `await` async tests |
+| Deadline asserted on a fast path | Can pass with timeout enforcement removed | Force blocking or advance a controlled clock, then assert timeout and cleanup |
+
+A test asserting a timeout or deadline must force the slow path, using a lock held by another session, a controlled clock, or a blocked dependency with an explicit readiness signal. Establish that the wait started before advancing time or expecting cancellation; await the result and check cleanup. Real elapsed time alone does not prove the timeout branch ran. Use the repository's runner and the real contention boundary where relevant.
+
+Regression example: an uncontended operation finishes below its deadline even when timeout enforcement is removed. Hold the needed lock in a second session, wait until the tested operation attempts acquisition, and assert it times out while the lock remains held; then release the lock and verify a new operation succeeds. With a controlled clock, advance past the deadline while work is blocked. Removing deadline enforcement must fail the timeout assertion; bound the test harness separately so that control cannot hang the suite.

@@ -68,7 +68,7 @@ Perform the useful bounded review before asking about optional, token-intensive 
 
 Use [finder angles and reviewer roles](references/finder-and-verifier.md) for discovery, assignment, verification handoffs, and the deep gap sweep. Standard and deep must check enclosing functions, removed behavior, callers and changed callees, forwarding wrappers, exact repository rules, and whether a shared mechanism should own the fix. Preserve every candidate with a nameable failure scenario until verification; discovery does not retract candidates.
 
-Read [references/conditional-checks.md](references/conditional-checks.md) only for languages and change patterns present in the scope, including serialized-input matching, classification boundaries, review-fix deltas, persisted shortcuts guarded at write time, configuration/bootstrap changes, and tests that replace framework behavior. Load its [CI workflows checks](references/conditional-checks.md#ci-workflows) only when `.github/workflows/` or other CI configuration changes. Do not load or apply unrelated sections.
+Read [references/conditional-checks.md](references/conditional-checks.md) only for languages and change patterns present in the scope, including serialized-input matching, classification boundaries, review-fix deltas, persisted shortcuts and retention, concurrent row writers, resumable scans, client failure paths, configuration/bootstrap changes, and tests that replace framework behavior. Load its [CI workflows checks](references/conditional-checks.md#ci-workflows) only when `.github/workflows/` or other CI configuration changes. Do not load or apply unrelated sections.
 
 Load only the language references needed by changed behavior and its tests:
 
