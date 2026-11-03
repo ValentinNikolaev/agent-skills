@@ -133,6 +133,7 @@ Separate repository evidence from commands actually executed.
 
 - Record relevant tests, builds, linters, type checks, manual checks, screenshots, or before/after evidence reported by the author or CI.
 - Never say a command passed unless its result was observed.
+- When behavior-defining data lives outside the repository (prompts, knowledge-base/rule rows, feature flags, remote config), record the source and capture time of any snapshot used as evidence and compare it with edits mentioned in the issue/PR discussion. A snapshot older than a known edit is a verification limit, not evidence of current content. Name the fresh read needed to confirm it; unknown capture time or edit chronology also limits verification.
 - Treat passing tests as evidence, not proof that changed behavior is covered.
 - Before requesting another test, name the concrete regression it should catch and check whether an existing case already covers it. Prefer the smallest useful extension over a parallel suite. Review added tests for brittle copy assertions and unrelated framework or global behavior using [the conditional test checks](references/conditional-checks.md#tests-and-verification); test counts and new public methods alone do not establish a coverage gap.
 - For mocks or stubs on the changed path, identify the real selection, parsing, precedence, or persistence behavior they replace. Cite separate source or execution evidence for that behavior, or mark it unverified; mutation controls on orchestration do not validate a stubbed framework contract.

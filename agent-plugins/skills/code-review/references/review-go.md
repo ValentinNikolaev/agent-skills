@@ -5,7 +5,7 @@ Apply these checks only to changed Go behavior and nearby tests. The repository'
 ## Production code
 
 - Trace pointer and interface values from creation to use. A nil guard on one access does not protect a later dereference; distinguish a nil interface from an interface holding a typed nil when relevant.
-- Follow errors through the caller boundary. Check whether errors are dropped, mislabeled, wrapped in a way that loses required identity, or converted into apparent success. Use `errors.Is` and `errors.As` only where the project exposes matching or typed-error contracts.
+- Follow errors through the caller boundary. Check whether errors are dropped, mislabeled, wrapped in a way that loses required identity, or converted into apparent success. When a changed function starts returning or changes an error/status, check that every branch's return reflects its outcome: a handled sentinel on a failure branch makes callers treat failed work as complete. Use `errors.Is` and `errors.As` only where the project exposes matching or typed-error contracts.
 - For goroutines, identify the owner, exit condition, context cancellation, waits, and what happens when a caller returns early. For channels, identify who sends, receives, and closes; do not propose closing from a non-owner merely to quiet a leak.
 - For shared state, inspect all relevant accesses and synchronization, including tests. A passing non-race test does not establish race freedom.
 - On changed interfaces or method signatures, search implementations, callers, registrations, mocks, and generated interfaces before declaring them updated or broken.

@@ -181,7 +181,7 @@ Do not assume one platform's convention, such as returning `nil` or an error, ap
 ## Multi-system writes
 
 - Trace database, queue, cache, and external API effects in execution order.
-- At every failure boundary, determine whether state rolls back, remains intentionally partial, or converges through an idempotent retry.
+- At every failure boundary, determine whether state rolls back, remains intentionally partial, or converges through an idempotent retry. After committed effects, treat the hand-off, compensation, or escalation itself as fallible: trace its error branch through the caller. Logging and returning a handled/stop result can abandon incomplete work; verify that failure reaches a retrying or alerting path.
 - Trace every refusal or early return, including a disabled feature flag, validation failure, conflict, or 503/409 response, and list side effects already committed before it. Irreversible request effects, including identity pins, external calls, and durable inserts, must follow every refusal decision for that request. A refusal after committing such an effect is a defect; identify both, distinguishing unrelated audit records from the requested effect.
 - On resume/retry paths, trace every operation argument sent to an external call to the persisted record. New request values must not replace the recorded subject, owner, destination, or other operation input; a stale entry handle can now identify a different entity. If an argument is derived, prove the derivation uses the persisted record.
 - An optional or side path placed before the primary call on a request path must preserve the caller's deadline for the primary operation. Trace its maximum wait, retries, and cancellation/cleanup; a best-effort label or swallowed error does not bound how much of the caller's budget it consumes.
@@ -189,6 +189,8 @@ Do not assume one platform's convention, such as returning `nil` or an error, ap
 - Verify that readers cannot observe an invalid intermediate state when operations overlap.
 
 Regression examples: an endpoint commits a new record, then checks a disabled feature flag and returns 503; the caller sees refusal although the write survives. Move the refusal ahead of the mutation or prove rollback before returning it. Separately, optional enrichment waits out the shared deadline before invoking the primary operation, so that operation always starts canceled on the slow path. Check that skipping or bounding enrichment actually preserves the primary operation's required budget.
+
+Regression example: response composition moves after a handler has changed an account and buffered its reply. Composition fails, then the escalation call fails too; its helper only logs and returns a handled sentinel. The caller discards the buffered reply and skips its processing-error fallback, leaving neither a reply nor an escalation. Force both failures and trace the returned status into the caller; the clean control propagates the escalation error to recovery and reserves the handled result for successful escalation.
 
 ## Dependency injection and registries
 

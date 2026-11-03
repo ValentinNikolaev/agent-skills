@@ -22,6 +22,8 @@ Assess the architecture of a named system, subsystem, or design decision. Report
 3. List the major decisions actually present: component responsibilities, data ownership, communication, persistence, failure isolation, deployment, and operational ownership. Record explicit deferrals.
 4. Form at least one realistic scenario that stresses each material quality goal, such as a partial dependency failure, simultaneous updates, or increased load. State the scenario's assumptions.
 
+When behavior-defining data lives outside the repository (prompts, knowledge-base/rule rows, feature flags, remote config), record the source and capture time of any snapshot used as evidence and compare it with edits mentioned in the issue/PR discussion. A snapshot older than a known edit is a verification limit, not evidence of current content. Name the fresh read needed to confirm it; unknown capture time or edit chronology also limits verification.
+
 ## Evaluate decisions
 
 For each consequential decision, assess:
@@ -34,6 +36,15 @@ For each consequential decision, assess:
 - whether an apparent anti-pattern has a concrete failure mode here rather than merely matching a label.
 
 Ground each finding in a file, diagram, decision record, requirement, or observed runtime behavior. Trace the consequence through a plausible scenario and check for mitigations. Do not infer operational needs solely from a methodology or demand every quality attribute be maximized. If a key priority is unknown, present the conditional alternatives and the decision needed.
+
+## Several changes, when requested
+
+Use this section only when the request names more than one change. Pin each revision and the common base before comparing them.
+
+- Trace state, gates, and files touched by more than one change. A clean textual merge does not prove semantic independence: identify whether one change pre-empts, reorders, or widens another's path.
+- When cheap, build and test an isolated scratch merge of the set, preserving active checkouts. Report the revisions, merge order, and observed checks as evidence; conflicts or an unbuilt/untested combination are verification limits.
+- Assess deploy order, mixed-version rollout, and rollback: persisted state one version writes and another misreads, and session values that remain after a revert.
+- Rank deployment safety by reversibility and blast radius, including newly reachable irreversible effects such as payments or deletions, guards that exist only in runtime-editable data, unmeasured volume impact, and test coverage of the risky path. Return the ranking with one paragraph per change explaining its relative risk, deployment/rollback conditions, and evidence limits; leave unsupported comparisons conditional.
 
 ## Worst-case arithmetic
 
