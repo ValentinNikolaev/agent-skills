@@ -18,6 +18,7 @@ CATEGORY_TIERS = {
     "cleanup": 2, "conventions": 2,
 }
 VERDICTS = ("CONFIRMED", "PLAUSIBLE", "REFUTED")
+FINDER_REFERENCE = "references/finder-and-verifier.md"
 REFUTATIONS = (
     "contradicting-code", "invariant-or-type", "guard-in-diff",
     "no-observable-effect",
@@ -58,6 +59,15 @@ def prepare_report(
         "max_findings must be a nonnegative integer",
     )
     require(isinstance(document, dict), "input must be an object")
+    references = document.get("references_read", [])
+    require(
+        isinstance(references, list) and all(nonempty(path) for path in references),
+        "references_read must be an array of nonempty skill-relative paths",
+    )
+    require(
+        depth == "quick" or FINDER_REFERENCE in references,
+        f"{depth} review is INCOMPLETE: coordinator must read {FINDER_REFERENCE}",
+    )
     mode = document.get("verification_mode")
     require(mode in ("independent", "inline"), "declare verification_mode")
     candidates = document.get("candidates")
@@ -144,6 +154,7 @@ def prepare_report(
     omitted = retained[len(displayed):]
     return {
         "verification_mode": mode, "depth": depth,
+        "references_read": list(references),
         "findings": displayed, "retained_count": len(retained),
         "cut_count": len(omitted), "omitted_ids": [item["id"] for item in omitted],
         "has_blocker": any(item["priority"] in ("P0", "P1") for item in retained),

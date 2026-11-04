@@ -23,7 +23,11 @@ CASES = json.loads((ROOT / "tests/fixtures/code_review_contract_cases.json").rea
 
 
 def document(*candidates, mode="independent"):
-    return {"verification_mode": mode, "candidates": list(candidates)}
+    return {
+        "verification_mode": mode,
+        "references_read": ["references/finder-and-verifier.md"],
+        "candidates": list(candidates),
+    }
 
 
 def finding(identity, *, priority="P2", category="correctness", verdict="CONFIRMED"):
@@ -45,6 +49,49 @@ def finding(identity, *, priority="P2", category="correctness", verdict="CONFIRM
 
 
 class ReviewContractTests(unittest.TestCase):
+    def test_standard_and_deep_require_coordinator_reference_even_without_findings(self):
+        for depth in ("standard", "deep"):
+            for candidates in ((), (finding("CR-001"),)):
+                for ledger in ([], ["references/review-shell.md"]):
+                    value = document(*candidates)
+                    value["references_read"] = ledger
+                    with self.subTest(depth=depth, ledger=ledger, count=len(candidates)):
+                        with self.assertRaisesRegex(contract.ContractError, "INCOMPLETE"):
+                            contract.prepare_report(value, depth=depth, max_findings=0)
+                value.pop("references_read")
+                with self.assertRaisesRegex(contract.ContractError, "INCOMPLETE"):
+                    contract.prepare_report(value, depth=depth)
+
+    def test_reference_ledger_is_preserved_and_quick_can_omit_it(self):
+        value = document()
+        value["references_read"].append("references/review-shell.md")
+        for depth in ("standard", "deep", "quick"):
+            report = contract.prepare_report(value, depth=depth)
+            self.assertEqual(report["references_read"], value["references_read"])
+            self.assertIsNot(report["references_read"], value["references_read"])
+        del value["references_read"]
+        self.assertEqual(contract.prepare_report(value, depth="quick")["references_read"], [])
+        for ledger in (None, "references/finder-and-verifier.md", [None], [""]):
+            value["references_read"] = ledger
+            with self.subTest(ledger=ledger), self.assertRaises(contract.ContractError):
+                contract.prepare_report(value, depth="quick")
+
+    def test_cli_missing_mandatory_reference_fails_without_report(self):
+        value = document()
+        del value["references_read"]
+        for depth, status in (("standard", 2), ("deep", 2), ("quick", 0)):
+            result = subprocess.run(
+                [sys.executable, str(SCRIPT), "--input", "-", "--depth", depth],
+                input=json.dumps(value), capture_output=True, text=True, timeout=5, check=False,
+            )
+            self.assertEqual(result.returncode, status, result.stderr)
+            if status:
+                self.assertEqual(result.stdout, "")
+                self.assertIn("INCOMPLETE", result.stderr)
+                self.assertIn("references/finder-and-verifier.md", result.stderr)
+            else:
+                self.assertEqual(json.loads(result.stdout)["references_read"], [])
+
     def test_removed_guard_case_and_control_exhibit_the_failure(self):
         case = CASES[0]
         diff = list(difflib.unified_diff(case["before"].splitlines(), case["after"].splitlines()))

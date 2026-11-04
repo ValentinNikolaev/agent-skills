@@ -2,11 +2,11 @@
 
 The reviewer decides what the code means; the helper validates evidence fields, keeps plausible findings, applies deep disagreement retention, and caps the display without hiding blockers from the merge decision. It does not discover bugs, prove quotes true, or measure review recall. Verify every quote against the cited current file (or the named before-image when explaining removed behavior).
 
-The accompanying report's scope line lists the paths of references actually read and the required/completed finder passes with their partitions (or a linked pass ledger). An unread applicable reference or a pass deficit remains a named coverage limit. The helper does not observe file reads or executed passes; valid finding JSON alone cannot establish either.
+The accompanying report's scope line lists the paths of references actually read and the required/completed finder passes with their partitions (or a linked pass ledger). For standard/deep, the coordinator must have read `references/finder-and-verifier.md` in full: a missing or truncated read fails the run as `INCOMPLETE` until completed, without a merge verdict or silent depth downgrade. Other unread applicable references or pass deficits remain named coverage limits. The helper enforces the mandatory path in the declared ledger, including when there are no candidates, but cannot observe file reads or executed passes; valid JSON alone cannot establish either. Selection, another reviewer's summary, and truncated output do not establish a full coordinator read.
 
 Run `python scripts/prepare_review_report.py --input <json-file> --depth standard --max-findings 5`. Omit the cap for all findings. A JSON input path of `-` reads stdin. The helper is read-only and prints JSON; it does not contact the host or write a report. Keep temporary input outside the working checkout. When Python is unavailable, apply this contract inline and report the limit.
 
-The input is an object with `verification_mode` (`independent` or `inline`) and a `candidates` array. Inline mode must be disclosed in the review. Keep externally dependent Questions in the review record separately; do not invent an assessment when the mechanism cannot be established without outside evidence. Each assessed candidate has:
+The input is an object with `verification_mode` (`independent` or `inline`), a `references_read` array of skill-relative paths actually read by the coordinator, and a `candidates` array. Standard/deep require the exact ledger entry `references/finder-and-verifier.md`; quick may omit the array and defaults to an empty ledger. A missing required entry or malformed ledger exits the CLI with status 2 and emits no report JSON. The output preserves the ledger. Inline mode must be disclosed in the review. Keep externally dependent Questions in the review record separately; do not invent an assessment when the mechanism cannot be established without outside evidence. Each assessed candidate has:
 
 - `id`: stable `CR-<number>`;
 - `finder`: identity used to enforce a different verifier in independent mode;
@@ -21,6 +21,7 @@ For example:
 ```json
 {
   "verification_mode": "independent",
+  "references_read": ["references/finder-and-verifier.md"],
   "candidates": [{
     "id": "CR-001",
     "finder": "finder-1",
