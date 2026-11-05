@@ -11,6 +11,7 @@ phrases to reuse in the user's writing; other revisions can meet the constraints
 - [Italian with the same courteous register](#italian-with-the-same-courteous-register)
 - [No useful edit](#no-useful-edit)
 - [Small, supported repairs](#small-supported-repairs)
+- [Idiomatic phrasing without flattening time](#idiomatic-phrasing-without-flattening-time)
 - [Keep stance while fixing precision](#keep-stance-while-fixing-precision)
 - [Protected material](#protected-material)
 
@@ -101,6 +102,41 @@ writing service's criterion. Keep the surrounding argument when editing:
 
 Do not remove a technical contrast or a personal evaluation merely because its
 sentence is polished.
+
+## Idiomatic phrasing without flattening time
+
+A cancellation email contained:
+
+> I've tried to cancel the meeting, but I haven't been able to find a way to do
+> it. I didn't want to leave the meeting in your calendar without letting you know.
+
+The user supplied these Google suggestions on 2026-11-05:
+
+> I tried to cancel the meeting but couldn't find a way to do it. I didn't want
+> to leave the meeting on your calendar without letting you know.
+
+For this scheduling context, `on your calendar` is the more idiomatic choice.
+The shorter account of the attempted cancellation also works: the surrounding
+email asks the recipient to cancel it, so the unresolved practical need remains
+clear. The original present perfect is grammatical and connects the attempt and
+inability to the present. Treat the shorter version as a contextual preference,
+not a correction required in every email. The suggestions were pasted by the
+user, not obtained in a separately verified service test.
+
+Counterexamples:
+
+- `I've been trying to cancel it all morning, and I still can't` explicitly
+  carries duration and continuing inability. Do not reduce it to `I tried but
+  couldn't` if those details matter.
+- `The cancellation link is in the calendar invitation` describes where the link
+  appears. Do not mechanically change every nearby `in` to `on`.
+- `I couldn't cancel it yesterday, but I can now` distinguishes past inability
+  from present ability. Do not turn it into `I haven't been able to cancel it`.
+
+The missed opportunity here was local language polish, not evidence of AI
+authorship. Review idiom and verb meaning even when tone, facts, and the overall
+structure already pass. These examples are diagnostic cases, not a measured
+claim of general improvement.
 
 ## Keep stance while fixing precision
 

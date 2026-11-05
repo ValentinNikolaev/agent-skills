@@ -136,6 +136,21 @@ languages, use their idiom and the supplied calibration rather than mechanically
 translating an English blacklist. Read [examples](references/examples.md) only
 when the boundary between a useful edit and voice drift needs clarification.
 
+## Check idiomatic phrasing separately
+
+Absence of conspicuous AI-style patterns does not complete the language edit.
+Before accepting a passage unchanged, check ordinary word combinations,
+prepositions, and unnecessarily roundabout verb phrases in its language and
+register. A sentence can be grammatical and still have a more natural local
+alternative. Prefer that alternative only when its reader benefit is clear.
+
+For tense or aspect changes, compare the time frame and present relevance,
+including whether an effort, inability, or state still continues. Shorter is
+not automatically equivalent. Keep a longer construction when it carries that
+distinction, and keep normal idioms even when a literal alternative is shorter.
+Distinguish an idiomatic repair from an optional stylistic preference and from
+a grammatical error. See the [calendar example and counterexamples](references/examples.md#idiomatic-phrasing-without-flattening-time).
+
 ## Scale review to the edit
 
 For an ordinary chat, email or other draft with a clear voice and meaning, use
@@ -165,14 +180,21 @@ Read [the editing council procedure](references/council.md) only when that revie
 2. Compare voice before and after: the same register, stance, emotional intent,
    humour, and relationship with the reader should remain recognizable. Recheck
    the applicable project guidance on the exact final wording.
-3. Read for coherent movement and natural rhythm. Undo edits that merely impose
-   the editor's taste. Check that replacement phrases have not formed a new template.
+3. Read for coherent movement, natural rhythm, and idiomatic phrasing. Undo edits
+   that merely impose the editor's taste. Check that replacement phrases have not
+   formed a new template.
 4. Stop when the requested friction is resolved and these checks pass. Revisit
    only a concrete remaining defect. Route an explicit detector or named-service
    check to `ai-detector` with the exact requested version and its constraints.
    An internal workflow check remains local unless the human requested an
    external check. Do not quietly substitute your own review for a required
    service result.
+
+When handing the exact copy to a required independent reviewer, supply the
+audience, purpose, facts, and constraints without pre-announcing that the prose
+passes or suggesting a score. Ask for small useful language repairs as well as
+material meaning and tone issues. An overall approval does not establish that
+every phrase is the best available wording.
 
 For rewrites, return the usable text first, with a short note only for a material
 ambiguity, limitation, or requested explanation. If no edit helps, return the text
