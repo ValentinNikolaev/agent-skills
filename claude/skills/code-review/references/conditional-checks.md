@@ -60,12 +60,13 @@ Apply when changed code groups, merges, deduplicates, or assigns ownership to id
 
 ## Review-fix deltas
 
-- Trigger a review-fix delta when fixes change the behavior of concurrent code, transactions, storage/cleanup, or retries. One delta review covers all fixes of one review round, from the last reviewed head to the new head, not one review per push; intermediate pushes accumulate until the round is ready.
+- Trigger a review-fix delta when fixes change the behavior of concurrent code, transactions, storage/cleanup, retries, or UI interactions (button enabled/visible states, validation and error feedback, dialog step order, or selection/list ordering). One delta review covers all fixes of one review round, from the last reviewed head to the new head, not one review per push; intermediate pushes accumulate until the round is ready.
 - Pure constant changes (timeout or limit values) without surrounding logic changes, renames, and behavior-preserving moves need no delta review; list them in one line instead.
 - Pin the last reviewed head and new head and read only their delta diff plus the functions it touches, not the whole PR again. Map each fix to its finding and decision boundary. If the prior head is unavailable, disclose that the delta cannot be verified and request the missing revision or diff; do not silently substitute a full PR review. Record the new head as reviewed only after completing the round's delta checks.
 - Re-review those hunks with the serialized-input matcher and classification-boundary checks above wherever applicable. A small corrective diff still needs both sides checked.
 - For each fix, verify the cited scenario and at least one concrete input on the opposite side of every boundary it touched, including different causes that share an error type or message. Record expected and actual branches or classes for both sides; carry forward any unverified side as a verification limit.
 - Do not accept a fix merely because it resolves the cited scenario or its new regression test passes. Report a fix that moves the defect to the opposite side, with the discriminating signal and both expected outcomes.
+- For UI fixes, trace valid, malformed, and empty input through the changed control state, visible explanation, and recovery/cancel path. Read the accessibility checklist for these touched functions; a parser fix can enable Save while leaving errors silent or later dialog steps unreachable.
 
 Before/after examples:
 
@@ -74,6 +75,7 @@ Before/after examples:
 | One round pushes a retry guard, a transaction rollback fix, then a cleanup ownership fix | Three reviews, each re-reading the original PR | One delta from reviewed head A to final head D; read changed hunks and touched functions, checking both sides of changed boundaries |
 | Only `timeout = 10` becomes `timeout = 12`, a symbol is renamed, and a helper moves unchanged | Another delta review for mechanical fixes | One line: `No delta review required: timeout constant, rename, behavior-preserving helper move.` |
 | A timeout edit also changes the retry condition from `remaining >= cap + reserve` to `remaining >= cap` | Treat the small edit as constant-only | Delta review required: retry logic changed; trace the timeout and the reserved follow-up in the touched function |
+| A fix accepts other Jira project keys, changes Save's disabled predicate, and reorders confirmation steps | Skip re-review because no storage or concurrency changed | One UI delta review: trace a valid key, a board URL, malformed/empty input, feedback, and cancel/back transitions through the touched functions |
 
 ## Persisted shortcuts guarded at write time
 

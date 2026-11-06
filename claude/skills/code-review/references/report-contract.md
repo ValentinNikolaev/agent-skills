@@ -10,7 +10,7 @@ The input is an object with `verification_mode` (`independent` or `inline`), a `
 
 - `id`: stable `CR-<number>`;
 - `finder`: identity used to enforce a different verifier in independent mode;
-- `file`, `line`, `summary`, `failure_scenario`, `priority` (`P0`–`P3`), and `category` (`correctness`, `security`, `reliability`, `performance`, `coverage`, `cleanup`, or `conventions`);
+- `file`, `line`, `summary`, `failure_scenario`, `priority` (`P0`–`P3`), and `category` (`correctness`, `security`, `reliability`, `ui`, `ux`, `accessibility`, `performance`, `coverage`, `cleanup`, or `conventions`);
 - `assessments`: one verifier assessment in quick/standard, or one or more in deep. Each has `reviewer`, `verdict`, and `evidence` containing `file`, positive `line`, and exact nonempty `quote`;
 - each `PLAUSIBLE` assessment also has `confirmation`, the observation or check that would confirm it;
 - each `REFUTED` assessment also has `refutation` (`contradicting-code`, `invariant-or-type`, `guard-in-diff`, or `no-observable-effect`) and `reason` explaining how that evidence rules out this scenario;
@@ -43,6 +43,8 @@ For example:
 
 Deduplicate mechanisms before using the helper; it rejects duplicate IDs rather than guessing equivalence. Standard/quick have one assessment per candidate. Deep retains any evidence-bearing non-refuted vote; disagreement with a refutation yields `PLAUSIBLE` with a check to resolve the conflicting evidence. All-refuted candidates remain in `refuted`, with their evidence, and do not consume the display cap. Unsupported convention candidates remain in `rejected` and do not consume it either. Do not describe these policy rejections as proof that a runtime defect is impossible.
 
-Sort retained findings by priority first. Within the same priority, correctness/security/reliability precede performance/coverage, then cleanup/conventions; ties use numeric CR-ID order. An optional nonnegative cap is applied only after sorting. Output includes displayed `findings`, `cut_count`, `omitted_ids`, total `retained_count`, and `has_blocker` computed from all retained P0/P1 findings before the cap. The merge verdict must also consider coverage gaps and material verification limits; the helper does not assign it.
+Sort retained findings by priority first. Within the same priority, correctness/security/reliability/UI/UX/accessibility precede performance/coverage, then cleanup/conventions; ties use numeric CR-ID order. An optional nonnegative cap is applied only after sorting. Output includes displayed `findings`, `cut_count`, `omitted_ids`, total `retained_count`, and `has_blocker` computed from all retained P0/P1 findings before the cap. The merge verdict must also consider coverage gaps and material verification limits; the helper does not assign it.
 
 For requested `ReportFindings` rendering, map each displayed finding's file, line, summary, failure_scenario, category and verdict to the exposed tool schema; the display cap applies to host rendering too. Compose `short_summary` in at most 60 characters and retain the CR ID through host-supported metadata or the summary. Host output does not replace coverage or the merge verdict. Re-report a verified fix with the same ID and the tool's supported outcome; do not invent fields the tool does not expose.
+
+For `findings_file=PATH`, prepare the complete artifact without a display cap, then return a line for every retained finding, including P2/P3 UI/UX/accessibility findings. Use lowercase `ui`, `ux`, or `accessibility` as the structured category. `has_blocker=false` does not mean no findings. A source-grounded UI failure prescribed by the spec stays in Findings with its code location and `Origin: spec-driven defect` plus the spec section/excerpt.

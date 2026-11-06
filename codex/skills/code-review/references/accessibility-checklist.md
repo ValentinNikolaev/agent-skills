@@ -8,6 +8,7 @@ Quick reference for reviewing web UI accessibility. The upstream snapshot target
 ## Table of Contents
 
 - [Essential Checks](#essential-checks)
+- [Operator workflow and control state](#operator-workflow-and-control-state)
 - [Common HTML Patterns](#common-html-patterns)
 - [Testing Tools](#testing-tools)
 - [Quick Reference: ARIA Live Regions](#quick-reference-aria-live-regions)
@@ -44,6 +45,8 @@ Quick reference for reviewing web UI accessibility. The upstream snapshot target
 - [ ] Every input has a visible label
 - [ ] Required fields indicated (not by color alone)
 - [ ] Error messages specific and associated with the field
+- [ ] Every disabled save/submit action has an on-screen reason near the relevant field or action, associated with the field via `aria-describedby` (or equivalent accessible semantics). A hidden tooltip or `aria-label` alone is not a visible explanation. No visible reason is a P2 finding even if the plan prescribes it.
+- [ ] Validation failures reach visible, field-associated feedback. Trace `catch { return null }` and similar fallbacks to consumers: silently disabling an action after swallowing the error is a finding.
 - [ ] Error state visible by more than color (icon, text, border)
 - [ ] Form submission errors summarized and focusable
 - [ ] Known fields use autocomplete (for example `type="email" autocomplete="email"`)
@@ -54,6 +57,17 @@ Quick reference for reviewing web UI accessibility. The upstream snapshot target
 - [ ] Links distinguish from surrounding text (not by color alone)
 - [ ] Touch targets ≥ 44x44px on mobile
 - [ ] Meaningful empty states (not blank screens)
+
+## Operator workflow and control state
+
+Within the reviewed UI scope, trace the operator's normal, malformed-input, and empty-data paths. Check what the operator can see and do after each transition, not only whether the predicate matches the spec.
+
+- [ ] A Continue/Resume action appears only when there is work to resume, or clearly explains why it is unavailable. It must not offer an empty recovery path.
+- [ ] Row actions match the current state: Add must not propose adding an already-added item unless a distinct, meaningful operation is explained. Check pending additions/removals as well as persisted state.
+- [ ] Operator-visible lists have an explicit, suitable ordering contract and implementation, such as alphabetical order or a documented business rank. `Object.keys`/insertion order alone does not establish one. Cite the affected search/selection workflow and missing order when reporting it.
+- [ ] Errors leave a visible route to correct input, cancel, or retry. A spec-prescribed dead end is a `spec-driven defect`; cite both the spec and the changed UI path rather than dropping the finding.
+
+User-reported event-catalog regression: Save stayed disabled because a parser accepted only `DP-N` issue keys and `catch { return null }` swallowed its error. A different project's key and a board URL containing `?selectedIssue=OTHER-42` silently blocked saving. Trace those inputs and malformed/empty values through parsing, disabled state, and field feedback. Keep the P2 finding even if the plan explicitly selected this behavior. Accepting only one project is a separate contract question; silent blocking is still a defect.
 
 ## Common HTML Patterns
 

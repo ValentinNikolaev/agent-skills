@@ -160,6 +160,29 @@ class ReviewContractTests(unittest.TestCase):
         self.assertEqual(result["cut_count"], 1)
         self.assertTrue(result["has_blocker"])
 
+    def test_nonblocking_ui_categories_survive_uncapped_file_preparation(self):
+        candidates = [
+            finding("CR-001", priority="P2", category="ux"),
+            finding("CR-002", priority="P2", category="accessibility", verdict="PLAUSIBLE"),
+            finding("CR-003", priority="P3", category="ui"),
+        ]
+        capped = contract.prepare_report(document(*candidates), max_findings=0)
+        self.assertEqual(capped["retained_count"], 3)
+        self.assertEqual(capped["omitted_ids"], ["CR-001", "CR-002", "CR-003"])
+        self.assertFalse(capped["has_blocker"])
+        for depth in ("quick", "standard", "deep"):
+            with self.subTest(depth=depth):
+                artifact = contract.prepare_report(document(*candidates), depth=depth)
+                self.assertEqual(
+                    [(item["id"], item["priority"], item["category"], item["verdict"])
+                     for item in artifact["findings"]],
+                    [("CR-001", "P2", "ux", "CONFIRMED"),
+                     ("CR-002", "P2", "accessibility", "PLAUSIBLE"),
+                     ("CR-003", "P3", "ui", "CONFIRMED")],
+                )
+                self.assertEqual(artifact["cut_count"], 0)
+                self.assertFalse(artifact["has_blocker"])
+
     def test_deep_keeps_one_non_refuted_vote_and_its_evidence(self):
         candidate = finding("CR-001", verdict="REFUTED")
         vote = finding("CR-001", verdict="PLAUSIBLE")["assessments"][0]

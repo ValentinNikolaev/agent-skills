@@ -14,6 +14,7 @@ import sys
 PRIORITIES = ("P0", "P1", "P2", "P3")
 CATEGORY_TIERS = {
     "correctness": 0, "security": 0, "reliability": 0,
+    "ui": 0, "ux": 0, "accessibility": 0,
     "performance": 1, "coverage": 1,
     "cleanup": 2, "conventions": 2,
 }

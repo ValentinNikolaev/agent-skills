@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: Review local or PR diffs for defects and test gaps without edits; not plans, specs, or feedback.
+description: Review local or PR diffs for defects, including UI/UX and accessibility failures, and test gaps without edits. Route standalone plans, specs, and feedback elsewhere.
 ---
 
 # Code Review
@@ -19,6 +19,8 @@ Approve changes that preserve or improve overall code health without blocking on
 - Use `php-modernization` for a requested PHP version or tooling migration, `go-security-audit` for a bounded Go security audit beyond the diff, and `go-benchmark` for reproducible Go measurements. Ordinary language-specific diff review stays here.
 - On a later explicit request to fix a finding, leave this read-only workflow and treat the accepted finding as implementation input.
 
+UI/UX defects visible in the diff remain in scope even when the implementation follows a plan or specification. Trace the operator's input and state to the dead end or misleading action. A specification that prescribes that failure establishes a `spec-driven defect`, not a refutation. Keep it under `Spec-driven defects` within Findings with the spec section/excerpt and the failing code location; this does not turn the review into a standalone spec review.
+
 ## Choose depth and output
 
 Accept `quick | standard | deep` (also `--depth <value>`), defaulting to `standard`:
@@ -31,7 +33,7 @@ Accept `--max-findings N` for a nonnegative integer cap on displayed findings, a
 
 Caller model guidance: a cheaper model such as Sonnet suits UI, text, and documentation changes; reserve the top model for concurrency, storage, and plan reviews. This skill does not select or switch models.
 
-Accept the documented invocation convention `findings_file=PATH`, for example `_coord/<task>/review-<repo>-<PR>-<round>.md`. Save the complete report with all retained findings, counts by P0–P3, scope, reviewed revisions, evidence, coverage, limits, and merge verdict before returning only the path, counts by severity, and one line per blocking P0/P1 finding (ID, location, scenario). The artifact is uncapped even when a display cap or compact format was requested; include every blocker in the handoff. This is a reviewer-written artifact, not a flag supported by `prepare_review_report.py`. Create the parent directory if needed, preserve unrelated files and earlier rounds, and do not claim the handoff succeeded if the file could not be written. With no output path, keep the existing report behavior. See [handoff and model examples](references/review-cost-examples.md) when using these options.
+Accept the documented invocation convention `findings_file=PATH`, for example `_coord/<task>/review-<repo>-<PR>-<round>.md`. Save the complete report with all retained findings, counts by P0–P3, scope, reviewed revisions, evidence, coverage, limits, and merge verdict before returning only the path, counts by severity, and one line per retained finding (ID, priority, category, location, scenario). Include P2/P3 UI, UX, and accessibility findings in the caller handoff, even when none is a merge blocker. Both the artifact and these handoff lines are uncapped even when a display cap or compact format was requested. This is a reviewer-written artifact, not a flag supported by `prepare_review_report.py`; use the helper without a cap to prepare file output. Create the parent directory if needed, preserve unrelated files and earlier rounds, and do not claim the handoff succeeded if the file could not be written. With no output path, keep the existing report behavior. See [handoff and model examples](references/review-cost-examples.md) when using these options.
 
 ## Establish scope and intent
 
@@ -91,7 +93,7 @@ Load detailed references only when the changed paths make them relevant and loca
 - [testing-patterns.md](references/testing-patterns.md) for JavaScript or TypeScript tests when its Jest, React Testing Library, Supertest, or Playwright examples match the repository's actual tools; otherwise use the local runner and the TypeScript review reference;
 - [security-checklist.md](references/security-checklist.md) for web trust boundaries, authentication, authorization, input handling, dependency security, or LLM features;
 - [performance-checklist.md](references/performance-checklist.md) for web performance, database, API, rendering, or resource-bound concerns;
-- [accessibility-checklist.md](references/accessibility-checklist.md) for user-interface semantics and interaction changes;
+- [accessibility-checklist.md](references/accessibility-checklist.md) for user-interface semantics and interaction changes, including validation feedback, truthful control states, and operator-visible list ordering (required for UI behavior diffs at every depth, within the selected scope);
 - [observability-checklist.md](references/observability-checklist.md) for production logs, metrics, traces, alerts, and telemetry verification;
 - [definition-of-done.md](references/definition-of-done.md) only when the repository defines a completion gate or the user asks for merge readiness.
 
@@ -103,6 +105,7 @@ Evaluate only dimensions touched by the change. Mark the rest `not-applicable`.
 
 - correctness, requirements, and data flow;
 - error handling, recovery, and partial failure;
+- UI/UX and accessibility: visible reasons for disabled actions, surfaced validation failures, truthful control states, explicit list ordering, and reachable recovery paths;
 - authentication, authorization, validation, secrets, and privacy;
 - concurrency and lifecycle management;
 - readability, control-flow simplicity, and dead code introduced by the change;
@@ -182,7 +185,7 @@ Use stable IDs independent of severity: `CR-001`, `CR-002`, and so on.
 
 - `P0`: immediate security, safety, or irreversible-loss blocker.
 - `P1`: material correctness or security issue that should block merge.
-- `P2`: meaningful reliability, test, or maintainability risk.
+- `P2`: meaningful usability, accessibility, reliability, test, or maintainability risk. A disabled save/submit action with no visible reason is P2 even when prescribed by the plan.
 - `P3`: optional evidence-backed improvement.
 
 Use one disposition: `open`, `question`, or `retracted`. Both `CONFIRMED` and `PLAUSIBLE` findings are `open`. Only externally dependent hypotheses are `question`; only evidence-backed `REFUTED` candidates are `retracted`. Keep refutations in the verification record, not the public findings list. Stable IDs survive sorting, deduplication, truncation, and later fixes.
@@ -219,7 +222,8 @@ Location: path/to/file:line
 Summary: <one sentence>
 Failure scenario: <inputs/state -> wrong result or crash>
 Verdict: CONFIRMED | PLAUSIBLE
-Category: correctness | security | reliability | performance | coverage | cleanup | conventions
+Category: correctness | security | reliability | ui | ux | accessibility | performance | coverage | cleanup | conventions
+Origin: <for a spec-driven defect: spec section/excerpt prescribing the failing behavior>
 Evidence: <quoted relevant line and traced call/data path; rule path and quote for conventions>
 Impact: <concrete failure and affected users or systems>
 Counterargument: <strongest plausible intentional rationale>
@@ -239,7 +243,7 @@ Missing tests, ordered by risk:
 
 Every `partial` or `uncovered` status must map to at least one missing-test item. Do not report only that coverage is incomplete. If evidence is unavailable, use `unknown`, explain what is missing, and give the exact verification step. Write `None` only when all significant changed paths have grounded coverage evidence.
 
-Before applying `--max-findings`, deduplicate by failure mechanism, then sort by P0 through P3. At equal priority, correctness/security/reliability outrank performance/coverage, which outrank cleanup/conventions; preserve CR-ID order within a tier. Report the number cut, even zero. A cap never changes the verdict derived from all retained findings and material verification limits. Use [the report contract](references/report-contract.md) and `scripts/prepare_review_report.py` to validate structured findings, including the coordinator's `references_read` ledger, and apply the cap when Python is available; otherwise apply the same rules and mandatory-read gate inline and disclose that the mechanical check was not run.
+Before applying `--max-findings`, deduplicate by failure mechanism, then sort by P0 through P3. At equal priority, correctness/security/reliability/UI/UX/accessibility outrank performance/coverage, which outrank cleanup/conventions; preserve CR-ID order within a tier. Report the number cut, even zero. A cap never changes the verdict derived from all retained findings and material verification limits. Use [the report contract](references/report-contract.md) and `scripts/prepare_review_report.py` to validate structured findings, including the coordinator's `references_read` ledger, and apply the cap when Python is available; otherwise apply the same rules and mandatory-read gate inline and disclose that the mechanical check was not run.
 
 For `--format compact`, emit only: one scope line (including depth, reviewer independence, read-reference paths, required/completed passes and partitions, verification limits and cut count), Findings using the CR block, coverage mapping and gaps, and the merge verdict. Keep the explicit `Failure scenario` and `Verdict` labels in each finding; shorten their values, not the evidence fields. Put any essential external-evidence question or external-review learning assessment in the scope/limits line. Omit the dimension table, strengths, and high-cost offers or approval questions. Coverage still covers every significant path, but must not re-render cut findings to bypass the display cap. Compact changes presentation, not verification.
 
