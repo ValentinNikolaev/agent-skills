@@ -1,6 +1,6 @@
 # Go Specification Checks
 
-Use these checks for a proposed Go design, not as a second code review or an implementation plan. Read the project's `go.mod`, toolchain policy, existing contracts, and architecture decisions before applying an idiom.
+Use these checks for a proposed Go design, not as a second code review or an implementation plan. Establish the project's `go.mod`, toolchain policy, existing contracts, and architecture decisions before applying an idiom; reuse supplied research/shared context under the parent skill's evidence rules instead of re-reading established facts. Check whether package and ownership obligations are explicit, leaving competing architecture designs to `review-arch`.
 
 ## Contracts and failure paths
 

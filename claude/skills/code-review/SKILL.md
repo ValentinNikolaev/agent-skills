@@ -10,7 +10,7 @@ This complete skill and its bundled resources are generated from `agent-plugins/
 
 # Code Review
 
-Review the requested changes as an independent engineer. Discover failure scenarios first, then independently verify them. Report confirmed defects and plausible risks with explicit evidence and verification verdicts. Do not edit files.
+Review the requested changes as an independent engineer. Discover failure scenarios first, then independently verify them. Report confirmed defects and plausible risks with explicit evidence and verification verdicts. Do not edit reviewed files; write a report only when the caller supplies an output path.
 
 Approve changes that preserve or improve overall code health without blocking on personal preference or unrelated pre-existing debt. Do not discard a reachable failure merely because it is rare or depends on timing, environment, or configuration.
 
@@ -34,7 +34,13 @@ Accept `quick | standard | deep` (also `--depth <value>`), defaulting to `standa
 
 Accept `--max-findings N` for a nonnegative integer cap on displayed findings, and `--format compact` for automated handoff; neither option reduces the review scope or changes the merge verdict. Default to no finding cap and the full report. Reject invalid values rather than silently substituting defaults.
 
+Caller model guidance: a cheaper model such as Sonnet suits UI, text, and documentation changes; reserve the top model for concurrency, storage, and plan reviews. This skill does not select or switch models.
+
+Accept the documented invocation convention `findings_file=PATH`, for example `_coord/<task>/review-<repo>-<PR>-<round>.md`. Save the complete report with all retained findings, counts by P0–P3, scope, reviewed revisions, evidence, coverage, limits, and merge verdict before returning only the path, counts by severity, and one line per blocking P0/P1 finding (ID, location, scenario). The artifact is uncapped even when a display cap or compact format was requested; include every blocker in the handoff. This is a reviewer-written artifact, not a flag supported by `prepare_review_report.py`. Create the parent directory if needed, preserve unrelated files and earlier rounds, and do not claim the handoff succeeded if the file could not be written. With no output path, keep the existing report behavior. See [handoff and model examples](references/review-cost-examples.md) when using these options.
+
 ## Establish scope and intent
+
+For review-fix delta mode, first apply the [delta trigger and scope](references/conditional-checks.md#review-fix-deltas): compare the last reviewed head directly to the new head once for all fixes in the round. This replaces the full-PR comparison below and whole-file expansion in the baseline; review only that delta and the functions it touches at the selected depth. Do not restart the original PR review.
 
 1. Read repository instructions and path-scoped rules.
 2. Resolve the repository root and record `git status --short`.
@@ -64,7 +70,7 @@ Perform the useful bounded review before asking about optional, token-intensive 
 4. Search callers, implementations, guards, configuration, and nearby tests before claiming missing use, broken contracts, or absent coverage.
 5. Exclude generated artifacts as findings targets unless the source change generated them incorrectly.
 6. Trace one normal scenario and the highest-risk edge scenario through non-trivial logic. Skip traces for mechanical changes and say why.
-7. For serialized-input matchers and behavior-driving classifications, apply the [matcher](references/conditional-checks.md#matchers-on-serialized-input) and [classification-boundary](references/conditional-checks.md#classification-boundaries) checks to each new or changed decision. For a re-push after review fixes, also apply the [review-fix delta checks](references/conditional-checks.md#review-fix-deltas). These are part of the baseline review.
+7. For serialized-input matchers and behavior-driving classifications, apply the [matcher](references/conditional-checks.md#matchers-on-serialized-input) and [classification-boundary](references/conditional-checks.md#classification-boundaries) checks to each new or changed decision. For review fixes meeting the risk trigger, apply the [review-fix delta checks](references/conditional-checks.md#review-fix-deltas) once per round. These are part of the baseline review within the selected scope.
 
 For standard and deep, the coordinator must read [finder angles and reviewer roles](references/finder-and-verifier.md) in full before assigning or performing baseline passes. Use it for discovery, assignment, verification handoffs, and the deep gap sweep. If that read is missing or truncated, fail the run as `INCOMPLETE` until the read is completed; do not substitute a coverage-limit note, silently downgrade depth, or issue a merge verdict. This gate also applies to empty finding lists and compact output. Standard and deep must check enclosing functions, removed behavior, callers and changed callees, forwarding wrappers, exact repository rules, and whether a shared mechanism should own the fix. Preserve every candidate with a nameable failure scenario until verification; discovery does not retract candidates.
 
@@ -244,4 +250,4 @@ For `--format compact`, emit only: one scope line (including depth, reviewer ind
 
 If the caller asks for host rendering and a `ReportFindings` tool is exposed, use its actual schema to report file, line, summary, `short_summary` (at most 60 characters), failure_scenario, category, and verification verdict. Keep CR-ID mapping and the text coverage/verdict summary. If fixes are later authorized in the same session, re-verify the affected findings and re-report with the supported outcome (fixed, unresolved, or refuted); do not infer a fix from an author's claim. If the tool is absent or lacks a field/outcome, report the limit and use the text report rather than inventing tool capabilities.
 
-When no findings remain after verification, say so clearly and retain any coverage or verification limits; distinguish no findings from all findings cut by a display cap. Never edit, stage, commit, push, or comment on the pull request as part of this review. Host rendering is allowed only when requested above.
+When no findings remain after verification, say so clearly and retain any coverage or verification limits; distinguish no findings from all findings cut by a display cap. Never edit reviewed files, stage, commit, push, or comment on the pull request as part of this review. Only the explicitly requested report artifact and host rendering are allowed as described above; file handoff returns the short response instead of rendering findings again.
