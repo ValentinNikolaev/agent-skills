@@ -1,0 +1,14 @@
+# Architecture review cost examples
+
+| Request or condition | Before | After |
+|---|---|---|
+| Same design appears in a spec, implementation plan, and architecture decision | All reviewers repeat requirement coverage and deadline arithmetic | `review-arch` owns responsibilities, dependency direction, data/lifecycle ownership, failure isolation, and structural alternatives; specification testability belongs to `review-spec`, ordered calculations to `plan-review` |
+| Two workers hold pool slots and need additional slots before release | Repeat the plan review's numeric schedule | Identify the circular resource ownership and lack of a release path as a structural critical risk; return `CONCERNS` without a second step-by-step arithmetic derivation |
+| Supplied plan analysis shows retries cannot fit the task deadline | Re-derive the entire calculation to support an architecture finding | Reuse the cited result to constrain the affected decision; missing capacity evidence stays explicitly unverified rather than receiving `SOUND` |
+| `shared_context=_coord/DEV-36918/code-facts.md` supplies current component paths, excerpts, and table ownership | Rebuild the complete repository model from source | Reuse the boundary facts; inspect only a doubtful ownership claim or missing material evidence and read applicable repository instructions |
+| An excerpt predates an ownership transfer or a live configuration change | Treat a supplied fact as authoritative indefinitely | Inspect the disputed boundary or request the fresh external snapshot, retaining source time/revision limits |
+| `light`: one-repository UI component-boundary proposal, no concurrency/storage changes, seven concerns including one critical risk | Re-read the proposal's research and emit seven findings | Reuse research, inspect only the affected boundary and doubts, show five most severe findings and two omitted, keep `CONCERNS` and existing scenario/impact/correction fields |
+| `light` requested for a durable-state ownership migration | Use light because the proposal is short | Explain ineligibility and use the normal architecture review; do not automatically start a separate specialist review |
+| Caller selects a model for a UI/text/docs boundary adjustment versus a concurrency/storage decision | Use the top model for both | Recommend cheaper Sonnet for UI/text/docs changes, top model for concurrency/storage/plan reviews; model choice remains with the caller |
+
+Routing examples: a question about component ownership and alternatives activates `review-arch`, including with `shared_context=...` or `light`. An ordered implementation plan activates `plan-review`; requirement coverage and acceptance criteria activate `review-spec`; changed-line defects activate `code-review`. Mode and evidence reuse preserve the existing `SOUND`, `CONCERNS`, and `BLOCKED` meanings.
