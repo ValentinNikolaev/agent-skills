@@ -46,6 +46,8 @@ Use humanizer to edit this draft. Keep the facts and my voice.
 
 Give the agent the relevant files, diff, requirements, or draft. Name the result you want and any constraints it needs to respect.
 
+The GitHub Pages family has new canonical names. See the [rename table and safe update steps](docs/github-pages-family-migration.md).
+
 Review skills such as `code-review`, `plan-review`, and `review-spec` return findings. `fix-pr` handles existing GitHub review comments and applies valid fixes. Choose the skill for the work you want the agent to do.
 
 ### Choose by the result you need
@@ -58,7 +60,7 @@ Related skills stay separate when their deliverables or permission boundaries di
 | Implementation plans | [`planning-and-task-breakdown`](agent-plugins/skills/planning-and-task-breakdown/SKILL.md): Order the work. | [`plan-review`](agent-plugins/skills/plan-review/SKILL.md): Review the proposed steps. |
 | Existing code | [`code-review`](agent-plugins/skills/code-review/SKILL.md): Find defects in a diff. | [`verify-impl`](agent-plugins/skills/verify-impl/SKILL.md): Check code against an authoritative spec. |
 | PR feedback | [`code-review`](agent-plugins/skills/code-review/SKILL.md): Perform a fresh review. | [`fix-pr`](agent-plugins/skills/fix-pr/SKILL.md): Apply valid existing GitHub comments. |
-| Pages changes | [`create-github-pages`](agent-plugins/skills/create-github-pages/SKILL.md): Implement the requested site changes. | [`improve-github-pages`](agent-plugins/skills/improve-github-pages/SKILL.md): Propose changes and wait for selection. |
+| Pages changes | [`github-pages-create`](agent-plugins/skills/github-pages-create/SKILL.md): Implement the requested site changes. | [`github-pages-improve`](agent-plugins/skills/github-pages-improve/SKILL.md): Propose changes and wait for selection. |
 | Project memory | [`create-memory`](agent-plugins/skills/create-memory/SKILL.md): Bootstrap an absent baseline. | [`update-memory`](agent-plugins/skills/update-memory/SKILL.md): Maintain facts from completed work. |
 | Memory evidence | [`ingest-memory`](agent-plugins/skills/ingest-memory/SKILL.md): Import or refresh a supplied source. | [`audit-memory`](agent-plugins/skills/audit-memory/SKILL.md): Report store health without edits. |
 | New public writing | [`discussion-reply`](agent-plugins/skills/discussion-reply/SKILL.md): Respond to a social discussion. | [`editorial-writing`](agent-plugins/skills/editorial-writing/SKILL.md): Develop a standalone post or article. |
@@ -117,11 +119,11 @@ Each link opens the skill's full instructions, including when to use it and how 
 ### Documentation and GitHub Pages
 
 - [`audit-docs`](agent-plugins/skills/audit-docs/SKILL.md) — Find broken references, stale indexes, duplicate facts, and documentation drift.
-- [`create-github-pages`](agent-plugins/skills/create-github-pages/SKILL.md) — Build or repair a GitHub Pages site from repository content.
-- [`github-pages-content-architecture`](agent-plugins/skills/github-pages-content-architecture/SKILL.md) — Organise Pages content, navigation, reader journeys, and local search.
-- [`github-pages-visual-system`](agent-plugins/skills/github-pages-visual-system/SKILL.md) — Develop a Pages visual system for typography, colour, layout, and responsive behaviour.
-- [`audit-github-pages-ux`](agent-plugins/skills/audit-github-pages-ux/SKILL.md) — Inspect a rendered Pages site for usability, accessibility, and layout defects.
-- [`improve-github-pages`](agent-plugins/skills/improve-github-pages/SKILL.md) — Assess a Pages site, propose improvements, and implement the approved changes.
+- [`github-pages-create`](agent-plugins/skills/github-pages-create/SKILL.md) — Build or repair a GitHub Pages site from repository content.
+- [`github-pages-content`](agent-plugins/skills/github-pages-content/SKILL.md) — Organise Pages content, navigation, reader journeys, and local search.
+- [`github-pages-design`](agent-plugins/skills/github-pages-design/SKILL.md) — Develop a Pages visual system for typography, colour, layout, and responsive behaviour.
+- [`github-pages-audit`](agent-plugins/skills/github-pages-audit/SKILL.md) — Inspect a rendered Pages site for usability, accessibility, and layout defects.
+- [`github-pages-improve`](agent-plugins/skills/github-pages-improve/SKILL.md) — Assess a Pages site, propose improvements, and implement the approved changes.
 
 ### Project memory
 

@@ -1,0 +1,26 @@
+{
+  "scope": "Synthetic Pages maintenance forward-test. No network, installation, publication, or edits to original fixtures. Execute cases in separate disposable copies. Browser control is unavailable for this evaluation. Record actual output and limitations.",
+  "artifacts": "tests/fixtures/github_pages_site",
+  "cases": [
+    {
+      "id": "pages-content-one-page-wiki",
+      "request": "Use the Pages family to prepare a content handoff for a one-page version of this fixture site from README and the supplied Wiki. Give actual proposed quick-start copy and source/route requirements. No site edits, search, nested docs, or publication are requested. The proposed heading is Quick start in place of Install in a Markdown renderer that generates heading slugs."
+    },
+    {
+      "id": "pages-approved-continuation-drift",
+      "request": "Continue the staged Pages work. GP-02 is approved: rename only the Overview navigation label to Quick start on both static pages. The proposal inspected an already dirty index.html before the user-note paragraph existed. The current fixture is the later working tree. GP-03 (new colors and a new font) is pending. Implement GP-02 in a disposable copy, preserve current content and destinations, and prepare the production-output handoff. Do not return to proposal selection."
+    },
+    {
+      "id": "pages-audit-no-browser",
+      "request": "Use the Pages family to audit this existing static Pages site and report only. Browser control is unavailable. Do the useful source/build checks you can, preserve all files, and identify the exact coverage you cannot verify."
+    },
+    {
+      "id": "pages-design-system-continuation",
+      "request": "Use the Pages family for a design-only Extension: add a reference link styled like the existing navigation to the bottom of the home page in a disposable copy. This is a new session with the accepted tokens.css system. Keep both navigation destinations equally prominent. Report the chosen system, source changes and checks."
+    },
+    {
+      "id": "pages-propose-brand-context",
+      "request": "Propose improvements to the fixture's Pages documentation before I select them. Cream/terracotta, locally available Inter with fallback, dense reference reading and equal navigation links are intentional choices. Read-only analysis is sufficient here. Give coverage and only evidence-supported proposals, including none if no useful change is supported. Do not manufacture a replacement palette or marketing CTA."
+    }
+  ]
+}

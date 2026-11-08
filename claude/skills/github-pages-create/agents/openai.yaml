@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub Pages: Create"
+  short_description: "Build evidence-grounded GitHub Pages sites"
+  default_prompt: "Use $github-pages-create to build a maintainable repository-grounded Pages site without changing deployment unless I request it."

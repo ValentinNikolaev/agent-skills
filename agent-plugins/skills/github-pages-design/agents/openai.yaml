@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub Pages: Design"
+  short_description: "Create visual systems for GitHub Pages"
+  default_prompt: "Use $github-pages-design to create a responsive, accessible visual system for this Pages site."

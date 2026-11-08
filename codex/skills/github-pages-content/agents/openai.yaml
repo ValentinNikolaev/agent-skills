@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub Pages: Content"
+  short_description: "Structure content for GitHub Pages sites"
+  default_prompt: "Use $github-pages-content to organize this repository's Pages content around reader tasks."

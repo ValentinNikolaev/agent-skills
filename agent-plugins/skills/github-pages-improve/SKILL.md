@@ -1,0 +1,71 @@
+---
+name: github-pages-improve
+description: Propose GitHub Pages improvements before the user selects changes, then coordinate their implementation. Use for an explicitly staged workflow and resuming approved GP- IDs.
+---
+
+# GitHub Pages: Improve
+
+Turn an existing Pages site into a reviewable improvement program, then apply only the changes the user selects.
+
+## Enforce the two-phase gate
+
+Use this two-phase workflow when the user requests proposals before implementation or explicitly invokes this skill. Route a request to improve or redesign immediately to `github-pages-create`; do not introduce an approval gate into work already authorized. If the user has already selected proposals in this session, resume Phase 2 directly.
+
+Phase 1 is read-only. Inspect, render, audit, and propose, but do not edit site sources, dependencies, workflows, repository settings, or tracked generated output. Build and preview in a disposable directory when rendering requires generated files. Stop after presenting the requested proposal.
+
+Phase 2 begins only after the user explicitly approves all changes or identifies approved proposal IDs. Approval to implement site changes does not authorize commit, push, publication, workflow changes, repository settings, domains, credentials, analytics, or external services unless those actions are separately named.
+
+Do not treat “looks good,” “interesting,” or a request for explanation as implementation approval. Resolve ambiguous or conflicting selections before editing.
+
+## Coordinate the Pages family
+
+Treat the first three applicable specialists as required Phase 1 passes, not optional hand-offs. Read and apply their instructions so each concern contributes to the shared proposal set or coverage matrix.
+
+- Apply `github-pages-audit` to collect rendered evidence and prioritize defects.
+- Apply `github-pages-content` to content, hierarchy, labels, navigation, and local search proposals.
+- Apply `github-pages-design` to color, typography, spacing, themes, branding, and responsive proposals or implementation.
+- Use `github-pages-create` to execute approved site work, with bounded content/design work delegated to its specialist. Keep `GP-` IDs and approval state here. No executor restarts Phase 1 for already approved selections.
+
+Keep one proposal ID and one approval state across these specialist concerns.
+
+## Read the improvement contract
+
+Read [references/approval-and-remediation.md](references/approval-and-remediation.md) before analyzing the site or interpreting approval.
+
+Use the family's [shared handoff format](../github-pages-create/references/workflow-handoffs.md) for revision, relevant working-file snapshots, protected contracts, and evidence types.
+
+## Phase 1: analyze and propose
+
+Establish the repository, production-equivalent build, expected Pages base path, intended readers, current routes, branding evidence, and uncommitted changes. When a GitHub Wiki exists and is available through a supplied URL, connector, or local checkout, inventory it for useful setup guidance, examples, FAQ, troubleshooting, architectural rationale, and other material missing from the Pages site. Verify wiki claims against the current repository, flag stale or conflicting pages, and prefer linking, consolidating, or importing from a maintained canonical source over blind copying. Wiki analysis remains read-only and does not authorize editing the wiki.
+
+When rendering is possible, inspect representative desktop and narrow-mobile journeys in every supported theme. Clearly separate rendered evidence from source-only inference.
+
+After the defect audit, run a separate design-opportunity pass even when the current site is usable and technically sound. Treat a generic framework theme, weak project identity, undifferentiated hierarchy, underused repository assets, or a presentation that explains the project without expressing its character as possible enhancement evidence rather than defects. Explore restrained refinement, a distinctive repository-grounded direction, and a bold direction that materially changes the site's visual character. Discard arbitrary or weakly supported ideas; do not require an existing usability failure before recommending a strong enhancement.
+
+Use the visual specialist's [direction and redesign procedure](../github-pages-design/references/design-direction-and-redesign.md) and [Pages direction library](../github-pages-design/references/pages-design-directions.md) to make these alternatives concrete. State the change mode, protected contracts, and consequences for composition, density, assets, and motion. Keep Phase 1 previews read-only and attach them to the shared proposals; the library does not add another approval sequence after the selected work is authorized.
+
+When external browsing is available and useful, inspect a small set of current, relevant reference sites for transferable patterns. Cite the exact sources, explain why each pattern fits this repository and its readers, and propose an adaptation rather than imitation. Keep this research read-only and report when it was unavailable or unnecessary.
+
+Present the result in three parts:
+
+1. **Confirmed issues:** demonstrated usability, accessibility, content, navigation, responsive, or visual defects.
+2. **Design opportunities:** viable improvements to identity, hierarchy, typography, color, spacing, layout, imagery, interaction, or responsive expression that need not repair a defect.
+3. **Coverage matrix:** mark every applicable audit area as `defect`, `opportunity`, `healthy`, `not applicable`, or `not verified`, with a short reason. Never let a checked area disappear merely because no change is recommended.
+
+Within **Design opportunities**, include a **Bold proposals** subsection containing the strongest one to three repository-grounded visual directions when viable. If none survives the evidence and risk filters, say so explicitly and explain why. Do not manufacture a fixed count of cosmetic variants.
+
+Give every actionable confirmed issue and design opportunity one stable `GP-` ID and one shared approval state. Each proposal must include observed evidence or current ceiling, the concrete change or concept, expected reader benefit, affected scope, risk, and verification. Bold proposals must also state boldness, repository evidence, the visual-system impact, and a preview plan. Show color or theme changes as semantic token mappings and rendered-use examples rather than an unexplained palette.
+
+End with an explicit approval prompt such as:
+
+> Approve all proposals, approve selected IDs such as `GP-01, GP-04`, request revisions, or decline. No files have been changed.
+
+Then stop.
+
+## Phase 2: implement the approved scope
+
+Before editing, compare the relevant working-file snapshot and revision with the proposal, not only status labels. Refresh affected assumptions or proposals if inputs changed. Retain approval for the same valid scope, and resolve overlapping user edits without applying stale patches.
+
+Implement only approved IDs and their necessary disclosed prerequisites. Preserve unapproved behavior, public routes, branding, canonical content, user changes, and deployment configuration. If an approved item becomes materially broader during implementation, stop and request approval for the expansion.
+
+Run applicable production builds, link and route checks, and rendered verification. Report implemented IDs, deviations, verification evidence, unapproved proposals left untouched, and any separately authorized delivery status.

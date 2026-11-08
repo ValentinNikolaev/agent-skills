@@ -276,8 +276,8 @@ mandatory file outputs, and external-service requirements.
 
 ## Designer Skills
 
-The `github-pages-content-architecture`, `github-pages-visual-system`, and
-`audit-github-pages-ux` skills, along with `console-ux-design`, adapt and
+The `github-pages-content`, `github-pages-design`, and
+`github-pages-audit` skills, along with `console-ux-design`, adapt and
 substantially rewrite selected design, content-architecture, accessibility,
 responsive-layout, visual-critique, information-architecture, interaction,
 writing, and validation guidance from MC Dean's
@@ -291,7 +291,7 @@ distribution copy.
 
 ## Garden Skills
 
-The `github-pages-visual-system` skill adapts and substantially rewrites selected
+The `github-pages-design` skill adapts and substantially rewrites selected
 design-calibration, existing-UI redesign, direction-exploration, composition
 critique, and contextual failure-pattern guidance from ConardLi's
 [`garden-skills` web-design-engineer at commit
@@ -304,3 +304,38 @@ The upstream work is distributed under the MIT License. Its license text is
 retained as `LICENSE.garden-skills` in the canonical visual-system package and
 its generated distribution copies. Brand references in the upstream material
 are not treated as official design specifications or rights to brand assets.
+
+## GitHub Pages design workflow refinements
+
+The `github-pages-design` references contain selected, substantially rewritten
+guidance adapted from the following inspected sources:
+
+- [pbakaus/impeccable at `924bbd194d02e5e15a227e75b5901fb0d7a4ecad`](https://github.com/pbakaus/impeccable/tree/924bbd194d02e5e15a227e75b5901fb0d7a4ecad),
+  `.agents/skills/impeccable/SKILL.md` and `reference/mode-read.md` and
+  `reference/polish.md`. Apache-2.0, retained as `LICENSE.impeccable` with
+  upstream `NOTICE.md` as `NOTICE.impeccable`. Its notice mentions native-platform
+  references, which are not included in this adaptation.
+- [Nutlope/hallmark at `407fa689f4a276f2fd389208d271d0fef08f5058`](https://github.com/Nutlope/hallmark/tree/407fa689f4a276f2fd389208d271d0fef08f5058),
+  `skills/hallmark/SKILL.md` and `references/redesign.md`. MIT, copyright 2026
+  Hallmark contributors, retained as `LICENSE.hallmark`.
+- [Dammyjay93/interface-design at `2f9be3206855bcb2d1d0af262c8bae25cba6658d`](https://github.com/Dammyjay93/interface-design/tree/2f9be3206855bcb2d1d0af262c8bae25cba6658d),
+  `.claude/skills/interface-design/SKILL.md`. MIT, copyright 2026 Damola Akinleye,
+  retained as `LICENSE.interface-design`.
+- [Leonxlnx/taste-skill at `f6b76575f949707b4e3c37cd86cb44b0b98643e8`](https://github.com/Leonxlnx/taste-skill/tree/f6b76575f949707b4e3c37cd86cb44b0b98643e8),
+  `skills/taste-skill/SKILL.md` and applicable build/render guidance in
+  `references/gate.md`. MIT, copyright 2026 Leonxlnx, retained as
+  `LICENSE.taste-skill`.
+- [funboy322/avoid-ai-design at `2b7c71836b06cdf6b3d73265b56490c1b75ad5aa`](https://github.com/funboy322/avoid-ai-design/tree/2b7c71836b06cdf6b3d73265b56490c1b75ad5aa),
+  `SKILL.md` and selected contextual cluster/consistency guidance in
+  `references/ai-tells-catalog.md`. MIT, copyright 2026 ungspirit, retained as
+  `LICENSE.avoid-ai-design`.
+
+Changes adapt page-purpose composition, scoped preservation baselines, accepted
+system reuse across sessions, actual-content/asset verification, contextual
+critique, evidence types, and no-change outcomes to repository-grounded Pages
+work. No upstream runtime, hooks, scripts, assets, mandatory numeric recipes,
+authorship scoring, or permission changes are bundled. Full license/notice files
+are retained in the canonical design package and both generated distributions.
+Original and adapted content keeps the applicable third-party terms rather than
+assuming the root MIT license replaces them. Attribution does not imply
+endorsement. See the [source and decision record](docs/github-pages-family-update.md).

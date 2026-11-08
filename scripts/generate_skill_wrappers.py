@@ -109,11 +109,11 @@ README_SKILL_GROUPS = (
         "Documentation and GitHub Pages",
         {
             "audit-docs": "Find broken references, stale indexes, duplicate facts, and documentation drift.",
-            "create-github-pages": "Build or repair a GitHub Pages site from repository content.",
-            "github-pages-content-architecture": "Organise Pages content, navigation, reader journeys, and local search.",
-            "github-pages-visual-system": "Develop a Pages visual system for typography, colour, layout, and responsive behaviour.",
-            "audit-github-pages-ux": "Inspect a rendered Pages site for usability, accessibility, and layout defects.",
-            "improve-github-pages": "Assess a Pages site, propose improvements, and implement the approved changes.",
+            "github-pages-create": "Build or repair a GitHub Pages site from repository content.",
+            "github-pages-content": "Organise Pages content, navigation, reader journeys, and local search.",
+            "github-pages-design": "Develop a Pages visual system for typography, colour, layout, and responsive behaviour.",
+            "github-pages-audit": "Inspect a rendered Pages site for usability, accessibility, and layout defects.",
+            "github-pages-improve": "Assess a Pages site, propose improvements, and implement the approved changes.",
         },
     ),
     (
@@ -887,7 +887,7 @@ def render_repo_readme(repo_root: Path, skills: Sequence[SourceSkill]) -> str:
         ("Implementation plans", "planning-and-task-breakdown", "Order the work", "plan-review", "Review the proposed steps"),
         ("Existing code", "code-review", "Find defects in a diff", "verify-impl", "Check code against an authoritative spec"),
         ("PR feedback", "code-review", "Perform a fresh review", "fix-pr", "Apply valid existing GitHub comments"),
-        ("Pages changes", "create-github-pages", "Implement the requested site changes", "improve-github-pages", "Propose changes and wait for selection"),
+        ("Pages changes", "github-pages-create", "Implement the requested site changes", "github-pages-improve", "Propose changes and wait for selection"),
         ("Project memory", "create-memory", "Bootstrap an absent baseline", "update-memory", "Maintain facts from completed work"),
         ("Memory evidence", "ingest-memory", "Import or refresh a supplied source", "audit-memory", "Report store health without edits"),
         ("New public writing", "discussion-reply", "Respond to a social discussion", "editorial-writing", "Develop a standalone post or article"),
@@ -973,6 +973,12 @@ def render_repo_readme(repo_root: Path, skills: Sequence[SourceSkill]) -> str:
         "Use humanizer to edit this draft. Keep the facts and my voice.\n"
         "```\n\n"
         + starting_section
+        + (
+            "The GitHub Pages family has new canonical names. See the "
+            "[rename table and safe update steps](docs/github-pages-family-migration.md).\n\n"
+            if (repo_root / "docs" / "github-pages-family-migration.md").is_file()
+            else ""
+        )
         + "Review skills such as `code-review`, `plan-review`, and `review-spec` "
         "return findings. `fix-pr` handles existing GitHub review comments and "
         "applies valid fixes. Choose the skill for the work you want the agent to do.\n\n"
