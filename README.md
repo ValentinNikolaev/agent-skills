@@ -3,7 +3,7 @@
 
 Task-focused instructions for Codex and Claude Code: review changes, implement a contract, maintain project knowledge, or edit a draft. Each skill defines its inputs, scope, evidence, and completion checks.
 
-The collection contains 48 skills covering software development, documentation, project memory, writing, and product decisions. Install the plugin for your agent, then choose a skill from the catalogue below.
+The collection contains 49 skills covering software development, documentation, project memory, writing, and product decisions. Install the plugin for your agent, then choose a skill from the catalogue below.
 
 [![Latest release](https://img.shields.io/github/v/release/ValentinNikolaev/agent-skills?sort=semver)](https://github.com/ValentinNikolaev/agent-skills/releases/latest) [![Build](https://github.com/ValentinNikolaev/agent-skills/actions/workflows/regenerate-skills.yml/badge.svg)](https://github.com/ValentinNikolaev/agent-skills/actions/workflows/regenerate-skills.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -83,6 +83,7 @@ Each link opens the skill's full instructions, including when to use it and how 
 ### Review and verification
 
 - [`code-review`](agent-plugins/skills/code-review/SKILL.md) — Review a diff for confirmed defects, plausible risks, and actionable test gaps, with evidence for each finding.
+- [`review-retrospective`](agent-plugins/skills/review-retrospective/SKILL.md) — Learn from completed reviews and measured cost; propose scoped project, skill, or model improvements.
 - [`fix-pr`](agent-plugins/skills/fix-pr/SKILL.md) — Assess existing GitHub PR feedback, apply valid fixes, and verify them.
 - [`plan-review`](agent-plugins/skills/plan-review/SKILL.md) — Check whether an implementation plan is feasible, complete, and verifiable.
 - [`review-spec`](agent-plugins/skills/review-spec/SKILL.md) — Review proposed requirements for gaps, feasibility, and testability.

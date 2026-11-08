@@ -29,6 +29,12 @@ See [before/after scope and cost examples](references/review-cost-examples.md) w
 
 ## Build a bounded model
 
+Capture host start/end time and any cheap authorized usage snapshots around the
+review; keep unavailable metrics unknown. Retain original design/input revision,
+report identity, model/mode, scope, and limits in the requested report or inline
+handoff. Use the [run contract](../review-retrospective/references/run-contract.md)
+when structured history is supplied. Do not silently create a journal.
+
 1. Name the system boundary, users, purpose, scale, deployment environment, and known quality priorities. Source these from the request and directly relevant documents; mark unknowns instead of assuming enterprise-scale needs.
 2. Read applicable repository instructions and relevant architecture decisions. Reuse supplied shared context and research as above; inspect representative implementation paths only for missing or doubtful boundary facts. Follow data and control across the boundaries under review without repeating established source reads.
 3. List the major decisions actually present: component responsibilities, data ownership, communication, persistence, failure isolation, deployment, and operational ownership. Record explicit deferrals.
@@ -81,3 +87,10 @@ Selected Go lifecycle considerations adapt [Samber's design-pattern guidance](ht
 ## Report
 
 Return the reviewed boundary and evidence, then a verdict of `SOUND`, `CONCERNS`, or `BLOCKED`. `BLOCKED` means essential context is unavailable. Group evidence-backed findings as critical risks, significant concerns, and observations; give each the triggering scenario, impact, and smallest useful decision or experiment. Include sound decisions worth preserving, open questions, and verification limits. A structural concern does not automatically block a small code change; state what decision it affects.
+
+For new verified outcome feedback or a material cost signal, use
+`review-retrospective` once after the result. Reuse the original boundary evidence
+and skip unchanged assessments. Judge earlier decisions using information then
+available, preserving raised warnings, accepted risks, and explicit deferrals.
+Propose scoped project/skill/model improvements without silently applying them.
+Omit empty learning sections and suppressed model suggestions.

@@ -39,6 +39,12 @@ For `quick`, inspect only the plan, explicit requirements/instructions, and dire
 
 ## Load evidence
 
+Capture host start/end time and any cheap authorized usage snapshots around the
+review; keep missing metrics unknown. Retain the plan revision, report identity,
+model/mode, scope, and limits in an already-authorized report or inline handoff.
+Use the [run contract](../review-retrospective/references/run-contract.md) when
+structured history is supplied. Do not silently create a journal.
+
 1. Identify the plan source and give each step a stable label if it lacks one.
 2. Read applicable repository and path-scoped instructions.
 3. Read explicit acceptance criteria, PRDs, issue text, or requirements supplied by the user or repository.
@@ -142,3 +148,10 @@ Correction: <smallest plan-level change or precise question>
 Include a compact requirements-to-step mapping with `Covered`, `Partial`, or `Missing` and supporting evidence. When no authoritative requirements exist, identify that limit instead of inventing criteria. In final mode also state remaining release, migration, rollback, and recovery risks.
 
 Omit empty issue sections. If no issues remain, say so and preserve the verdict basis and verification limits. Do not edit, reorder, or replace the plan; checkout branches; install dependencies; or run state-changing commands.
+
+For new verified outcome feedback or a material cost signal, use
+`review-retrospective` once after the result. Reuse this run's original evidence
+and skip unchanged assessments. Preserve warnings already raised and risks
+consciously accepted; later implementation deviations are not automatically plan
+review misses. Propose scoped project/skill/model improvements without silently
+applying them. Omit empty learning sections and suppressed model suggestions.

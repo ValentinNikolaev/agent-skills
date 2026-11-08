@@ -67,6 +67,7 @@ README_SKILL_GROUPS = (
         "Review and verification",
         {
             "code-review": "Review a diff for confirmed defects, plausible risks, and actionable test gaps, with evidence for each finding.",
+            "review-retrospective": "Learn from completed reviews and measured cost; propose scoped project, skill, or model improvements.",
             "fix-pr": "Assess existing GitHub PR feedback, apply valid fixes, and verify them.",
             "plan-review": "Check whether an implementation plan is feasible, complete, and verifiable.",
             "review-spec": "Review proposed requirements for gaps, feasibility, and testability.",

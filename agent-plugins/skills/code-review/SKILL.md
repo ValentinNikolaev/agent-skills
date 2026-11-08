@@ -37,6 +37,13 @@ Accept the documented invocation convention `findings_file=PATH`, for example `_
 
 ## Establish scope and intent
 
+Capture the host start time and any cheap, authorized limit-usage snapshot; at
+completion capture the end time and matching snapshot. Keep unavailable model,
+token, timing, or percentage measurements unknown. Preserve a compact capsule
+in the requested report or existing scope/handoff, following the
+[run contract](../review-retrospective/references/run-contract.md) when structured
+history is supplied. Do not create a journal or poll account usage by default.
+
 For review-fix delta mode, first apply the [delta trigger and scope](references/conditional-checks.md#review-fix-deltas): compare the last reviewed head directly to the new head once for all fixes in the round. This replaces the full-PR comparison below and whole-file expansion in the baseline; review only that delta and the functions it touches at the selected depth. Do not restart the original PR review.
 
 1. Read repository instructions and path-scoped rules.
@@ -157,6 +164,14 @@ Before the final verdict, revisit exclusions and assumptions that could hide a r
 ## Learn from external review evidence
 
 When third-party findings are supplied, read [external review learning](references/external-review-learning.md) to verify their claims and distinguish reusable improvements from local policy. This remains a read-only assessment unless skill or memory maintenance is already authorized.
+
+When supplied previous runs or new outcome evidence reveal a material miss,
+false positive, repeated friction, or cost issue, use `review-retrospective` for
+one bounded assessment after the review result. Reuse collected evidence; skip
+unchanged lessons. Inspect earlier plan/architecture reviews only if their
+same-task invocation is established. Never launch missing upstream stages or
+change models, project policy, or skills silently. Keep compact output's shape;
+put any essential learning signal and capsule reference in its scope/limits line.
 
 ## Offer high-cost checks only after the baseline report
 
