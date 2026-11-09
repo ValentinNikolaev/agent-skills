@@ -84,7 +84,10 @@ decision when repetition, structure, an idiom or a qualification earns its place
 An orderly technical argument is not by itself an AI-style defect.
 
 Assess progression across sentence and paragraph boundaries, not just isolated
-phrases. Identify repeated conclusions or topic restatements that add no new
+phrases. A sentence can be true and natural in isolation yet interrupt the passage
+when it introduces a trait the surrounding sentences do not develop. Assess its
+reader effect separately from factual support; a clear interpersonal purpose can
+also justify keeping it. Identify repeated conclusions or topic restatements that add no new
 fact, relation or useful emphasis. Explain the cumulative reader effect and
 suggest a paragraph-level repair when local substitutions leave it intact.
 Do not call this a measured semantic-transition signal or treat useful recaps,

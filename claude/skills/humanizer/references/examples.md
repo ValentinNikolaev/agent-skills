@@ -13,6 +13,7 @@ phrases to reuse in the user's writing; other revisions can meet the constraints
 - [Small, supported repairs](#small-supported-repairs)
 - [Idiomatic phrasing without flattening time](#idiomatic-phrasing-without-flattening-time)
 - [Keep stance while fixing precision](#keep-stance-while-fixing-precision)
+- [Factual support and narrative fit](#factual-support-and-narrative-fit)
 - [Protected material](#protected-material)
 
 ## Existing irony and technical reasoning
@@ -160,6 +161,30 @@ comes from changed completion semantics.
 This bounded example does not prescribe first person, repeated framing or
 technical vocabulary for other authors. A complete draft still needs its own
 meaning and voice checks.
+
+## Factual support and narrative fit
+
+A professional introduction might say:
+
+> I build backend services. I am happy to help when a teammate is stuck.
+> My work covers service contracts, implementation and production diagnosis.
+
+The helping claim may be supplied and true. That establishes permission to use
+it, not why it belongs between the role and the account of the work. Check whether
+it develops the surrounding thought or reads like a separate self-rating. Connect
+or move it using the supplied material when that improves the passage; do not
+invent a rescue story or assign a new helping action to the writer.
+
+A neighbouring keep control is:
+
+> When a teammate is stuck on an integration, I help trace the request across
+> services. We check what each side expects and where a failed call leaves the
+> workflow.
+
+Here the helping statement develops directly into the work. Keep it when no
+useful repair is supported. A personal aside or a duty list can also perform its
+intended job in another genre. This example tests narrative fit, not a ban on
+traits, lists or changes of topic, and is not measured evidence of skill efficacy.
 
 ## Protected material
 

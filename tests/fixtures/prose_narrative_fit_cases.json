@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "purpose": "Frozen manual editorial cases. Structural checks do not establish prose quality or model effectiveness.",
+  "cases": [
+    {
+      "id": "supported-trait-opening",
+      "language": "en",
+      "genre": "professional About",
+      "provenance": "Bounded published-profile excerpt from the authorized 2026-11-09 maintenance case, without identity, employer names or contact data.",
+      "request": "Edit this About for a hiring reader who should understand how the engineer works with a team. Use ordinary professional language. Preserve the supplied facts and willingness to help. Do not invent an anecdote.",
+      "source_text": "I’m a senior backend engineer working with Go and PHP. When a colleague is stuck, I’m happy to get involved and help solve the problem.\n\nI work with Product, Support Operations, frontend and SRE colleagues to turn product workflows into backend services. My part covers service contracts, code and deployment, as well as investigating problems once a system is running.",
+      "assessment_key": {
+        "role": "original failing case",
+        "expected": "Assess the help sentence's narrative role separately from its factual support. Connect the willingness to help to the collaboration account without inventing a specific incident. Check procedural duty language in the next paragraph.",
+        "must_preserve": ["Go and PHP", "Willingness to help colleagues", "The named collaborators", "Contracts, code, deployment and production diagnosis"],
+        "must_not": ["Treat truth as evidence of flow", "Invent a rescue story", "Require a universal ban on self-description or lists"]
+      }
+    },
+    {
+      "id": "connected-help-control",
+      "language": "en",
+      "genre": "professional About",
+      "provenance": "Synthetic neighboring keep control, frozen before the skill patch.",
+      "request": "Edit this About for a hiring reader. Keep an already natural passage unchanged when no useful repair is supported. Treat its first-person claims as supplied facts.",
+      "source_text": "I build backend services in Go and PHP. When a colleague is stuck on an integration, I help trace the request through the services involved. That means checking what each side expects and where a failed call leaves the workflow.",
+      "assessment_key": {
+        "role": "near-neighbor clean control",
+        "expected": "The helping statement develops directly into an integration action. A keep decision is valid; do not flag helpfulness, first person or a topic change merely by category.",
+        "must_preserve": ["Supplied helping action", "Request tracing", "Expectations and failure state"],
+        "must_not": ["Invent an incident", "Delete the helping action because the failing case also mentioned help"]
+      }
+    },
+    {
+      "id": "italian-duty-language",
+      "language": "it",
+      "genre": "professional About",
+      "provenance": "Synthetic cross-language case, frozen before the skill patch.",
+      "request": "Rendi questo About più naturale, come una conversazione professionale semplice. Mantieni i fatti, il lavoro descritto e il punto di vista. Non aggiungere storie o risultati.",
+      "source_text": "Sono uno sviluppatore backend. La mia attività prevede la definizione dei contratti tra servizi, l’implementazione e il rilascio, oltre all’analisi delle anomalie dopo l’avvio. Quando un’API esterna non risponde, verifico quali operazioni sono riuscite e quali devono essere ripetute.",
+      "assessment_key": {
+        "role": "cross-language held-out case",
+        "expected": "Replace bureaucratic duty phrasing with direct Italian verbs while preserving the concrete API-failure reasoning and all work scope. Do not impose English syntax or a new personality.",
+        "must_preserve": ["Contracts between services", "Implementation and release", "Production diagnosis", "Distinction between successful operations and operations to retry"],
+        "must_not": ["Claim a failure was fixed", "Lose work scope to obtain a shorter narrative"]
+      }
+    },
+    {
+      "id": "release-note-control",
+      "language": "en",
+      "genre": "release note",
+      "provenance": "Synthetic unrelated clean control, frozen before the skill patch.",
+      "request": "Check this release note for a concrete clarity or voice issue. Preserve technical facts and leave natural wording unchanged. Local analysis only.",
+      "source_text": "This release adds request IDs to log entries. The value is included in both the API response and the worker logs, so support can follow a request across the two services. Existing retention rules still apply.",
+      "assessment_key": {
+        "role": "unrelated clean control",
+        "expected": "The mechanism and benefit are connected. The retention sentence adds a relevant compatibility constraint. Do not remove it as a detached fact or force a first-person narrative.",
+        "must_preserve": ["Request IDs in API response and worker logs", "Cross-service tracing purpose", "Existing retention rules"],
+        "must_not": ["Apply a professional-About template", "Infer authorship or upload to a detector"]
+      }
+    },
+    {
+      "id": "role-description-list-control",
+      "language": "en",
+      "genre": "role description",
+      "provenance": "Synthetic format-boundary control, frozen before the skill patch.",
+      "request": "Keep this responsibility list concise for a role-description field. Improve only a concrete wording issue. Preserve its list format.",
+      "source_text": "Responsibilities: service contracts, backend implementation, deployment and production diagnosis.",
+      "assessment_key": {
+        "role": "genre boundary clean control",
+        "expected": "A duty list performs the requested role-description job. Keep it rather than applying an About-specific narrative preference.",
+        "must_preserve": ["All four duties", "List format"],
+        "must_not": ["Ban lists or require a personal story"]
+      }
+    }
+  ]
+}

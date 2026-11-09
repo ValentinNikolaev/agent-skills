@@ -1,0 +1,146 @@
+{
+  "schema_version": 1,
+  "run_id": "2026-11-09-narrative-fit-prompt-improvement",
+  "status": "promising-bounded-execution-correction",
+  "case_file": "prose_narrative_fit_cases.json",
+  "source_hashes": [
+    {
+      "case_id": "supported-trait-opening",
+      "source_text_sha256": "d43b0a13d8a02eef96601b01b51816fa13ce96dd4a43bc22f670a39b786ffd18"
+    },
+    {
+      "case_id": "connected-help-control",
+      "source_text_sha256": "9339b300e0528e528772f6be8cab1915b1aad1a4a5eb688a5e625b78819903d3"
+    },
+    {
+      "case_id": "italian-duty-language",
+      "source_text_sha256": "9f4a4df44917708f5fd5ecdea2b11391b4f53bcfb4155d0b449ad17a808c9957"
+    },
+    {
+      "case_id": "release-note-control",
+      "source_text_sha256": "cff92bbb4953ac8dd8268200c6c1361229420214ce61f4f88d79e8a525a863e3"
+    },
+    {
+      "case_id": "role-description-list-control",
+      "source_text_sha256": "ca3789cba110abcffd2c9de2fe9b1dfe808380c69fc17bc7d1cab5079610cb8d"
+    }
+  ],
+  "skill_revision_hashes": [
+    {
+      "path": "agent-plugins/skills/humanizer/SKILL.md",
+      "before_sha256": "a676996f0312bfd078c2e965e41572194089aca0e23b1acfa6122ff2f46279c8",
+      "after_sha256": "6bd5a5455a9ef31a99d4e25e1c2ba60c7b5d26b48ac5cd9103eae94495645c8e"
+    },
+    {
+      "path": "agent-plugins/skills/ai-detector/SKILL.md",
+      "before_sha256": "0bf58f810d64d65b455fef58993644795e68cde1608f4594d2dea64a5ebee487",
+      "after_sha256": "113be3296d91a74c703ca07109a2f54e7b988108e52927605d39b63f351b789d"
+    },
+    {
+      "path": "agent-plugins/skills/humanizer/references/examples.md",
+      "before_sha256": "0a62f5fe3283a9ad7b44fe308e5f2e7f8707aab51fabc1f7437901b5edde00f7",
+      "after_sha256": "48dbf05253c1838c981955519bdc9cfad23bbdbacbe334a14d481fb125cc50dd"
+    }
+  ],
+  "conditions": {
+    "model": "gpt-6-sol",
+    "reasoning": "medium",
+    "mode": "local humanizer edit followed by local ai-detector analysis",
+    "external_submission": "not requested or performed",
+    "reviewer_independence": "Two returning non-author reviewers used the same five raw requests. Both had prior exposure to the original About issue. The candidate reviewer had not seen the other four cases, assessment keys, baseline outputs or scores.",
+    "comparison_limits": "Different reviewer contexts, one pass per version, no blinded or repeated experiment. No measured authorship, hiring effectiveness, token cost or general prose-quality improvement.",
+    "timing_seconds": null,
+    "usage_tokens": null
+  },
+  "prompt_improvement": {
+    "operation": "Revise the existing coherence/progression checks rather than add a duplicate checklist. Separate factual support from narrative role. Add one bounded failing/keep example and route authorized humanizer upkeep through the existing improvement loop.",
+    "constraints": [
+      "No persona or LinkedIn-specific universal rule",
+      "No ban on traits, lists or topic changes",
+      "No invented helping action or rescue anecdote",
+      "No new council for each minor note",
+      "No managed-cache edits as canonical source"
+    ],
+    "independent_patch_review": "A returning reviewer who did not author the patch found no material scope, authority or preservation blocker. That review alone did not establish forward-test effectiveness."
+  },
+  "baseline": {
+    "reviewer": "returning-evidence-reviewer",
+    "outputs": [
+      {
+        "case_id": "supported-trait-opening",
+        "decision": "edit",
+        "exact_output": "I’m a senior backend engineer working with Go and PHP. When a colleague is stuck, I’m happy to get involved and help solve the problem.\n\nI work with Product, Support Operations, frontend and SRE colleagues to turn product workflows into backend services. I define service contracts, write and deploy the code, and investigate problems after the services go live."
+      },
+      {
+        "case_id": "connected-help-control",
+        "decision": "keep",
+        "exact_output": "I build backend services in Go and PHP. When a colleague is stuck on an integration, I help trace the request through the services involved. That means checking what each side expects and where a failed call leaves the workflow."
+      },
+      {
+        "case_id": "italian-duty-language",
+        "decision": "edit",
+        "exact_output": "Sono uno sviluppatore backend. Definisco i contratti tra servizi, sviluppo il backend e seguo il rilascio. Se emergono problemi dopo l’avvio, li analizzo. Quando un’API esterna non risponde, verifico quali operazioni sono riuscite e quali devono essere ripetute."
+      },
+      {
+        "case_id": "release-note-control",
+        "decision": "keep",
+        "exact_output": "This release adds request IDs to log entries. The value is included in both the API response and the worker logs, so support can follow a request across the two services. Existing retention rules still apply."
+      },
+      {
+        "case_id": "role-description-list-control",
+        "decision": "keep",
+        "exact_output": "Responsibilities: service contracts, backend implementation, deployment and production diagnosis."
+      }
+    ],
+    "observed_analysis": {
+      "supported-trait-opening": "Flagged bureaucratic 'My part covers', but retained the detached helping sentence at the opening. The local check found no useful change beyond A/C wording edits.",
+      "connected-help-control": "Kept because helping develops into an integration action.",
+      "italian-duty-language": "Used direct verbs and retained post-release diagnosis and retry distinction.",
+      "release-note-control": "Kept as clear technical explanation.",
+      "role-description-list-control": "Kept the requested compact list."
+    }
+  },
+  "candidate": {
+    "reviewer": "returning-reader-reviewer",
+    "outputs": [
+      {
+        "case_id": "supported-trait-opening",
+        "decision": "edit",
+        "exact_output": "I’m a senior backend engineer working with Go and PHP. I work with Product, Support Operations, frontend and SRE colleagues to turn product workflows into backend services. I work on service contracts, backend code and deployment, and investigate problems once a system is running.\n\nWhen a colleague is stuck, I’m happy to get involved and help solve the problem."
+      },
+      {
+        "case_id": "connected-help-control",
+        "decision": "keep",
+        "exact_output": "I build backend services in Go and PHP. When a colleague is stuck on an integration, I help trace the request through the services involved. That means checking what each side expects and where a failed call leaves the workflow."
+      },
+      {
+        "case_id": "italian-duty-language",
+        "decision": "edit",
+        "exact_output": "Sono uno sviluppatore backend. Definisco i contratti tra servizi, sviluppo e rilascio il backend e analizzo le anomalie dopo l’avvio. Quando un’API esterna non risponde, verifico quali operazioni sono riuscite e quali devono essere ripetute."
+      },
+      {
+        "case_id": "release-note-control",
+        "decision": "keep",
+        "exact_output": "This release adds request IDs to log entries. The value is included in both the API response and the worker logs, so support can follow a request across the two services. Existing retention rules still apply."
+      },
+      {
+        "case_id": "role-description-list-control",
+        "decision": "keep",
+        "exact_output": "Responsibilities: service contracts, backend implementation, deployment and production diagnosis."
+      }
+    ],
+    "observed_analysis": {
+      "supported-trait-opening": "Identified the interruption between role and contribution and moved the supplied helping claim after the work account. Explicitly retained its generality instead of inventing a helping example.",
+      "connected-help-control": "Kept because sentence two develops into sentence three.",
+      "italian-duty-language": "Used direct verbs while preserving actors, work and the conditional API example.",
+      "release-note-control": "Kept the technical note.",
+      "role-description-list-control": "Kept the list because its genre requires that format."
+    }
+  },
+  "assessment": {
+    "observed_difference": "The baseline left the demonstrated opening placement unchanged. The candidate recognized and repaired that placement without inventing history. Both preserved the three clean controls.",
+    "residual": "The helping sentence remains general and separate after relocation. This is evidence of a narrower narrative-fit check, not proof of an ideal About or a universally better rewrite.",
+    "cross_language_limit": "Both versions improved the Italian bureaucratic wording. This does not isolate an incremental cross-language benefit of the patch.",
+    "scope": "A small execution aid for an existing instruction, not a new mandatory style rule."
+  }
+}

@@ -180,9 +180,12 @@ Read [the editing council procedure](references/council.md) only when that revie
 2. Compare voice before and after: the same register, stance, emotional intent,
    humour, and relationship with the reader should remain recognizable. Recheck
    the applicable project guidance on the exact final wording.
-3. Read for coherent movement, natural rhythm, and idiomatic phrasing. Undo edits
-   that merely impose the editor's taste. Check that replacement phrases have not
-   formed a new template.
+3. Read for coherent movement, natural rhythm, and idiomatic phrasing. For a
+   retained or inserted self-description, check what it adds to the neighbouring
+   thought; factual support alone does not establish its place in the passage.
+   See the [narrative-fit example](references/examples.md#factual-support-and-narrative-fit)
+   when that distinction matters. Undo edits that merely impose the editor's taste
+   and check that replacement phrases have not formed a new template.
 4. Stop when the requested friction is resolved and these checks pass. Revisit
    only a concrete remaining defect. Route an explicit detector or named-service
    check to `ai-detector` with the exact requested version and its constraints.
@@ -216,8 +219,12 @@ once with existing evidence. It reuses `review-retrospective` for bounded learni
 and model decisions. Distinguish meaning/voice drift, unnecessary edits, ignored
 guidance, and local preference. Inspect a detector pass only if actually invoked
 on that version; ordinary humanizing does not acquire a detector requirement.
-Keep project voice authoritative and propose a general skill PR only when the
-evidence supports one. Omit empty learning sections and suppressed suggestions.
+When feedback identifies a skill defect and maintenance is authorized, follow
+the existing [improvement loop](../ai-detector/references/improvement-loop.md)
+through the scoped correction and verification, rather than stopping at a
+retrospective explanation. Keep project voice authoritative and propose a general
+skill PR only when the evidence supports one. Omit empty learning sections and
+suppressed suggestions.
 
 ## Provenance
 
