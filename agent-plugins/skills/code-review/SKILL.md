@@ -9,6 +9,14 @@ Review the requested changes as an independent engineer. Discover failure scenar
 
 Approve changes that preserve or improve overall code health without blocking on personal preference or unrelated pre-existing debt. Do not discard a reachable failure merely because it is rare or depends on timing, environment, or configuration.
 
+## Keep execution read-only
+
+Only the top-level review coordinator may spawn direct finder, verifier, or sweep agents. A delegated reviewer must not spawn nested agents or delegate its assignment further, even when an Agent tool is available. Return candidates, evidence, and requests for independent verification to the coordinator; the coordinator arranges any sibling reviewer. Coordinator-only delegation steps below do not apply recursively to workers.
+
+Do not run commands that write to the checkout, even transiently, apart from an explicitly requested report. This includes dependency and lockfile updates, generated files, and in-checkout caches or test artifacts. In particular, do not run plain `go mod tidy`, `go get`, or commands using `-mod=mod` against the checkout's module files. For dependency checks, use `go mod tidy -diff` when supported, or `-modfile=<scratch>/review.mod` with the alternate module and checksum files in a scratch directory outside the checkout. Follow the [Go verification guidance](references/review-go.md#verification) for isolation details. If a check cannot run without writing to the checkout, report it as unrun with the reason.
+
+Compare checkout state before and after checks. If an unexpected write appears, stop that check, disclose it, and re-read evidence from the original reviewed revision or captured input. Never cite reviewer-created transient lines as PR changes, or reset/overwrite files that may contain the caller's or another session's work.
+
 ## Route exclusively
 
 - Use this skill only when code already changed or a diff exists.
@@ -130,7 +138,7 @@ For structural concerns, name the smallest useful move: remove an unnecessary ab
 
 The finder records stable CR IDs, location, category, a concise summary, and `inputs/state -> wrong result or crash` for every candidate with a nameable failure scenario. Record uncertainties without filtering or retracting candidates. Grounding is a later pass; a bare preference without a scenario is not a candidate.
 
-When an Agent/subagent tool is available, assign one fresh verifier who did not find the candidates. Give it the diff, relevant files, applicable instructions, intended behavior, and candidate list, without the finder's reasoning or proposed verdicts. This verifier is part of the baseline, not an optional high-cost extension. Without that tool, verify inline after discovery and disclose the lack of an independent reviewer. Quick keeps the verifier within the same hunk-only scope.
+When an Agent/subagent tool is available, the top-level coordinator assigns one fresh verifier who did not find the candidates. Give it the diff, relevant files, applicable instructions, intended behavior, and candidate list, without the finder's reasoning or proposed verdicts. This verifier is part of the baseline, not an optional high-cost extension. A delegated reviewer returns its candidates to the coordinator instead of spawning a verifier. Without that tool, verify inline after discovery and disclose the lack of an independent reviewer. Quick keeps the verifier within the same hunk-only scope.
 
 The verifier re-reads the current lines and diff, traces the path, checks callers, guards, configuration, and tests, and considers the strongest intentional-design counterargument. Give each candidate one outcome:
 

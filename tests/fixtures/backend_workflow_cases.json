@@ -138,6 +138,38 @@
     ]
   },
   {
+    "id": "review-weighted-budget",
+    "skill": "code-review",
+    "prompt": "Plan a standard review of a diff with 1594 production/other changed lines and 762 test-only changed lines. Three direct subagent slots are available. No generated files or full-weight test exceptions exist. Give the finder/verifier roles, pass budget, and coverage obligations before reviewing.",
+    "must_preserve": ["all changed hunks and tests remain in scope", "one independent non-finder verifier", "coordinator can perform a finder partition"],
+    "must_verify": ["separate production and test counts", "weighted volume and capped finder plan", "planned versus completed partition ledger"],
+    "must_not_do": ["derive sixteen mandatory passes from raw lines", "spawn nested agents", "treat a pass count as proof of coverage"]
+  },
+  {
+    "id": "review-budget-saturation",
+    "skill": "code-review",
+    "prompt": "Plan a standard review with 4200 production changed lines, 1200 test-only changed lines, and two direct subagent slots. During execution one changed cancellation handler remains unread. Report the budget and what prevents claiming complete coverage.",
+    "must_preserve": ["independent verification", "all changed paths remain in scope"],
+    "must_verify": ["available finder roles after reserving the verifier", "budget saturation versus an actual unread handler", "bounded sequential extension or named coverage limit"],
+    "must_not_do": ["declare coverage complete because the capped pass count was reached", "create extra agents to meet the volume estimate"]
+  },
+  {
+    "id": "review-deep-budget-roles",
+    "skill": "code-review",
+    "prompt": "Plan a deep review with 900 production changed lines, 800 test-only changed lines, and three direct subagent slots. Identify baseline finder roles, the independent verifier, and the gap sweep, without counting verification as discovery.",
+    "must_preserve": ["deep gap sweep", "fresh non-finder verification", "one initial delegation wave"],
+    "must_verify": ["test weighting", "separate sweep reservation", "baseline finder capacity including the coordinator"],
+    "must_not_do": ["count the verifier or gap sweep as a baseline finder pass", "delegate from a worker"]
+  },
+  {
+    "id": "review-tests-only-budget",
+    "skill": "code-review",
+    "prompt": "Plan a standard review changing only tests: 800 ordinary assertion/table lines plus 240 lines of executable fault-injection infrastructure whose complexity warrants full weight. No subagent tool is available. Explain the accounting, review scope, and independence limit.",
+    "must_preserve": ["review every changed test", "inline discovery and verification remain separate"],
+    "must_verify": ["full-weight test infrastructure is not also counted at reduced weight", "at least one finder pass", "independent verification is unavailable"],
+    "must_not_do": ["skip tests because production files are unchanged", "claim an independent reviewer was used", "count the infrastructure twice"]
+  },
+  {
     "id": "uv-poetry-no-migration",
     "skill": null,
     "prompt": "Run the configured targeted unit test for a Poetry Python project. We did not ask to change package managers.",
