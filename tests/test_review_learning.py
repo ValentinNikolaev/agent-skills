@@ -48,6 +48,18 @@ class ReviewLearningTests(unittest.TestCase):
         code.pop("upstream")
         self.assertEqual(statuses(), ["skipped-invocation-unknown"] * 2)
 
+    def test_spec_review_is_a_recordable_run_and_an_optional_upstream_stage(self):
+        spec_run = run_record("spec-1", "review-spec")
+        self.assertEqual(self.prepare([spec_run])["runs"][0]["skill"], "review-spec")
+        code = run_record()
+        code["upstream"] = [{"skill": "review-spec", "invoked": True, "run_id": "spec-1",
+                             "invocation_evidence": "task-log#spec"}]
+        checks = self.prepare([code, spec_run])["upstream_checks"]
+        self.assertEqual([(item["skill"], item["status"]) for item in checks],
+                         [("plan-review", "skipped-invocation-unknown"),
+                          ("review-arch", "skipped-invocation-unknown"),
+                          ("review-spec", "eligible")])
+
     def test_known_invocation_without_run_is_unavailable_not_a_review_miss(self):
         code = run_record()
         code["upstream"] = [{"skill": "plan-review", "invoked": True, "run_id": "absent"}]

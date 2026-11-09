@@ -11,7 +11,8 @@
 
 Keep a compact capsule in an already-authorized report or handoff. Without an
 artifact path, return it inline or reuse facts already present in the report.
-Do not silently create a project journal, edit memory, or export private chats.
+Do not silently create a project journal, poll account usage, edit memory, or
+export private chats.
 
 Capture start/end timestamps from the host clock and actual model/mode when
 available. Obtain usage snapshots through an available, cheap, authorized host

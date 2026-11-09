@@ -23,11 +23,11 @@ Accept `shared_context=PATH` containing already-collected code facts, paths, exc
 
 Accept `light` (also `--mode light`) for a small plan or proposal confined to one repository with no concurrency or storage changes; a primarily ordered plan still routes to `plan-review`. Read the artifact and supplied requirements/context, reuse its research facts without re-deriving them, and inspect only doubtful or missing material evidence. If eligibility cannot be established, use the normal review and state why. Report at most five findings, highest priority first, with the existing fields and verdict; disclose any omitted count and let all discovered issues and evidence limits determine readiness. Do not hide a blocker behind the cap or start a broader review automatically.
 
-Caller model guidance: a cheaper model such as Sonnet suits UI, text, and documentation changes; reserve the top model for concurrency, storage, and plan reviews. This skill does not select or switch models.
-
-See [before/after routing and evidence examples](references/review-cost-examples.md) when choosing scope, shared context, light mode, or model tier.
+This skill never selects or switches models; see [before/after routing and evidence examples](references/review-cost-examples.md) when choosing scope, shared context, light mode, or model tier.
 
 ## Establish the review contract
+
+Capture the run record as the [run contract](../review-retrospective/references/run-contract.md#capture-records) describes, retaining the spec revision, report identity, model/mode, scope, and limits in the requested report or inline handoff.
 
 1. Identify the exact spec revision or file and the user's stated goal. If neither a document nor its contents are available, request the missing artifact.
 2. Read applicable repository instructions, the requirements or issue that motivated the spec, and directly relevant architecture decisions. Treat missing or conflicting sources as review limits.
@@ -53,21 +53,15 @@ For every candidate concern, cite a spec section or exact excerpt and the requir
 
 Separately compare the user's actual wording with the spec's proposed solution, including a plan's design sections when supplied as context. List **Where the spec narrows the request**: fewer accepted input forms than the user named, a requested screen replaced with a redirect, or an existing capability removed. For each entry quote the user request and spec section, state the lost behavior, and cite explicit user agreement if it exists. The plan/spec's own assertion of approval is not evidence of agreement.
 
-Every narrowing without explicit user agreement is an `important` finding. Preserve the normal P0–P3 priority based on impact and add `Importance: important`; do not downgrade it to a suggestion merely because the spec is internally consistent. Return `REVISE` while such a narrowing remains unresolved. An agreed narrowing stays in the comparison with the approval evidence. If none exists, say so; if the original wording or evidence of an existing capability is unavailable, state that traceability limit rather than assuming equivalence or approval.
+Every narrowing without explicit user agreement is a finding at the P0–P3 priority its impact warrants; do not downgrade it to a suggestion merely because the spec is internally consistent. Return `REVISE` while such a narrowing remains unresolved. An agreed narrowing stays in the comparison with the approval evidence. If none exists, say so; if the original wording or evidence of an existing capability is unavailable, state that traceability limit rather than assuming equivalence or approval.
 
 ## Walk operator scenarios for screen changes
 
-When the proposal adds or changes screens, walk every applicable operator scenario step by step, including in light mode: find a record, filter, assemble a change set, check it, make a mistake and correct/cancel it, submit, and view history. Use concrete valid and invalid inputs and empty data. At each step name the visible feedback and next reachable action. Mark a scenario not applicable only with a scope-based reason.
-
-Challenge every proposed control: is it needed, can the operator find it, and do its label and enabled/visible state match the data? Check unexplained disabled save/submit actions, field-associated validation feedback (for example `aria-describedby`), Resume without resumable work, Add on already-added rows, explicit selection-list ordering, and dialog back/cancel paths. A deliberately specified dead end remains a finding. Missing behavior is a requirements gap, not evidence that the future UI handles it.
-
-Return a table `Step → Plan/spec section → Verdict`, with concrete input/state and feedback/next action in Step, the exact section/excerpt in the middle, and `Covered | Partial | Missing | Defect | Not applicable` with finding IDs in Verdict. Keep all scenario rows under a finding display cap. Identify this as a document walkthrough, not executed UI testing.
-
-User-reported event-catalog example: Save stayed disabled because parsing accepted only `DP-N` and `catch { return null }` swallowed the error. Another project's key and a board URL with `?selectedIssue=OTHER-42` silently blocked saving. Walk `DP-42`, `OTHER-42`, that URL, `DP-x`, and empty input. Missing feedback is a defect even under an intentionally narrow input contract; if the user requested Jira keys/links more broadly, restricting them without explicit agreement is also an `important` narrowing.
+When the proposal adds or changes screens, walk the operator scenarios in every mode, including light, following the [operator walkthrough procedure](../plan-review/references/operator-walkthrough.md). Preserve all scenario rows under a finding display cap. Missing behavior is a requirements gap, not evidence that the future UI handles it. Missing feedback is a defect even under an intentionally narrow input contract; if the user requested broader input forms such as Jira keys or links, restricting them without explicit agreement is also a narrowing.
 
 ## Quantitative requirements
 
-Check that deadlines, retry guarantees, budgets, units, and acceptance cases are explicit and mutually consistent. Reuse supplied calculations; leave ordered worst-case timing and capacity derivation to `plan-review`. If an essential guarantee lacks supporting evidence, identify that exact gap and constrain readiness rather than treating it as verified. Report a supplied calculation's confirmed contradiction as blocking `P1` (or `P0` for its impact) with `REVISE`; do not repeat the calculation in a second specialist pass. Reserve `BLOCKED` for missing essential review evidence.
+Check that deadlines, retry guarantees, budgets, units, and acceptance cases are explicit and mutually consistent. Reuse supplied calculations; leave ordered worst-case timing and capacity derivation to `plan-review`. If an essential guarantee lacks supporting evidence, identify that exact gap and constrain readiness rather than treating it as verified. Report a supplied calculation's confirmed contradiction as blocking `P1` (or `P0` for its impact) with `REVISE`; do not repeat the calculation in a second specialist pass.
 
 ## Classify and report
 
@@ -77,10 +71,12 @@ Return:
 
 1. spec identity, goal, sources inspected, and limits;
 2. `READY`, `REVISE`, or `BLOCKED` with a one-sentence reason (`BLOCKED` means the artifact or essential evidence cannot be reviewed, not that the spec is poor);
-3. confirmed findings ordered by priority, each with location, consequence, and smallest spec-level correction;
+3. confirmed findings ordered by priority, each with a stable ID (`SPEC-001`, `SPEC-002`, and so on), location, consequence, and smallest spec-level correction;
 4. requirements or decisions that are already sound and should survive revision;
 5. open questions that materially affect implementation.
 
 For screen changes, include the operator walkthrough table. Always include the request-to-solution narrowing list or its explicit no-narrowing/traceability-limit result, including approval evidence where applicable.
 
 Use `READY` only when no unresolved issue would make implementation unsafe or substantially ambiguous. A review verdict does not verify future code.
+
+For new verified outcome feedback or a material cost signal, use `review-retrospective` once after the result.
