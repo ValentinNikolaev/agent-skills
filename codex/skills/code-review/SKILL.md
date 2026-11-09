@@ -97,7 +97,7 @@ Read [references/conditional-checks.md](references/conditional-checks.md) only f
 
 Load only the language references needed by changed behavior and its tests:
 
-- Go: [references/review-go.md](references/review-go.md).
+- Go behavior/tests, or any changed `go.mod` or `go.sum` (including nested modules): [references/review-go.md](references/review-go.md). For manifest/checksum changes, its read-only Dependabot reconciliation is part of the baseline at every depth, including quick; include its outstanding-alert inventory and access limits in verification evidence. This bounded check does not require approval for an optional broad audit.
 - TypeScript (`.ts`, `.tsx`, `.mts`, `.cts`), declarations, or related module/build configuration: [references/review-typescript.md](references/review-typescript.md).
 - Python: [references/review-python.md](references/review-python.md).
 - FastAPI endpoints, dependencies, response models, or streaming changes: also read [references/review-fastapi.md](references/review-fastapi.md) after establishing the installed FastAPI/Pydantic versions.

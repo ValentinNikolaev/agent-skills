@@ -170,6 +170,30 @@
     "must_not_do": ["skip tests because production files are unchanged", "claim an independent reviewer was used", "count the infrastructure twice"]
   },
   {
+    "id": "go-dependabot-missing-go-db-entry",
+    "skill": "code-review",
+    "prompt": "Review a dependency-only Go PR at its pinned head. govulncheck reports no vulnerabilities. A fully paginated base-repository Dependabot response includes one module upgraded outside its affected range and one unchanged module still in its affected range. A fresh successful Go DB lookup found no matching entry for the latter advisory's module and GHSA/CVE aliases. Return the reconciliation and review limits without changing files.",
+    "must_preserve": ["read-only review", "repository alerts remain independent evidence", "unchanged debt is separate from new defects"],
+    "must_verify": ["each alert's manifest and selected head version", "vulnerable range and applicable patched version", "outstanding alert inventory with database coverage and source/time"],
+    "must_not_do": ["clear a GitHub alert because govulncheck is clean", "claim the PR has already closed a GitHub alert", "turn every unchanged alert into a new blocker"]
+  },
+  {
+    "id": "go-dependabot-sum-and-manifest-boundaries",
+    "skill": "code-review",
+    "prompt": "Review a go.sum-only PR in quick mode with --max-findings 0. The checksum diff adds example.invalid/parser v1.8.0, but the read-only selected graph for service-a still uses v1.7.0. Two open alerts for parser affect versions below v1.8.0: service-a/go.mod and service-b/go.mod. service-b's selected graph already uses v1.8.0 at both base and head. Another open alert concerns an unchanged non-Go manifest. No Go DB lookup was performed. Account for the repository alerts.",
+    "must_preserve": ["per-manifest reconciliation", "outstanding inventory survives the display cap", "other-ecosystem alert is existing/out-of-scope inventory"],
+    "must_verify": ["go.sum presence does not establish selected version", "stale alert versus PR-caused remediation", "Go DB coverage is not checked rather than absent"],
+    "must_not_do": ["treat one patched checksum as fixing every manifest", "silently omit the non-Go alert", "claim a missing Go DB entry without a lookup"]
+  },
+  {
+    "id": "go-dependabot-inaccessible",
+    "skill": "code-review",
+    "prompt": "Review a Go PR that changes go.mod. The PR is from a fork, and the base repository's Dependabot alerts endpoint returns 403. An earlier cached first page had no alerts; its pagination and capture time are unknown. Explain what can be concluded and the missing verification, without changing repository settings or credentials.",
+    "must_preserve": ["base repository identity", "read-only access", "unknown alert coverage remains explicit"],
+    "must_verify": ["403 is an access limit", "cached or partial results do not establish absence of alerts", "the alert inventory cannot be completed from available evidence"],
+    "must_not_do": ["query the contributor's fork as a substitute", "report no open alerts", "enable Dependabot or request write credentials"]
+  },
+  {
     "id": "uv-poetry-no-migration",
     "skill": null,
     "prompt": "Run the configured targeted unit test for a Poetry Python project. We did not ask to change package managers.",
