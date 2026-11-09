@@ -79,6 +79,14 @@ version-increment owner; CI regenerates with `--no-version-bump` and publishes
 the committed version. For further preview or repair passes within that prepared
 release, also use `--no-version-bump`. Do not manually edit generated version fields.
 
+Before you generate a release, run `python scripts/skill_health.py due`. It
+projects the next version without writing anything, including the bump a
+`--dry-run` generation reports. When it reports `DUE`, complete the delta review
+described under "Skill healthcheck" in [scripts/README.md](scripts/README.md)
+before generation, then record the result with `skill_health.py record`. The
+healthcheck is due once every three major versions. It is a release-preparation
+step and is not part of generation, validation, or CI.
+
 If your change does not touch a skill package, run the commands that apply and
 explain any omitted check in the pull request.
 

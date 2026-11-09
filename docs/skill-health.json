@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "settings": {
+    "interval_majors": 3,
+    "body_word_ceiling": null,
+    "body_growth_words": 150,
+    "description_max_chars": 250,
+    "stale_fact_days": 180,
+    "shared_sentence_min_chars": 60,
+    "near_duplicate_containment": 0.5,
+    "near_duplicate_min_shared": 40,
+    "duplicate_allowlist_files": [
+      "memory-contract.md"
+    ],
+    "bare_script_allowlist_skills": [
+      "wrap-agent-skill"
+    ],
+    "retired_skill_names": [
+      "stop-slop",
+      "create-github-pages",
+      "improve-github-pages",
+      "audit-github-pages-ux",
+      "github-pages-content-architecture",
+      "github-pages-visual-system"
+    ],
+    "yaml_outlier_fraction": 0.1
+  },
+  "last_check": null,
+  "baseline": null,
+  "open_items": [],
+  "history": []
+}

@@ -166,6 +166,14 @@ Preview changes without writing files:
 python scripts/generate_skill_wrappers.py --dry-run
 ```
 
+The dry-run summary ends with the projected plugin version, for example
+`Projected version: claude major 29.2.0 -> 30.0.0; codex major 29.2.0 -> 30.0.0.`
+The projection uses the same tree comparison as a real run, so it cannot disagree
+with it. It reflects only what the run would process: add `--clean` to include the
+removal of stale generated skills, and `--platform` or skill names to narrow it.
+It is reported even with `--no-version-bump`, with a note that the increment would
+be suppressed. See [Plugin version and README policy](#plugin-version-and-readme-policy).
+
 ## Check generated files
 
 Use `--check` to verify that committed generated skills match the canonical sources:
@@ -283,6 +291,21 @@ The directory name must match the top-level frontmatter `name`. The validator
 also checks descriptions, UI metadata, bundled Python syntax, local links,
 reference navigation, shared memory resources, and activation fixtures.
 
+Each `SKILL.md` body is limited to 500 lines and to `MAX_SKILL_BODY_WORDS` words
+(`scripts/validate_skills.py`). The word ceiling catches files made of very long
+lines, which the line cap misses. Set it just above the largest body so that it
+acts as a ratchet: lower it after a trim, and raise it only with a recorded reason.
+The same file caps the total routing metadata (skill names plus descriptions) at
+10,000 characters.
+
+The shared memory validator reports three capacity limits, each advisory unless
+`--enforce-limits` is given and each using the same warning and critical ratios.
+The defaults are 200 memory files, 200 non-blank `MEMORY.md` lines
+(`--index-line-limit`), and 25,000 bytes of `MEMORY.md`
+(`--index-byte-limit`). The index limits bind no later than the file limit because
+the index holds one line per file. The memory contract in each memory skill records
+the basis for the defaults and the validator interface.
+
 Manual humanizer evaluations use
 [`tests/fixtures/humanizer_editorial_cases.json`](../tests/fixtures/humanizer_editorial_cases.json).
 Keep each supplied passage verbatim, distinguish the user's editorial judgement
@@ -311,13 +334,12 @@ unmet prerequisite gate, and retains the bounded unsuccessful transfer search.
 verification. Calls made only by a skill or workflow stay local. A human's direct
 detector request includes the ChatGPT AI detector and concrete improvement advice,
 unless the user restricts external work. `humanizer` owns the resulting prose
-edits. `stop-slop` is a deprecated compatibility entry through v29, with removal
-planned for the v30 major release after maintained callers and activation cases
-are migrated and release notes explain the replacement. New workflows use
-`ai-detector` for analysis and `humanizer` for edits. Legacy style audits stay
-local unless the human also requests a detector or external check. Bundled
-Stop Slop references and their license remain legacy provenance until removal.
-The older humanizer evaluation files above remain historical evidence.
+edits. `stop-slop` was a deprecated compatibility entry through v29 and was removed
+in v30; [`docs/stop-slop-removal.md`](../docs/stop-slop-removal.md) records the
+replacements. Workflows use `ai-detector` for analysis and `humanizer` for edits.
+A request that still names the removed skill stays local unless the human also
+requests a detector or external check. The older humanizer evaluation files above
+remain historical evidence.
 [`ai_detector_sean_b_result.json`](../tests/fixtures/ai_detector_sean_b_result.json)
 records one exact-text external check, an invalid omitted-text attempt, and
 accepted or rejected recommendations. It does not establish general detection
@@ -367,6 +389,9 @@ option never changes either manifest.
 
 The root `README.md` is regenerated after skill generation and included in `--check` drift detection.
 
+Use `--dry-run` to see the bump before generating. `skill_health.py due` reads the
+same projection to decide whether a [healthcheck](#skill-healthcheck) is due.
+
 The automatic workflow runs whenever `master` is updated, whether by a direct push or by merging a pull request, and creates one combined GitHub release when the committed shared Claude/Codex plugin version changes at the major or minor level in the pushed commit range. Regeneration uses `--no-version-bump`, and the workflow fails if either committed plugin version changes during CI. A locally regenerated and versioned change produces a release even when the workflow has nothing new to commit. Patch-only changes such as `2.1.0` to `2.1.1` do not create a release. Combined releases use tags and titles like `v2.1.0`, include both Claude and Codex distribution archives, and contain release notes generated from the diff since the previous combined release. Legacy `agent-plugins-v*` tags remain valid comparison points for release-note history.
 
 The manual release workflow in `.github/workflows/manual-release.yml` can be started from GitHub Actions with a branch or tag input. It verifies that generated distributions are current, checks that the Claude and Codex numeric version cores match while allowing platform-specific build metadata, skips patch-only versions and duplicate tags, and creates the same combined release with both distribution archives. It does not commit or regenerate files.
@@ -411,7 +436,7 @@ usage: generate_skill_wrappers.py [-h]
 | `--platform claude` | Generate only Claude skills. |
 | `--platform codex` | Generate only Codex skills. |
 | `--check` | Detect missing, changed, or unexpected generated files without writing. |
-| `--dry-run` | Print planned updates without writing. |
+| `--dry-run` | Print planned updates and the projected plugin version without writing. |
 | `--clean` | Remove or report stale generated skill directories. |
 | `--force` | Permit replacement of an unmarked target directory. |
 | `--strict-links` | Treat source validation warnings as errors. |
@@ -420,6 +445,107 @@ usage: generate_skill_wrappers.py [-h]
 | `--version` | Print the generator version. |
 
 `--check` cannot be combined with `--dry-run`, `--force`, or `--no-version-bump`.
+
+## Skill healthcheck
+
+`skill_health.py` is a periodic, light check that replaces repeating a full audit.
+It is a release-preparation step. Do not call it from `generate_skill_wrappers.py`,
+`validate_skills.py`, or a CI workflow. It uses the standard library only and
+writes nothing except through `record`.
+
+```bash
+python scripts/skill_health.py due
+python scripts/skill_health.py check [--format json] [--strict] [--today YYYY-MM-DD]
+python scripts/skill_health.py record --kind full-audit|delta-review \
+    [--reference TEXT] [--open-item TEXT ...] [--notes TEXT] \
+    [--version X.Y.Z] [--commit SHA] [--date YYYY-MM-DD] [--dry-run]
+```
+
+`--repo-root` and `--ledger` (default `docs/skill-health.json`) apply to all three.
+
+### When a healthcheck is due
+
+Run `due` while preparing a release, before generation. It prints the committed
+version, the version already prepared in the working tree, the bump a real
+generation run would apply (the `--dry-run` projection), the next release version,
+the major recorded at the last healthcheck, and `DUE` or `NOT DUE`.
+
+It is due when the next release's major is at least the recorded major plus
+`settings.interval_majors` (3). Only majors count, and the comparison uses the
+recorded major, never a modulo of the version number, so a late check moves the
+next one. The next release version is the highest of the working-tree version, any
+prepared version, and the projected version. With no baseline recorded, `due`
+reports `DUE`, because no check has ever been recorded. A major bump happens
+whenever a release adds a file, so expect a check about every three such releases.
+
+### Metrics
+
+`check` computes these from the canonical sources and the ledger baseline, prints
+findings as text or JSON, and never edits a skill:
+
+| Metric | Finding |
+| --- | --- |
+| `body-size`, `body-growth` | A `SKILL.md` body over the ceiling (error), or grown past `body_growth_words` since the baseline (warn). The ceiling is `settings.body_word_ceiling`, or `MAX_SKILL_BODY_WORDS` when that is null. |
+| `routing-budget`, `description-length` | Routing metadata over the 10,000-character budget (error), or a description over `description_max_chars` (warn). |
+| `shared-sentence` | A sentence of at least 60 normalized characters shared verbatim by two or more skills. New groups are warnings once a baseline exists; without one they are info. Files named in `duplicate_allowlist_files` (the memory contract) and licence files are skipped. |
+| `orphan-reference` | A file under `references/` that no `SKILL.md` or reference links to or names by path. |
+| `bare-script-path` | `python scripts/...` in skill markdown, which resolves against the user's project. Skills in `bare_script_allowlist_skills` are skipped. |
+| `version-milestone` | Text such as "planned for removal in v30" or "through v29" whose version is at or below the next major. |
+| `stale-skill-name` | A backticked name in `SKILL.md` that is in `retired_skill_names`, or that is built from skill-name words but is not a canonical skill, in a routing sentence. |
+| `stale-fact` | An "as of", "verified on", or "checked on" date older than `stale_fact_days`. |
+| `near-duplicate` | File pairs from different skills whose 6-gram shingles overlap by `near_duplicate_containment` or more. New pairs are warnings once a baseline exists. |
+| `yaml-outlier` | An `agents/openai.yaml` key used by at most `yaml_outlier_fraction` of the skills. |
+| `summary-drift` | A description that changed since the baseline while `short_description` and the README summary did not. |
+
+`check` also prints the delta review scope: the skills whose canonical files
+changed since the last-check commit (committed, uncommitted, and untracked), and
+the neighbours those skills name. Without a recorded commit it says the scope is
+unavailable. Without a baseline, comparisons against it are skipped and the
+growth, shared-sentence, and near-duplicate lists are informational. `--strict`
+exits 1 while any error or warn finding remains; otherwise `check` exits 0.
+
+### Delta review
+
+When `due` reports `DUE`:
+
+1. Run `check` and handle or note each finding.
+2. Review only the skills in the delta scope: the changed skills plus the
+   neighbours named in their routing sections. Read the changed hunks
+   (`git diff <last-check-commit> -- agent-plugins/skills/<skill>`), not the whole
+   tree. Stay within one agent and the `AGENTS.md` step budget.
+3. Look for the defect classes the full audit found:
+   - a skill contradicting a neighbour's routing or contract;
+   - a term, ID, status, or mode used but not defined in that skill;
+   - numeric defaults that cannot both hold;
+   - a rule stated more than once, or copied into a sibling;
+   - a description that no longer matches its body, or overlaps a neighbour's trigger;
+   - a procedure out of step with repository tooling;
+   - vendor, host, or project-specific residue.
+4. Fix small findings in the same release when authorized, and list the rest as
+   open items.
+5. Run `record` once the findings are handled. Run it after generation so the
+   baseline describes the tree being released.
+
+A full audit is needed only when the delta review shows drift across several
+families, or the owner asks for one. Record it with `--kind full-audit` and a
+`--reference` naming the audit.
+
+### Ledger
+
+`docs/skill-health.json` is tracked and sits outside the generated trees, so
+changing it does not bump the plugin version.
+
+| Key | Meaning |
+| --- | --- |
+| `settings` | `interval_majors` and the thresholds above. Edit these to change the policy; keys left out use the defaults. |
+| `last_check` | `version`, `major`, `commit`, `dirty` (whether the working tree had uncommitted changes), `date`, `kind` (`full-audit` or `delta-review`), `reference`, and `notes`. `null` until the first `record`. |
+| `baseline` | Per-skill body words, description and summary hashes, the routing total, the shared-sentence group keys, and the near-duplicate pairs. `null` until the first `record`. |
+| `open_items` | Findings left open at the last check. Each `record` replaces the list with its `--open-item` values. |
+| `history` | The previous `last_check` entries, newest last, kept to 20. |
+
+`record` defaults to the next release version, the current `HEAD`, and today's
+date. Pass `--version` or `--commit` to describe a tree that is not yet committed.
+It writes only the ledger, and `--dry-run` prints the result instead.
 
 ## Custom directory layout
 

@@ -201,11 +201,14 @@ source-specific decisions and license findings are recorded in the skill's
 
 ## Stop Slop
 
-The `stop-slop` skill is adapted from
+The former `stop-slop` skill was adapted from
 [`hardikpandya/stop-slop`](https://github.com/hardikpandya/stop-slop), by Hardik
-Pandya. The upstream work is distributed under the MIT License. Its license
-text is retained in `agent-plugins/skills/stop-slop/LICENSE` and in generated
-distribution copies.
+Pandya. The upstream work is distributed under the MIT License. The skill was
+removed in v30 and its files, including the retained license text, are no longer
+distributed. Earlier releases and the repository history still contain them under
+that license. A comparison of the removed references with `ai-detector` and
+`humanizer` found no surviving adapted passages, so no license file moved to
+either skill. Attribution does not imply endorsement.
 
 ## LLM Council
 

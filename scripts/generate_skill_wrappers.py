@@ -43,7 +43,11 @@ from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 from typing import Iterable, Iterator, Sequence
 
-GENERATOR_VERSION = "1.4.1"
+GENERATOR_VERSION = "1.5.0"
+DEFAULT_SOURCE_DIR = Path("agent-plugins/skills")
+DEFAULT_SHARED_DIR = Path("agent-plugins/shared")
+DEFAULT_CLAUDE_DIR = Path("claude/skills")
+DEFAULT_CODEX_DIR = Path("codex/skills")
 TEXT_RESOURCE_SUFFIXES = frozenset(
     {
         ".md", ".markdown", ".txt", ".py", ".yaml", ".yml", ".json", ".toml",
@@ -151,12 +155,6 @@ README_SKILL_GROUPS = (
             "wrap-agent-skill": "Inspect, adapt, and validate reusable skills in canonical sources and both platform packages.",
         },
     ),
-    (
-        "Deprecated compatibility",
-        {
-            "stop-slop": "Existing callers only, retained through v29. Use ai-detector for analysis and humanizer for edits; removal is planned for v30.",
-        },
-    ),
 )
 IGNORED_NAMES = {".DS_Store", "Thumbs.db", "__pycache__"}
 IGNORED_SUFFIXES = {".pyc", ".pyo"}
@@ -202,6 +200,17 @@ class TreeSnapshot:
     files: dict[str, str]
 
 
+@dataclass(frozen=True)
+class VersionProjection:
+    """The version bump a real generation run would apply to one platform."""
+
+    platform: str
+    bump: str | None
+    current: str | None
+    projected: str | None
+    error: str | None = None
+
+
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
@@ -224,25 +233,25 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--source-dir",
         type=Path,
-        default=Path("agent-plugins/skills"),
+        default=DEFAULT_SOURCE_DIR,
         help="Canonical skills directory, relative to --repo-root by default.",
     )
     parser.add_argument(
         "--shared-dir",
         type=Path,
-        default=Path("agent-plugins/shared"),
+        default=DEFAULT_SHARED_DIR,
         help="Canonical shared-resource directory, relative to --repo-root by default.",
     )
     parser.add_argument(
         "--claude-dir",
         type=Path,
-        default=Path("claude/skills"),
+        default=DEFAULT_CLAUDE_DIR,
         help="Generated Claude skills directory.",
     )
     parser.add_argument(
         "--codex-dir",
         type=Path,
-        default=Path("codex/skills"),
+        default=DEFAULT_CODEX_DIR,
         help="Generated Codex skills directory.",
     )
     parser.add_argument(
@@ -259,7 +268,10 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--dry-run",
         action="store_true",
-        help="Show planned changes without writing files.",
+        help=(
+            "Show planned changes and the projected plugin version bump "
+            "without writing files."
+        ),
     )
     parser.add_argument(
         "--clean",
@@ -776,22 +788,47 @@ def replace_directory(expected: Path, target: Path, force: bool) -> str:
     return "updated"
 
 
-def selected_platforms(args: argparse.Namespace, repo_root: Path) -> list[PlatformTarget]:
+def platform_targets(
+    repo_root: Path, claude_dir: Path, codex_dir: Path, selection: str
+) -> list[PlatformTarget]:
     targets = {
         "claude": PlatformTarget(
             key="claude",
             label="Claude Code",
-            root=resolve_under_repo(repo_root, args.claude_dir),
+            root=resolve_under_repo(repo_root, claude_dir),
         ),
         "codex": PlatformTarget(
             key="codex",
             label="Codex",
-            root=resolve_under_repo(repo_root, args.codex_dir),
+            root=resolve_under_repo(repo_root, codex_dir),
         ),
     }
-    if args.platform == "all":
+    if selection == "all":
         return [targets["claude"], targets["codex"]]
-    return [targets[args.platform]]
+    return [targets[selection]]
+
+
+def selected_platforms(args: argparse.Namespace, repo_root: Path) -> list[PlatformTarget]:
+    return platform_targets(
+        repo_root, args.claude_dir, args.codex_dir, args.platform
+    )
+
+
+def find_stale_generated_directories(
+    source_names: set[str], platform: PlatformTarget
+) -> list[Path]:
+    """Return generated skill directories whose canonical source is gone."""
+    if not platform.root.is_dir():
+        return []
+    return [
+        candidate
+        for candidate in sorted(
+            platform.root.iterdir(), key=lambda path: path.name.casefold()
+        )
+        if candidate.is_dir()
+        and candidate.name not in source_names
+        and is_generated_directory(candidate)
+    ]
 
 
 def remove_stale_generated_skills(
@@ -804,14 +841,7 @@ def remove_stale_generated_skills(
 ) -> int:
     stale_count = 0
     for platform in platforms:
-        if not platform.root.is_dir():
-            continue
-        for candidate in sorted(platform.root.iterdir(), key=lambda path: path.name.casefold()):
-            if not candidate.is_dir() or candidate.name in source_names:
-                continue
-            if not is_generated_directory(candidate):
-                continue
-
+        for candidate in find_stale_generated_directories(source_names, platform):
             stale_count += 1
             action = "STALE" if check else "REMOVE"
             if not quiet:
@@ -915,11 +945,6 @@ def render_repo_readme(repo_root: Path, skills: Sequence[SourceSkill]) -> str:
             "A direct `ai-detector` request includes the ChatGPT detector service unless you "
             "request local-only analysis. Internal workflow checks stay local. "
             "Neither result establishes authorship.\n\n"
-        )
-    if "stop-slop" in skill_names:
-        boundary_section += (
-            "`stop-slop` is a compatibility entry for existing callers through v29. "
-            "Use `ai-detector` or `humanizer` in new workflows; removal is planned for v30.\n\n"
         )
 
     guide_source_lines = []
@@ -1129,21 +1154,9 @@ def bump_plugin_manifest(
     bump: str,
     build_timestamp: str,
 ) -> str:
-    manifest_path = repo_root / f".{platform.key}-plugin" / "plugin.json"
-    if not manifest_path.is_file():
-        raise GenerationError(
-            f"Cannot bump {platform.key} plugin version; manifest is missing: "
-            f"{manifest_path}"
-        )
-
-    try:
-        manifest = json.loads(manifest_path.read_text(encoding="utf-8-sig"))
-    except json.JSONDecodeError as exc:
-        raise GenerationError(f"Invalid JSON in {manifest_path}: {exc}") from exc
-
-    current_version = manifest.get("version")
-    if not isinstance(current_version, str):
-        raise GenerationError(f"Missing string version in {manifest_path}")
+    manifest_path, manifest, current_version = read_plugin_manifest(
+        repo_root, platform
+    )
     if not re.fullmatch(r"\d{14}", build_timestamp):
         raise GenerationError(
             f"Invalid UTC build timestamp {build_timestamp!r}; expected YYYYMMDDHHMMSS"
@@ -1160,6 +1173,148 @@ def bump_plugin_manifest(
         newline="\n",
     )
     return next_version
+
+
+def read_plugin_manifest(
+    repo_root: Path, platform: PlatformTarget
+) -> tuple[Path, dict, str]:
+    manifest_path = repo_root / f".{platform.key}-plugin" / "plugin.json"
+    if not manifest_path.is_file():
+        raise GenerationError(
+            f"Cannot bump {platform.key} plugin version; manifest is missing: "
+            f"{manifest_path}"
+        )
+
+    try:
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8-sig"))
+    except json.JSONDecodeError as exc:
+        raise GenerationError(f"Invalid JSON in {manifest_path}: {exc}") from exc
+
+    current_version = manifest.get("version")
+    if not isinstance(current_version, str):
+        raise GenerationError(f"Missing string version in {manifest_path}")
+    return manifest_path, manifest, current_version
+
+
+def project_tree_snapshot(
+    before: TreeSnapshot,
+    expected_by_skill: dict[str, TreeSnapshot],
+    removed_skills: Iterable[str] = (),
+) -> TreeSnapshot:
+    """Return the snapshot a platform tree would have after real generation.
+
+    Each processed skill directory is replaced by its expected tree, and each
+    stale directory is removed, exactly as ``replace_directory`` and
+    ``remove_stale_generated_skills`` do. Nothing is written.
+    """
+    files = dict(before.files)
+    for name in set(expected_by_skill) | set(removed_skills):
+        prefix = f"{name}/"
+        for relative in [key for key in files if key.startswith(prefix)]:
+            del files[relative]
+    for name, snapshot in expected_by_skill.items():
+        for relative, digest in snapshot.files.items():
+            files[f"{name}/{relative}"] = digest
+    return TreeSnapshot(files=dict(sorted(files.items())))
+
+
+def build_version_projections(
+    repo_root: Path,
+    platforms: Sequence[PlatformTarget],
+    before: dict[str, TreeSnapshot],
+    expected: dict[str, dict[str, TreeSnapshot]],
+    stale: dict[str, list[str]],
+) -> list[VersionProjection]:
+    """Project each platform's bump with the comparison the real run uses."""
+    projections: list[VersionProjection] = []
+    for platform in platforms:
+        after = project_tree_snapshot(
+            before[platform.key], expected[platform.key], stale[platform.key]
+        )
+        bump = compare_snapshots(before[platform.key], after)
+        try:
+            manifest_path, _manifest, current = read_plugin_manifest(
+                repo_root, platform
+            )
+            projected = (
+                version_core(bump_version(current, bump, manifest_path), manifest_path)
+                if bump
+                else None
+            )
+        except GenerationError as exc:
+            projections.append(
+                VersionProjection(platform.key, bump, None, None, str(exc))
+            )
+            continue
+        projections.append(VersionProjection(platform.key, bump, current, projected))
+    return projections
+
+
+def project_release(
+    repo_root: Path,
+    *,
+    platform: str = "all",
+    clean: bool = True,
+    source_dir: Path = DEFAULT_SOURCE_DIR,
+    shared_dir: Path = DEFAULT_SHARED_DIR,
+    claude_dir: Path = DEFAULT_CLAUDE_DIR,
+    codex_dir: Path = DEFAULT_CODEX_DIR,
+) -> list[VersionProjection]:
+    """Project the version bump of a full generation run without writing anything.
+
+    This generates every skill into a temporary directory and applies the same
+    snapshot comparison as ``run``, so the projection cannot disagree with it.
+    """
+    repo_root = repo_root.resolve()
+    source_root = resolve_under_repo(repo_root, source_dir)
+    shared_root = resolve_under_repo(repo_root, shared_dir)
+    platforms = platform_targets(repo_root, claude_dir, codex_dir, platform)
+    skills = discover_skills(source_root, [])
+    names = {skill.name for skill in skills}
+    before = {item.key: snapshot_tree(item.root) for item in platforms}
+    expected: dict[str, dict[str, TreeSnapshot]] = {
+        item.key: {} for item in platforms
+    }
+    with tempfile.TemporaryDirectory(prefix="skill-projection-") as temporary:
+        for skill in skills:
+            for item in platforms:
+                destination = Path(temporary) / item.key / skill.name
+                write_generated_tree(
+                    source=skill,
+                    platform=item,
+                    source_root=source_root,
+                    shared_root=shared_root,
+                    repo_root=repo_root,
+                    destination=destination,
+                )
+                expected[item.key][skill.name] = snapshot_tree(destination)
+    stale = {
+        item.key: (
+            [path.name for path in find_stale_generated_directories(names, item)]
+            if clean
+            else []
+        )
+        for item in platforms
+    }
+    return build_version_projections(repo_root, platforms, before, expected, stale)
+
+
+def format_version_projection(
+    projections: Sequence[VersionProjection], *, suppressed: bool = False
+) -> str:
+    parts = []
+    for item in projections:
+        if item.error:
+            parts.append(f"{item.platform} unavailable ({item.error})")
+        elif item.bump:
+            current = (item.current or "").split("+", 1)[0]
+            parts.append(f"{item.platform} {item.bump} {current} -> {item.projected}")
+        else:
+            parts.append(f"{item.platform} unchanged")
+    text = "Projected version: " + "; ".join(parts) + "."
+    if suppressed and any(item.bump for item in projections):
+        text += " --no-version-bump would suppress the increment."
+    return text
 
 
 def run(argv: Sequence[str] | None = None) -> int:
@@ -1199,6 +1354,9 @@ def run(argv: Sequence[str] | None = None) -> int:
 
         drift_count = 0
         changed_count = 0
+        projected_expected: dict[str, dict[str, TreeSnapshot]] = {
+            platform.key: {} for platform in platforms
+        }
 
         with tempfile.TemporaryDirectory(prefix="skill-wrappers-") as temporary:
             temporary_root = Path(temporary)
@@ -1216,6 +1374,10 @@ def run(argv: Sequence[str] | None = None) -> int:
                     )
                     target = platform.root / skill.name
                     differences = compare_trees(expected, target)
+                    if args.dry_run:
+                        projected_expected[platform.key][skill.name] = snapshot_tree(
+                            expected
+                        )
 
                     if args.check:
                         if differences:
@@ -1294,6 +1456,31 @@ def run(argv: Sequence[str] | None = None) -> int:
             dry_run=args.dry_run,
         )
 
+        projection_text = ""
+        if args.dry_run:
+            projection_text = format_version_projection(
+                build_version_projections(
+                    repo_root,
+                    platforms,
+                    platform_snapshots_before,
+                    projected_expected,
+                    {
+                        platform.key: (
+                            [
+                                path.name
+                                for path in find_stale_generated_directories(
+                                    all_source_names, platform
+                                )
+                            ]
+                            if args.clean
+                            else []
+                        )
+                        for platform in platforms
+                    },
+                ),
+                suppressed=args.no_version_bump,
+            )
+
         verb = "would be updated" if args.dry_run else "updated"
         stale_verb = "would be removed" if args.dry_run else "removed"
         readme_verb = "would be updated" if args.dry_run else "updated"
@@ -1306,6 +1493,8 @@ def run(argv: Sequence[str] | None = None) -> int:
             summary += " Version bumps: " + "; ".join(version_bumps) + "."
         elif args.no_version_bump and changed_count:
             summary += " Plugin version bumps were suppressed."
+        if projection_text:
+            summary += " " + projection_text
         print(summary)
         return 0
 

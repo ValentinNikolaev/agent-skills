@@ -42,9 +42,10 @@ punctuation choices, and assessment procedures remain project-owned.
 voice, with removing an AI-generated impression as its primary objective.
 Voice preservation constrains that edit. The locally authored `ai-detector`
 skill owns analysis and external-check mechanics extracted from the former
-humanizer benchmark reference. It also replaces `stop-slop` for targeted English
-analysis. Targeted edits belong to `humanizer`. The deprecated `stop-slop` entry
-only routes old invocations to these skills and is planned for removal in v30.
+humanizer benchmark reference. It also replaced `stop-slop` for targeted English
+analysis. Targeted edits belong to `humanizer`. The `stop-slop` entry only routed
+old invocations to these skills and was removed in v30; no text from it was
+carried into either skill.
 An ordinary prose edit does not require another skill or an external check.
 
 The user also requested council-based editing decisions. One bounded session

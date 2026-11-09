@@ -22,6 +22,29 @@ def run_git(args: Sequence[str], *, check: bool = True) -> str:
     return result.stdout.strip()
 
 
+REMOVED_SKILL_REPLACEMENTS = {
+    "stop-slop": (
+        "Use `ai-detector` for prose analysis and `humanizer` for edits. "
+        "See `docs/stop-slop-removal.md`."
+    ),
+}
+
+
+def removed_skills(changes: Sequence[tuple[str, str]]) -> list[str]:
+    """Return canonical skills whose SKILL.md was deleted in this comparison."""
+    prefix = "agent-plugins/skills/"
+    return sorted(
+        {
+            name
+            for status, path in changes
+            if status.startswith("D")
+            and path.endswith("/SKILL.md")
+            and path.count("/") == 3
+            and (name := skill_name_from_path(path, prefix))
+        }
+    )
+
+
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--platform", choices=("claude", "codex", "all"), required=True)
@@ -147,6 +170,15 @@ def render_notes(platform: str, version: str, target: str) -> str:
         lines.append("No previous platform release tag was found, so this compares with the previous commit.")
 
     lines.extend(["", "## Skills", ""])
+    removed = removed_skills(changes)
+    if removed:
+        lines.append("Removed skills:")
+        for skill in removed:
+            replacement = REMOVED_SKILL_REPLACEMENTS.get(
+                skill, "No replacement is recorded."
+            )
+            lines.append(f"- `{skill}`: {replacement}")
+        lines.append("")
     if canonical_skills:
         lines.append("Canonical skill changes:")
         lines.extend(f"- `{skill}`" for skill in canonical_skills)

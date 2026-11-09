@@ -27,6 +27,12 @@ REQUIRED_ACTIVATION_CATEGORIES = {
     "overlap",
 }
 MEMORY_SKILLS = ("audit-memory", "create-memory", "ingest-memory", "update-memory")
+# Ratchet for SKILL.md body size. The line cap below misses files made of very
+# long lines, and every trigger loads the whole body. Set it just above the
+# largest body, then lower it after a trim; raise it only with a recorded reason.
+MAX_SKILL_BODY_WORDS = 4400
+MAX_SKILL_BODY_LINES = 500
+ROUTING_METADATA_BUDGET = 10000
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
@@ -278,8 +284,17 @@ def validate_skill(skill: wrappers.SourceSkill) -> list[str]:
             f"{prefix}/SKILL.md: description should be 40-1024 characters "
             f"(found {len(description)})"
         )
-    if len(skill.body.splitlines()) > 500:
-        errors.append(f"{prefix}/SKILL.md: body exceeds the 500-line guidance")
+    if len(skill.body.splitlines()) > MAX_SKILL_BODY_LINES:
+        errors.append(
+            f"{prefix}/SKILL.md: body exceeds the {MAX_SKILL_BODY_LINES}-line guidance"
+        )
+    body_words = len(skill.body.split())
+    if body_words > MAX_SKILL_BODY_WORDS:
+        errors.append(
+            f"{prefix}/SKILL.md: body has {body_words} words, over the "
+            f"{MAX_SKILL_BODY_WORDS}-word ceiling; move detail into references/ "
+            "or remove repeated rules"
+        )
     if (skill.directory / "README.md").exists():
         errors.append(f"{prefix}/README.md: extraneous skill-local README")
 
@@ -419,10 +434,10 @@ def validate_repository(repo_root: Path) -> list[str]:
     routing_budget = sum(
         len(skill.name) + len(skill.description or "") for skill in skills
     )
-    if routing_budget > 10000:
+    if routing_budget > ROUTING_METADATA_BUDGET:
         errors.append(
-            "canonical routing metadata exceeds the 10,000-character catalog budget "
-            f"({routing_budget})"
+            "canonical routing metadata exceeds the "
+            f"{ROUTING_METADATA_BUDGET:,}-character catalog budget ({routing_budget})"
         )
 
     errors.extend(validate_memory_family(source_root))
@@ -430,7 +445,6 @@ def validate_repository(repo_root: Path) -> list[str]:
     for required_notice in (
         repo_root / "THIRD_PARTY_NOTICES.md",
         source_root / "code-review" / "LICENSE.addyosmani-agent-skills",
-        source_root / "stop-slop" / "LICENSE",
     ):
         if not required_notice.is_file():
             errors.append(
