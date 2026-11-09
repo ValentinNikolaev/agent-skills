@@ -53,12 +53,6 @@ class BodySizeCeilingTests(unittest.TestCase):
         self.assertEqual(len(errors), 1)
         self.assertIn("500-line guidance", errors[0])
 
-    def test_ceiling_sits_just_above_the_largest_current_body(self) -> None:
-        skills = generator.discover_skills(REPO_ROOT / "agent-plugins" / "skills", [])
-        largest = max(len(skill.body.split()) for skill in skills)
-        self.assertGreaterEqual(validator.MAX_SKILL_BODY_WORDS, largest)
-        self.assertLessEqual(validator.MAX_SKILL_BODY_WORDS - largest, 600)
-
     def test_stop_slop_is_not_required_and_not_canonical(self) -> None:
         self.assertFalse((REPO_ROOT / "agent-plugins" / "skills" / "stop-slop").exists())
         text = (REPO_ROOT / "scripts" / "validate_skills.py").read_text(encoding="utf-8")

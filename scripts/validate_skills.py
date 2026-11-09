@@ -30,7 +30,7 @@ MEMORY_SKILLS = ("audit-memory", "create-memory", "ingest-memory", "update-memor
 # Ratchet for SKILL.md body size. The line cap below misses files made of very
 # long lines, and every trigger loads the whole body. Set it just above the
 # largest body, then lower it after a trim; raise it only with a recorded reason.
-MAX_SKILL_BODY_WORDS = 4400
+MAX_SKILL_BODY_WORDS = 4200
 MAX_SKILL_BODY_LINES = 500
 ROUTING_METADATA_BUDGET = 10000
 
