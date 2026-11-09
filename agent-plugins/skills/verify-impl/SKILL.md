@@ -30,9 +30,9 @@ Record one status per requirement:
 | --- | --- |
 | `PASS` | Evidence shows the required behavior or contract. |
 | `PARTIAL` | Some required aspects are present; others are not. |
-| `DRIFT` | The implementation differs in a behaviorally meaningful way. |
+| `DRIFT` | The behavior differs from what the spec describes, in a way the quoted wording does not forbid: a different default, scope, ordering, or mechanism with observable effect. |
 | `MISSING` | A bounded search found no implementation of a required behavior. |
-| `CONFLICT` | Observed behavior contradicts the requirement. |
+| `CONFLICT` | The behavior violates the quoted wording itself; a test written from the quote would fail. |
 | `UNVERIFIED` | Available code, runtime access, or evidence cannot settle the question. |
 
 For each non-`PASS` result, cite the spec quote, the current code or test evidence, the scenario affected, and the smallest correction or verification step. Use `MISSING` only after a documented search of plausible implementation paths. A passing test supports `PASS` only when its assertions cover the actual obligation. Do not invent a confidence percentage.
@@ -43,4 +43,4 @@ Check cross-cutting contracts only when the spec imposes them: dependency direct
 
 ## Report
 
-Return the spec identity, implementation scope, evidence limits, and a compact requirement matrix: ID, short requirement, spec location, implementation evidence, status, and impact. Group actionable discrepancies by priority and give one verdict: `CONFORMS` (all applicable obligations supported), `DEVIATES` (confirmed material gap), or `INDETERMINATE` (essential evidence or authority is unresolved). A limited audit must say which requirements were not checked; never imply exhaustive coverage from a sampled matrix.
+Return the spec identity, implementation scope, evidence limits, and a compact requirement matrix: ID, short requirement, spec location, implementation evidence, status, and impact. Group actionable discrepancies by priority: `P0` immediate safety, security, or irreversible-loss gap; `P1` gap in a `must` that makes the feature incorrect or unsafe; `P2` gap in a `should` or a limited-impact deviation; `P3` minor mismatch. Give one verdict: `CONFORMS` (all applicable obligations supported), `DEVIATES` (confirmed material gap), or `INDETERMINATE` (essential evidence or authority is unresolved). A limited audit must say which requirements were not checked; never imply exhaustive coverage from a sampled matrix.

@@ -10,7 +10,6 @@ Inspect all review feedback, preserve non-actionable items in the report, apply 
 ## Route exclusively
 
 - Use this skill only when the user asks to address feedback already attached to a GitHub pull request.
-- Use `plan-review` when the primary artifact is an implementation plan, including a revision during ongoing work.
 - Use `code-review` for a fresh read-only review of code or a pull-request diff.
 - If the user supplies a local review report rather than GitHub feedback, use ordinary implementation workflow for the requested findings. Clarify only when the intended selection is ambiguous.
 
@@ -27,7 +26,7 @@ Accept PR references as a canonical pull-request URL, a URL ending in `/files`, 
 
 ## Fetch complete review data
 
-Prefer `scripts/read_pr_review.py` when the GitHub CLI is authenticated. It uses fixed read-only GraphQL queries, follows pagination for reviews, issue comments, review threads, and thread comments, and exposes no mutation option. A connected provider is acceptable only when it returns equivalent pagination and thread state.
+Prefer the bundled `read_pr_review.py` when the GitHub CLI is authenticated. Resolve `<skill-dir>` to the directory containing this `SKILL.md`, then run `python "<skill-dir>/scripts/read_pr_review.py"`. It uses fixed read-only GraphQL queries, follows pagination for reviews, issue comments, review threads, and thread comments, and exposes no mutation option. A connected provider is acceptable only when it returns equivalent pagination and thread state.
 
 Collect:
 
@@ -46,8 +45,6 @@ Compare local `git rev-parse HEAD` with the provider's `headRefOid` before editi
 - If they match, continue.
 - If they differ, report both OIDs and fetch the exact PR head into a safe isolated checkout before editing. Follow the state-protection rules above; do not merge, rebase, or force-update unrelated work.
 - Compare OIDs again and record the new baseline. If the exact head cannot be obtained safely, report the blocker rather than editing a stale approximation.
-
-Do not apply feedback to a stale approximation of the PR branch.
 
 ## Classify every item
 

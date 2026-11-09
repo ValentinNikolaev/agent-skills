@@ -27,4 +27,4 @@ When a required job failed, classify the observed cause from its logs: determini
 
 ## Report
 
-Return run identity and attempt, observed state, required-job matrix, relevant log or artifact evidence, any action taken, and remaining uncertainty. Say `SUCCESS` only for the specific requested condition that was observed. Say `INCOMPLETE` when a required job skipped or an expected artifact is absent, even if the provider's aggregate conclusion is green. Do not claim deployment succeeded solely from build success.
+Return run identity and attempt, observed state, required-job matrix, relevant log or artifact evidence, any action taken, and remaining uncertainty. Name one outcome. `SUCCESS`: the specific requested condition was observed. `FAILED`: a required job concluded `failure`, `cancelled`, or timed out; give its classified cause. `IN_PROGRESS`: the named run is still active when the wait ends; a timeout is not a failure. `INCOMPLETE`: a required job skipped or an expected artifact is absent, even if the provider's aggregate conclusion is green. Do not claim deployment succeeded solely from build success.

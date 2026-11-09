@@ -12,7 +12,7 @@ Assess whether a green test, build, CI job, smoke check, or rehearsal supports t
 - Use when the user asks whether a passing check is trustworthy, when a check may have skipped its subject, or when a regression test is being offered as proof of a fix.
 - Use `code-review` for a diff-wide defect review; it may use one bounded negative control without invoking this full workflow.
 - Use `monitor-ci` to follow a running GitHub Actions job to completion. Use this skill afterward only if the user asks whether the green outcome actually proves a behavior.
-- Do not use for a zero-result search or to write tests from scratch.
+- Do not use to judge whether a search that returned no matches proves absence, or to write tests from scratch.
 
 ## Identify the claim and signal
 

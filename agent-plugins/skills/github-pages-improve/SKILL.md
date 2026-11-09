@@ -1,6 +1,6 @@
 ---
 name: github-pages-improve
-description: Propose GitHub Pages improvements before the user selects changes, then coordinate their implementation. Use for an explicitly staged workflow and resuming approved GP- IDs.
+description: Propose GitHub Pages improvements for approval before any edits, then coordinate the approved changes. Use for an explicitly staged workflow and for resuming approved GP- IDs; immediate changes go to github-pages-create.
 ---
 
 # GitHub Pages: Improve
