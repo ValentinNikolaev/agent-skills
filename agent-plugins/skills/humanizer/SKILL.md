@@ -14,17 +14,18 @@ Humanizing does not require a more casual, warmer, punchier, shorter, or more
 opinionated voice.
 
 Make the editorial decisions and necessary changes yourself first, then check
-meaning and voice. `humanizer` owns editing, while the available `ai-detector`
-skill owns detector analysis and external-check procedures. An ordinary edit
-does not require that skill or an external service. In an edit-then-check task,
-finish the local edit before handing that exact version to the detector.
+meaning and voice. `humanizer` owns editing; the available `ai-detector` skill
+owns detector analysis, external-check procedures, and skill-tuning evidence. An
+ordinary edit needs no detector, upload, or detector disclaimer. In an
+edit-then-check task, finish the local edit before handing that exact version to
+the detector.
 
 ## Establish the editing contract
 
-Capture available host start/end time and cheap authorized usage snapshots around
-the pass. Keep unavailable metrics unknown. Retain exact version/brief references
-only in an already-authorized report or handoff; preserve text-only output and
-do not create a journal or upload text for measurement.
+Record timing and usage as [the run contract](../review-retrospective/references/run-contract.md#capture-records)
+describes. Retain exact version/brief references only in an already-authorized
+report or handoff; preserve text-only output and do not create a journal or
+upload text for measurement.
 
 - Identify the target passage, language, audience, genre, and requested operation.
   Rewrite pasted text by default. A request to review a file authorizes findings,
@@ -48,8 +49,7 @@ guidance decides how this person sounds. Humanizer identifies wording that gets
 in the way of that voice. If a generic editing heuristic conflicts with the
 established voice or genre, keep the established choice.
 
-For a project with a guide such as `social-voice.md`, read its active core and
-follow its routes. Preserve its language calibration, punctuation preferences,
+For a project with a voice guide, read its active core and follow its routes. Preserve its language calibration, punctuation preferences,
 humour boundaries, evidence rules, and exact-copy delivery checks. This skill
 does not replace required research, contribution selection, editorial assessment,
 or publication authorization. If an edit changes substance, return to the owning
@@ -116,11 +116,10 @@ fragments or repeated wording with a real function can stay. Preserve the
 reasoning and useful detail that earn the conclusion. A short text needs no
 extra argument; an analytical passage need not become a short reaction.
 
-Repeated stance can do useful work. Replacing a second `I'd want` with `must`
-or `should` merely for variety strengthens the claim. Replacing an unspecified
-actor with `we` assigns responsibility. Keep the original when that is the only
-benefit, and repair any separate clarity issue on its own merits. See the
-[scoped-judgement example](references/examples.md#keep-stance-while-fixing-precision).
+Repeated stance can do useful work. Turning a scoped judgement into an
+obligation, or an unspecified actor into `we`, merely for variety changes the
+claim; keep the original and repair any separate clarity issue on its own merits.
+See the [scoped-judgement example](references/examples.md#keep-stance-while-fixing-precision).
 
 Patterns are clues to an editing problem, not proof of authorship or automatic
 bans. Keep intentional formality, dialect, non-native phrasing that carries the
@@ -155,19 +154,19 @@ a grammatical error. See the [calendar example and counterexamples](references/e
 
 For an ordinary chat, email or other draft with a clear voice and meaning, use
 a local pass: identify the concrete friction, make the smallest useful edit,
-and complete the original/voice checks below. Keep natural text unchanged. Do
-not add agents, an external detector or a full rewrite merely because this
-skill was invoked.
+and complete the original/voice checks below. Do not add agents or a full
+rewrite merely because this skill was invoked.
 
 Use a council when the user requests it, the owning workflow requires it, or
 substantive restructuring leaves a material voice or meaning tradeoff unresolved.
-Use the linked procedure for that review. A local wording fix alone does not
-trigger a council. Existing project assessment gates still apply to the final copy.
-Complete local edits before the owning workflow's exact-final-copy assessment;
-include unresolved wording choices there rather than adding a separate review.
-Later substantive changes follow that workflow's reassessment rules.
-
-Read [the editing council procedure](references/council.md) only when that review is needed. Reuse the owning workflow's advisors and assessment stages; do not convene a duplicate team.
+A local wording fix alone does not trigger a council. Read
+[the editing council procedure](references/council.md) only when that review is
+needed, and reuse the owning workflow's advisors and assessment stages; do not
+convene a duplicate team. Existing project assessment gates still apply to the
+final copy. Complete local edits before the owning workflow's exact-final-copy
+assessment; include unresolved wording choices there rather than adding a
+separate review. Later substantive changes follow that workflow's reassessment
+rules.
 
 ## Check once against the original
 
@@ -200,31 +199,24 @@ material meaning and tone issues. An overall approval does not establish that
 every phrase is the best available wording.
 
 For rewrites, return the usable text first, with a short note only for a material
-ambiguity, limitation, or requested explanation. If no edit helps, return the text
-unchanged. For reviews, give located excerpts, explain their effect, and suggest
+ambiguity, limitation, or requested explanation. For reviews, give located excerpts, explain their effect, and suggest
 targeted changes without rewriting the document. For file edits, summarize the
 scope and verification. Preserve a request for text only.
 
-This is prose editing, not authorship classification. Do not assign AI
-probabilities or promise a detector bypass. Keep detector results and skill-tuning
-evidence under `ai-detector` rather than duplicating its protocol here. Use its
-actionable findings as editing input, preserving rejected suggestions and useful
-keep decisions. Ordinary editing requires no upload and no detector disclaimer.
+Do not assign AI probabilities or promise a detector bypass. Use `ai-detector`
+findings, when supplied, as editing input, preserving rejected suggestions and
+useful keep decisions.
 
 ## Learn from completed passes
 
 For new verified feedback, repeated editing friction, or a material cost signal,
 use [the prose retrospective](../ai-detector/references/prose-retrospective.md)
-once with existing evidence. It reuses `review-retrospective` for bounded learning
-and model decisions. Distinguish meaning/voice drift, unnecessary edits, ignored
-guidance, and local preference. Inspect a detector pass only if actually invoked
-on that version; ordinary humanizing does not acquire a detector requirement.
-When feedback identifies a skill defect and maintenance is authorized, follow
-the existing [improvement loop](../ai-detector/references/improvement-loop.md)
-through the scoped correction and verification, rather than stopping at a
-retrospective explanation. Keep project voice authoritative and propose a general
-skill PR only when the evidence supports one. Omit empty learning sections and
-suppressed suggestions.
+once with existing evidence. When feedback identifies a skill defect and
+maintenance is authorized, follow the existing
+[improvement loop](../ai-detector/references/improvement-loop.md) through the
+scoped correction and verification, rather than stopping at a retrospective
+explanation. Keep project voice authoritative and propose a general skill PR
+only when the evidence supports one.
 
 ## Provenance
 
@@ -232,5 +224,4 @@ This is a substantially rewritten adaptation of selected MIT-licensed guidance.
 Read [source decisions and licenses](references/sources.md) for maintenance or
 attribution work, not for every rewrite. No upstream scripts or services are required.
 For research-based editing requests or maintenance, read
-[research transfers and their limits](references/research-transfer.md). These
-studies inform contextual questions; their statistics are not editing targets.
+[research transfers and their limits](references/research-transfer.md).

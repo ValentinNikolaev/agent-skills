@@ -149,7 +149,9 @@ Source excerpts from an engineering comment:
 
 The repeated stance keeps both requests scoped to the writer's judgement.
 Replacing the second occurrence with `That decision must be explicit` would
-make the requirement stronger. `Show its working` is ordinary British English,
+make the requirement stronger. In the same way, replacing an unspecified actor
+with `we` assigns responsibility to a group the source did not name; keep the
+original actor unless the source supplies one. `Show its working` is ordinary British English,
 not an idiom to remove merely because a plainer alternative exists.
 
 A separate phrase in the same passage, `shortened the request`, can mean a
