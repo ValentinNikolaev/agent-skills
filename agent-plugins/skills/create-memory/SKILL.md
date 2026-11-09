@@ -1,6 +1,6 @@
 ---
 name: create-memory
-description: Bootstrap the first useful durable project-memory baseline from the current repository and its instructions when no usable memory index exists. Use for initial repository memory creation only; do not use to import an external source, record routine facts from ongoing work, audit an existing store, or replace a healthy baseline.
+description: Bootstrap the first project-memory baseline from the current repository when no usable memory index exists. Not external imports, routine updates, audits, or replacing a healthy baseline.
 ---
 
 # Create Memory
@@ -38,10 +38,10 @@ Skip temporary status, unfinished experiments, raw logs or conversations, specul
 
 ## Validate and Report
 
-Run the bundled read-only validator after writing:
+Run the bundled read-only validator after writing. Resolve `<skill-dir>` to the directory containing this `SKILL.md`, then run:
 
 ```text
-python scripts/validate_memory.py <memory-root>
+python "<skill-dir>/scripts/validate_memory.py" <memory-root>
 ```
 
 Fix only errors introduced within the approved plan, then rerun validation. Report selected roots, files created or changed, evidence used, skipped candidates, duplicate or conflict decisions, validation results, and unresolved limitations. Recommend `audit-memory` after multi-file creation.
