@@ -1,5 +1,10 @@
 # Validate learning and model changes
 
+For completed humanizer/detector runs, also use
+[the prose evaluation gates](../../ai-detector/references/prose-retrospective.md#validate-a-lesson).
+Preserved meaning/voice and reader benefit take priority over service metrics;
+keep literal external observations separate and compare the exact copies.
+
 Separate package/JSON checks from behavioral effectiveness. A helper accepting
 an assessment does not prove that a model finds the defect, and an accepted bot
 comment is not a labeled ground truth. Resolve or retain disputed evidence.

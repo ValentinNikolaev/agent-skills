@@ -83,7 +83,7 @@ Each link opens the skill's full instructions, including when to use it and how 
 ### Review and verification
 
 - [`code-review`](agent-plugins/skills/code-review/SKILL.md) — Review a diff for confirmed defects, plausible risks, and actionable test gaps, with evidence for each finding.
-- [`review-retrospective`](agent-plugins/skills/review-retrospective/SKILL.md) — Learn from completed reviews and measured cost; propose scoped project, skill, or model improvements.
+- [`review-retrospective`](agent-plugins/skills/review-retrospective/SKILL.md) — Learn from completed code or prose reviews and measured cost; propose scoped project, skill, or model improvements.
 - [`fix-pr`](agent-plugins/skills/fix-pr/SKILL.md) — Assess existing GitHub PR feedback, apply valid fixes, and verify them.
 - [`plan-review`](agent-plugins/skills/plan-review/SKILL.md) — Check whether an implementation plan is feasible, complete, and verifiable.
 - [`review-spec`](agent-plugins/skills/review-spec/SKILL.md) — Review proposed requirements for gaps, feasibility, and testability.

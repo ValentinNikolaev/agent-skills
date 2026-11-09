@@ -1,5 +1,14 @@
 # Run records and bounded preparation
 
+## Contents
+
+- [Capture records](#capture-records)
+- [Example](#example)
+- [Interpret records](#interpret-records)
+- [Prose runs](#prose-runs)
+
+## Capture records
+
 Keep a compact capsule in an already-authorized report or handoff. Without an
 artifact path, return it inline or reuse facts already present in the report.
 Do not silently create a project journal, edit memory, or export private chats.
@@ -9,6 +18,8 @@ available. Obtain usage snapshots through an available, cheap, authorized host
 status capability. If unavailable, leave them unknown without repeatedly asking
 the user or inspecting credentials. Capture optional per-stage timing as stages
 run; never reconstruct active compute time from wall time alone.
+
+## Example
 
 The helper accepts this versioned JSON shape. `null` means unknown. Artifact
 references may be paths or stable conversation/source links. Keep secrets and
@@ -52,6 +63,8 @@ private source code out of public examples.
 }
 ```
 
+## Interpret records
+
 For each run retain the input/report identity, reviewed scope and revisions,
 skill version, model/mode, outcome, coverage limits, and source capture times.
 The prepared `runs` records preserve `stage`, `scope`, `outcome`,
@@ -68,7 +81,8 @@ false entry is skipped. An unavailable report or different task is a limit, not
 permission to reconstruct an imaginary review or start a new architecture pass.
 
 Feedback kinds are `missed-defect`, `false-positive`, `severity`, `verdict`,
-`cost`, and `clean-control`. Status is `verified`, `unverified`, or `disputed`.
+`cost`, `clean-control`, `meaning-drift`, `voice-drift`, `unnecessary-edit`, and
+`submission-error`. Status is `verified`, `unverified`, or `disputed`.
 The helper validates declared status, not truth. Inspect the actual evidence.
 It sorts new cases by P0-P3, preserves their status, and reports deferred counts.
 
@@ -96,3 +110,15 @@ the original review findings or merge verdict. Use a project-authorized budget,
 name deferred work, and stop after one assessment/validation cycle. Full model
 comparisons and broad historical mining are separate bounded work, justified by
 the signal and existing authorization.
+
+## Prose runs
+
+The same version-1 envelope accepts `humanizer` and `ai-detector` runs and model
+proposals, with the existing timing, usage, idempotence, and decision semantics.
+Use [the prose record and evaluation procedure](../../ai-detector/references/prose-retrospective.md)
+for optional `prose` metadata, exact-text hashes, and the `paired` invocation.
+Prepared records preserve that metadata; `prose_checks` reports same-task pairing
+and external-submission gates separately. These validate declared metadata, not
+the artifact contents or the truth of detector feedback. Version mismatches,
+unknown identities, and invalid submissions remain visible limits. Never promote
+them as evidence about the final copy, authorship, or a model's quality.

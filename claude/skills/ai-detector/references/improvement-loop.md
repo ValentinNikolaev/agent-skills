@@ -7,6 +7,12 @@
 - [Retain the evidence and test the change](#retain-the-evidence-and-test-the-change)
 - [Promote only what the evidence supports](#promote-only-what-the-evidence-supports)
 
+For previous runs of the pair, apply [the prose retrospective](prose-retrospective.md)
+to select new evidence, link exact copies, diagnose ownership, and measure cost.
+It reuses the shared retrospective helper and consent/reminder policy rather than
+creating a second journal or another assessment team. The steps below remain the
+prose-maintenance procedure. A service score alone never establishes a lesson.
+
 ## Choose the owner and authorized scope
 
 Use current task and standing authorization to decide whether maintaining these

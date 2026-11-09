@@ -43,6 +43,11 @@ Do not silently substitute a local verdict or another provider.
 
 ## Fix the text and editing contract
 
+Capture available host start/end time and cheap authorized usage snapshots around
+the pass. Keep unavailable metrics unknown. Retain exact analyzed/submitted copy
+and source references only in an authorized report or handoff. Do not create a
+journal, add uploads, or poll usage merely for future learning.
+
 - Identify the exact passage, language, audience, purpose, and operation. A
   review request authorizes analysis and suggestions, not an unsolicited rewrite.
 - Reuse the owning workflow's brief and voice rules. Preserve facts, stance,
@@ -117,6 +122,14 @@ writing page into a chat. A correct editor value is not proof of submission.
 Retain omissions, truncation or misrouted input as invalid attempts, not results.
 
 ## Turn findings into bounded improvements
+
+For completed paired runs, new user corrections, invalid submissions, or repeated
+iteration/cost signals, use [the prose retrospective](references/prose-retrospective.md)
+once with the existing exact-version evidence. It reuses `review-retrospective`
+for selection, measurement, project model decisions, and justified PR proposals.
+Skip a humanizer pass that was not invoked. A detector result on another copy or
+an invalid submission cannot evaluate the delivered text. Omit unchanged lessons,
+empty learning sections, and suppressed model suggestions.
 
 Use [the improvement loop](references/improvement-loop.md) when feedback exposes
 a defect in `ai-detector` or `humanizer`. Use existing task and standing skill

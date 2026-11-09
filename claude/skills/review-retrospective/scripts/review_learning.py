@@ -9,11 +9,14 @@ from datetime import datetime, timedelta
 import hashlib
 import json
 import math
+import re
 from pathlib import Path
 import sys
 
-SKILLS = {"code-review", "plan-review", "review-arch"}
-KINDS = {"missed-defect", "false-positive", "severity", "verdict", "cost", "clean-control"}
+SKILLS = {"code-review", "plan-review", "review-arch", "humanizer", "ai-detector"}
+PROSE_SKILLS = {"humanizer", "ai-detector"}
+KINDS = {"missed-defect", "false-positive", "severity", "verdict", "cost", "clean-control",
+         "meaning-drift", "voice-drift", "unnecessary-edit", "submission-error"}
 STATUSES = {"verified", "unverified", "disputed"}
 PROPOSAL_FIELDS = ("skill", "stage", "risk_scope", "from_model", "to_model", "to_reasoning")
 
@@ -138,6 +141,84 @@ def upstream_checks(run, lookup):
     return result
 
 
+def normalize_prose(run):
+    if run.get("prose") is None:
+        return None
+    prose = deepcopy(mapping(run["prose"], "prose"))
+    for key in ("input_text_sha256", "output_text_sha256", "text_sha256"):
+        value = prose.get(key)
+        if value is not None and (not isinstance(value, str) or not re.fullmatch(r"[0-9a-f]{64}", value)):
+            raise ValueError(f"invalid prose {key}")
+    if prose.get("external") is not None:
+        external = mapping(prose["external"], "prose external")
+        if external.get("submission_state") not in {None, "valid", "invalid", "incomplete"}:
+            raise ValueError("invalid external submission_state")
+        value = external.get("submitted_text_sha256")
+        if value is not None and (not isinstance(value, str) or not re.fullmatch(r"[0-9a-f]{64}", value)):
+            raise ValueError("invalid submitted_text_sha256")
+    return prose
+
+
+def prose_checks(run, lookup):
+    if run["skill"] not in PROSE_SKILLS:
+        return []
+    expected = "ai-detector" if run["skill"] == "humanizer" else "humanizer"
+    pair = run.get("paired")
+    other = None
+    if pair is None:
+        status = "skipped-invocation-unknown"
+    else:
+        mapping(pair, "paired")
+        if pair.get("skill") != expected or not isinstance(pair.get("invoked"), bool):
+            raise ValueError("invalid paired skill/invoked")
+        other = lookup.get(pair.get("run_id"))
+        if not pair["invoked"]:
+            status = "skipped-not-invoked"
+        elif not pair.get("invocation_evidence") or other is None:
+            status = "unavailable"
+        elif other.get("task_id") != run["task_id"] or other.get("skill") != expected:
+            status = "scope-mismatch"
+        elif any(not isinstance(source.get(key), str) or not source[key].strip()
+                 or source[key].strip() == "unknown" for source in (run, other)
+                 for key in ("input_artifact", "report_artifact", "input_revision")):
+            status = "unavailable"
+        else:
+            edited = run if run["skill"] == "humanizer" else other
+            analyzed = other if run["skill"] == "humanizer" else run
+            edit_hash = (normalize_prose(edited) or {}).get("output_text_sha256")
+            analysis_hash = (normalize_prose(analyzed) or {}).get("text_sha256")
+            status = ("text-identity-unavailable" if not edit_hash or not analysis_hash else
+                      "eligible" if edit_hash == analysis_hash else "text-version-mismatch")
+    checks = [{"run_id": run["run_id"], "kind": "pair", "skill": expected,
+               "paired_run_id": pair.get("run_id") if pair else None, "status": status}]
+    if run["skill"] == "ai-detector":
+        prose = normalize_prose(run) or {}
+        external = prose.get("external") or {}
+        if run.get("mode") == "local":
+            status = "skipped-local"
+        elif run.get("mode") != "external":
+            status = "mode-unavailable"
+        elif external.get("submission_state") != "valid":
+            status = "invalid" if external.get("submission_state") == "invalid" else "incomplete"
+        elif not all(isinstance(external.get(key), str) and external[key].strip()
+                     and external[key].strip() != "unknown"
+                     for key in ("provider", "captured_at", "result_artifact")):
+            status = "provenance-unavailable"
+        else:
+            try:
+                instant(external["captured_at"])
+            except ValueError:
+                status = "provenance-unavailable"
+            else:
+                if not prose.get("text_sha256") or not external.get("submitted_text_sha256"):
+                    status = "text-identity-unavailable"
+                else:
+                    status = ("eligible" if prose["text_sha256"] == external["submitted_text_sha256"]
+                              else "text-version-mismatch")
+        checks.append({"run_id": run["run_id"], "kind": "external-submission", "status": status})
+    return checks
+
+
 def prepare(document, task, max_cases=5):
     versioned(document)
     text(task, "task")
@@ -153,7 +234,7 @@ def prepare(document, task, max_cases=5):
     selected = [run for run in lookup.values() if run.get("task_id") == task]
     if not selected:
         raise ValueError("no runs for requested task")
-    cases, records, checks = [], [], []
+    cases, records, checks, prose_links = [], [], [], []
     assessed = 0
     for run in selected:
         if run.get("skill") not in SKILLS:
@@ -163,8 +244,12 @@ def prepare(document, task, max_cases=5):
             "input_artifact", "report_artifact", "model", "mode")}
         record.update({key: deepcopy(run.get(key)) for key in (
             "stage", "scope", "outcome", "coverage_limits", "captured_at")})
+        if run["skill"] in PROSE_SKILLS or run.get("prose") is not None:
+            record["prose"] = normalize_prose(run)
+            record["paired"] = deepcopy(run.get("paired"))
         records.append({**record, **normalize_cost(run)})
         checks.extend(upstream_checks(run, lookup))
+        prose_links.extend(prose_checks(run, lookup))
         event_ids = set()
         for raw in sequence(run.get("feedback", []), "feedback"):
             event = mapping(raw, "feedback event")
@@ -186,7 +271,8 @@ def prepare(document, task, max_cases=5):
     cases.sort(key=lambda event: int(event["priority"][1]))
     return {"schema_version": 1, "task_id": task, "runs": records,
             "cases": cases[:max_cases], "deferred_count": max(0, len(cases) - max_cases),
-            "already_assessed_count": assessed, "upstream_checks": checks}
+            "already_assessed_count": assessed, "upstream_checks": checks,
+            "prose_checks": prose_links}
 
 
 def policy_parts(envelope):

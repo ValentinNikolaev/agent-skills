@@ -26,6 +26,11 @@ finish the local edit before handing that exact version to the detector.
 
 ## Establish the editing contract
 
+Capture available host start/end time and cheap authorized usage snapshots around
+the pass. Keep unavailable metrics unknown. Retain exact version/brief references
+only in an already-authorized report or handoff; preserve text-only output and
+do not create a journal or upload text for measurement.
+
 - Identify the target passage, language, audience, genre, and requested operation.
   Rewrite pasted text by default. A request to review a file authorizes findings,
   not file changes. Edit named files when requested, preserving unrelated work.
@@ -207,6 +212,17 @@ probabilities or promise a detector bypass. Keep detector results and skill-tuni
 evidence under `ai-detector` rather than duplicating its protocol here. Use its
 actionable findings as editing input, preserving rejected suggestions and useful
 keep decisions. Ordinary editing requires no upload and no detector disclaimer.
+
+## Learn from completed passes
+
+For new verified feedback, repeated editing friction, or a material cost signal,
+use [the prose retrospective](../ai-detector/references/prose-retrospective.md)
+once with existing evidence. It reuses `review-retrospective` for bounded learning
+and model decisions. Distinguish meaning/voice drift, unnecessary edits, ignored
+guidance, and local preference. Inspect a detector pass only if actually invoked
+on that version; ordinary humanizing does not acquire a detector requirement.
+Keep project voice authoritative and propose a general skill PR only when the
+evidence supports one. Omit empty learning sections and suppressed suggestions.
 
 ## Provenance
 

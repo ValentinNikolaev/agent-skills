@@ -1,4 +1,4 @@
 interface:
   display_name: "Review Retrospective"
-  short_description: "Learn from review outcomes and measured cost"
-  default_prompt: "Use $review-retrospective to assess these completed review runs, attribute verified lessons, and propose bounded project, skill, or model improvements."
+  short_description: "Learn from code and prose review outcomes"
+  default_prompt: "Use $review-retrospective to assess these completed code or prose review runs, attribute verified lessons, and propose bounded project, skill, or model improvements."
