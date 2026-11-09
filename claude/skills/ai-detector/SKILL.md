@@ -113,6 +113,13 @@ false experience, typos or random phrasing to obtain a different result.
 ## Run the required external check
 
 For direct requests, follow [external analysis](references/external-check.md).
+For ChatGPT runs, verify the active account, workspace, subscription, and model
+controls before submitting. Select a reasoning-capable model at `High` effort
+by default and verify the setting in the destination chat. Do not inherit
+`Instant` or `Auto`, infer access from the Codex account, or silently downgrade
+when the required mode is unavailable. Honor an explicit user-selected mode.
+For another explicitly selected provider, use its supported controls and evidence
+without opening ChatGPT or requiring a control that provider does not expose.
 The service request must ask both for an assessment and for concrete ways to
 improve the exact text, including spans worth keeping and semantic trade-offs.
 A verdict alone does not complete this mode.
@@ -150,7 +157,10 @@ State the local finding and, when required, the literal external result with a
 usable source/session link. Identify the highest-value changes, what should
 stay, and any remaining uncertainty. Distinguish suggestions from edits actually
 applied and skill changes actually verified. Keep the report proportional to the
-request. Missing external feedback must remain visible as incomplete work.
+request. For external work, include the observed account/workspace, plan, model,
+and effort, with unknown values and access/fallback limits explicit. Use a masked
+account identifier. Missing external feedback must remain visible as incomplete
+work.
 
 For an authorized rewrite, hand the accepted findings and meaning constraints
 to `humanizer`, then apply the owning workflow's exact-copy and submission gates.

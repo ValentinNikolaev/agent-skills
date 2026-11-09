@@ -1,6 +1,6 @@
 {
   "name": "agent-plugins",
-  "version": "29.0.0+claude.20261109130536",
+  "version": "29.1.0+claude.20261109174659",
   "description": "Shared agent workflows adapted for Claude Code.",
   "skills": "./claude/skills/"
 }
