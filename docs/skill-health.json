@@ -31,8 +31,373 @@
     ],
     "yaml_outlier_fraction": 0.1
   },
-  "last_check": null,
-  "baseline": null,
-  "open_items": [],
+  "last_check": {
+    "version": "30.0.0",
+    "major": 30,
+    "commit": "82e5187cbd40f3ca0607e46b591c17b75f960b1f",
+    "dirty": false,
+    "date": "2026-11-10",
+    "kind": "full-audit",
+    "reference": "full audit at 66602cc, 2026-11-09, applied in v30",
+    "notes": ""
+  },
+  "baseline": {
+    "skills": {
+      "ai-detector": {
+        "body_words": 1321,
+        "description_chars": 232,
+        "description_hash": "3413bb735a05",
+        "short_description_hash": "b2a1fe8d476d",
+        "readme_summary_hash": "64e1f68ed9e0"
+      },
+      "api-and-interface-design": {
+        "body_words": 592,
+        "description_chars": 105,
+        "description_hash": "1d3d74c1ee4b",
+        "short_description_hash": "e24ccd691dee",
+        "readme_summary_hash": "91cad566ddd7"
+      },
+      "audit-docs": {
+        "body_words": 485,
+        "description_chars": 239,
+        "description_hash": "b93d82250c64",
+        "short_description_hash": "28194825264c",
+        "readme_summary_hash": "3de68bfd2e95"
+      },
+      "audit-memory": {
+        "body_words": 512,
+        "description_chars": 209,
+        "description_hash": "e3705f7363e4",
+        "short_description_hash": "60093dbbc17c",
+        "readme_summary_hash": "f6e2c803363a"
+      },
+      "business-viability-assessment": {
+        "body_words": 673,
+        "description_chars": 260,
+        "description_hash": "88bdf080263e",
+        "short_description_hash": "8cf1943d329e",
+        "readme_summary_hash": "727d85a91f1e"
+      },
+      "claude-api": {
+        "body_words": 826,
+        "description_chars": 78,
+        "description_hash": "31318458b9c5",
+        "short_description_hash": "38c261d6ce3e",
+        "readme_summary_hash": "465aacc3f025"
+      },
+      "clean-code-comments": {
+        "body_words": 790,
+        "description_chars": 254,
+        "description_hash": "8e5fb75135d7",
+        "short_description_hash": "8be0cd782874",
+        "readme_summary_hash": "220dd2cb2daa"
+      },
+      "code-review": {
+        "body_words": 4020,
+        "description_chars": 165,
+        "description_hash": "e0c51e1b36ac",
+        "short_description_hash": "520a5ed6412b",
+        "readme_summary_hash": "69a3620e8c89"
+      },
+      "code-simplification": {
+        "body_words": 396,
+        "description_chars": 144,
+        "description_hash": "279e8180d468",
+        "short_description_hash": "99f58188d124",
+        "readme_summary_hash": "b5748dbf7e36"
+      },
+      "console-ux-design": {
+        "body_words": 505,
+        "description_chars": 289,
+        "description_hash": "fbf8438bec5d",
+        "short_description_hash": "d779c142c9d1",
+        "readme_summary_hash": "311e647e467c"
+      },
+      "council": {
+        "body_words": 1024,
+        "description_chars": 184,
+        "description_hash": "25d70dee77a5",
+        "short_description_hash": "885ea6e71029",
+        "readme_summary_hash": "f3736e0007f4"
+      },
+      "create-memory": {
+        "body_words": 434,
+        "description_chars": 187,
+        "description_hash": "5f986a9bbbb4",
+        "short_description_hash": "a0613e3140c0",
+        "readme_summary_hash": "28868a91b3f5"
+      },
+      "debugging-and-error-recovery": {
+        "body_words": 802,
+        "description_chars": 137,
+        "description_hash": "e3f67962f6d6",
+        "short_description_hash": "e4bdf15b4571",
+        "readme_summary_hash": "57b034ec48ef"
+      },
+      "deprecation-and-migration": {
+        "body_words": 485,
+        "description_chars": 131,
+        "description_hash": "be7718634ad5",
+        "short_description_hash": "20032c6b65aa",
+        "readme_summary_hash": "3e8130b9614c"
+      },
+      "discussion-reply": {
+        "body_words": 828,
+        "description_chars": 198,
+        "description_hash": "0a58270c0ab2",
+        "short_description_hash": "dd7c70d62774",
+        "readme_summary_hash": "fd3c708a62a1"
+      },
+      "editorial-writing": {
+        "body_words": 751,
+        "description_chars": 203,
+        "description_hash": "4e63c30cbe2c",
+        "short_description_hash": "c9991c6c37b9",
+        "readme_summary_hash": "9e75529c91db"
+      },
+      "fastapi-development": {
+        "body_words": 697,
+        "description_chars": 72,
+        "description_hash": "84eaf7052003",
+        "short_description_hash": "d879c2f798d6",
+        "readme_summary_hash": "18b23e941c0d"
+      },
+      "fix-pr": {
+        "body_words": 1176,
+        "description_chars": 94,
+        "description_hash": "d74b71f0fcde",
+        "short_description_hash": "656b46f079e8",
+        "readme_summary_hash": "3ace8ebc7af4"
+      },
+      "github-pages-audit": {
+        "body_words": 461,
+        "description_chars": 191,
+        "description_hash": "4a12d92f3594",
+        "short_description_hash": "7b0cae643a75",
+        "readme_summary_hash": "24d76deb4277"
+      },
+      "github-pages-content": {
+        "body_words": 446,
+        "description_chars": 187,
+        "description_hash": "e2b95b9d7109",
+        "short_description_hash": "f2abfa516929",
+        "readme_summary_hash": "cb7c33b612ee"
+      },
+      "github-pages-create": {
+        "body_words": 1280,
+        "description_chars": 211,
+        "description_hash": "48218f0c5d43",
+        "short_description_hash": "38f36a6810c0",
+        "readme_summary_hash": "8783bb891af8"
+      },
+      "github-pages-design": {
+        "body_words": 733,
+        "description_chars": 189,
+        "description_hash": "e6b92350c66a",
+        "short_description_hash": "b33aa03b0ab3",
+        "readme_summary_hash": "b74779865b7a"
+      },
+      "github-pages-improve": {
+        "body_words": 969,
+        "description_chars": 220,
+        "description_hash": "9eafe3e4dd80",
+        "short_description_hash": "03621ca61b3c",
+        "readme_summary_hash": "e48125aedec9"
+      },
+      "go-benchmark": {
+        "body_words": 640,
+        "description_chars": 77,
+        "description_hash": "e7f5fc9d40d6",
+        "short_description_hash": "362839dcc6ad",
+        "readme_summary_hash": "040671866e74"
+      },
+      "go-security-audit": {
+        "body_words": 652,
+        "description_chars": 72,
+        "description_hash": "9ca9d2de7c2a",
+        "short_description_hash": "bc2f6d9360c5",
+        "readme_summary_hash": "85cc83ba1be5"
+      },
+      "humanizer": {
+        "body_words": 1876,
+        "description_chars": 160,
+        "description_hash": "591cb130e83d",
+        "short_description_hash": "f8e83fb4699d",
+        "readme_summary_hash": "65d1c18824d3"
+      },
+      "ingest-memory": {
+        "body_words": 514,
+        "description_chars": 190,
+        "description_hash": "65d63fa2b9ed",
+        "short_description_hash": "324b269d438c",
+        "readme_summary_hash": "766ca7640931"
+      },
+      "linkedin-featured-proof": {
+        "body_words": 731,
+        "description_chars": 130,
+        "description_hash": "6b7cfad1f7e0",
+        "short_description_hash": "27480fddd4d5",
+        "readme_summary_hash": "989fa59e01c2"
+      },
+      "linkedin-profile-optimizer": {
+        "body_words": 1084,
+        "description_chars": 122,
+        "description_hash": "457376669d09",
+        "short_description_hash": "7cd6ff9ccf2c",
+        "readme_summary_hash": "9bfdd5201576"
+      },
+      "monitor-ci": {
+        "body_words": 434,
+        "description_chars": 92,
+        "description_hash": "7b5626617a99",
+        "short_description_hash": "99c273ed5341",
+        "readme_summary_hash": "c7e979fb11f6"
+      },
+      "php-modernization": {
+        "body_words": 872,
+        "description_chars": 105,
+        "description_hash": "4b4a1046ca4f",
+        "short_description_hash": "5943e6e6a572",
+        "readme_summary_hash": "2372a156ece7"
+      },
+      "plan-review": {
+        "body_words": 1943,
+        "description_chars": 124,
+        "description_hash": "b32d3a49bddd",
+        "short_description_hash": "29d2d83afd11",
+        "readme_summary_hash": "7a49c36dfd31"
+      },
+      "planning-and-task-breakdown": {
+        "body_words": 293,
+        "description_chars": 146,
+        "description_hash": "98dda6b52195",
+        "short_description_hash": "4fdb1897e002",
+        "readme_summary_hash": "17dbda50044c"
+      },
+      "prove-checks": {
+        "body_words": 538,
+        "description_chars": 97,
+        "description_hash": "1d307b31c66c",
+        "short_description_hash": "32c89e5e47aa",
+        "readme_summary_hash": "3bc7daa42f31"
+      },
+      "review-arch": {
+        "body_words": 1292,
+        "description_chars": 80,
+        "description_hash": "8dbecb841dbe",
+        "short_description_hash": "1694bfd2cbd2",
+        "readme_summary_hash": "bdd7e10e61fc"
+      },
+      "review-retrospective": {
+        "body_words": 890,
+        "description_chars": 199,
+        "description_hash": "8c30b774e533",
+        "short_description_hash": "379b89140871",
+        "readme_summary_hash": "87d861276191"
+      },
+      "review-spec": {
+        "body_words": 1244,
+        "description_chars": 101,
+        "description_hash": "e2b840edf31f",
+        "short_description_hash": "94f7f9ccbdb2",
+        "readme_summary_hash": "74da5718d6d7"
+      },
+      "test-driven-development": {
+        "body_words": 595,
+        "description_chars": 92,
+        "description_hash": "c866b2ef7c06",
+        "short_description_hash": "2b0419707d60",
+        "readme_summary_hash": "d08924dd9e24"
+      },
+      "typescript-type-design": {
+        "body_words": 590,
+        "description_chars": 98,
+        "description_hash": "837bb95972e3",
+        "short_description_hash": "dfdc9fbc9bd5",
+        "readme_summary_hash": "549cbe5df523"
+      },
+      "update-memory": {
+        "body_words": 471,
+        "description_chars": 198,
+        "description_hash": "3619f7257495",
+        "short_description_hash": "4f8fdfc2011a",
+        "readme_summary_hash": "d1b83e1f3c7d"
+      },
+      "uv-project-workflow": {
+        "body_words": 690,
+        "description_chars": 79,
+        "description_hash": "fee6287da9b2",
+        "short_description_hash": "baf8add1406a",
+        "readme_summary_hash": "5a29891288e8"
+      },
+      "verify-impl": {
+        "body_words": 602,
+        "description_chars": 99,
+        "description_hash": "4c4951b79dfb",
+        "short_description_hash": "68fd1c81c893",
+        "readme_summary_hash": "a5a6c6b41803"
+      },
+      "vet-dependency": {
+        "body_words": 603,
+        "description_chars": 105,
+        "description_hash": "ecb40a819b3f",
+        "short_description_hash": "4cc5b366b1b4",
+        "readme_summary_hash": "c4ea5a733052"
+      },
+      "wrap-agent-skill": {
+        "body_words": 1128,
+        "description_chars": 116,
+        "description_hash": "dae3b31ec61a",
+        "short_description_hash": "e42bfbee01dd",
+        "readme_summary_hash": "cfd9656586ae"
+      },
+      "write-adr": {
+        "body_words": 262,
+        "description_chars": 144,
+        "description_hash": "82993545ec7e",
+        "short_description_hash": "dfcf69880b6d",
+        "readme_summary_hash": "021d7e25bf3c"
+      },
+      "write-cover-letter": {
+        "body_words": 1104,
+        "description_chars": 209,
+        "description_hash": "0eae5994d7c5",
+        "short_description_hash": "640090e5e7e1",
+        "readme_summary_hash": "4a4c5c8a773c"
+      },
+      "write-spec": {
+        "body_words": 329,
+        "description_chars": 141,
+        "description_hash": "53d40213a41a",
+        "short_description_hash": "c213258819bb",
+        "readme_summary_hash": "8ab38633861e"
+      },
+      "zod": {
+        "body_words": 624,
+        "description_chars": 94,
+        "description_hash": "a0fbbe2f29a2",
+        "short_description_hash": "19bbd59b96b3",
+        "readme_summary_hash": "f78102e1fbe8"
+      }
+    },
+    "routing_chars": 8015,
+    "shared_sentence_keys": [
+      "014b6ae592c2",
+      "12795dd644b3",
+      "30d9884fe120",
+      "79c5713a5101",
+      "869318326169",
+      "8ebe57a0a9f6",
+      "a0753d30ca2d",
+      "be35f1ab31fe",
+      "ed7cca2b067f",
+      "ef5da675f2c9"
+    ],
+    "near_duplicate_pairs": []
+  },
+  "open_items": [
+    "description over 250 characters: business-viability-assessment (260), clean-code-comments (254), console-ux-design (289)",
+    "code-review SKILL.md body is 4,020 words; audit target of a 20-25% cut was not reached without dropping rules"
+  ],
   "history": []
 }
