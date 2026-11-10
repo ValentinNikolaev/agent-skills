@@ -48,6 +48,14 @@ old invocations to these skills and was removed in v30; no text from it was
 carried into either skill.
 An ordinary prose edit does not require another skill or an external check.
 
+The UI-copy extension comes from user-authorized maintenance feedback on one
+local interface review. Its six gaps inform original, bounded instructions in
+[the UI contract](ui-copy.md) and [L1/L2 checks](l1-calques.md), with detector
+calibration owned by the sibling skill. No private corpus, glossary, project
+paths, scripts or operational instructions are redistributed. Existing licenses
+remain unchanged. This is a local in-sample evaluation with prior findings
+visible, not independent evidence of reader benefit or detector accuracy.
+
 The user also requested council-based editing decisions. One bounded session
 covers edit selection and critique of the exact candidate, with an unchanged
 option and reuse of the same advisors. Existing project councils retain their

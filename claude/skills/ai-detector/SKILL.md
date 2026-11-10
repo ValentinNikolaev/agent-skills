@@ -53,6 +53,14 @@ future learning.
 - Send only the authorized passage and the minimal assessment instructions.
   Do not upload private project context, voice files, or unrelated samples.
 
+For UI copy or a supplied set of strings, reuse the
+[UI input and findings contract](../humanizer/references/ui-copy.md): exact
+locations, glossary, protected spans and test pin map, with unknowns explicit.
+Use its per-string findings rows without treating a test pin as an immutable
+label or authorizing edits. Apply [microcopy calibration](references/ui-calibration.md)
+before interpreting repeated framing. These references do not change the
+local/external mode selected from the human request.
+
 ## Analyse locally
 
 Calibrate the reading to language, genre, length and the text's role in the

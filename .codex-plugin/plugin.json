@@ -1,6 +1,6 @@
 {
   "name": "agent-plugins",
-  "version": "31.0.0+codex.20261110085554",
+  "version": "32.0.0+codex.20261110100547",
   "description": "Shared agent workflows adapted for Codex.",
   "skills": "./codex/skills/"
 }

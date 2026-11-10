@@ -157,6 +157,14 @@ a grammatical error. See the [calendar example and counterexamples](references/e
 
 ## Scale review to the edit
 
+For UI microcopy or a brief naming second-language readers, load the
+[UI and set-mode contract](references/ui-copy.md) and the bounded
+[L1-transfer candidates and L2 structure checks](references/l1-calques.md).
+Treat these as contextual clarity checks, not diagnoses of the writer's first
+language. For 20 or more UI strings, or an explicit cross-string consistency
+request, use set mode before proposing edits. Keep glossary terms, protected
+labels, placeholders, and test dependencies visible in the findings.
+
 For an ordinary chat, email or other draft with a clear voice and meaning, use
 a local pass: identify the concrete friction, make the smallest useful edit,
 and complete the original/voice checks below. Do not add agents or a full
