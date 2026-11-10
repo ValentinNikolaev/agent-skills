@@ -38,19 +38,17 @@ For another standalone post, use the brief directly. Develop one governing thoug
 
 Write in the supplied voice while preserving evidence and stance. Complete required or useful local humanizer work before freezing the candidate. Keep natural wording when an edit would only impose the editor's taste.
 
-Record the exact draft and any required translation, the source/brief revision, outstanding objections, checked stages, and remaining repair budget. Use an unambiguous version or hash plus actual check evidence. State which reviewer or service evaluated which version; a hash alone proves no assessment.
+Keep the working record, invalidation rules, and repair budget in [version and review controls](../discussion-reply/references/review-state.md), shared with `discussion-reply`. Record the exact draft and any required translation with the source/brief revision under those controls.
 
 Check the copy itself for reader gain, developed substance, grounding, voice, and completion. A benefit visible only in the brief is missing from the text. Apply independent review through `council` when the user or project requires it, using identical bounded packets and anonymized challenge. Otherwise perform local review without manufacturing independent votes. Report unavailable required checks and honor only the owning policy's permitted fallback.
 
-Returning reviewers may remember earlier drafts. Withholding prior scores in a new packet does not make them blind readers. Record prior exposure, withhold coordinator-preferred verdicts, and resolve material objections from the current copy and evidence. Author or reader feedback can reopen readiness even after a model pass.
+Returning reviewers are not blind readers; follow those controls on prior exposure. Author or reader feedback can reopen readiness even after a model pass.
 
 Use any required numeric rubric only after hard factual, purpose, and voice gates pass. Keep editorial judgments separate from human approval and audience outcomes. A requested external service check follows the actual user's authorization and exact-version requirements; do not infer it from ordinary writing work.
 
 ## Bound revision and deliver
 
-Use the project's finite revision budget. Otherwise permit at most two substantive repair batches after the first complete draft. Before a batch, identify the unresolved objection, the observable correction, and whether the required evidence exists. Stop and report a blocker if missing evidence or unchanged constraints prevent progress. Do not reset the baseline by moving a file, renaming the draft, or calling a substantive rewrite polish.
-
-Reassess materially changed wording, reasoning, structure, or tone with the required reviewers. A typo-only correction can retain editorial judgments after a comparison, but any required exact-text service must still cover the delivered text. Keep unaffected valid checks and never reroll unchanged drafts for higher scores.
+Follow the repair budget and reassessment rules in the shared controls, including which changes require the required reviewers again and which valid checks survive.
 
 Deliver the actual assessed version with required translations and material limitations. At the cap, label unmet requirements honestly instead of certifying readiness. Copy-only requests can omit routine process narration, not hide an incomplete mandatory check. Publishing, scheduling, uploading, or maintaining a backlog requires the corresponding authorization.
 

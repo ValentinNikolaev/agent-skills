@@ -28,17 +28,13 @@ Accept `shared_context=PATH` containing collected code facts, paths, excerpts, t
 
 Accept `light` (also `--mode light`) for a small plan or proposal confined to one repository with no concurrency or storage changes, when the question concerns architecture; an ordered implementation-plan review still routes to `plan-review`. Reuse its research section and shared context without re-deriving established facts. Inspect only doubtful or missing material evidence and the affected boundary. If eligibility cannot be established, use the normal review and state why. Report at most five findings, most severe first, keeping the existing scenario, impact, correction, and verdict fields. Disclose any omitted count and base the verdict on all discovered issues and limits; never hide a critical risk behind the cap or start a broader review automatically.
 
-Caller model guidance: a cheaper model such as Sonnet suits UI, text, and documentation changes; reserve the top model for concurrency, storage, and plan reviews. This skill does not select or switch models.
-
-See [before/after scope and cost examples](references/review-cost-examples.md) when using these inputs or selecting a model tier.
+This skill never selects or switches models; see [before/after scope and cost examples](references/review-cost-examples.md) when using these inputs or selecting a model tier.
 
 ## Build a bounded model
 
-Capture host start/end time and any cheap authorized usage snapshots around the
-review; keep unavailable metrics unknown. Retain original design/input revision,
-report identity, model/mode, scope, and limits in the requested report or inline
-handoff. Use the [run contract](../review-retrospective/references/run-contract.md)
-when structured history is supplied. Do not silently create a journal.
+Capture the run record as the [run contract](../review-retrospective/references/run-contract.md#capture-records)
+describes, retaining the original design/input revision, report identity,
+model/mode, scope, and limits in the requested report or inline handoff.
 
 1. Name the system boundary, users, purpose, scale, deployment environment, and known quality priorities. Source these from the request and directly relevant documents; mark unknowns instead of assuming enterprise-scale needs.
 2. Read applicable repository instructions and relevant architecture decisions. Reuse supplied shared context and research as above; inspect representative implementation paths only for missing or doubtful boundary facts. Follow data and control across the boundaries under review without repeating established source reads.
@@ -62,13 +58,7 @@ Ground each finding in a file, diagram, decision record, requirement, or observe
 
 ## Walk operator scenarios for screen changes
 
-When the reviewed design or a supplied plan adds or changes screens, walk every applicable operator scenario step by step, including in light mode: find a record, filter, assemble a change set, check it, make a mistake and correct/cancel it, submit, and view history. Use concrete valid and invalid inputs and empty data, recording visible feedback and the next reachable action. Mark a scenario not applicable only with a reason grounded in the reviewed boundary.
-
-Challenge every control in the design: is it needed, can the operator find it, does its label and enabled/visible state match the data, and can the operator recover? Check unexplained disabled save/submit actions, field-associated validation feedback (for example `aria-describedby`), Resume without resumable work, Add for already-added rows, explicit selection-list ordering, and dialog back/cancel paths. Trace ownership of validation, errors, and recovery across the UI/service boundary. A spec-prescribed dead end remains a concern; identify the affected decision without turning this into a line-level code review or redesigning unrelated components.
-
-Return a table `Step → Plan/design section → Verdict`, with concrete input/state and feedback/next action in Step, the section/excerpt in the middle, and `Covered | Partial | Missing | Defect | Not applicable` plus finding IDs in Verdict. Keep all scenario rows under a finding display cap. Label document walkthroughs as such, not executed UI tests; unspecified recovery remains an evidence gap.
-
-User-reported event-catalog example: Save stayed disabled because parsing accepted only `DP-N` and `catch { return null }` swallowed the error. Another project's key and a board URL with `?selectedIssue=OTHER-42` silently blocked saving. Walk `DP-42`, `OTHER-42`, that URL, `DP-x`, and empty input across parser, feedback, and save-state ownership. A design that leaves neither UI nor service responsible for explaining the failure needs correction even if each component follows its local contract.
+When the reviewed design or a supplied plan adds or changes screens, walk the operator scenarios in every mode, including light, following the [operator walkthrough procedure](../plan-review/references/operator-walkthrough.md). Preserve all scenario rows under a finding display cap. Also trace ownership of validation, errors, and recovery across the UI/service boundary. A spec-prescribed dead end remains a concern; identify the affected decision without turning this into a line-level code review or redesigning unrelated components. A design that leaves neither UI nor service responsible for explaining a failure needs correction even if each component follows its local contract.
 
 ## Several changes, when requested
 
@@ -81,7 +71,7 @@ Use this section only when the request names more than one change. Pin each revi
 
 ## Capacity and lifecycle evidence
 
-Check who owns scarce resources, releases them, isolates failures, and supplies evidence for capacity and deadline guarantees. Detect structural hazards such as workers holding a pool slot while requiring another from the exhausted pool before release. Leave ordered numeric timing/capacity derivations to `plan-review` and reuse its supplied results; do not repeat them. If an essential guarantee lacks evidence, identify the missing bound or analysis and leave that guarantee unverified. A supplied calculation's confirmed contradiction or a reachable structural deadlock is a critical risk with `CONCERNS`, blocking the affected architecture decision until corrected. Reserve `BLOCKED` for missing essential context.
+Check who owns scarce resources, releases them, isolates failures, and supplies evidence for capacity and deadline guarantees. Detect structural hazards such as workers holding a pool slot while requiring another from the exhausted pool before release. Leave ordered numeric timing/capacity derivations to `plan-review` and reuse its supplied results; do not repeat them. If an essential guarantee lacks evidence, identify the missing bound or analysis and leave that guarantee unverified. A supplied calculation's confirmed contradiction or a reachable structural deadlock is a critical risk with `CONCERNS`, blocking the affected architecture decision until corrected.
 
 ## Go lifecycle, when applicable
 
@@ -91,11 +81,6 @@ Selected Go lifecycle considerations adapt [Samber's design-pattern guidance](ht
 
 ## Report
 
-Return the reviewed boundary and evidence, then a verdict of `SOUND`, `CONCERNS`, or `BLOCKED`. `BLOCKED` means essential context is unavailable. Group evidence-backed findings as critical risks, significant concerns, and observations; give each the triggering scenario, impact, and smallest useful decision or experiment. Include sound decisions worth preserving, open questions, and verification limits. A structural concern does not automatically block a small code change; state what decision it affects.
+Return the reviewed boundary and evidence, then a verdict of `SOUND`, `CONCERNS`, or `BLOCKED`. `BLOCKED` means essential context is unavailable. Group evidence-backed findings as critical risks, significant concerns, and observations; give each a stable ID (`ARCH-001`, `ARCH-002`, and so on, independent of its group), the triggering scenario, impact, and smallest useful decision or experiment. Include sound decisions worth preserving, open questions, and verification limits. A structural concern does not automatically block a small code change; state what decision it affects.
 
-For new verified outcome feedback or a material cost signal, use
-`review-retrospective` once after the result. Reuse the original boundary evidence
-and skip unchanged assessments. Judge earlier decisions using information then
-available, preserving raised warnings, accepted risks, and explicit deferrals.
-Propose scoped project/skill/model improvements without silently applying them.
-Omit empty learning sections and suppressed model suggestions.
+For new verified outcome feedback or a material cost signal, use `review-retrospective` once after the result.

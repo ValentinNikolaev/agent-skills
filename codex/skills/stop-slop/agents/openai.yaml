@@ -1,4 +1,0 @@
-interface:
-  display_name: "Stop Slop (deprecated)"
-  short_description: "Deprecated: use ai-detector; removal in v30"
-  default_prompt: "Use $stop-slop as a deprecated compatibility entry: route analysis to ai-detector and authorized edits to humanizer, keeping checks local unless I also request a detector or external check."

@@ -43,7 +43,7 @@ Use the user's message and explicitly referenced material first. Read workspace 
 
 Read [references/advisors-and-prompts.md](references/advisors-and-prompts.md) for advisor definitions and prompt contracts. Read [references/example.md](references/example.md) only when an example helps frame the session.
 
-Run as many independent passes concurrently as the host safely supports. Queue the rest in bounded waves. Do not fail or simulate unavailable concurrency claims; use separated passes in the current model when subagents are unavailable.
+Run as many independent passes concurrently as the host safely supports. Queue the rest in bounded waves. When subagents are unavailable, do not fail the run and do not pretend to have concurrency; run separated passes in the current model instead.
 
 Respect the host's total agent budget, not just concurrent capacity. Reuse the initial reviewers for peer challenge and changed-material reassessment. Disclose omitted styles or reduced independence rather than spawning extra teams to obtain agreement.
 

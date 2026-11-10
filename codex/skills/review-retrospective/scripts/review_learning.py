@@ -13,7 +13,9 @@ import re
 from pathlib import Path
 import sys
 
-SKILLS = {"code-review", "plan-review", "review-arch", "humanizer", "ai-detector"}
+SKILLS = {"code-review", "plan-review", "review-arch", "review-spec", "humanizer", "ai-detector"}
+UPSTREAM = ("plan-review", "review-arch")
+OPTIONAL_UPSTREAM = ("review-spec",)
 PROSE_SKILLS = {"humanizer", "ai-detector"}
 KINDS = {"missed-defect", "false-positive", "severity", "verdict", "cost", "clean-control",
          "meaning-drift", "voice-drift", "unnecessary-edit", "submission-error"}
@@ -114,13 +116,13 @@ def upstream_checks(run, lookup):
     for item in sequence(run.get("upstream", []), "upstream"):
         item = mapping(item, "upstream entry")
         skill = item.get("skill")
-        if skill not in {"plan-review", "review-arch"} or skill in supplied:
+        if skill not in UPSTREAM + OPTIONAL_UPSTREAM or skill in supplied:
             raise ValueError("invalid or duplicate upstream skill")
         if not isinstance(item.get("invoked"), bool):
             raise ValueError("upstream invoked must be boolean")
         supplied[skill] = item
     result = []
-    for skill in ("plan-review", "review-arch"):
+    for skill in UPSTREAM + tuple(name for name in OPTIONAL_UPSTREAM if name in supplied):
         item = supplied.get(skill)
         other = lookup.get(item.get("run_id")) if item else None
         if item is None:

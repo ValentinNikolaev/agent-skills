@@ -251,11 +251,20 @@ The default review thresholds are:
 - file review age: 30 days
 - refreshable provenance age: 30 days
 - file-count compatibility limit: 200
-- MEMORY.md logical-line compatibility limit: 80
+- MEMORY.md logical-line compatibility limit: 200
+- MEMORY.md size compatibility limit: 25,000 bytes of UTF-8
 - warning ratio: 0.75
 - critical ratio: 0.95
 
 These are configurable audit defaults, not universal storage limits.
+
+The index defaults follow the load window one host documented as of 2026-11-09:
+the first 200 lines or 25 KB of the index, whichever comes first, with other
+memory files loaded on demand. Another host documented no numeric limit. Hosts
+change these limits, so check current host documentation before treating a
+default as a hard limit. The index carries one line per file, so the line limit
+binds no later than the file limit. The size limit binds before the line limit
+when entries average more than about 125 bytes.
 
 - Explicit user or host limits override compatibility defaults.
 - Age beyond a threshold is advisory review-due info, not proof of incorrectness.
@@ -268,9 +277,10 @@ These are configurable audit defaults, not universal storage limits.
 
 ## Validator interface
 
-Run the copy bundled with any family skill:
+Run the copy bundled with the invoking skill. Resolve `<skill-dir>` to the
+directory containing that skill's SKILL.md, then run:
 
-    python scripts/validate_memory.py <memory-root> [options]
+    python "<skill-dir>/scripts/validate_memory.py" <memory-root> [options]
 
 Supported options:
 
@@ -280,6 +290,7 @@ Supported options:
     --source-stale-days N
     --file-limit N
     --index-line-limit N
+    --index-byte-limit N
     --warning-ratio R
     --critical-ratio R
     --enforce-limits

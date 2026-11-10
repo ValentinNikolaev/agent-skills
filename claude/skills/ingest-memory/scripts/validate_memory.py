@@ -14,6 +14,9 @@ from typing import Any, Callable, Dict, List, Optional, Sequence, Tuple
 
 
 CONTRACT_VERSION = "1"
+DEFAULT_FILE_LIMIT = 200
+DEFAULT_INDEX_LINE_LIMIT = 200
+DEFAULT_INDEX_BYTE_LIMIT = 25000
 ALLOWED_TYPES = {"project", "feedback", "reference"}
 ALLOWED_PROVENANCE_KINDS = {
     "url",
@@ -98,8 +101,24 @@ def parse_cli(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument("--today", help="Validation date in YYYY-MM-DD form")
     parser.add_argument("--stale-days", type=int, default=30)
     parser.add_argument("--source-stale-days", type=int, default=30)
-    parser.add_argument("--file-limit", type=int, default=200)
-    parser.add_argument("--index-line-limit", type=int, default=80)
+    parser.add_argument(
+        "--file-limit",
+        type=int,
+        default=DEFAULT_FILE_LIMIT,
+        help="Memory file count limit (default: %(default)s).",
+    )
+    parser.add_argument(
+        "--index-line-limit",
+        type=int,
+        default=DEFAULT_INDEX_LINE_LIMIT,
+        help="MEMORY.md non-blank line limit (default: %(default)s).",
+    )
+    parser.add_argument(
+        "--index-byte-limit",
+        type=int,
+        default=DEFAULT_INDEX_BYTE_LIMIT,
+        help="MEMORY.md size limit in UTF-8 bytes (default: %(default)s).",
+    )
     parser.add_argument("--warning-ratio", type=float, default=0.75)
     parser.add_argument("--critical-ratio", type=float, default=0.95)
     parser.add_argument("--enforce-limits", action="store_true")
@@ -107,7 +126,11 @@ def parse_cli(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
 
     if args.stale_days < 0 or args.source_stale_days < 0:
         parser.error("stale-day thresholds must be zero or greater")
-    if args.file_limit <= 0 or args.index_line_limit <= 0:
+    if (
+        args.file_limit <= 0
+        or args.index_line_limit <= 0
+        or args.index_byte_limit <= 0
+    ):
         parser.error("capacity limits must be greater than zero")
     if not 0 < args.warning_ratio < args.critical_ratio <= 1:
         parser.error("ratios must satisfy 0 < warning < critical <= 1")
@@ -837,7 +860,7 @@ def add_capacity_findings(
     add(
         severity,
         code,
-        "MEMORY.md" if metric == "index lines" else ".",
+        "MEMORY.md" if metric.startswith("index") else ".",
         metric
         + " capacity is "
         + mode
@@ -867,6 +890,7 @@ def render(
     findings: List[Finding],
     file_count: int,
     index_lines: int,
+    index_bytes: int,
 ) -> None:
     ordered = sorted(
         findings,
@@ -888,6 +912,7 @@ def render(
             "critical_ratio": args.critical_ratio,
             "enforce_limits": args.enforce_limits,
             "file_limit": args.file_limit,
+            "index_byte_limit": args.index_byte_limit,
             "index_line_limit": args.index_line_limit,
             "source_stale_days": args.source_stale_days,
             "stale_days": args.stale_days,
@@ -900,6 +925,7 @@ def render(
         "summary": {
             "critical": counts["critical"],
             "files": file_count,
+            "index_bytes": index_bytes,
             "index_lines": index_lines,
             "info": counts["info"],
             "warning": counts["warning"],
@@ -916,7 +942,14 @@ def render(
     print("Root: " + str(root))
     print("Contract: " + CONTRACT_VERSION)
     print("Today: " + today.isoformat())
-    print("Files: " + str(file_count) + "; index lines: " + str(index_lines))
+    print(
+        "Files: "
+        + str(file_count)
+        + "; index lines: "
+        + str(index_lines)
+        + "; index bytes: "
+        + str(index_bytes)
+    )
     print(
         "Findings: "
         + str(counts["critical"])
@@ -1062,6 +1095,10 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     validate_relationships(memories, add)
     validate_duplicates(memories, add)
     index_lines = validate_index(index_path, index_text, memories, add)
+    index_bytes = 0
+    if index_path is not None and index_text is not None:
+        # Measure the file as stored; text mode would normalize line endings.
+        index_bytes = len(index_path.read_bytes())
 
     add_capacity_findings(
         len(memories),
@@ -1081,8 +1118,17 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         args.enforce_limits,
         add,
     )
+    add_capacity_findings(
+        index_bytes,
+        args.index_byte_limit,
+        "index bytes",
+        args.warning_ratio,
+        args.critical_ratio,
+        args.enforce_limits,
+        add,
+    )
 
-    render(args, root, today, findings, len(memories), index_lines)
+    render(args, root, today, findings, len(memories), index_lines, index_bytes)
     return 1 if any(item.severity in {"critical", "warning"} for item in findings) else 0
 
 

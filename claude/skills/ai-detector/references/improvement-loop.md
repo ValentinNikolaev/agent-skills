@@ -29,7 +29,9 @@ already authorized, proceed without another approval question.
 Locate the authoritative sources and read their repository instructions before
 editing. Preserve dirty overlapping work. Do not patch a generated distribution
 or managed installed cache as the source of truth. If the source or authority is
-unavailable, return a concrete proposed patch and the limitation.
+unavailable, return a concrete proposed patch and the limitation. Maintenance
+permission is not permission to publish, release, install, or change another
+workflow.
 
 ## Apply the smallest supported correction
 

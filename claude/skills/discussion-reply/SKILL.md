@@ -48,7 +48,7 @@ Use [version and review controls](references/review-state.md) for multi-stage wo
 
 Apply the project's rubric and independent-review requirements when present. Otherwise perform a local check against the source, intended job, and voice without inventing council votes. If a required reviewer or tool is unavailable, disclose the missing stage and use only a fallback allowed by the owning policy.
 
-Resolve supported objections in substantive edit batches. Use the supplied revision budget. If none exists, allow at most two repair batches after the first complete draft, then report unresolved issues. Do not reroll unchanged copy, change the rubric, or invent evidence to obtain a pass.
+Resolve supported objections in substantive edit batches within the repair budget in [version and review controls](references/review-state.md#bound-repairs).
 
 External detector checks run only when requested by the human or standing project authorization. Use `ai-detector` when available; do not silently substitute local judgment for a required service result. Submit only the authorized passage and necessary constraints. Any changed submitted text needs its own external-check evidence when policy requires exact-text verification.
 

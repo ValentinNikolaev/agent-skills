@@ -1,10 +1,10 @@
 # Finder angles and reviewer roles
 
-Use these procedures for standard and deep reviews. Quick scans hunks only and records that limit; it still separates candidate generation from verification and uses the same evidence requirements. Do not import or quote proprietary review prompts.
+Use these procedures for standard and deep reviews. Do not import or quote proprietary review prompts.
 
 ## Assign bounded passes
 
-Agent assignment belongs only to the top-level coordinator. A delegated finder, verifier, or sweep reviewer must not spawn nested agents; return any additional coverage or verification request to the coordinator. Include this boundary and the main skill's read-only execution rule in every assignment.
+Agent assignment belongs only to the top-level coordinator. Include the no-nested-delegation boundary and the main skill's read-only execution rule in every assignment.
 
 Count additions plus deletions separately as `P` for production/configuration/other non-generated files and `T` for test-only files, using the repository's test conventions. Exclude generated bulk with its source and reason recorded. Count executable test infrastructure or fixtures at full weight in `P` when their complexity or risk warrants it, without also counting those lines in `T`. A test filename alone does not justify discounting production behavior.
 
@@ -16,13 +16,13 @@ Partition all changed non-generated paths and hunks among those `B` passes by re
 
 Record `P`, `T`, exclusions/full-weight exceptions, `W`, advisory `D`, available/reserved roles, planned `B`, completed passes, and the file/function partition ledger. The report's required pass denominator is the capped plan `B`, not `D`. `D > F` is budget saturation, not an automatic coverage deficit. A missing planned partition, unread changed hunk/test, or omitted applicable trace is an actual deficit: name the affected paths and checks rather than treating a capped count as proof of coverage. Prioritize state machines, concurrency, and identity/ownership. If the partitions cannot be covered within the initial budget, make a bounded sequential extension with the same agents when authorized or disclose the concrete coverage limit; never mark uninspected work complete or start another delegation wave just to meet the volume estimate.
 
-For example, `P = 1594`, `T = 762` gives `W = 1784.5` and `D = 3`. With three available subagent slots, standard reserves one verifier and plans three finder passes including the coordinator. Deep reserves a separate sweep reviewer too and plans two baseline finder passes plus its gap sweep. Neither mode owes sixteen passes merely because the raw diff has 2356 changed lines. Passing this arithmetic does not establish review recall or the correctness of any finding.
+For example, `P = 1594`, `T = 762` gives `W = 1784.5` and `D = 3`. With three available subagent slots, standard reserves one verifier and plans three finder passes including the coordinator. Deep reserves a separate sweep reviewer too and plans two baseline finder passes plus its gap sweep. The raw 2356 changed lines do not set the pass count; the weighted demand and available roles do. Passing this arithmetic does not establish review recall or the correctness of any finding.
 
 Start reserved reviewers in that initial wave without finder history; send their inputs when ready. Do not fork the finder's conversation into the fresh verifier. Reuse the same verifier for sweep additions instead of launching a second assessment team. With only one available subagent, it can verify then sweep, while the coordinator verifies its additions because it did not find them. Without an Agent tool, separate the passes inline and explicitly report that independent verification and an independent sweep were unavailable. If the host or a stricter repository rule prevents delegation, disclose that constraint rather than claiming independence.
 
 ## Finder ledger
 
-Assign a stable CR ID as soon as a candidate has a nameable failure scenario; coordinate disjoint IDs before parallel finding. Record its location, category, summary, scenario (`inputs/state -> wrong output, crash, or observable contract violation`), finder identity, and any missing premise. Preserve every such candidate until verification. Do not retract, rank by confidence, or replace a candidate with a question during discovery. Deduplication may link equivalent mechanisms without losing their distinct triggers.
+Assign a stable CR ID as soon as a candidate has a nameable failure scenario; coordinate disjoint IDs before parallel finding. Record its location, category, summary, scenario (`inputs/state -> wrong output, crash, or observable contract violation`), finder identity, and any missing premise. Deduplication may link equivalent mechanisms without losing their distinct triggers.
 
 Use these angles as procedures, not merely checklist labels:
 
@@ -45,11 +45,9 @@ Send the fresh verifier:
 
 Do not send the finder's private reasoning, confidence, favored verdict, or proposed fix. The verifier reconstructs the evidence independently. A failure scenario is the hypothesis to test, not an instruction to accept it.
 
-Return one assessment for every candidate, including refuted ones, with reviewer identity, quoted file/line evidence and the verdict. For `PLAUSIBLE`, include a concrete confirmation step. For `REFUTED`, identify one of: contradicting code, an impossible invariant/type, a guard in this diff, or a trace proving no observable effect. Show why it covers the proposed trigger, not just the normal path. A missing rule quote invalidates a conventions finding as unsupported policy; retain that rejection in the audit record without pretending it proves a runtime path safe.
+Return one assessment for every candidate, including refuted ones, with reviewer identity, quoted file/line evidence, and the verdict under the outcome rules in `SKILL.md`; a `PLAUSIBLE` assessment includes its concrete confirmation step and a `REFUTED` one names its refutation kind.
 
-Timing/configuration dependence is sufficient for `PLAUSIBLE` when the repository establishes the mechanism. Only hypotheses with an essential premise outside the repository belong in Questions. Missing local inspection is an unfinished verification step or disclosed limit, not external evidence.
-
-In standard, the independent verifier supplies the disposition. In deep, one evidence-bearing non-`REFUTED` verification vote keeps the finding; do not use a majority vote or confidence threshold to erase it. If another reviewer provides conflicting refutation evidence, retain it as `PLAUSIBLE` and show the conflict and resolution check. A bare finder nomination is not a verification vote, and unsupported conventions still fail the quoted-rule gate.
+In standard, the independent verifier supplies the disposition. In deep, one evidence-bearing non-`REFUTED` verification vote keeps the finding; do not use a majority vote or confidence threshold to erase it. If another reviewer provides conflicting refutation evidence, retain it as `PLAUSIBLE` showing both pieces of evidence and the resolution check; never suppress it silently. A bare finder nomination is not a verification vote.
 
 When a finding is confirmed, sweep the rest of the diff for the same failure pattern before moving on. Trace each sibling's trigger and guards, pass new candidates through the same verification, and report all affected locations, grouping only when the mechanism and remedy are shared. Keep distinct triggers and counterexamples; textual similarity alone is insufficient. This bounded search applies at every depth and stays within that depth's scope.
 

@@ -3,7 +3,7 @@
 
 Task-focused instructions for Codex and Claude Code: review changes, implement a contract, maintain project knowledge, or edit a draft. Each skill defines its inputs, scope, evidence, and completion checks.
 
-The collection contains 49 skills covering software development, documentation, project memory, writing, and product decisions. Install the plugin for your agent, then choose a skill from the catalogue below.
+The collection contains 48 skills covering software development, documentation, project memory, writing, and product decisions. Install the plugin for your agent, then choose a skill from the catalogue below.
 
 [![Latest release](https://img.shields.io/github/v/release/ValentinNikolaev/agent-skills?sort=semver)](https://github.com/ValentinNikolaev/agent-skills/releases/latest) [![Build](https://github.com/ValentinNikolaev/agent-skills/actions/workflows/regenerate-skills.yml/badge.svg)](https://github.com/ValentinNikolaev/agent-skills/actions/workflows/regenerate-skills.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -67,8 +67,6 @@ Related skills stay separate when their deliverables or permission boundaries di
 | Existing prose | [`humanizer`](agent-plugins/skills/humanizer/SKILL.md): Edit while preserving meaning and voice. | [`ai-detector`](agent-plugins/skills/ai-detector/SKILL.md): Analyze style and suggest improvements. |
 
 A direct `ai-detector` request includes the ChatGPT detector service unless you request local-only analysis. Internal workflow checks stay local. Neither result establishes authorship.
-
-`stop-slop` is a compatibility entry for existing callers through v29. Use `ai-detector` or `humanizer` in new workflows; removal is planned for v30.
 
 ## Scope and verification
 
@@ -151,10 +149,6 @@ Each link opens the skill's full instructions, including when to use it and how 
 ### Skill development
 
 - [`wrap-agent-skill`](agent-plugins/skills/wrap-agent-skill/SKILL.md) — Inspect, adapt, and validate reusable skills in canonical sources and both platform packages.
-
-### Deprecated compatibility
-
-- [`stop-slop`](agent-plugins/skills/stop-slop/SKILL.md) — Existing callers only, retained through v29. Use ai-detector for analysis and humanizer for edits; removal is planned for v30.
 
 ## Updating
 
