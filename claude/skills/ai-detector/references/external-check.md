@@ -6,6 +6,7 @@
 - [Submit and verify](#submit-and-verify)
 - [Obtain actionable advice](#obtain-actionable-advice)
 - [Interpret and stop](#interpret-and-stop)
+- [Clean up ChatGPT conversations](#clean-up-chatgpt-conversations)
 
 Use this reference for a human's explicit detector request. Workflow-only calls
 remain local. The default service is
@@ -66,6 +67,9 @@ authorship-detection accuracy.
 2. Open the service through an available authorized browser or supported tool.
    Read the current UI and complete the account/model check above. Do not assume
    an API, numeric score or fixed selector.
+   For ChatGPT, use a fresh conversation for this check and track each created
+   conversation by its actual URL or ID so cleanup cannot target an existing
+   user conversation. Track invalid and incomplete attempts too.
 3. Request an assessment and improvement advice neutrally. For example:
 
    > Assess the prose in TEXT for AI-like stylistic patterns in its genre.
@@ -130,3 +134,29 @@ An explicitly local-only request overrides this external route. A blocked login
 or unavailable page leaves the external result incomplete. Do not bypass an
 access restriction, silently choose another provider, or describe local findings
 as if the website returned them.
+
+## Clean up ChatGPT conversations
+
+Treat cleanup as the final step for every ChatGPT run, including an early stop,
+failed submission, invalid attempt, or interrupted analysis. This applies only
+to conversations created for the current check, never pre-existing user chats
+or the conversation from which the skill was invoked.
+
+1. Before cleanup, capture the available result, exact-input verification, and
+   relevant limitations in the answer being prepared or an already authorized
+   report. Do not create extra logs or exports just to enable deletion. A
+   captured session URL is provenance, not a promise of continued access.
+2. Delete each tracked conversation through an available supported control.
+   Verify the target URL or ID before confirming deletion, then verify the
+   observed outcome. Closing a browser tab does not delete a conversation.
+3. If deletion fails or is unavailable, archive that conversation and verify
+   the outcome. Archiving is the fallback, not evidence of deletion. Do not
+   repeat failed actions indefinitely or use bulk delete/archive controls.
+4. Report the actual cleanup status. If neither action succeeds, identify the
+   remaining session link and the blocker. Do not claim cleanup from an
+   unverified click. An incomplete analysis and a cleanup failure are separate
+   limitations, and both must remain visible when applicable.
+
+Cleanup does not require keeping a chat for a source link. Return the service
+link and captured findings instead of a dead deleted-session link. An archived
+session may remain as a provenance link, labelled archived.

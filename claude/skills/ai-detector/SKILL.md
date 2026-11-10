@@ -134,6 +134,11 @@ A verdict alone does not complete this mode.
 Verify the text in the actual submitted message after any transition from the
 writing page into a chat. A correct editor value is not proof of submission.
 Retain omissions, truncation or misrouted input as invalid attempts, not results.
+After capturing the result, delete every ChatGPT conversation created for the
+check, including invalid or incomplete attempts. If deletion fails or is
+unavailable, archive it instead. Follow the reference's
+[cleanup procedure](references/external-check.md#clean-up-chatgpt-conversations)
+before returning, including when the check stops early.
 
 ## Turn findings into bounded improvements
 
@@ -150,8 +155,11 @@ with counterevidence and a next validation step.
 
 ## Return the result
 
-State the local finding and, when required, the literal external result with a
-usable source/session link. Identify the highest-value changes, what should
+State the local finding and, when required, the literal external result with the
+service link and captured evidence in the answer or authorized report. Report
+whether the check's ChatGPT conversations were deleted, archived, or could not
+be cleaned up. Do not present a deleted session URL as a usable source.
+Identify the highest-value changes, what should
 stay, and any remaining uncertainty. Distinguish suggestions from edits actually
 applied and skill changes actually verified. Keep the report proportional to the
 request. For external work, include the observed account/workspace, plan, model,
