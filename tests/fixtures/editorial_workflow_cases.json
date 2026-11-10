@@ -97,5 +97,110 @@
     "must_not_do": [
       "Activate either new skill solely because prose is being drafted."
     ]
+  },
+  {
+    "id": "reply-value-minor-inconsistency",
+    "skill": "discussion-reply",
+    "request": "Draft one English reply to the post below. Project policy requires three independent reviewers. The candidate below is the proposed exact copy; decide whether it may proceed to ratings.",
+    "source": "Post: A maintainer asks how teams should split guidance between a root instructions file and task-specific skills, and invites others to describe their structure. Evidence: in the maintainer's sample repository, the root file and a skill each contain a severity table. Rule A is High in one and Critical in the other; Rule B is Medium in one and High in the other. A precedence clause ranks project rules over generic ones; both tables are generic. Neither file says whether severity blocks a merge, orders fixes, or only labels findings. Candidate: 'Repeating guidance in the root file and the skill has a concrete cost here: Rule A is High in one table and Critical in the other, and Rule B is Medium versus High. Both tables are generic, so the precedence clause does not choose between them. One severity source referenced by the other file would keep review priorities consistent.'",
+    "must_preserve": [
+      "The discrepancy and the precedence clause are described accurately.",
+      "Nothing in the sources establishes what the severity levels control."
+    ],
+    "must_verify": [
+      "Each reviewer answers the five value questions from the reply's own words before ratings.",
+      "'Review priorities' is marked assumed: no source says what the levels control, and no quoted wording ties the discrepancy to a decision the maintainer faces.",
+      "The verdict is revise because significance is unproven and the benefit to the post's question is not shown; accurate facts, concrete wording and topic fit do not offset it.",
+      "The coordinator repeats the check at final selection and reaches the same result, or withdraws the idea and leaves the slot empty."
+    ],
+    "must_not_do": [
+      "Accept the copy or raise its value rating because the totals are high.",
+      "Treat a detector or style result as evidence of usefulness.",
+      "Invent a merge-blocking effect to justify the finding.",
+      "Add a reviewer, change a weight or threshold, or reset the repair count."
+    ],
+    "value_verdict": "revise"
+  },
+  {
+    "id": "reply-value-proven-decision",
+    "skill": "discussion-reply",
+    "request": "Draft one English reply to the post below. Project policy requires three independent reviewers. The candidate below is the proposed exact copy; decide whether it may proceed to ratings.",
+    "source": "Post: A maintainer asks how teams should split guidance between a root instructions file and task-specific skills, and invites others to describe their structure. Evidence: in the maintainer's sample repository, the root file and a skill each contain a severity table. Rule A is High in one and Critical in the other; Rule B is Medium in one and High in the other. A precedence clause ranks project rules over generic ones; both tables are generic. The skill states that its fitness suite fails when any Critical rule fails, and the maintainer's merge checklist requires that suite to pass. Candidate: 'The duplicated tables decide a merge here, not just a label: the skill's suite fails on any Critical finding and your checklist requires it to pass, so a component that exceeds the prop limit is blocked under the skill's Critical Rule A but is only a High finding under the root table. Which table wins is not defined, because the precedence clause covers project versus generic rules, not two generic ones. A single severity source would settle which changes can merge.'",
+    "must_preserve": [
+      "The link from the discrepancy to a merge decision is supported by the supplied sources."
+    ],
+    "must_verify": [
+      "The link from the discrepancy to a merge decision is quoted from the reply itself.",
+      "Confirmed and assumed steps are marked separately; the over-limit component is conditional on the stated rules.",
+      "The pass admits the reply to ratings only; source fit, level and voice gates still apply.",
+      "If the link appeared only in a reviewer's note, the verdict is revise."
+    ],
+    "must_not_do": [
+      "Treat a pass as a rating or as proof of fit.",
+      "Skip the coordinator's final-selection check."
+    ],
+    "value_verdict": "pass"
+  },
+  {
+    "id": "reply-value-technical-mechanism",
+    "skill": "discussion-reply",
+    "request": "Draft one English reply to the post below. Project policy requires three independent reviewers. The candidate below is the proposed exact copy; decide whether it may proceed to ratings.",
+    "source": "Post: An engineer asks how to stop a queue consumer from processing a message twice after a restart and asks for approaches. Visible comments discuss idempotency keys. Source excerpt in the packet (broker documentation): a received message that is not acknowledged within the visibility timeout becomes available for delivery again. Candidate: 'The visibility timeout is the design input here: if a handler can run longer than it, the broker redelivers the message while the first run is still working, so two handlers process it at once. A dedupe key checked only before the work starts does not prevent that. Claim the key atomically at the start, or extend the timeout while the handler runs.'",
+    "must_preserve": [
+      "Redelivery after the visibility timeout is documented in the supplied source.",
+      "No personal production experience is claimed."
+    ],
+    "must_verify": [
+      "The reader gain, the mechanism by which two handlers overlap and why a check-before-work key does not stop it, is quoted from the reply.",
+      "The consequence is confirmed by the supplied documentation, not assumed.",
+      "The reply adds the timeout overlap that the visible idempotency-key comments do not address.",
+      "The verdict is pass; level and voice gates are assessed separately."
+    ],
+    "must_not_do": [
+      "Require an action item or a new discovery beyond the mechanism.",
+      "Fail the reply for lacking a personal anecdote."
+    ],
+    "value_verdict": "pass"
+  },
+  {
+    "id": "reply-value-specific-support",
+    "skill": "discussion-reply",
+    "request": "Draft one short English reply to the post below. Project policy requires three independent reviewers. The candidate below is the proposed exact copy.",
+    "source": "Post: A developer reports finishing a months-long cleanup of flaky tests and says each removed test and its reason are recorded in the pull request. No question is asked. Candidate: 'A written reason for every test you deleted is the kind of care that rarely gets noticed. Congratulations on finishing it.'",
+    "must_preserve": [
+      "The author's account of the recorded reasons is the subject of the recognition."
+    ],
+    "must_verify": [
+      "The recognition is specific to the author's account and quotes words from the reply.",
+      "The value check does not gate this reply; the owning rubric judges the recognition actually offered.",
+      "No technical advice, novel finding or action is required."
+    ],
+    "must_not_do": [
+      "Reject the reply for lacking technical content.",
+      "Add a lesson or tip to reach a threshold.",
+      "Invent shared experience."
+    ],
+    "value_verdict": "not-required"
+  },
+  {
+    "id": "reply-value-small-find-explanation-only",
+    "skill": "discussion-reply",
+    "request": "Draft one English reply to the post below. Project policy requires three independent reviewers. The candidate below is the proposed exact copy; decide whether it may proceed to ratings.",
+    "source": "Post: An author describes a rollback strategy for a deploy pipeline and asks how others handle partial rollbacks. Evidence: the post's second diagram labels the cache warm-up step 'optional'; a later paragraph says deploys fail without it. No comment reports confusion about it. Candidate: 'The second diagram marks cache warm-up as optional, but a later paragraph says deploys fail without it.' Reviewer note (outside the reply): 'Newcomers could skip the step and break their deploys.'",
+    "must_preserve": [
+      "The inconsistency is real.",
+      "The reviewer note is not part of the reply, and no source shows anyone skipping the step."
+    ],
+    "must_verify": [
+      "The observation is confirmed; the consequence exists only in the reviewer's note and is marked assumed.",
+      "No words in the reply connect the inconsistency to the author's question about partial rollbacks.",
+      "The verdict is revise on unproven significance, not because the finding concerns documentation.",
+      "The same inconsistency may pass if the reply shows a consequence for a decision the author faces."
+    ],
+    "must_not_do": [
+      "Adopt a rule that rejects documentation or consistency findings as a class.",
+      "Accept the reply because the finding is correct and checkable."
+    ],
+    "value_verdict": "revise"
   }
 ]

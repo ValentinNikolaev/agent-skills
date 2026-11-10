@@ -46,6 +46,8 @@ Apply the owning voice in the output language. Use examples as craft evidence, n
 
 Use [version and review controls](references/review-state.md) for multi-stage work or any required assessment. Evaluate source fit, contribution, grounding, voice, and completion before numerical ratings. A correct answer to a different problem fails; a polished source recap remains a recap. For analysis, point to the reasoning in the actual reply rather than explaining its value only in review notes.
 
+A reply can fit the topic and be accurate and still be useless to its reader, so an analytical reply also needs the [contribution value check](references/contribution-value.md) before ratings: each independent reviewer shows from the reply's own words what the reader gains, the coordinator repeats it at final selection, and unproven value blocks acceptance whatever the total. Support, acknowledgment, and humor are not gated by it; a weak idea may be withdrawn, leaving its slot empty.
+
 Apply the project's rubric and independent-review requirements when present. Otherwise perform a local check against the source, intended job, and voice without inventing council votes. If a required reviewer or tool is unavailable, disclose the missing stage and use only a fallback allowed by the owning policy.
 
 Resolve supported objections in substantive edit batches within the repair budget in [version and review controls](references/review-state.md#bound-repairs).
