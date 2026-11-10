@@ -15,6 +15,12 @@
     "bare_script_allowlist_skills": [
       "wrap-agent-skill"
     ],
+    "stale_name_allowlist": [
+      {
+        "skill": "ai-detector",
+        "name": "stop-slop"
+      }
+    ],
     "retired_skill_names": [
       "stop-slop",
       "create-github-pages",

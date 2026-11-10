@@ -287,6 +287,65 @@ class MetricTests(unittest.TestCase):
         self.assertEqual(by_metric(findings_for(self.root, next_major=28), "version-milestone"), [])
         self.assertEqual(by_metric(findings_for(self.root, next_major=None), "version-milestone"), [])
 
+    def test_completed_removals_are_history_not_milestones(self) -> None:
+        write_skill(
+            self.root,
+            "alpha",
+            "# A\n\nThe old entry was removed in v30; nothing carried over.\n\n"
+            "Removed in v28 as well. Retired in v29.\n",
+        )
+        self.assertEqual(by_metric(findings_for(self.root, next_major=31), "version-milestone"), [])
+
+    def test_pending_removals_are_still_flagged(self) -> None:
+        write_skill(
+            self.root,
+            "alpha",
+            "# A\n\nThis entry will be removed in v31.\n\nPlan to remove it in v32.\n\n"
+            "Removal in v31 is scheduled.\n",
+        )
+        found = by_metric(findings_for(self.root, next_major=31), "version-milestone")
+        self.assertEqual(sorted(item["location"] for item in found), ["SKILL.md:12", "SKILL.md:8"])
+        self.assertEqual(
+            len(by_metric(findings_for(self.root, next_major=32), "version-milestone")), 3
+        )
+
+    def test_each_milestone_location_is_reported_once(self) -> None:
+        write_skill(
+            self.root,
+            "alpha",
+            "# A\n\nWe will remove it in v30 and plan removal in v30 too.\n",
+        )
+        found = by_metric(findings_for(self.root, next_major=30), "version-milestone")
+        self.assertEqual(len(found), 1)
+        self.assertEqual(found[0]["location"], "SKILL.md:8")
+
+    def test_stale_name_allowlist_is_scoped_to_one_skill_and_name(self) -> None:
+        row = "| A request names the removed `stop-slop` skill | Local analysis only. |\n"
+        write_skill(self.root, "ai-detector", "# D\n\n" + row)
+        write_skill(self.root, "humanizer", "# H\n\n" + row)
+        write_skill(self.root, "other", "# O\n\nRoute to `old-pages` instead.\n")
+        found = by_metric(findings_for(self.root), "stale-skill-name")
+        self.assertEqual(
+            sorted((item["skill"], item["message"].split("`")[1]) for item in found),
+            [("humanizer", "stop-slop")],
+        )
+
+    def test_stale_name_allowlist_comes_from_ledger_settings(self) -> None:
+        self.assertIn(
+            {"skill": "ai-detector", "name": "stop-slop"},
+            health.DEFAULT_SETTINGS["stale_name_allowlist"],
+        )
+        ledger = json.loads((REPO_ROOT / "docs" / "skill-health.json").read_text(encoding="utf-8"))
+        self.assertEqual(
+            ledger["settings"]["stale_name_allowlist"],
+            [{"skill": "ai-detector", "name": "stop-slop"}],
+        )
+        write_skill(self.root, "alpha", "# A\n\nRoute to `old-pages` instead.\n")
+        found = findings_for(
+            self.root, stale_name_allowlist=[{"skill": "alpha", "name": "old-pages"}]
+        )
+        self.assertEqual(by_metric(found, "stale-skill-name"), [])
+
     def test_non_canonical_backticked_skill_names(self) -> None:
         write_skill(self.root, "alpha-review", "# A\n\nRoute edits to `beta-review`.\n")
         write_skill(

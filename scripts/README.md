@@ -490,8 +490,8 @@ findings as text or JSON, and never edits a skill:
 | `shared-sentence` | A sentence of at least 60 normalized characters shared verbatim by two or more skills. New groups are warnings once a baseline exists; without one they are info. Files named in `duplicate_allowlist_files` (the memory contract) and licence files are skipped. |
 | `orphan-reference` | A file under `references/` that no `SKILL.md` or reference links to or names by path. |
 | `bare-script-path` | `python scripts/...` in skill markdown, which resolves against the user's project. Skills in `bare_script_allowlist_skills` are skipped. |
-| `version-milestone` | Text such as "planned for removal in v30" or "through v29" whose version is at or below the next major. |
-| `stale-skill-name` | A backticked name in `SKILL.md` that is in `retired_skill_names`, or that is built from skill-name words but is not a canonical skill, in a routing sentence. |
+| `version-milestone` | Pending milestones such as "planned for removal in v30", "will be removed in v31" or "through v29" whose version is at or below the next major. Completed history ("was removed in v30") is not flagged. Each location is reported once. |
+| `stale-skill-name` | A backticked name in `SKILL.md` that is in `retired_skill_names`, or that is built from skill-name words but is not a canonical skill, in a routing sentence. Intentional mentions are listed in `stale_name_allowlist` as `{"skill", "name"}` pairs (default: `ai-detector` + `stop-slop`); the name is still flagged in every other skill. |
 | `stale-fact` | An "as of", "verified on", or "checked on" date older than `stale_fact_days`. |
 | `near-duplicate` | File pairs from different skills whose 6-gram shingles overlap by `near_duplicate_containment` or more. New pairs are warnings once a baseline exists. |
 | `yaml-outlier` | An `agents/openai.yaml` key used by at most `yaml_outlier_fraction` of the skills. |

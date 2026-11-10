@@ -22,7 +22,7 @@ import subprocess
 import sys
 from datetime import date, datetime
 from pathlib import Path
-from typing import Any, Iterable, Sequence
+from typing import Any, Collection, Iterable, Sequence
 
 SCRIPTS_DIR = Path(__file__).resolve().parent
 if str(SCRIPTS_DIR) not in sys.path:
@@ -58,6 +58,9 @@ DEFAULT_SETTINGS: dict[str, Any] = {
     "duplicate_allowlist_files": ["memory-contract.md"],
     # Skills that legitimately show repository commands such as python scripts/...
     "bare_script_allowlist_skills": ["wrap-agent-skill"],
+    # Intentional mentions of a retired or foreign name, as {"skill", "name"} pairs.
+    # ai-detector tells the reader what to do when someone asks for stop-slop.
+    "stale_name_allowlist": [{"skill": "ai-detector", "name": "stop-slop"}],
     # Names that no longer exist and must not appear as backticked skill names.
     "retired_skill_names": [
         "stop-slop",
@@ -310,14 +313,21 @@ AS_OF_RE = re.compile(
     r"\b(?:[Aa]s of|[Vv]erified on|[Cc]hecked on)\s+"
     r"(\d{4}-\d{2}-\d{2}|[A-Z][a-z]+ \d{1,2},? \d{4}|[A-Z][a-z]+ \d{4})"
 )
+# Pending milestones only. Completed history ("was removed in v30", "retired in
+# v28") is past tense and deliberately not matched; "will be removed in v31" is.
 MILESTONE_PATTERNS = (
     re.compile(
-        r"\b(?:removal|removed|retirement|retired|sunset|deprecation)\b[^.\n]{0,40}?"
+        r"\b(?:removal|retirement|sunset|deprecation)\b[^.\n]{0,40}?"
         r"\b(?:in|for|at|by|before)\s+(?:the\s+)?v(\d+)\b",
         re.I,
     ),
     re.compile(r"\b(?:through|until)\s+v(\d+)\b", re.I),
-    re.compile(r"\bremove(?:d)?\s+(?:it\s+)?in\s+(?:the\s+)?v(\d+)\b", re.I),
+    re.compile(
+        r"\b(?:will|to|should|must|shall|going\s+to)\s+be\s+"
+        r"(?:removed|retired|dropped|deprecated)\s+(?:in|by|before|at)\s+(?:the\s+)?v(\d+)\b",
+        re.I,
+    ),
+    re.compile(r"\bremove\s+(?:it\s+)?(?:in|by|before)\s+(?:the\s+)?v(\d+)\b", re.I),
 )
 BACKTICK_NAME_RE = re.compile(r"`([a-z][a-z0-9]*(?:-[a-z0-9]+)+)`")
 ROUTING_WORD_RE = re.compile(
@@ -424,12 +434,17 @@ def bare_python_lines(skill: wrappers.SourceSkill) -> list[tuple[str, int]]:
 
 def milestone_hits(skill: wrappers.SourceSkill) -> list[tuple[str, int, int, str]]:
     hits = []
+    seen: set[tuple[str, int, int]] = set()
     for path in markdown_files(skill):
         relative = path.relative_to(skill.directory).as_posix()
         for number, line in enumerate(read_markdown(path).splitlines(), 1):
             for pattern in MILESTONE_PATTERNS:
                 for match in pattern.finditer(line):
-                    hits.append((relative, number, int(match.group(1)), match.group(0)))
+                    key = (relative, number, int(match.group(1)))
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    hits.append((relative, number, key[2], match.group(0)))
     return hits
 
 
@@ -462,13 +477,14 @@ def stale_skill_names(
     canonical: set[str],
     vocabulary: set[str],
     retired: set[str],
+    allowed: Collection[str] = (),
 ) -> list[tuple[int, str]]:
     hits = []
     text = strip_frontmatter(read_markdown(skill.skill_file))
     offset = len(read_markdown(skill.skill_file).splitlines()) - len(text.splitlines())
     for number, line in enumerate(text.splitlines(), 1 + offset):
         for token in BACKTICK_NAME_RE.findall(line):
-            if token in canonical:
+            if token in canonical or token in allowed:
                 continue
             words = token.split("-")
             looks_like_skill = all(word in vocabulary for word in words)
@@ -574,6 +590,9 @@ def compute_metrics(
 
     routing_chars = sum(len(skill.name) + len(skill.description or "") for skill in skills)
     bare_allow = set(settings["bare_script_allowlist_skills"])
+    allowed_names: dict[str, set[str]] = {}
+    for entry in settings["stale_name_allowlist"]:
+        allowed_names.setdefault(entry["skill"], set()).add(entry["name"])
     metrics: dict[str, Any] = {
         "skill_count": len(skills),
         "skills": per_skill,
@@ -599,7 +618,11 @@ def compute_metrics(
         "stale_skill_names": {
             skill.name: [{"line": line, "name": name} for line, name in hits]
             for skill in skills
-            if (hits := stale_skill_names(skill, canonical, vocabulary, retired))
+            if (
+                hits := stale_skill_names(
+                    skill, canonical, vocabulary, retired, allowed_names.get(skill.name, ())
+                )
+            )
         },
         "stale_facts": {
             skill.name: [
