@@ -96,6 +96,20 @@ suggest a paragraph-level repair when local substitutions leave it intact.
 Do not call this a measured semantic-transition signal or treat useful recaps,
 chronological structure and intentional parallelism as defects.
 
+When comparable exact texts are already supplied, read them together as well
+as individually. Compare where a frame appears and what it does across drafts.
+Different verbs or the expanded `I would` can perform the same setup as `I'd`.
+Cite the spans and locations that establish the recurrence, and explain what
+becomes predictable for a reader who sees the series. If assessing a requested
+argument sequence, identify the opening, the pivot, and the ending in order.
+A condition that belongs to a concrete example alone does not establish a
+formulaic progression.
+
+Report any cross-text finding separately from the assessment of each draft.
+A favourable result for one text does not answer the comparison. Distinguish
+an earned personal judgement or intentional parallelism from a reusable
+sentence frame. Keep the chosen local or external mode and submission scope.
+
 Assistant-response wording needs a genre check. An FAQ answer, courteous reply
 or requested example legitimately responds to someone. Flag prefatory praise,
 offers or process narration only when they intrude into the intended document.

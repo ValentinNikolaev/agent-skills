@@ -13,6 +13,7 @@ phrases to reuse in the user's writing; other revisions can meet the constraints
 - [Small, supported repairs](#small-supported-repairs)
 - [Idiomatic phrasing without flattening time](#idiomatic-phrasing-without-flattening-time)
 - [Keep stance while fixing precision](#keep-stance-while-fixing-precision)
+- [Repeated framing across short texts](#repeated-framing-across-short-texts)
 - [Factual support and narrative fit](#factual-support-and-narrative-fit)
 - [Protected material](#protected-material)
 
@@ -163,6 +164,30 @@ comes from changed completion semantics.
 This bounded example does not prescribe first person, repeated framing or
 technical vocabulary for other authors. A complete draft still needs its own
 meaning and voice checks.
+
+## Repeated framing across short texts
+
+Two hypothetical comments in separate discussions:
+
+> I'd start by lining up the restart times. I'd want to see whether one worker
+> kept restarting after the deploy.
+
+> I would begin with the retry trace. I'd look for requests that are still
+> retrying after the upstream recovers.
+
+In succession, both introduce a proposed starting point and then another
+first-person frame for the test. Keep the actions and their tentative force,
+but let each discussion supply the shape of the reply. For example:
+
+> The restart times can show whether one worker kept restarting after the
+> deploy. That's the first thing I'd check.
+
+> Does the retry trace show requests still retrying after the upstream
+> recovers?
+
+The first edit keeps the writer's choice of where to start. The second asks
+the diagnostic question directly. Turning both openings into commands would
+repeat the same scaffolding and make each judgement more directive.
 
 ## Factual support and narrative fit
 

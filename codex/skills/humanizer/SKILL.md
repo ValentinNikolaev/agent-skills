@@ -121,6 +121,20 @@ fragments or repeated wording with a real function can stay. Preserve the
 reasoning and useful detail that earn the conclusion. A short text needs no
 extra argument; an analytical passage need not become a short reaction.
 
+When editing several short texts or continuing a series with recent examples
+already available, read the comparable exact copies together. Look for a
+sentence frame serving the same purpose across texts, even when its wording or
+position changes. For example, `I'd check`, `I'd want` and `I would look at`
+can repeatedly introduce an observation or proposal. Within an individual
+draft, a recap followed by a stock warning and a closing caveat can also make
+distinct reasoning sound interchangeable. Check what each sentence contributes.
+
+Rewrite the affected passages around what the writer observes, decides, or asks
+in that specific exchange. Preserve the stance and put each uncertainty beside
+the claim it qualifies. Read the entire set together again. Replacing every
+first-person sentence with the same imperative creates a new repetition. See
+the [example across short texts](references/examples.md#repeated-framing-across-short-texts).
+
 Repeated stance can do useful work. Turning a scoped judgement into an
 obligation, or an unspecified actor into `we`, merely for variety changes the
 claim; keep the original and repair any separate clarity issue on its own merits.
