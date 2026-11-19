@@ -14,7 +14,7 @@ Produce a reply that belongs in the actual exchange and gives its reader a reaso
 
 ## Establish the task
 
-Identify the source post, target branch, speaker, addressee, placement, requested language, and deliverable. If the source is unavailable, ask for the missing passage or use supplied material with explicit coverage limits. Do not infer an entire thread from a screenshot or invent a recipient's intent.
+Identify the source post, target branch, speaker, addressee, placement, requested language, and deliverable. For a reply inside a thread, locate the actual parent. A list of top-level comments cannot establish which remark the writer is answering. If the source is unavailable, ask for the missing passage or use supplied material with explicit coverage limits. Do not infer an entire thread from a screenshot or invent a recipient's intent.
 
 Load the project's applicable voice and discussion policy once. It owns personal facts, language preferences, required translations, alternative counts, reviewer requirements, score thresholds, service checks, and publication permissions. Preserve those requirements across handoffs; this skill supplies no universal persona, score target, or engagement forecast.
 
@@ -31,6 +31,8 @@ For stale or materially changed discussion evidence, refresh the affected branch
 ## Choose a contribution before phrasing
 
 Compare plausible readings and the strongest reason a proposed response would miss the point. Select one governing contribution: an answer, useful distinction, consequence, well-founded objection, genuinely open question, or specific recognition. Do not force advice, novelty, or technical depth into a complete supportive response.
+
+In the existing brief, name the addressee, the particular remark and what the writer wants to do in response. An answer to a factual question, a joke and a technical objection can each be complete. Use review criteria to judge what the reader receives after drafting. Turning those criteria into successive sentences can bury the answer or give a small recognition an unwanted lesson. Keep an analytical contribution subject to its value check even if it sounds supportive.
 
 For a research-led reply, identify the unresolved question before searching. Read relevant primary material, compare its conditions with this discussion, and record the inference linking it to the reply. Prestige, a citation, or a concrete example cannot replace that reasoning. Report insufficient evidence rather than padding an option set.
 

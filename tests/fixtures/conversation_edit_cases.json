@@ -1,0 +1,28 @@
+{
+  "purpose": "Manual local behaviour replay. Supply only the task, source and drafts to the editing pass. Evaluate the exact output against the holdback separately. These invented examples carry no authorship labels.",
+  "cases": [
+    {
+      "task": "Edit only reply B in this pair. Keep each speaker's scope.",
+      "source": [
+        "A colleague asks what the afternoon shift can print when paper delivery is late.",
+        "A planner asks whether a delayed train connection can still be made."
+      ],
+      "drafts": [
+        "I’d keep the spare roll for the afternoon shift. They can still print the pickup slips while they wait.",
+        "Check when the first train arrives. Check whether there’s time to cross platforms. Then decide whether the connection is possible. That’s how to make the right call."
+      ],
+      "holdback": "A stays byte-for-byte intact. B needs the arrival and transfer time. Inspect the two exact results side by side for a generic recipe or substitute stance opener. No invented timetable or guarantee."
+    },
+    {
+      "task": "Edit a reply to the parent in the thread. The writer has inspected the label.",
+      "source": [
+        "Post: These two bags look very similar.",
+        "Parent: Which one is mine?"
+      ],
+      "drafts": [
+        "The one with the blue tag is yours."
+      ],
+      "holdback": "Keep the complete direct answer. A new question, tagging procedure or general lesson would make the exchange harder."
+    }
+  ]
+}
