@@ -111,7 +111,7 @@ Choose the smallest edit that resolves the problem. Rework a paragraph when its
 progression is the problem, rather than replacing every flagged word. Trace what
 each sentence contributes before compressing a sequence: preserve a distinct
 fact, inference, qualification, chronology, change of stance, personal judgement
-or interpersonal purpose. Repeated propositions with no added function can go;
+or interpersonal purpose. Read the last two sentences in the exchange. Would removing one cost the reader a decision, relationship, mechanism or qualification? A closing line that merely makes the reply sound finished can go. Repeated propositions with no added function can go;
 fragments or repeated wording with a real function can stay. Preserve the
 reasoning and useful detail that earn the conclusion. A short text needs no
 extra argument; an analytical passage need not become a short reaction.
@@ -126,7 +126,7 @@ distinct reasoning sound interchangeable. Check what each sentence contributes.
 
 Rewrite the affected passages around what the writer observes, decides, or asks
 in that specific exchange. Preserve the stance and put each uncertainty beside
-the claim it qualifies. Read the entire set together again. Replacing every
+the claim it qualifies. When a pattern survives different words, briefly place the exact openings, developments and endings side by side. Mark where an example sets up the same judgement or the writer repeatedly prescribes the next action. Edit only the passages in scope. Reread the entire edited set, including unchanged neighbours, on its own. Locate any new shared opening, action or closing before deciding whether each instance earns its place. Replacing every
 first-person sentence with the same imperative creates a new repetition. See
 the [example across short texts](references/examples.md#repeated-framing-across-short-texts).
 

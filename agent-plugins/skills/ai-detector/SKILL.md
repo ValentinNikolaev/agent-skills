@@ -102,10 +102,10 @@ Different verbs or the expanded `I would` can perform the same setup as `I'd`.
 Cite the spans and locations that establish the recurrence, and explain what
 becomes predictable for a reader who sees the series. If assessing a requested
 argument sequence, identify the opening, the pivot, and the ending in order.
-A condition that belongs to a concrete example alone does not establish a
+When the resemblance is disputed, line up the exact opening, development and ending of the affected texts. Check the example’s role, what the speaker does and what the closing line adds. Ask whether those moves could trade places across the conversations. “Cause and effect” alone fits too many good explanations to support a finding. A condition that belongs to a concrete example alone does not establish a
 formulaic progression.
 
-Report any cross-text finding separately from the assessment of each draft.
+Report any cross-text finding separately from the assessment of each draft. In a before/after comparison, cite spans from the actual revised set as well as the inputs. A diagnosis of the originals cannot establish that a repair worked.
 A favourable result for one text does not answer the comparison. Distinguish
 an earned personal judgement or intentional parallelism from a reusable
 sentence frame. Keep the chosen local or external mode and submission scope.
