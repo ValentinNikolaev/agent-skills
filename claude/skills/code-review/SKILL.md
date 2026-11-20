@@ -97,6 +97,7 @@ Load only the language references needed by changed behavior and its tests:
 
 - Go behavior/tests, or any changed `go.mod` or `go.sum` (including nested modules): [references/review-go.md](references/review-go.md). For manifest/checksum changes, its read-only Dependabot reconciliation is part of the baseline at every depth, including quick; include its outstanding-alert inventory and access limits in verification evidence. This bounded check does not require approval for an optional broad audit.
 - TypeScript (`.ts`, `.tsx`, `.mts`, `.cts`), declarations, or related module/build configuration: [references/review-typescript.md](references/review-typescript.md).
+- For a new call through Next.js's patched server-side `fetch` to a service that checks request framing, body integrity, or body size, apply the [Next.js fetch checks](references/review-nextjs.md).
 - Python: [references/review-python.md](references/review-python.md).
 - FastAPI endpoints, dependencies, response models, or streaming changes: also read [references/review-fastapi.md](references/review-fastapi.md) after establishing the installed FastAPI/Pydantic versions.
 - PHP or PHP-backed templates: [references/review-php.md](references/review-php.md).

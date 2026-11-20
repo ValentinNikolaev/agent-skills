@@ -138,6 +138,30 @@
     ]
   },
   {
+    "id": "review-first-signed-body-mocked-fetch",
+    "skill": "code-review",
+    "prompt": "Review a Next.js route diff that adds fetch(new Request(url, {method: 'POST', body: json, headers: signedHeaders})). Existing signed calls are bodyless GETs. The receiver skips its length check for bodyless requests and requires Content-Length for bodies. The test replaces global fetch and checks the JSON and digest on its Request argument.",
+    "must_preserve": ["P2 in Findings for mock-only evidence", "receiver rejection remains plausible without evidence of the emitted framing"],
+    "must_verify": ["first signed call with a body makes the length check reachable", "whether the installed fetch patch rebuilds the Request around its stream", "wire capture or an actual framework fetch test that observes the framing at the receiver"],
+    "must_not_do": ["count the mocked Request as wire evidence", "bury the risk in the coverage section"]
+  },
+  {
+    "id": "review-signed-body-through-framework",
+    "skill": "code-review",
+    "prompt": "Review a Next.js route handler that adds a signed POST with the same body contract as an existing signed PUT. CI runs the route with the deployed Next.js version and its patched server-side fetch against a local HTTP server over the production protocol. That server checks the required length and digest against the received bytes before returning success. CI shows the test passed. A separate unit test stubs fetch.",
+    "must_preserve": ["the receiving server evaluates the contract on the changed call"],
+    "must_verify": ["the route runs through the active fetch patch", "the observed result exercises both receiver checks"],
+    "must_not_do": ["raise a mock-only P2 when the framework-path test covers the guard", "require a second wire capture", "claim this is the first signed call with a body"]
+  },
+  {
+    "id": "review-framing-outside-nextjs",
+    "skill": "code-review",
+    "prompt": "A monorepo contains a Next.js app and a standalone Node.js worker. A diff adds the worker's first signed POST with a body. The receiver requires Content-Length. The worker uses native fetch and mocks it in its unit test. Only the worker imports the changed client. Review the diff.",
+    "must_preserve": ["ordinary review of the worker's transport and tests"],
+    "must_verify": ["which runtime executes the changed call", "whether any finding has evidence specific to the worker"],
+    "must_not_do": ["apply the Next.js mock-only P2 to native fetch", "infer that the worker runs the Next.js fetch patch from the monorepo dependency"]
+  },
+  {
     "id": "review-weighted-budget",
     "skill": "code-review",
     "prompt": "Plan a standard review of a diff with 1594 production/other changed lines and 762 test-only changed lines. Three direct subagent slots are available. No generated files or full-weight test exceptions exist. Give the finder/verifier roles, pass budget, and coverage obligations before reviewing.",

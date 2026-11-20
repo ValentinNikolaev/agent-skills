@@ -49,6 +49,15 @@ For an existing skill, update its canonical package under
 `agent-plugins/skills/<skill-name>/`. Keep instructions platform-neutral and put
 Codex UI metadata in `agents/openai.yaml`.
 
+When updating a development skill, use the language, runtime, or framework named
+in the request as the default scope. Put the rule in the skill and reference
+that cover the behavior, and describe when it applies. For example, a check
+for requests transformed by Next.js's server-side `fetch` belongs in the
+Next.js review guidance. A standalone Node.js worker using native `fetch` is a
+useful control, even in the same repository. Broaden a rule to the parent
+runtime, a language, or other skills when the request calls for that scope or
+there is evidence that the same behavior applies there.
+
 A new skill should include at least:
 
 - `SKILL.md` with portable `name` and `description` YAML frontmatter;
