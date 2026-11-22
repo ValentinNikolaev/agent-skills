@@ -1,5 +1,11 @@
 # UI copy and sets of strings
 
+## Contents
+
+- [Inputs and protection](#inputs-and-protection)
+- [Set mode](#set-mode)
+- [Findings and observations](#findings-and-observations)
+
 Use this contract for interface copy or a brief naming second-language readers.
 It extends the editing contract, without authorizing product, code, or test changes.
 For other prose, use only the relevant audience and protection checks.
@@ -66,6 +72,15 @@ Keep deliberate UI templates under the
 [detector's microcopy calibration](../../ai-detector/references/ui-calibration.md).
 
 ## Findings and observations
+
+When auditing a notification, read it alongside the visible state and consider
+where the reader will be when the event occurs. What would someone miss without
+it? A toast can repeat a status already visible to a sighted reader while its
+announcement confirms completion to a screen-reader user. A background export
+can warrant a message that takes the reader to the file. If no distinct purpose
+is evident, flag the notification for the product owner and identify any
+unverified delivery or accessibility behavior. A wording edit leaves delivery
+and announcements under product control.
 
 For review output, use one row per affected string/location:
 

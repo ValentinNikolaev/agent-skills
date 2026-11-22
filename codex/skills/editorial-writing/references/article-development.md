@@ -18,6 +18,14 @@ Preserve a user-defined audience or purpose. Propose a material scope change exp
 
 ## Build a concrete skeleton
 
+When an article turns on an author's broad claim, first look for a documented
+incident in the available material. If one is missing and the author can supply
+it, ask one question about a particular occasion. For “the handover got easier,”
+try “On the next shift, what could the incoming engineer do with the new notes?”
+Use the answer for the event it describes. A claim about time saved across
+shifts still needs comparable timings. If the author has already supplied the
+incident, use it directly. If the evidence remains thin, keep the gap visible.
+
 After the value decision passes, map sections to reader questions, intended gains, key claims, evidence, examples, visual decisions, and transitions. Check prerequisites and whether the ending earns the promised gain. Mark evidence gaps; never prescribe an experiment's result. These are working planning fields, not compulsory manuscript headings.
 
 For an existing article, label a reconstructed skeleton as reconstructed. Follow project storage and manuscript ownership conventions. Keep working notes ephemeral unless the user or project requests a retained plan.
