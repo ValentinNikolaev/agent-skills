@@ -32,19 +32,19 @@
     "yaml_outlier_fraction": 0.1
   },
   "last_check": {
-    "version": "30.0.0",
-    "major": 30,
-    "commit": "82e5187cbd40f3ca0607e46b591c17b75f960b1f",
-    "dirty": false,
-    "date": "2026-11-10",
-    "kind": "full-audit",
-    "reference": "full audit at 66602cc, 2026-11-09, applied in v30",
-    "notes": ""
+    "version": "33.0.0",
+    "major": 33,
+    "commit": "13389fa02b7706b89bcbcfbffe9344f783a4805a",
+    "dirty": true,
+    "date": "2026-11-22",
+    "kind": "delta-review",
+    "reference": "v33 release preparation: editorial checks and delta since 82e5187",
+    "notes": "Reviewed changed instructions and neighbour routes. Growth in ai-detector (+355), discussion-reply (+176) and humanizer (+365) covers external-check cleanup, UI strings, cross-draft review and contribution checks. No routing or numeric conflicts found. 8015 of 10000 routing characters used."
   },
   "baseline": {
     "skills": {
       "ai-detector": {
-        "body_words": 1321,
+        "body_words": 1676,
         "description_chars": 232,
         "description_hash": "3413bb735a05",
         "short_description_hash": "b2a1fe8d476d",
@@ -93,7 +93,7 @@
         "readme_summary_hash": "220dd2cb2daa"
       },
       "code-review": {
-        "body_words": 4020,
+        "body_words": 4047,
         "description_chars": 165,
         "description_hash": "e0c51e1b36ac",
         "short_description_hash": "520a5ed6412b",
@@ -142,7 +142,7 @@
         "readme_summary_hash": "3e8130b9614c"
       },
       "discussion-reply": {
-        "body_words": 828,
+        "body_words": 1004,
         "description_chars": 198,
         "description_hash": "0a58270c0ab2",
         "short_description_hash": "dd7c70d62774",
@@ -219,7 +219,7 @@
         "readme_summary_hash": "85cc83ba1be5"
       },
       "humanizer": {
-        "body_words": 1876,
+        "body_words": 2241,
         "description_chars": 160,
         "description_hash": "591cb130e83d",
         "short_description_hash": "f8e83fb4699d",
@@ -396,8 +396,19 @@
     "near_duplicate_pairs": []
   },
   "open_items": [
-    "description over 250 characters: business-viability-assessment (260), clean-code-comments (254), console-ux-design (289)",
-    "code-review SKILL.md body is 4,020 words; audit target of a 20-25% cut was not reached without dropping rules"
+    "Descriptions exceed 250 characters: business-viability-assessment (260), clean-code-comments (254), console-ux-design (289).",
+    "code-review body remains 4047 words; preserve review coverage in any future reduction."
   ],
-  "history": []
+  "history": [
+    {
+      "version": "30.0.0",
+      "major": 30,
+      "commit": "82e5187cbd40f3ca0607e46b591c17b75f960b1f",
+      "dirty": false,
+      "date": "2026-11-10",
+      "kind": "full-audit",
+      "reference": "full audit at 66602cc, 2026-11-09, applied in v30",
+      "notes": ""
+    }
+  ]
 }

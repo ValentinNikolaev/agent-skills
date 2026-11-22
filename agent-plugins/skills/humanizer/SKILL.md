@@ -86,6 +86,13 @@ flow or voice; a presumed change in an unmeasured detector score is not a reason
 
 Read the whole passage before changing isolated phrases. Identify the wording or
 recurring structure behind the impression, then choose the review depth below.
+For a product, service or profile description that sounds interchangeable, read
+the promise with the name temporarily hidden. What job or circumstance would
+still let the reader recognize this offering? If the draft already gives a
+relevant example, condition or demonstration, bring it next to the promise.
+Otherwise flag the missing support when the output format permits. Keep the
+actual name and any required wording in the delivered copy.
+
 Look for:
 
 - **Delayed point:** throat-clearing, announcements of insight, or a recap that

@@ -4,6 +4,17 @@ Except where noted below, original content in this repository is distributed
 under the [MIT License](LICENSE). Third-party material remains subject to its
 respective terms; the repository license does not relicense that material.
 
+## Editorial interviews, descriptions, and notifications
+
+`editorial-writing` adapts the incident question from `statya/references/intervyu.md`.
+`humanizer` adapts the name-removal check from `redaktura/references/otsenki.md` and
+the notification-purpose check from `ux-copy/references/uvedomleniya.md`.
+These passages are rewritten in English with new examples and scope limits.
+Source: [N1arko/redaktura-skills at d1ebaff](https://github.com/N1arko/redaktura-skills/tree/d1ebaff4fb8b97f939826a1cac284c10303be6f1),
+copyright 2026 [Людмила Сарычева, Никита Архипов](https://gladlax.ru),
+licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+Both packages include the upstream terms and attribution in `LICENSE.redaktura-skills`.
+
 ## LinkedIn profile and Featured proof workflows
 
 The `linkedin-profile-optimizer` and `linkedin-featured-proof` skills adapt and
