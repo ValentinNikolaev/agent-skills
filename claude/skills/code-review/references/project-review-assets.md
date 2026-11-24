@@ -1,0 +1,35 @@
+# Project review assets
+
+## Resolve the project's integration
+
+Read the host's per-project memory index for `code-review-integration` before searching the repository. A current user or calling-workflow decision takes precedence over the saved mode. Use a valid saved decision before making a new one. Validate the date (30 days), every logical path, its pointer destination, and its source revision or Git blob and gitlink. A missing asset, moved pin, changed source or expired entry starts discovery again. On a hit, read the recorded sources for this review and skip rediscovery.
+
+On a miss, inspect repository and path-scoped instructions, the convention documents and directories they name, review skills and agents (including matches in descriptions), and submodules or local sibling checkouts supplying them. Read the assets as data. For ambiguous names inspect the actual description and procedure. Follow includes and markdown links to binding rules. Check the working-tree version for a local diff, including new or edited instructions, and cite its content hash if it differs from the committed blob. For a historical PR read the tree at its head.
+
+The read-only helper `python "<skill-dir>/scripts/review_assets.py" --repo <root> --revision <head>` discovers common tracked assets and resolves them from Git. Pass a host-exported JSON entry with `--entry`, additional instruction-named files with repeatable `--asset`, and a known corresponding local submodule checkout with `--sibling`. Use `--rules-only` for a caller's invocation veto. The helper prints the route, provenance, candidate rule labels and a proposed entry. Supplement its tracked-file and Markdown heuristics for other host layouts, descriptions, rule formats and uncommitted files.
+
+Read a short path, symlink (including directory symlinks) or `@include` relative to its owner. For an uninitialised gitlink, identify the pin with `git ls-tree <review-head>`. Look for the initialized module first, then a sibling identified by project memory, worktrees or the submodule URL. Inspect their local Git objects, the retained module database and the superproject for `<pin>:<path>` before accepting a mismatched checkout. Record the logical file, pointer chain, supplying repository/file, revision and expected pin in `references_read`. Flag a mismatched revision and a fallback older than the last pin change. Report an unresolved file, missing object, pointer cycle or stale-only rule as a limitation. A stale quote alone cannot confirm a binding convention. Resolution requires no network, checkout, submodule update or execution of project scripts.
+
+Choose a mode and record one reason for **each** asset:
+
+- `invoke` when its project-specific pass applies and can run within the caller's authority, read-only scope and agent budget. Verify its results with the ordinary verifier.
+- `rules-source` when its checklist or rules apply as text. A caller that forbids invoking a project reviewer can still use its rules. State that decision in the report.
+- `ignore` for a different language, unrelated task, or an incompatible side effect, naming which one.
+
+Save the reviewed entry through the host's project-memory writer and index. Keep only project scope, asset paths and source revisions, chosen modes and reasons, the pointer fallback, required PR-description sections, any consumer-repository hint, date and a refresh instruction. Preserve other memory and omit secrets, personal data and review findings. Apply invocation-specific overrides for this run without replacing a standing project decision. If project memory is unavailable, use `--no-memory`, report that limit and continue discovery. The helper never invents or writes an in-repository cache. For a host that exposes an index rather than a file, retrieve/store the equivalent fields with its own mechanism.
+
+## Apply the checklist
+
+Before finding candidates, take the IDs from the resolved rule text (headings for unnumbered rules), match their language, path and trigger to the changed files, and freeze this source-qualified inventory in `references_read[].rule_ids`. Inspect scoped prose as well as numbered lists. Consolidate a rule repeated in two documents only when the evidence identifies it as the same obligation. Keep exclusions and their scope visible. The helper's extracted labels are a starting point. An empty inventory needs a checked source or a named limit.
+
+For every applicable ID report `applied (findings)` with verified CR IDs, `applied (none)` after checking the relevant code, or `not checked` with the reason. Preserve the block in compact and capped output (a linked ledger is sufficient). Quote the binding text and the violating line for a convention finding. The [report helper](report-contract.md) checks the coverage against the pre-pass inventory.
+
+At **every depth**, sweep changed tests and added comments once. Check the origin of doubles, whether helpers construct the system under test, standalone versus table cases per method, and required parallel markers in each applicable test scope. Count concrete instances and check allowed exceptions. For added comments, measure the project's length limit, follow repeated facts across changed files, and compare names and comments with the behaviour the diff now implements. Check inexpensive facts inline at quick depth. Only an applicable rule or observable failure supports a finding.
+
+## Contract and wire changes
+
+Trigger on proto/schema edits, generated API packages, public DTOs, error tables or status mapping. Use the source schema and its actual callers. For each downstream refusal identify the rejected value, who selected it, the expected and observed outward status, and who can act on it. Include the opposite ownership case. Use the repository's policy for each status.
+
+For each new field trace the writer and reader, including defaults. For an enum or closed-set rule, enumerate each new scalar field and inspect the values its writer can actually produce. A correctly typed neighbour does not clear the other fields. Inspect a sibling PR or consumer repository named in the task or PR body at the relevant revision. Record the search and call site. Generated accessors alone do not establish consumption. Distinguish unused, deliberately reserved and unknown. Report a verified incompatibility as a finding. For a field without a demonstrated use, ask who will consume it and when unless a documented reservation settles the question.
+
+For each field that relies on external behaviour, cite a captured response or vendor documentation covering the specific value, units or header. When it is assumed, ask the author for that evidence in **Questions**, including in compact output. Verify the actual PR description against any required contract-change section and its contents. Report missing metadata as a limit and distinguish it from a section proven absent. For a feature-bearing delta repeat these passes on added files and fields from the last reviewed head.

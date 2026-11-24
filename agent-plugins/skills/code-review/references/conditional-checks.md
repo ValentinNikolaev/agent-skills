@@ -49,6 +49,8 @@ Read only the sections that match the changed languages or change patterns.
 
 ## Classification boundaries
 
+For changed error/status tables, apply the [contract pass](project-review-assets.md#contract-and-wire-changes). Trace who supplied each refused value before choosing a status for the caller.
+
 - For each new or changed classification that drives different behavior (such as retryable versus final, decode versus transport error, or 4xx versus 5xx), list concrete inputs on both sides of each boundary and their expected classes under the repository's contract. Trace the resulting behavior, not just the assigned label.
 - Include cases where the same error type or message can arise from different causes. For example, `unexpected end of JSON input` can describe a truncated transfer or a complete but malformed body; the shared message alone does not establish the cause.
 - Identify the discriminating signal available to the classifier, such as declared length versus bytes received, completion status, HTTP status, or a typed transport error. Where the contract distinguishes transport from decode failures, a body shorter than its applicable declared length belongs on the transport side, while a complete malformed JSON body belongs on the decode side. Derive retryable versus final behavior separately from repository policy. If no reliable signal is available, state the ambiguity and missing evidence instead of assuming the message distinguishes the causes.
@@ -59,6 +61,8 @@ Read only the sections that match the changed languages or change patterns.
 Apply when changed code groups, merges, deduplicates, or assigns ownership to identities, anchors, leases, chains, or equivalent entities. State the promised invariants from the contract, then trace creation-order permutations, concurrent first writes, and entry through a stale or left-behind handle. Track which identity each read and write uses, including conflicting winners and write-once records; a stable key on one path does not prove that all paths converge. Report the concrete order that breaks an invariant, with the normal order as a control.
 
 ## Review-fix deltas
+
+- New features, proto fields, config keys and added files trigger the [per-rule, test/comment and contract passes](project-review-assets.md#apply-the-checklist) on their delta scope, including additions accompanying otherwise mechanical fixes.
 
 - Trigger a review-fix delta when fixes change the behavior of concurrent code, transactions, storage/cleanup, retries, or UI interactions (button enabled/visible states, validation and error feedback, dialog step order, or selection/list ordering). One delta review covers all fixes of one review round, from the last reviewed head to the new head, not one review per push; intermediate pushes accumulate until the round is ready.
 - Pure constant changes (timeout or limit values) without surrounding logic changes, renames, and behavior-preserving moves need no delta review; list them in one line instead.

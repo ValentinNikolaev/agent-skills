@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 from copy import deepcopy
 import json
 from pathlib import Path
@@ -51,6 +52,71 @@ def citation_valid(value: object, *, needs_line: bool = True) -> bool:
     )
 
 
+def check_coverage(document, references, retained):
+    expected = set()
+    for source in references:
+        if isinstance(source, str):
+            continue
+        if "unresolved" in source:
+            require(nonempty(source.get("path")) and nonempty(source["unresolved"]),
+                    "identify the unresolved source and reason")
+            require(not source.get("rule_ids"), "unresolved rule text cannot supply applicable IDs")
+            continue
+        for field in ("path", "source", "revision"):
+            require(nonempty(source.get(field)), f"rule source needs {field}")
+        ids = source.get("rule_ids")
+        require(isinstance(ids, list) and all(nonempty(i) for i in ids), "declare applicable rule_ids")
+        keys = {(source["path"], rule) for rule in ids}
+        require(len(keys) == len(ids) and not keys & expected, "duplicate applicable rule")
+        expected.update(keys)
+    rows = document.get("convention_coverage")
+    require(isinstance(rows, list), "declare convention_coverage, even when empty")
+    seen = set()
+    linked = set()
+    valid_ids = {c["id"] for c in retained}
+    for row in rows:
+        require(isinstance(row, dict), "invalid convention coverage row")
+        require(nonempty(row.get("path")) and nonempty(row.get("id")), "invalid coverage rule")
+        key = (row["path"], row["id"])
+        require(key in expected and key not in seen, f"unexpected coverage rule: {key}")
+        seen.add(key)
+        status = row.get("status")
+        require(status in ("applied (findings)", "applied (none)", "not checked"), f"invalid status: {key}")
+        if status == "applied (findings)":
+            ids = row.get("findings")
+            require(isinstance(ids, list) and ids and all(nonempty(i) and i in valid_ids for i in ids),
+                    f"link {key} to retained findings before the display cap")
+            linked.update(ids)
+        if status == "not checked":
+            require(nonempty(row.get("reason")), f"missing coverage reason: {key}")
+    require(seen == expected, f"missing coverage for {sorted(expected - seen)}")
+    missing = {c["id"] for c in retained if c["category"] == "conventions"} - linked
+    require(not missing, f"convention findings missing from source coverage: {sorted(missing)}")
+    return rows
+
+
+def contract_questions(fields, retained):
+    require(isinstance(fields, list), "contract_fields must be an array")
+    questions = []
+    valid_ids = {c["id"] for c in retained}
+    for field in fields:
+        require(isinstance(field, dict) and nonempty(field.get("field")), "name the wire field")
+        require(nonempty(field.get("consumer_evidence")), "record consumer search or unavailable source")
+        status = field.get("consumer")
+        require(status in ("used", "unused", "unknown"), "declare consumer status")
+        fact = field.get("external_fact")
+        require(fact in ("confirmed", "assumed", "none"), "declare external fact status")
+        if fact == "confirmed":
+            require(nonempty(field.get("fact_evidence")), "cite the capture or vendor document")
+        finding = field.get("finding")
+        if finding is not None:
+            require(nonempty(finding) and finding in valid_ids, "wire finding must name a retained CR ID")
+        if fact == "assumed" or status == "unknown" or (status == "unused" and finding is None):
+            require(nonempty(field.get("question")), "unresolved wire field needs a question to the author")
+            questions.append({"field": field["field"], "question": field["question"]})
+    return questions
+
+
 def prepare_report(
     document: dict, *, depth: str = "standard", max_findings: int | None = None,
 ) -> dict:
@@ -62,8 +128,8 @@ def prepare_report(
     require(isinstance(document, dict), "input must be an object")
     references = document.get("references_read", [])
     require(
-        isinstance(references, list) and all(nonempty(path) for path in references),
-        "references_read must be an array of nonempty skill-relative paths",
+        isinstance(references, list) and all(nonempty(r) or isinstance(r, dict) for r in references),
+        "references_read must contain reference paths or rule source records",
     )
     require(
         depth == "quick" or FINDER_REFERENCE in references,
@@ -151,11 +217,25 @@ def prepare_report(
     retained.sort(key=lambda item: (
         PRIORITIES.index(item["priority"]), CATEGORY_TIERS[item["category"]], int(item["id"][3:]),
     ))
-    displayed = retained if max_findings is None else retained[:max_findings]
-    omitted = retained[len(displayed):]
+    coverage = check_coverage(document, references, retained)
+    fields = document.get("contract_fields", [])
+    questions = contract_questions(fields, retained)
+    # Reserve the best-ranked representative of each category, then fill spare slots.
+    representatives = {}
+    for item in retained:
+        representatives.setdefault(item["category"], item["id"])
+    first = list(representatives.values())
+    reserved = set(first)
+    selection = first + [item["id"] for item in retained if item["id"] not in reserved]
+    chosen = set(selection[:max_findings])
+    displayed = [item for item in retained if item["id"] in chosen]
+    omitted = [item for item in retained if item["id"] not in chosen]
     return {
         "verification_mode": mode, "depth": depth,
         "references_read": list(references),
+        "rule_source_limits": [r for r in references if isinstance(r, dict) and (r.get("unresolved") or r.get("warning"))],
+        "convention_coverage": coverage, "contract_fields": fields, "questions": questions,
+        "further_findings_by_category": dict(Counter(item["category"] for item in omitted)),
         "findings": displayed, "retained_count": len(retained),
         "cut_count": len(omitted), "omitted_ids": [item["id"] for item in omitted],
         "has_blocker": any(item["priority"] in ("P0", "P1") for item in retained),
@@ -175,7 +255,8 @@ def main() -> int:
     except (OSError, ValueError) as exc:
         print(f"Invalid review report: {exc}", file=sys.stderr)
         return 2
-    print(json.dumps(report, ensure_ascii=False, indent=2))
+    # Keep quoted rule text round-trippable on redirected legacy Windows consoles.
+    print(json.dumps(report, indent=2))
     return 0
 
 

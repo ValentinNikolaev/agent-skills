@@ -22,6 +22,7 @@ For example:
 {
   "verification_mode": "independent",
   "references_read": ["references/finder-and-verifier.md"],
+  "convention_coverage": [],
   "candidates": [{
     "id": "CR-001",
     "finder": "finder-1",
@@ -44,6 +45,14 @@ For example:
 Deduplicate mechanisms before using the helper; it rejects duplicate IDs rather than guessing equivalence. Standard/quick have one assessment per candidate; deep applies the vote rule in `finder-and-verifier.md`. All-refuted candidates remain in `refuted`, with their evidence, and do not consume the display cap. Unsupported convention candidates remain in `rejected` and do not consume it either.
 
 The helper sorts retained findings as `SKILL.md` specifies and applies an optional nonnegative cap only after sorting. Output includes displayed `findings`, `cut_count`, `omitted_ids`, total `retained_count`, and `has_blocker` computed from all retained P0/P1 findings before the cap. The merge verdict must also consider coverage gaps and material verification limits; the helper does not assign it.
+
+## Convention and contract evidence
+
+For a source that could not be read, use `{"path":"rules/server.md","unresolved":"gitlink object unavailable locally"}` and include its reason in the review limits. The helper returns these and any source records with a freshness warning in `rule_source_limits`. Each retained convention finding must be linked from the coverage block.
+
+Alongside existing skill-relative strings, `references_read` accepts rule sources, e.g. `{"path":"rules/tests.md","source":"shared-guides:tests.md","revision":"<commit>","rule_ids":["TEST-2"]}`. Include pin, pointer chain and freshness warnings when applicable. Preserve unresolved source paths and reasons in the scope limits. Freeze each source's applicable IDs before discovery. Every report supplies `convention_coverage` (empty when no rules apply). A row has `path`, `id`, and `status` of `applied (findings)`, `applied (none)` or `not checked`. The first requires a `findings` array of retained CR IDs, the last a `reason`. Missing, extra or duplicate rows fail even at cap zero. Incomplete rules or material unchecked IDs belong in the merge assessment.
+
+For applicable wire changes, include a `contract_fields` row per new field with `field`, `consumer` (used/unused/unknown), `consumer_evidence`, and `external_fact` (confirmed/assumed/none). Cite a confirmed premise in `fact_evidence`. Link an unused field to its retained `finding`, or give the author a `question`. Unknown consumers and assumed external facts require an author question regardless of the display cap. A documented reservation can be recorded as the intended use with its evidence. Render returned `questions` and counts from `further_findings_by_category`; the merge assessment still uses all retained findings.
 
 ## Findings file
 

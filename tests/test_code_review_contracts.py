@@ -8,6 +8,7 @@ from copy import deepcopy
 import difflib
 import importlib.util
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -23,11 +24,18 @@ CASES = json.loads((ROOT / "tests/fixtures/code_review_contract_cases.json").rea
 
 
 def document(*candidates, mode="independent"):
-    return {
+    value = {
         "verification_mode": mode,
         "references_read": ["references/finder-and-verifier.md"],
+        "convention_coverage": [],
         "candidates": list(candidates),
     }
+    ids = [c["id"] for c in candidates if c["category"] == "conventions"
+           and contract.citation_valid(c.get("rule"), needs_line=False)]
+    if ids:
+        value["references_read"].append(dict(path="AGENTS.md", source="example", revision="abc", rule_ids=["Absence"]))
+        value["convention_coverage"].append(dict(path="AGENTS.md", id="Absence", status="applied (findings)", findings=ids))
+    return value
 
 
 def finding(identity, *, priority="P2", category="correctness", verdict="CONFIRMED"):
@@ -148,8 +156,8 @@ class ReviewContractTests(unittest.TestCase):
         ]
         original = deepcopy(inputs)
         result = contract.prepare_report(document(*inputs), max_findings=4)
-        self.assertEqual([item["id"] for item in result["findings"]], ["CR-010", "CR-006", "CR-008", "CR-009"])
-        self.assertEqual(result["omitted_ids"], ["CR-007", "CR-001", "CR-002", "CR-003"])
+        self.assertEqual([item["id"] for item in result["findings"]], ["CR-010", "CR-006", "CR-008", "CR-007"])
+        self.assertEqual(result["omitted_ids"], ["CR-009", "CR-001", "CR-002", "CR-003"])
         self.assertEqual(result["cut_count"], 4)
         self.assertEqual(result["retained_count"], 8)
         self.assertEqual(inputs, original)
@@ -159,6 +167,55 @@ class ReviewContractTests(unittest.TestCase):
         self.assertEqual(result["findings"], [])
         self.assertEqual(result["cut_count"], 1)
         self.assertTrue(result["has_blocker"])
+
+    def test_cap_preserves_categories_and_counts_every_overflow(self):
+        items = [finding("CR-001", priority="P1"), finding("CR-002", priority="P1"),
+                 finding("CR-003", category="conventions", priority="P3")]
+        value = document(*items)
+        result = contract.prepare_report(value, max_findings=2)
+        self.assertEqual([r["id"] for r in result["findings"]], ["CR-001", "CR-003"])
+        self.assertEqual(result["further_findings_by_category"], {"correctness": 1})
+        zero = contract.prepare_report(value, max_findings=0)
+        self.assertEqual(zero["further_findings_by_category"], {"correctness": 2, "conventions": 1})
+
+    def test_missing_rule_fails_even_if_all_findings_are_cut(self):
+        value = document(finding("CR-003", category="conventions"))
+        source = {"path": "rules/service.md", "source": "handbook", "revision": "abc",
+                  "rule_ids": ["TEST-2", "Handle unknown sizes"]}
+        value["references_read"].append(source)
+        value["convention_coverage"].append(dict(path=source["path"], id="TEST-2",
+                                                  status="applied (findings)", findings=["CR-003"]))
+        with self.assertRaisesRegex(contract.ContractError, "missing coverage"):
+            contract.prepare_report(value, max_findings=0)
+        value["convention_coverage"].append(dict(path=source["path"], id="Handle unknown sizes",
+                                                  status="not checked", reason="No capture available"))
+        result = contract.prepare_report(value, max_findings=0)
+        self.assertEqual(result["convention_coverage"], value["convention_coverage"])
+        value["convention_coverage"][0]["findings"] = ["CR-027"]
+        with self.assertRaisesRegex(contract.ContractError, "retained findings"):
+            contract.prepare_report(value)
+
+    def test_wire_fields_keep_unconfirmed_premises_as_author_questions(self):
+        field = {"field": "quota_origin", "consumer": "unused",
+                 "consumer_evidence": "Reader returns only reply.size at client.py:21",
+                 "external_fact": "assumed"}
+        value = document()
+        value["contract_fields"] = [field]
+        with self.assertRaisesRegex(contract.ContractError, "question"):
+            contract.prepare_report(value)
+        field["question"] = "Which reader needs quota_origin, and which capture establishes its unit?"
+        self.assertEqual(contract.prepare_report(value, max_findings=0)["questions"][0]["question"], field["question"])
+        field.update(consumer="used", consumer_evidence="client.py:21 reads reply.quota_origin",
+                     external_fact="confirmed", fact_evidence="Captured provider response, quota_origin = west")
+        self.assertFalse(contract.prepare_report(value)["questions"])
+
+    def test_unicode_rule_quotes_survive_legacy_pipe_encodings(self):
+        candidate = finding("CR-001", category="conventions")
+        candidate["rule"]["quote"] = "Absent user → return None"
+        result = subprocess.run([sys.executable, str(SCRIPT), "--input", "-"],
+                                input=json.dumps(document(candidate)), env=dict(os.environ, PYTHONIOENCODING="ascii"),
+                                capture_output=True, text=True, check=True)
+        self.assertEqual(json.loads(result.stdout)["findings"][0]["rule"], candidate["rule"])
 
     def test_nonblocking_ui_categories_survive_uncapped_file_preparation(self):
         candidates = [

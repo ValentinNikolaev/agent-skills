@@ -16,7 +16,7 @@ Approve changes that preserve or improve overall code health without blocking on
 
 ## Keep execution read-only
 
-Never edit reviewed files, stage, commit, push, or comment on the pull request as part of this review. The only permitted writes are a report at an output path the caller explicitly supplies and host rendering as described under Report.
+Never edit reviewed files, stage, commit, push, or comment on the pull request as part of this review. Permitted outputs are an explicitly requested report, host rendering, and the short project integration entry in host memory described below.
 
 Only the top-level review coordinator may spawn direct finder, verifier, or sweep agents. A delegated reviewer must not spawn nested agents or delegate its assignment further, even when an Agent tool is available. Return candidates, evidence, and requests for independent verification to the coordinator; the coordinator arranges any sibling reviewer. Coordinator-only delegation steps below do not apply recursively to workers.
 
@@ -55,7 +55,7 @@ Capture the run record as the [run contract](../review-retrospective/references/
 
 For review-fix delta mode, first apply the [delta trigger and scope](references/conditional-checks.md#review-fix-deltas): compare the last reviewed head directly to the new head once for all fixes in the round. This replaces the full-PR comparison below and whole-file expansion in the baseline; review only that delta and the functions it touches at the selected depth. Do not restart the original PR review.
 
-1. Read repository instructions and path-scoped rules.
+1. Read the project's host-memory entry `code-review-integration` first. Follow [project review assets](references/project-review-assets.md) to verify or discover the project's review material, resolve pointers at the reviewed revision, and record provenance and applicable IDs. Read repository instructions and path-scoped rules.
 2. Resolve the repository root and record `git status --short`.
 3. Derive the intended behavior from the request, issue, specification, pull-request description, and tests. If intent remains uncertain, state the uncertainty instead of inventing a requirement.
 4. Determine the comparison base in this order:
@@ -84,6 +84,8 @@ Perform the useful bounded review before asking about optional, token-intensive 
 5. Exclude generated artifacts as findings targets unless the source change generated them incorrectly.
 6. Trace one normal scenario and the highest-risk edge scenario through non-trivial logic. Skip traces for mechanical changes and say why.
 7. Apply the [matcher](references/conditional-checks.md#matchers-on-serialized-input) and [classification-boundary](references/conditional-checks.md#classification-boundaries) checks to each new or changed serialized-input matcher or behavior-driving classification, and the [review-fix delta checks](references/conditional-checks.md#review-fix-deltas) once per round for review fixes meeting the risk trigger. These are part of the baseline review within the selected scope.
+
+At every depth, including quick, complete the [per-rule checklist, test/comment pass and contract pass](references/project-review-assets.md#apply-the-checklist). Quick limits general discovery to hunks but includes the specific consumer and rule evidence these passes need. A delta adding a feature, field, config key or file gets these passes on the additions.
 
 For standard and deep, the coordinator must read [finder angles and reviewer roles](references/finder-and-verifier.md) in full before assigning or performing baseline passes. Use it for discovery, assignment, verification handoffs, and the deep gap sweep. If that read is missing or truncated, fail the run as `INCOMPLETE` until the read is completed; do not substitute a coverage-limit note, silently downgrade depth, or issue a merge verdict. This gate also applies to empty finding lists and compact output. Standard and deep apply every finder angle in it.
 
@@ -223,7 +225,7 @@ For the full report, return in this order:
 2. review depth: files and tests inspected, traces performed, and baseline limits;
 3. applicable-dimension summary with `pass`, `concern`, or `not-applicable`;
 4. confirmed and plausible findings ordered by priority, each with its verification verdict;
-5. actionable changed-path test coverage;
+5. actionable changed-path test coverage and a source-qualified disposition per applicable rule ID;
 6. verification evidence and commands not run;
 7. questions and verification limits;
 8. one or two grounded strengths when present;
@@ -262,7 +264,7 @@ Missing tests, ordered by risk:
 
 Every `partial` or `uncovered` status must map to at least one missing-test item. Do not report only that coverage is incomplete. If evidence is unavailable, use `unknown`, explain what is missing, and give the exact verification step. Write `None` only when all significant changed paths have grounded coverage evidence.
 
-Before applying `--max-findings`, deduplicate by failure mechanism, then sort by P0 through P3. At equal priority, correctness/security/reliability/UI/UX/accessibility outrank performance/coverage, which outrank cleanup/conventions; preserve CR-ID order within a tier. Report the number cut, even zero. Use [the report contract](references/report-contract.md) and `python "<skill-dir>/scripts/prepare_review_report.py"` to validate structured findings, including the coordinator's `references_read` ledger, and apply the cap when Python is available; otherwise apply the same rules and mandatory-read gate inline and disclose that the mechanical check was not run.
+Deduplicate by failure mechanism, then rank by P0 through P3, category tier and numeric CR ID. At equal priority, correctness/security/reliability/UI/UX/accessibility precede performance/coverage, then cleanup/conventions. Reserve the highest-ranked finding of each represented category before filling spare slots in rank order. If the cap is smaller than the category count, select the highest-ranked representatives. Display selected findings in rank order. Report the number cut, even zero, and a counted “Further findings by category” line. Use [the report contract](references/report-contract.md) and `python "<skill-dir>/scripts/prepare_review_report.py"` to validate evidence, rule coverage and the cap. Apply the same checks inline if Python is unavailable and disclose the limit.
 
 For `--format compact`, emit only: the scope line, Findings using the CR block, coverage mapping and gaps, and the merge verdict. Keep the explicit `Failure scenario` and `Verdict` labels in each finding; shorten their values, not the evidence fields. Put any essential external-evidence question or external-review learning assessment in the scope/limits line. Omit the dimension table, strengths, and high-cost offers or approval questions. Coverage still covers every significant path, but must not re-render cut findings to bypass the display cap. Compact changes presentation, not verification.
 

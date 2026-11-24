@@ -1,5 +1,7 @@
 # Learn from external review evidence
 
+Use the [project integration entry](project-review-assets.md) for the source and revision of local checklist material. When comparing two reviews, match their heads and the rules each reviewer could read. Track a missed rule separately from an absent rule source or a finding hidden by the display cap. The entry records review setup only. Recording lessons or changing a project's rules remains a separate maintenance decision.
+
 When third-party findings are available for the diff under review, compare them with the current code, repository instructions, and earlier human decisions in the discussion. Check the reviewed revision and later withdrawals or resolutions. A correct observation can have an unsuitable remedy; for example, a coverage limitation does not justify assertions that the project explicitly forbids. Reviewer confidence, bot severity, and summary-only analysis are not evidence of a defect.
 
 Ask explicitly: **Could a small change to the existing code-review skill help catch or assess this issue in future reviews?** Answer yes or no with the source evidence. Prefer improving an existing check over adding a rule for every comment. If the current instructions already cover the lesson, identify an application gap rather than claiming a missing rule.
