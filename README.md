@@ -3,7 +3,7 @@
 
 Task-focused instructions for Codex and Claude Code: review changes, implement a contract, maintain project knowledge, or edit a draft. Each skill defines its inputs, scope, evidence, and completion checks.
 
-The collection contains 48 skills covering software development, documentation, project memory, writing, and product decisions. Install the plugin for your agent, then choose a skill from the catalogue below.
+The collection contains 58 skills covering software development, documentation, project memory, writing, and product decisions. Install the plugin for your agent, then choose a skill from the catalogue below.
 
 [![Latest release](https://img.shields.io/github/v/release/ValentinNikolaev/agent-skills?sort=semver)](https://github.com/ValentinNikolaev/agent-skills/releases/latest) [![Build](https://github.com/ValentinNikolaev/agent-skills/actions/workflows/regenerate-skills.yml/badge.svg)](https://github.com/ValentinNikolaev/agent-skills/actions/workflows/regenerate-skills.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -43,8 +43,13 @@ Use humanizer to edit this draft. Keep the facts and my voice.
 | A green check you want to trust | [`prove-checks`](agent-plugins/skills/prove-checks/SKILL.md) | Evidence that the check can detect the claimed failure. |
 | A draft that needs a natural edit | [`humanizer`](agent-plugins/skills/humanizer/SKILL.md) | Clearer phrasing that keeps your meaning and voice. |
 | A product idea to evaluate | [`business-viability-assessment`](agent-plugins/skills/business-viability-assessment/SKILL.md) | A viability assessment and a practical validation plan. |
+| A syllabus and a learning project | [`education-orchestrator`](agent-plugins/skills/education-orchestrator/SKILL.md) | A study guide, aligned practice and a reviewed handoff. |
 
 Give the agent the relevant files, diff, requirements, or draft. Name the result you want and any constraints it needs to respect.
+
+[Education workflows and worked projects](docs/education/usage.md) include a physics workbook, admission practice and a resumable tutoring example.
+
+[Education workflows and worked projects](docs/education/usage.md) include a physics workbook, admission practice and a resumable tutoring example.
 
 The GitHub Pages family has new canonical names. See the [rename table and safe update steps](docs/github-pages-family-migration.md).
 
@@ -77,6 +82,19 @@ Package checks validate structure, links, helpers, and generated copies. Activat
 ## Skill catalog
 
 Each link opens the skill's full instructions, including when to use it and how it checks its work.
+
+### Education
+
+- [`education-learning-science`](agent-plugins/skills/education-learning-science/SKILL.md) — Select teaching rules from appraised evidence and document their limits.
+- [`education-curriculum-analysis`](agent-plugins/skills/education-curriculum-analysis/SKILL.md) — Map syllabus requirements, concepts and prerequisites to their sources.
+- [`education-learning-diagnostics`](agent-plugins/skills/education-learning-diagnostics/SKILL.md) — Distinguish competing explanations for a learner's observed responses.
+- [`education-instructional-design`](agent-plugins/skills/education-instructional-design/SKILL.md) — Develop objectives, instructional sequences and editable teaching materials.
+- [`education-assessment-design`](agent-plugins/skills/education-assessment-design/SKILL.md) — Construct aligned assessments, verified solutions and scoring rubrics.
+- [`education-adaptive-tutoring`](agent-plugins/skills/education-adaptive-tutoring/SKILL.md) — Guide a learner through feedback, independent practice and delayed review.
+- [`education-exam-preparation`](agent-plugins/skills/education-exam-preparation/SKILL.md) — Plan revision and unofficial practice against a dated exam specification.
+- [`education-materials-review`](agent-plugins/skills/education-materials-review/SKILL.md) — Audit teaching materials and scoring and retest corrected versions.
+- [`education-learning-analytics`](agent-plugins/skills/education-learning-analytics/SKILL.md) — Interpret authorised learning events, uncertainty and missing evidence.
+- [`education-orchestrator`](agent-plugins/skills/education-orchestrator/SKILL.md) — Coordinate specialist handoffs, review gates and resumable learning projects.
 
 ### Review and verification
 

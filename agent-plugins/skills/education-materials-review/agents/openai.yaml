@@ -1,0 +1,4 @@
+interface:
+  display_name: "Materials Review"
+  short_description: "Audit teaching content and answer keys"
+  default_prompt: "Use $education-materials-review to inspect this study guide and its assessment package for release blockers."

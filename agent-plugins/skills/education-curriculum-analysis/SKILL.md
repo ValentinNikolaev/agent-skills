@@ -1,0 +1,26 @@
+---
+name: education-curriculum-analysis
+description: Map curricula, syllabi and prerequisite relationships. Use for scope, coverage or exam specifications, not lesson drafting or scoring.
+---
+
+# Curriculum analysis
+
+Produce a `CurriculumMap` and `PrerequisiteGraph` for the requested subject, jurisdiction, level and edition. Direct use is enough for a mapping request. In a larger project, return the maps and unresolved source questions to the caller through the shared artifact contract in `references/education/contracts.json` when bundled. If that reference is absent, preserve its named fields in a readable table and mark contract validation unavailable.
+
+## Inputs and outputs
+
+Ask for the target learner level, educational system, subject, time horizon and curriculum sources when consequential. Accept supplied standards, official examination specifications, institutional syllabi and textbook contents. Record each source's publisher, URL or supplied-file identity, edition, retrieval date and exact section. Identify whether it is authoritative, a textbook organization, or an inference. The outputs contain stable requirement and concept IDs, a topic hierarchy, expectation level, coverage status, prerequisite edges with types, source anchors, conflicts and gaps. Never infer an official requirement from a generic example.
+
+## Procedure
+
+1. Confirm the source edition and the target use. Verify current official claims against the issuing authority when live access exists. Offline, preserve supplied requirements with their source identity and label unresolved current alignment provisional.
+2. Normalize each requirement into an ID that remains stable within the source edition. Keep distinct editions and jurisdictions in separate namespaces. Link overlapping subject requirements explicitly instead of collapsing them.
+3. Identify concepts and edges as strict prerequisites, helpful sequence suggestions, or conceptual associations. Check the strict subgraph for cycles and report each path that causes one. Mark proposed edges as inference until supported.
+4. Map each requirement to planned or existing objectives and materials, including missing and partial coverage. List prerequisites that the target learner may lack without asserting that a particular learner does lack them.
+5. Return a versioned map with source anchors, uncertainty and a short change report. A later source edition makes affected downstream alignment stale.
+
+Source conflicts require a side-by-side entry with edition and issuing body. Do not choose cross-country equivalence by title similarity. A missing exam specification leaves exam alignment unverified. Accessibility and language requirements belong in the map when they are part of the authoritative source. The caller owns learner objectives and content, so suggest revisions without editing those artifacts.
+
+## Checks and examples
+
+Check unique IDs, source anchors, edition labels, strict prerequisite cycles and coverage denominators. A request to compare two national curricula activates this skill. A request to format an already approved syllabus into a PDF does not. An offline request for the latest admission syllabus can receive a provisional gap analysis, with the official version unresolved. In orchestration, hand off map version and affected requirement IDs to instructional design and assessment design.

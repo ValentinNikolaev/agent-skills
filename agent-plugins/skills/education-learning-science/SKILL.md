@@ -1,0 +1,35 @@
+---
+name: education-learning-science
+description: Appraise learning research and maintain versioned pedagogical rules for educational design; use for evidence updates or teaching-strategy decisions, not a routine subject explanation.
+---
+
+# Learning-science evidence
+
+Use this skill directly when selecting or revising a teaching strategy, checking an educational research claim, or evaluating a proposed change to shared pedagogical rules. An ordinary factual question, translation, or document-formatting request does not activate it. The skill also accepts a handoff from `education-orchestrator` with a question, learner and subject context, evidence constraints, and requested rule IDs.
+
+## Inputs and outputs
+
+Accept the learning question, learner population and prior knowledge when known, subject and intended outcome, stakes, timeframe, available sources, and any existing rule IDs. Return a context-specific recommendation with source IDs, applicability, alternatives, limits, uncertainty and an evaluation plan. For an update, return a versioned `EvidenceRegistry`, proposed `PedagogicalRule` change and `EvaluationRecord`. When exchanging artifacts with other education skills, wrap them in the `references/education/contracts.json` envelope with `id`, `revision`, `kind`, `producer`, `status`, `depends_on` and contract-owned `data`. The [project export example](examples/project-export.json) demonstrates the envelope. Keep project adaptations in project artifacts; shared rules change only through maintainer review.
+
+The baseline registry is `references/education/evidence.json` in a packaged specialist. Its source records distinguish study design, population, setting, intervention, comparator, outcome, follow-up, limitations, bias, consistency, directness, certainty, access status, source version and verification date. Rule IDs are stable across specialists. Use a packaged baseline offline. If the registry is unavailable, report that limitation, inspect accessible primary sources and offer provisional advice without fabricating a rule ID or a claim of evidence coverage.
+
+## Procedure
+
+1. State the question and outcome being optimized. Distinguish a learner's immediate task completion, delayed unassisted learning and novel transfer.
+2. Select candidate rules and trace every selected rule ID to source IDs in the registry. Inspect the rule's scope, conditions, counterexamples and contraindications before applying it. Keep framework guidance, empirical effects and local hypotheses distinct.
+3. For a new or current claim, verify the underlying original study, review or official guidance and record the retrieval date, version and access level. Use academic catalogs for discovery. An abstract alone supports a provisional appraisal, not a detailed study-level certainty claim.
+4. Compare conflicting evidence by study design and risk of bias, population and task match, outcome and follow-up, consistency and directness. Do not decide by citation count or publication date alone. Explain why a boundary condition changes the recommendation.
+5. Deliver a choice tied to the context. For a complex novice procedure, `R-examples` may precede `R-retrieval`; for durable recall after initial learning, use `R-retrieval` and `R-spacing`; for access, consider `R-access` while preserving the assessed construct. Record assisted performance separately under `R-assistance`.
+6. For a proposed registry change, preserve the existing version, proposed revision, conflicting evidence, baseline, prediction, evaluation method, result and decision. Retain rejected attempts. A source update does not silently promote a new rule. Ask a maintainer to review a core change.
+
+Avoid fixed VARK labels, invented retention percentages, automatic mastery cutoffs, universal spacing schedules, and claims that an LLM judge score proves learning. An unsupported research or official-curriculum claim stays provisional until its source is checked.
+
+## Examples and quality gates
+
+- Direct, offline: "For novice learners tackling quadratic equations, select worked-example and retrieval rules from the bundled evidence registry and give a way to check delayed understanding."
+- Orchestrated: given a handoff requesting a revision pack, return applicable rule IDs and limits to instructional design without rewriting its objectives or content.
+- Negative route: "Translate this physics worksheet into Italian" belongs to a translation workflow.
+- Research update: [examples/research-update.json](examples/research-update.json) shows an evidence conflict and a rejected proposal retained with its rationale.
+- Project exchange: [examples/project-export.json](examples/project-export.json) includes a registry and rule reference that an independently installed specialist can consume.
+
+Check source-to-rule references, source access and version, context match, counterevidence and whether the recommendation's outcome is actually measured. A current high-stakes claim requires an authoritative source. Treat author and model judgments as process evidence. If research access fails, report precisely what was inspected and keep the recommendation provisional.

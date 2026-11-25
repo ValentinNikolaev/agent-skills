@@ -1,0 +1,4 @@
+interface:
+  display_name: "Curriculum Analysis"
+  short_description: "Map requirements, scope and prerequisites"
+  default_prompt: "Use $education-curriculum-analysis to map this syllabus and identify prerequisite gaps."

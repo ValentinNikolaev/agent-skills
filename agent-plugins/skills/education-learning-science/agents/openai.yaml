@@ -1,0 +1,4 @@
+interface:
+  display_name: "Education Learning Science"
+  short_description: "Appraise learning evidence and teaching rules"
+  default_prompt: "Use $education-learning-science to appraise this teaching strategy for my learners and identify evidence limits."

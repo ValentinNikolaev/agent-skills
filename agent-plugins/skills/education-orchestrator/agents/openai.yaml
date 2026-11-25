@@ -1,0 +1,4 @@
+interface:
+  display_name: "Education Orchestrator"
+  short_description: "Coordinate and resume multi-stage education projects"
+  default_prompt: "Use $education-orchestrator to coordinate a study guide, aligned practice and independent review."

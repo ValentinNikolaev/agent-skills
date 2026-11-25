@@ -1,0 +1,4 @@
+interface:
+  display_name: "Assessment Design"
+  short_description: "Build verified items, keys and rubrics"
+  default_prompt: "Use $education-assessment-design to write and verify a mixed-format assessment for these objectives."

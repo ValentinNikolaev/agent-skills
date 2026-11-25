@@ -1,0 +1,402 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "UA-model",
+      "title": "Модельна навчальна програма «Фізика. 7–9 класи», Кремінський та ін.",
+      "edition": "Order 1787, 24 December 2024",
+      "locator": "https://mon.gov.ua/static-objects/mon/sites/1/zagalna%20serednya/Navchalni.prohramy/2024/Model.navch.prohr.5-9.klas-2024/31-12-2024/fizyka-7-9-kl-kreminskyy-ta-in-31-12-2024.pdf",
+      "anchor": "Grade 7, topic 2, printed pp. 20–21",
+      "kind": "official",
+      "verification": "verified",
+      "checked": "2026-11-25"
+    },
+    {
+      "id": "NASA-speed",
+      "title": "Flight Testing Newton's Laws, Student's Flight Manual",
+      "edition": "NASA / DFRC - X41 - 1",
+      "locator": "https://www.nasa.gov/wp-content/uploads/2014/10/563411main_ftnl_student_manual.pdf",
+      "anchor": "Session 1 Operational Supplement, printed page 1.6, average speed and velocity",
+      "kind": "textbook",
+      "verification": "verified",
+      "checked": "2026-11-25"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "brief",
+      "revision": 1,
+      "kind": "ProjectBrief",
+      "producer": "caller",
+      "status": "accepted",
+      "depends_on": [],
+      "data": {
+        "scope": "Three short chapters on one-dimensional journeys, with three mixed-format exercises. Only the named portion of the model programme.",
+        "audience": "Ukrainian-speaking middle-school learners with basic signed arithmetic.",
+        "languages": {
+          "interface": "en",
+          "instruction": "uk",
+          "assessment": "uk",
+          "sources": [
+            "uk",
+            "en"
+          ]
+        },
+        "constraints": [
+          "Editable text and tables readable in linear order",
+          "Use metres, seconds and a stated positive direction"
+        ],
+        "assumptions": [
+          "Individual school's adopted programme is unknown."
+        ],
+        "mode": "author",
+        "learner_context": null
+      }
+    },
+    {
+      "id": "manifest",
+      "revision": 1,
+      "kind": "ProjectManifest",
+      "producer": "orchestrator",
+      "status": "accepted",
+      "depends_on": [
+        "brief@1"
+      ],
+      "data": {
+        "brief": "brief@1",
+        "preset": "author",
+        "checkpoint": "Replay the private journal from the fixture per usage.md",
+        "assumptions": [
+          "Individual school's adopted programme is unknown."
+        ],
+        "state": "reference example"
+      }
+    },
+    {
+      "id": "curriculum",
+      "revision": 1,
+      "kind": "CurriculumMap",
+      "producer": "curriculum-analysis",
+      "status": "accepted",
+      "depends_on": [
+        "brief@1"
+      ],
+      "data": {
+        "edition": "Order 1787, 24 December 2024",
+        "requirements": [
+          {
+            "id": "req-1",
+            "statement": "Distinguish distance travelled and displacement and state units.",
+            "authority": "official",
+            "source": "UA-model",
+            "anchor": "Grade 7, topic 2, mechanical motion, pp. 20–21; local IDs below summarise selected content."
+          },
+          {
+            "id": "req-2",
+            "statement": "Use distance, time and speed to describe uniform straight-line motion.",
+            "authority": "official",
+            "source": "UA-model",
+            "anchor": "Grade 7, topic 2, mechanical motion, pp. 20–21; local IDs below summarise selected content."
+          }
+        ],
+        "gaps": [
+          "No claim of full topic coverage or adoption by a particular school."
+        ]
+      }
+    },
+    {
+      "id": "graph",
+      "revision": 1,
+      "kind": "PrerequisiteGraph",
+      "producer": "curriculum-analysis",
+      "status": "accepted",
+      "depends_on": [
+        "curriculum@1"
+      ],
+      "data": {
+        "concepts": [
+          "signed coordinates",
+          "elapsed time",
+          "path length",
+          "signed displacement",
+          "speed"
+        ],
+        "edges": [
+          {
+            "before": "signed coordinates",
+            "after": "signed displacement",
+            "relation": "strict"
+          },
+          {
+            "before": "elapsed time",
+            "after": "speed",
+            "relation": "strict"
+          },
+          {
+            "before": "path length",
+            "after": "speed",
+            "relation": "strict"
+          }
+        ]
+      }
+    },
+    {
+      "id": "goal-1",
+      "revision": 1,
+      "kind": "LearningObjective",
+      "producer": "instructional-design",
+      "status": "accepted",
+      "depends_on": [
+        "curriculum@1",
+        "graph@1"
+      ],
+      "data": {
+        "requirements": [
+          "req-1"
+        ],
+        "condition": "Given ordered positions and the positive direction",
+        "performance": "Find total distance and signed displacement",
+        "criterion": "Correct magnitude and direction with units, including a reversal.",
+        "essential": true
+      }
+    },
+    {
+      "id": "goal-2",
+      "revision": 1,
+      "kind": "LearningObjective",
+      "producer": "instructional-design",
+      "status": "accepted",
+      "depends_on": [
+        "curriculum@1",
+        "graph@1"
+      ],
+      "data": {
+        "requirements": [
+          "req-2"
+        ],
+        "condition": "Given position or distance and elapsed time",
+        "performance": "Calculate speed or predict a uniform segment",
+        "criterion": "Use compatible units and state the uniform-motion assumption.",
+        "essential": true
+      }
+    },
+    {
+      "id": "plan",
+      "revision": 1,
+      "kind": "InstructionalPlan",
+      "producer": "instructional-design",
+      "status": "accepted",
+      "depends_on": [
+        "goal-1@1",
+        "goal-2@1"
+      ],
+      "data": {
+        "objectives": [
+          "goal-1@1",
+          "goal-2@1"
+        ],
+        "sequence": [
+          "1. Де було тіло і де воно тепер?",
+          "2. Що змінює розворот?",
+          "3. Скільки метрів за секунду?"
+        ],
+        "strategy": "Work one segment, add a reversal, then interpret a new journey after a delay.",
+        "estimated_effort": "Three short lessons; pace set by the learner.",
+        "rules": [
+          "R-examples",
+          "R-retrieval",
+          "R-access"
+        ]
+      }
+    },
+    {
+      "id": "blueprint",
+      "revision": 1,
+      "kind": "AssessmentBlueprint",
+      "producer": "assessment-design",
+      "status": "accepted",
+      "depends_on": [
+        "plan@1",
+        "goal-1@1",
+        "goal-2@1"
+      ],
+      "data": {
+        "targets": [
+          "goal-1@1",
+          "goal-2@1"
+        ],
+        "construct": "Separate path length, signed position change and speed.",
+        "intent": "formative self-check",
+        "format": "Calculation, selected response with justification, short explanation",
+        "scoring": "Score each item analytically. Accept correct equivalent reasoning and unit conversions.",
+        "constraints": [
+          "Editable text and tables readable in linear order",
+          "Use metres, seconds and a stated positive direction"
+        ]
+      }
+    },
+    {
+      "id": "guide",
+      "revision": 1,
+      "kind": "LearningMaterial",
+      "producer": "instructional-design",
+      "status": "accepted",
+      "depends_on": [
+        "plan@1",
+        "blueprint@1",
+        "goal-1@1",
+        "goal-2@1"
+      ],
+      "data": {
+        "sections": [
+          {
+            "id": "section-1",
+            "title": "1. Де було тіло і де воно тепер?",
+            "objectives": [
+              "goal-1@1"
+            ],
+            "body": "Уяви пряму доріжку з позначками через кожен метр. Праворуч координати зростають. Ти починаєш біля позначки 2 м і доходиш до 7 м. Шлях — довжина пройденої ділянки, тобто 5 м. Проєкція переміщення дорівнює кінцевій координаті мінус початкова: Δx = 7 м − 2 м = +5 м. Якщо пройти від 7 м до 2 м, шлях знову 5 м, а Δx = −5 м. Знак показує напрямок.",
+            "practice": "Самоперевірка. Почни від −1 м і пройди до 3 м. Назви шлях і Δx. Поясни, що зміниться, якщо пройти той самий відрізок у зворотному напрямку.",
+            "sources": [
+              "UA-model"
+            ]
+          },
+          {
+            "id": "section-2",
+            "title": "2. Що змінює розворот?",
+            "objectives": [
+              "goal-1@1"
+            ],
+            "body": "Візок проїхав від 0 м до 6 м, потім повернувся до 2 м. Перша ділянка має довжину 6 м, друга — 4 м. Загальний шлях становить 10 м. Для переміщення достатньо початкової та кінцевої координат: Δx = 2 м − 0 м = +2 м. Отже, два візки з однаковими початком і кінцем можуть пройти різний шлях.",
+            "practice": "Порівняй два маршрути: 0 → 3 м і 0 → 5 → 3 м. У якому випадку для відповіді потрібна проміжна координата? Намалюй вісь або переліч відрізки словами.",
+            "sources": [
+              "UA-model"
+            ]
+          },
+          {
+            "id": "section-3",
+            "title": "3. Скільки метрів за секунду?",
+            "objectives": [
+              "goal-2@1"
+            ],
+            "body": "Під час рівномірного прямолінійного руху тіло за рівні проміжки часу проходить однакові відстані в одному напрямку. Якщо візок проходить 12 м за 4 с, то його швидкість v = s / t = 3 м/с. За наступні 2 с за тих самих умов він пройде s = vt = 6 м. Якщо візок зупинявся або розвертався, поділивши весь шлях на весь час, ми отримаємо середню шляхову швидкість. Для передбачення наступної ділянки треба знати, як він рухатиметься далі.",
+            "practice": "Закрий приклад. Поясни, коли можна продовжити ряд координат 1 м, 3 м, 5 м, записаних через кожну секунду. Запропонуй перевірку свого припущення.",
+            "sources": [
+              "UA-model",
+              "NASA-speed"
+            ]
+          }
+        ],
+        "language": "uk",
+        "audience": "Ukrainian-speaking middle-school learners with basic signed arithmetic."
+      }
+    },
+    {
+      "id": "item-1",
+      "revision": 1,
+      "kind": "AssessmentItem",
+      "producer": "assessment-design",
+      "status": "accepted",
+      "depends_on": [
+        "blueprint@1",
+        "goal-1@1"
+      ],
+      "data": {
+        "blueprint": "blueprint@1",
+        "objectives": [
+          "goal-1@1"
+        ],
+        "prompt": "Кур’єр пройшов від 0 м до 8 м і повернувся до 3 м. Визнач шлях та проєкцію переміщення. Додатний напрямок — праворуч.",
+        "key": "Шлях 13 м, Δx = +3 м.",
+        "rationale": "8 + |3 − 8| = 13; 3 − 0 = +3.",
+        "scoring": "По одному балу за кожну величину з одиницею та правильним напрямком для Δx.",
+        "format": "calculation",
+        "max_points": 2,
+        "difficulty": null,
+        "validation": "Worked independently from the stem; arithmetic is checked by the regression suite."
+      }
+    },
+    {
+      "id": "item-2",
+      "revision": 1,
+      "kind": "AssessmentItem",
+      "producer": "assessment-design",
+      "status": "accepted",
+      "depends_on": [
+        "blueprint@1",
+        "goal-2@1"
+      ],
+      "data": {
+        "blueprint": "blueprint@1",
+        "objectives": [
+          "goal-2@1"
+        ],
+        "prompt": "Візок рухається рівномірно вздовж прямої та проходить 18 м за 6 с. Яку відстань він пройде за наступні 4 с за тієї самої швидкості? Обери 3 м, 12 м або 24 м і поясни вибір.",
+        "key": "12 м.",
+        "rationale": "18 м / 6 с = 3 м/с. За 4 с шлях 3 × 4 = 12 м. Варіант 3 плутає швидкість із відстанню.",
+        "scoring": "Один бал за відповідь, один за обґрунтування з одиницями.",
+        "format": "selected response and justification",
+        "max_points": 2,
+        "difficulty": null,
+        "validation": "Worked independently from the stem; arithmetic is checked by the regression suite."
+      }
+    },
+    {
+      "id": "item-3",
+      "revision": 1,
+      "kind": "AssessmentItem",
+      "producer": "assessment-design",
+      "status": "accepted",
+      "depends_on": [
+        "blueprint@1",
+        "goal-1@1"
+      ],
+      "data": {
+        "blueprint": "blueprint@1",
+        "objectives": [
+          "goal-1@1"
+        ],
+        "prompt": "Учениця повернулась точно до місця старту після прогулянки. Її товариш каже, що вона пройшла нуль метрів. Якої величини насправді стосується нуль? Поясни одним реченням.",
+        "key": "Нульовим є переміщення, бо кінцева та початкова координати збігаються.",
+        "rationale": "Під час прогулянки довжина маршруту додатна.",
+        "scoring": "Один бал за назву величини, один за пояснення через координати.",
+        "format": "short response",
+        "max_points": 2,
+        "difficulty": null,
+        "validation": "Worked independently from the stem; arithmetic is checked by the regression suite."
+      }
+    },
+    {
+      "id": "review",
+      "revision": 1,
+      "kind": "ReviewReport",
+      "producer": "materials-review",
+      "status": "accepted",
+      "depends_on": [
+        "guide@1",
+        "item-1@1",
+        "item-2@1",
+        "item-3@1"
+      ],
+      "data": {
+        "targets": [
+          "guide@1",
+          "item-1@1",
+          "item-2@1",
+          "item-3@1"
+        ],
+        "findings": [],
+        "checks": [
+          "Map two objectives to three chapters and three items.",
+          "Compute 13 m and +3 m independently; confirm 18/6 × 4 = 12 m.",
+          "Read direction, units and routes without a figure; verify both source anchors."
+        ],
+        "decision": "pass",
+        "independence": "Author's separate content check and independent arithmetic regression. For a separate agent's seeded audit see the engineering evaluation.",
+        "limitations": [
+          "Independent text review covers this example only. School adoption, teaching time and learning outcomes are untested."
+        ]
+      }
+    }
+  ]
+}

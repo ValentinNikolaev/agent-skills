@@ -1,0 +1,4 @@
+interface:
+  display_name: "Learning Diagnostics"
+  short_description: "Trace learner errors and next probes"
+  default_prompt: "Use $education-learning-diagnostics to assess these responses and propose discriminating follow-up tasks."

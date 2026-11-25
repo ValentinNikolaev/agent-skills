@@ -1,0 +1,25 @@
+---
+name: education-learning-analytics
+description: Analyze authorized learning events for progress, retention and transfer. Use for outcome reports, not clinical labels or live tutoring.
+---
+
+# Learning analytics
+
+Own `AnalyticsReport` derived from authorized `LearningEvent` records and evaluation data. Direct use works with a local event export. In orchestration, return recommendations without mutating a `LearnerProfile`, pedagogical rules or teaching content. Use `references/education/contracts.json` when bundled. If unavailable, retain the named fields in a versioned report and mark validation unavailable.
+
+## Inputs and outputs
+
+Establish population or learner pseudonym, authorization, event schema version, time window, objective IDs, task and artifact versions, outcome criteria, attempt order and assistance level. Define denominators for each measure. Identify missing events, uneven exposure, selection effects and small-group disclosure risk. Keep raw identifying records outside the shared repository.
+
+## Procedure
+
+1. Validate event provenance and reject duplicates or incompatible versions. Keep observed responses distinct from synthetic traces, self-reports and model ratings.
+2. Calculate objective coverage, unassisted first-attempt success and assisted success with separate numerators and denominators. Report repeated errors. Treat immediate performance, delayed retention and novel transfer as distinct outcomes.
+3. State how missing or sparse data constrain each conclusion. Time-on-task is useful only when timing is recorded consistently and the context supports interpretation. Speed alone does not measure ability.
+4. Connect each actionable recommendation to objective, source event and artifact version. Propose a follow-up diagnostic probe, revised practice or material review when indicated. A project owner may accept and version the change.
+
+Do not compute a misleading percentage when the denominator is absent. For groups, suppress or aggregate results when small cells could identify a learner. Do not rank learners with stigmatizing labels. Causal claims need an appropriate comparison design. Use advanced knowledge tracing or psychometrics only with adequate data and validated assumptions.
+
+## Checks and examples
+
+A request to inspect practice records for delayed retention activates this skill. A request to teach the next exercise interactively belongs to adaptive tutoring. Three correct answers after hints support a report of assisted success, with unassisted mastery unknown. A group of two learners should receive a privacy-preserving summary without disclosive subgroup cells. In orchestration, return event IDs, denominators, uncertainty and proposed next actions.

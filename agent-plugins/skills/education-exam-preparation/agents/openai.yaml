@@ -1,0 +1,4 @@
+interface:
+  display_name: "Exam Preparation"
+  short_description: "Plan exam practice and report readiness"
+  default_prompt: "Use $education-exam-preparation to plan my study time around this verified exam specification."

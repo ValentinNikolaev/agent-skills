@@ -1,0 +1,4 @@
+interface:
+  display_name: "Learning Analytics"
+  short_description: "Interpret progress and data limitations"
+  default_prompt: "Use $education-learning-analytics to analyze these consented practice events by objective."

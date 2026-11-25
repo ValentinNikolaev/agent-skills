@@ -1,0 +1,28 @@
+{
+  "case_id": "style-matching-conflict-2026-11-25",
+  "context": "A maintainer asks whether a positive pooled average in a 2024 review warrants routine VARK matching.",
+  "baseline_rule_id": "R-no-style-matching",
+  "baseline_rule_version": "1.0.0",
+  "source_ids": ["S-PASHLER-2008", "S-CLINTON-2024"],
+  "proposal": {
+    "id": "CP-style-matching-1",
+    "proposed_change": "Recommend matching instruction to a fixed learning-style label for every learner.",
+    "prediction": "Matching improves delayed unassisted learning across style groups.",
+    "evaluation_needed": "Well-powered crossover design with the same delayed outcome in matched and unmatched conditions for each style group.",
+    "status": "rejected",
+    "reason": "The inspected 2024 abstract reports a positive pooled average, but only 26% of outcome measures support the required crossover for at least two styles, and its authors cite low study quality. The abstract provides no basis for a universal rule.",
+    "decision_maker": "simulated maintainer evaluation fixture",
+    "decision_date": "2026-11-25"
+  },
+  "future_reconsideration": "Reopen if higher-quality crossover studies with delayed learning outcomes materially change the evidence.",
+  "resumed_proposal": {
+    "id": "CP-style-matching-2",
+    "trigger": "The same 2024 abstract was offered again without new crossover data.",
+    "prior_attempt_id": "CP-style-matching-1",
+    "decision": "rejected",
+    "reason": "The proposal has the same evidence and population as the rejected attempt; no material condition changed."
+  },
+  "source_observations_preserved": true,
+  "learner_outcomes": null,
+  "scope": "Synthetic evaluation fixture, not a conducted learner study"
+}

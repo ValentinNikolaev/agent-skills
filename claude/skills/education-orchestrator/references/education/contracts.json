@@ -1,0 +1,379 @@
+{
+  "schema_version": 1,
+  "artifact_fields": {
+    "id": "stable token unique in current bundle",
+    "revision": "positive integer, increment when content changes",
+    "kind": "contract name",
+    "producer": "education skill suffix or explicitly allowed role",
+    "status": "draft | accepted | provisional",
+    "depends_on": "pinned artifact IDs, e.g. obj@1",
+    "data": "owned fields below; nested artifact pointers also carry revisions"
+  },
+  "enums": {
+    "alignment": [
+      "official",
+      "provisional"
+    ],
+    "authority": [
+      "official",
+      "textbook",
+      "inferred",
+      "enrichment",
+      "user"
+    ],
+    "edge": [
+      "strict",
+      "recommended",
+      "related"
+    ],
+    "assistance": [
+      "none",
+      "hint",
+      "worked",
+      "unknown"
+    ],
+    "outcome": [
+      "correct",
+      "partial",
+      "incorrect",
+      "unscored"
+    ],
+    "occasion": [
+      "immediate",
+      "delayed",
+      "transfer"
+    ],
+    "decision": [
+      "pass",
+      "revise",
+      "block"
+    ],
+    "severity": [
+      "critical",
+      "high",
+      "medium",
+      "low"
+    ],
+    "resolution": [
+      "open",
+      "fixed",
+      "accepted-risk"
+    ],
+    "proposal": [
+      "proposed",
+      "accepted",
+      "rejected",
+      "deferred"
+    ],
+    "evidence_kind": [
+      "process",
+      "synthetic",
+      "model-review",
+      "human-review",
+      "learner-outcome"
+    ]
+  },
+  "records": {
+    "Languages": {
+      "interface": "text",
+      "instruction": "text",
+      "assessment": "text",
+      "sources": "text+"
+    },
+    "Requirement": {
+      "id": "text",
+      "statement": "text",
+      "authority": "authority",
+      "source": "nullable",
+      "anchor": "nullable"
+    },
+    "Edge": {
+      "before": "text",
+      "after": "text",
+      "relation": "edge"
+    },
+    "Section": {
+      "id": "text",
+      "objectives": "@LearningObjective+",
+      "body": "text",
+      "practice": "text",
+      "sources": "source*"
+    },
+    "Finding": {
+      "target": "ref",
+      "location": "text",
+      "severity": "severity",
+      "evidence": "text",
+      "fix": "text",
+      "owner": "text",
+      "status": "resolution",
+      "retest": "nullable"
+    },
+    "Measure": {
+      "name": "text",
+      "numerator": "count?",
+      "denominator": "count?",
+      "interpretation": "text"
+    }
+  },
+  "artifacts": {
+    "ProjectBrief": {
+      "owners": [
+        "caller",
+        "orchestrator"
+      ],
+      "fields": {
+        "scope": "text",
+        "audience": "text",
+        "languages": "Languages",
+        "constraints": "texts",
+        "assumptions": "texts",
+        "mode": "text",
+        "learner_context": "nullable"
+      }
+    },
+    "ProjectManifest": {
+      "owners": [
+        "orchestrator",
+        "caller"
+      ],
+      "fields": {
+        "brief": "@ProjectBrief",
+        "preset": "text",
+        "checkpoint": "text",
+        "assumptions": "texts",
+        "state": "text"
+      }
+    },
+    "EvidenceRegistry": {
+      "owners": [
+        "learning-science"
+      ],
+      "fields": {
+        "edition": "text",
+        "source_ids": "source+",
+        "rule_refs": "@PedagogicalRule+"
+      }
+    },
+    "PedagogicalRule": {
+      "owners": [
+        "learning-science"
+      ],
+      "fields": {
+        "rule_id": "rule",
+        "sources": "source+",
+        "context": "text",
+        "limits": "text",
+        "evaluation": "text"
+      }
+    },
+    "CurriculumMap": {
+      "owners": [
+        "curriculum-analysis"
+      ],
+      "fields": {
+        "requirements": "Requirement+",
+        "gaps": "texts",
+        "edition": "text"
+      }
+    },
+    "PrerequisiteGraph": {
+      "owners": [
+        "curriculum-analysis"
+      ],
+      "fields": {
+        "concepts": "text+",
+        "edges": "Edge*"
+      }
+    },
+    "LearnerProfile": {
+      "owners": [
+        "learning-diagnostics"
+      ],
+      "fields": {
+        "observations": "@LearningEvent*",
+        "hypotheses": "texts",
+        "alternatives": "texts",
+        "uncertainty": "text",
+        "accommodations": "texts",
+        "next_probe": "nullable"
+      }
+    },
+    "DiagnosticReport": {
+      "owners": [
+        "learning-diagnostics"
+      ],
+      "fields": {
+        "profile": "@LearnerProfile",
+        "priorities": "texts",
+        "conclusions": "text",
+        "limits": "text"
+      }
+    },
+    "LearningObjective": {
+      "owners": [
+        "instructional-design"
+      ],
+      "fields": {
+        "requirements": "req+",
+        "condition": "text",
+        "performance": "text",
+        "criterion": "text",
+        "essential": "bool"
+      }
+    },
+    "InstructionalPlan": {
+      "owners": [
+        "instructional-design"
+      ],
+      "fields": {
+        "objectives": "@LearningObjective+",
+        "sequence": "text+",
+        "strategy": "text",
+        "estimated_effort": "nullable",
+        "rules": "rule+"
+      }
+    },
+    "LearningMaterial": {
+      "owners": [
+        "instructional-design"
+      ],
+      "fields": {
+        "sections": "Section+",
+        "language": "text",
+        "audience": "text"
+      }
+    },
+    "AssessmentBlueprint": {
+      "owners": [
+        "assessment-design"
+      ],
+      "fields": {
+        "targets": "@LearningObjective+",
+        "construct": "text",
+        "intent": "text",
+        "format": "text",
+        "scoring": "text",
+        "constraints": "texts"
+      }
+    },
+    "AssessmentItem": {
+      "owners": [
+        "assessment-design"
+      ],
+      "fields": {
+        "blueprint": "@AssessmentBlueprint",
+        "objectives": "@LearningObjective+",
+        "prompt": "text",
+        "key": "text",
+        "rationale": "text",
+        "scoring": "text",
+        "format": "text",
+        "max_points": "positive",
+        "difficulty": "nullable",
+        "validation": "text"
+      }
+    },
+    "LearningEvent": {
+      "owners": [
+        "adaptive-tutoring",
+        "importer"
+      ],
+      "fields": {
+        "task": "text",
+        "objective": "@LearningObjective",
+        "time": "nullable",
+        "attempt": "positive-int",
+        "assistance": "assistance",
+        "outcome": "outcome",
+        "occasion": "occasion",
+        "provenance": "text"
+      }
+    },
+    "PracticeSchedule": {
+      "owners": [
+        "adaptive-tutoring"
+      ],
+      "fields": {
+        "objectives": "@LearningObjective+",
+        "events": "@LearningEvent*",
+        "next_tasks": "text+",
+        "timing": "text",
+        "stop": "text",
+        "resume": "text"
+      }
+    },
+    "ExamPreparationPlan": {
+      "owners": [
+        "exam-preparation"
+      ],
+      "fields": {
+        "alignment": "alignment",
+        "exam": "text",
+        "edition": "nullable",
+        "official_sources": "source*",
+        "priorities": "text+",
+        "time_budget": "text",
+        "mock_spec": "text",
+        "milestones": "text+",
+        "limits": "text"
+      }
+    },
+    "ReviewReport": {
+      "owners": [
+        "materials-review"
+      ],
+      "fields": {
+        "targets": "ref+",
+        "findings": "Finding*",
+        "checks": "text+",
+        "decision": "decision",
+        "independence": "text",
+        "limitations": "texts"
+      }
+    },
+    "AnalyticsReport": {
+      "owners": [
+        "learning-analytics"
+      ],
+      "fields": {
+        "events": "@LearningEvent*",
+        "population": "text",
+        "window": "text",
+        "measures": "Measure+",
+        "missingness": "text",
+        "limits": "text",
+        "recommendations": "texts"
+      }
+    },
+    "ChangeProposal": {
+      "owners": [
+        "*"
+      ],
+      "fields": {
+        "problem": "text",
+        "baseline": "text",
+        "prediction": "text",
+        "context": "text",
+        "test": "text",
+        "decision": "proposal",
+        "earlier_attempts": "texts",
+        "authority": "text"
+      }
+    },
+    "EvaluationRecord": {
+      "owners": [
+        "*"
+      ],
+      "fields": {
+        "proposal": "@ChangeProposal",
+        "baseline": "text",
+        "context": "text",
+        "observed": "text",
+        "regressions": "texts",
+        "decision": "text",
+        "evidence_kind": "evidence_kind"
+      }
+    }
+  }
+}

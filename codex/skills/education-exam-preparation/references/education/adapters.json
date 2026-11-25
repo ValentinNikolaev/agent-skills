@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "purpose": "Optional subject guidance. These records carry no official curriculum mapping.",
+  "adapters": [
+    {
+      "id": "subject-mathematics-v1",
+      "alignment_status": "provisional",
+      "subject": "mathematics",
+      "notation": ["Define variables and units before applying a formula", "Keep equivalent algebraic forms and exact answers valid where the task permits"],
+      "prerequisites": ["Distinguish algebraic manipulation from interpretation of a graph", "Check prior operations before introducing a new procedure"],
+      "misconception_probes": ["Ask the learner to explain why both roots satisfy an equation", "Compare a table, graph and symbolic expression"],
+      "explanation_forms": ["Worked example with each transformation justified", "Visual or tabular representation when it clarifies a relationship"],
+      "assessment_formats": ["Calculation with units", "Reasoned short answer", "Interpretation of a representation"],
+      "accessibility": ["Describe graphs in text and provide coordinates or a data table", "Avoid conveying sign or magnitude by colour alone"],
+      "verified_curriculum_sources": [],
+      "applicability": "Subject-level guidance only; verify jurisdictional notation and official requirements for the project."
+    },
+    {
+      "id": "subject-natural-sciences-v1",
+      "alignment_status": "provisional",
+      "subject": "natural sciences",
+      "notation": ["Record measured quantities with units", "Distinguish model assumptions from observations"],
+      "prerequisites": ["Check proportional reasoning and unit conversion before quantitative models", "Check the meaning of variables in the physical setting"],
+      "misconception_probes": ["Separate distance from displacement in a return journey", "Ask which observation would distinguish competing explanations"],
+      "explanation_forms": ["Phenomenon, model, worked example, then a new prediction", "Table or diagram with a textual equivalent"],
+      "assessment_formats": ["Data interpretation", "Calculation", "Explanation of experimental limits"],
+      "accessibility": ["Provide textual descriptions of apparatus and figures", "Offer an equivalent data table when a plot is used"],
+      "verified_curriculum_sources": [],
+      "applicability": "A Ukrainian physics exercise may use Ukrainian teaching language, but official syllabus alignment requires a verified year and issuing authority."
+    },
+    {
+      "id": "subject-humanities-literature-v1",
+      "alignment_status": "provisional",
+      "subject": "humanities and literature",
+      "notation": ["Identify text or source passage and location", "Distinguish a quotation from an interpretation"],
+      "prerequisites": ["Ensure the learner can identify evidence in a passage before evaluating competing readings"],
+      "misconception_probes": ["Ask which exact phrase supports an interpretation", "Test a plausible alternative reading against the same passage"],
+      "explanation_forms": ["Close reading that moves from words to a defensible claim", "Model comparison of two supported interpretations"],
+      "assessment_formats": ["Short evidence-based response", "Extended argument with a rubric allowing defensible alternatives"],
+      "accessibility": ["Provide readable source text and clear citation anchors", "Avoid colour-only annotation"],
+      "verified_curriculum_sources": [],
+      "applicability": "Interpretations remain constrained by source fidelity; an official set text must be verified for the target examination."
+    },
+    {
+      "id": "subject-language-learning-v1",
+      "alignment_status": "provisional",
+      "subject": "language learning",
+      "notation": ["Keep target-language forms distinct from translations and pronunciation aids", "Record the language of instruction and the learner interface separately"],
+      "prerequisites": ["Check whether form, vocabulary or task comprehension is limiting the response"],
+      "misconception_probes": ["Ask for meaning in context and an independent target-language production", "Use a new communicative setting after correction"],
+      "explanation_forms": ["Meaningful model dialogue", "Brief form explanation followed by communicative use"],
+      "assessment_formats": ["Comprehension", "Open response", "Role play with separate form and communication criteria"],
+      "accessibility": ["Provide transcripts when audio is used", "Allow adjustable pace without silently changing the communicative goal"],
+      "verified_curriculum_sources": [],
+      "applicability": "An Italian learning task can have an English or Russian interface. Assign a level only from an identified framework or diagnostic evidence."
+    }
+  ]
+}

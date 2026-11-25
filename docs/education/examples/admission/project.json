@@ -1,0 +1,441 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "id": "CISIA-2026",
+      "title": "CISIA TOLC-I syllabus",
+      "edition": "2026 PDF",
+      "locator": "https://www.cisiaonline.it/sites/default/files/Sillabi/2026/Syllabus-TOLC-I-2026.pdf",
+      "anchor": "p. 1, Mathematics, algebra and analytical geometry",
+      "kind": "official",
+      "verification": "verified",
+      "checked": "2026-11-25"
+    },
+    {
+      "id": "CISIA-format",
+      "title": "CISIA TOLC-I structure and syllabus",
+      "edition": "web structure checked 25 November 2026",
+      "locator": "https://cisiaonline.it/en/tolc/tolc-i/structure-and-syllabus",
+      "anchor": "Structure and results sections",
+      "kind": "official",
+      "verification": "verified",
+      "checked": "2026-11-25"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "brief",
+      "revision": 1,
+      "kind": "ProjectBrief",
+      "producer": "caller",
+      "status": "accepted",
+      "depends_on": [],
+      "data": {
+        "scope": "A focused Italian engineering admission algebra practice pack, covering two extracts of the 2026 TOLC-I syllabus.",
+        "audience": "Applicant studying quadratic equations for the Italian-language TOLC-I.",
+        "languages": {
+          "interface": "en",
+          "instruction": "it",
+          "assessment": "it",
+          "sources": [
+            "en"
+          ]
+        },
+        "constraints": [
+          "Original unofficial exercises",
+          "Personal time budget three 20-minute sessions",
+          "No university, cutoff, booking or forecast assumed"
+        ],
+        "assumptions": [
+          "Candidate can multiply signed integers; probe before extending the sequence."
+        ],
+        "mode": "admission",
+        "learner_context": null
+      }
+    },
+    {
+      "id": "manifest",
+      "revision": 1,
+      "kind": "ProjectManifest",
+      "producer": "orchestrator",
+      "status": "accepted",
+      "depends_on": [
+        "brief@1"
+      ],
+      "data": {
+        "brief": "brief@1",
+        "preset": "admission",
+        "checkpoint": "Replay the private journal from the fixture per usage.md",
+        "assumptions": [
+          "Candidate can multiply signed integers; probe before extending the sequence."
+        ],
+        "state": "reference example"
+      }
+    },
+    {
+      "id": "curriculum",
+      "revision": 1,
+      "kind": "CurriculumMap",
+      "producer": "curriculum-analysis",
+      "status": "accepted",
+      "depends_on": [
+        "brief@1"
+      ],
+      "data": {
+        "edition": "2026 PDF",
+        "requirements": [
+          {
+            "id": "req-1",
+            "statement": "Solve second-degree algebraic equations.",
+            "authority": "official",
+            "source": "CISIA-2026",
+            "anchor": "p. 1, Mathematics: Arithmetic, mathematics and algebra; Analytical geometry and numeric functions"
+          },
+          {
+            "id": "req-2",
+            "statement": "Cartesian coordinates and equations of simple loci, including parabolas.",
+            "authority": "official",
+            "source": "CISIA-2026",
+            "anchor": "p. 1, Mathematics: Arithmetic, mathematics and algebra; Analytical geometry and numeric functions"
+          }
+        ],
+        "gaps": [
+          "Other maths topics and the other test sections fall outside this focused pack.",
+          "Check the university notice for the required test and year."
+        ]
+      }
+    },
+    {
+      "id": "graph",
+      "revision": 1,
+      "kind": "PrerequisiteGraph",
+      "producer": "curriculum-analysis",
+      "status": "accepted",
+      "depends_on": [
+        "curriculum@1"
+      ],
+      "data": {
+        "concepts": [
+          "signed multiplication",
+          "factoring",
+          "zero-product property",
+          "roots",
+          "graph intercepts"
+        ],
+        "edges": [
+          {
+            "before": "signed multiplication",
+            "after": "factoring",
+            "relation": "strict"
+          },
+          {
+            "before": "factoring",
+            "after": "roots",
+            "relation": "strict"
+          },
+          {
+            "before": "zero-product property",
+            "after": "roots",
+            "relation": "strict"
+          },
+          {
+            "before": "roots",
+            "after": "graph intercepts",
+            "relation": "strict"
+          }
+        ]
+      }
+    },
+    {
+      "id": "profile",
+      "revision": 1,
+      "kind": "LearnerProfile",
+      "producer": "learning-diagnostics",
+      "status": "provisional",
+      "depends_on": [
+        "graph@1"
+      ],
+      "data": {
+        "observations": [],
+        "hypotheses": [],
+        "alternatives": [],
+        "uncertainty": "No learner answers were collected.",
+        "accommodations": [],
+        "next_probe": "Ask for the roots of (x + 1)(x − 4) and one substitution before selecting practice."
+      }
+    },
+    {
+      "id": "diagnosis",
+      "revision": 1,
+      "kind": "DiagnosticReport",
+      "producer": "learning-diagnostics",
+      "status": "provisional",
+      "depends_on": [
+        "profile@1"
+      ],
+      "data": {
+        "profile": "profile@1",
+        "priorities": [
+          "Ask for the roots of (x + 1)(x − 4) and one substitution before selecting practice."
+        ],
+        "conclusions": "No individual strengths or gaps inferred.",
+        "limits": "Choose the branch after an unassisted response."
+      }
+    },
+    {
+      "id": "preparation",
+      "revision": 1,
+      "kind": "ExamPreparationPlan",
+      "producer": "exam-preparation",
+      "status": "accepted",
+      "depends_on": [
+        "diagnosis@1",
+        "curriculum@1"
+      ],
+      "data": {
+        "alignment": "official",
+        "exam": "Italian-language TOLC-I, focused mathematics practice",
+        "edition": "CISIA 2026 syllabus",
+        "official_sources": [
+          "CISIA-2026",
+          "CISIA-format"
+        ],
+        "priorities": [
+          "Probe zero products first. A missed sign calls for substitution and two simpler factors.",
+          "If the roots are secure, move straight to interpreting intercepts."
+        ],
+        "time_budget": "3 × 20 minutes. If one session is lost, preserve the delayed check and shorten optional examples.",
+        "mock_spec": "Unofficial five-minute, two-item local diagnostic. Official mathematics section has 20 questions in 50 minutes. This pack samples only two objectives and uses local feedback rubrics.",
+        "milestones": [
+          "Session 1: initial unaided probe, work one factorisation and verify signs.",
+          "Session 2: two timed tasks, then inspect working and log the type of each error.",
+          "Session 3 after a gap: retry a new polynomial without hints; rest after the attempt and revise only unresolved errors."
+        ],
+        "limits": "No applicant performance, university policy, cutoff, booking date or chance of admission inferred."
+      }
+    },
+    {
+      "id": "goal-1",
+      "revision": 1,
+      "kind": "LearningObjective",
+      "producer": "instructional-design",
+      "status": "accepted",
+      "depends_on": [
+        "curriculum@1",
+        "graph@1"
+      ],
+      "data": {
+        "requirements": [
+          "req-1"
+        ],
+        "condition": "Given a monic factorable quadratic over the reals",
+        "performance": "Find all real roots",
+        "criterion": "Both roots pass substitution and a factorisation accounts for completeness.",
+        "essential": true
+      }
+    },
+    {
+      "id": "goal-2",
+      "revision": 1,
+      "kind": "LearningObjective",
+      "producer": "instructional-design",
+      "status": "accepted",
+      "depends_on": [
+        "curriculum@1",
+        "graph@1"
+      ],
+      "data": {
+        "requirements": [
+          "req-2"
+        ],
+        "condition": "Given a quadratic function",
+        "performance": "Identify x-axis intercepts",
+        "criterion": "Give each as a coordinate pair with ordinate zero and justify its abscissa.",
+        "essential": true
+      }
+    },
+    {
+      "id": "plan",
+      "revision": 1,
+      "kind": "InstructionalPlan",
+      "producer": "instructional-design",
+      "status": "accepted",
+      "depends_on": [
+        "goal-1@1",
+        "goal-2@1",
+        "preparation@1"
+      ],
+      "data": {
+        "objectives": [
+          "goal-1@1",
+          "goal-2@1"
+        ],
+        "sequence": [
+          "Dai fattori alle soluzioni",
+          "Che cosa mostrano le radici sul grafico?"
+        ],
+        "strategy": "Model a product then require independent solution and a graph interpretation of a fresh polynomial.",
+        "estimated_effort": "Three 20-minute sessions, with an optional five-minute timed pair in session two.",
+        "rules": [
+          "R-examples",
+          "R-retrieval",
+          "R-access"
+        ]
+      }
+    },
+    {
+      "id": "blueprint",
+      "revision": 1,
+      "kind": "AssessmentBlueprint",
+      "producer": "assessment-design",
+      "status": "accepted",
+      "depends_on": [
+        "plan@1",
+        "goal-1@1",
+        "goal-2@1"
+      ],
+      "data": {
+        "targets": [
+          "goal-1@1",
+          "goal-2@1"
+        ],
+        "construct": "Algebraic solution sets and their interpretation as graph intercepts.",
+        "intent": "unofficial focused timed practice",
+        "format": "Short working followed by coordinate interpretation; this exercise format is a local practice choice.",
+        "scoring": "Use the two private analytical rubrics for feedback. Do not convert these points to a TOLC score.",
+        "constraints": [
+          "Original unofficial exercises",
+          "Personal time budget three 20-minute sessions",
+          "No university, cutoff, booking or forecast assumed"
+        ]
+      }
+    },
+    {
+      "id": "guide",
+      "revision": 1,
+      "kind": "LearningMaterial",
+      "producer": "instructional-design",
+      "status": "accepted",
+      "depends_on": [
+        "plan@1",
+        "blueprint@1",
+        "goal-1@1",
+        "goal-2@1"
+      ],
+      "data": {
+        "sections": [
+          {
+            "id": "section-1",
+            "title": "Dai fattori alle soluzioni",
+            "objectives": [
+              "goal-1@1"
+            ],
+            "body": "Se il prodotto di due numeri reali è zero, almeno uno dei fattori è zero. Per risolvere x² − x − 6 = 0 cerchiamo due numeri con prodotto −6 e somma −1. Sono −3 e 2. Quindi (x − 3)(x + 2) = 0 e le soluzioni sono x = 3 e x = −2. Verifica entrambe nell’equazione di partenza. Dividere subito per un fattore che contiene x potrebbe farti perdere una soluzione.",
+            "practice": "Scrivi un’equazione con soluzioni 1 e −4 partendo dai fattori. Espandi il prodotto e controlla i segni.",
+            "sources": [
+              "CISIA-2026",
+              "CISIA-format"
+            ]
+          },
+          {
+            "id": "section-2",
+            "title": "Che cosa mostrano le radici sul grafico?",
+            "objectives": [
+              "goal-2@1"
+            ],
+            "body": "Nel grafico di y = x² − x − 6, tutti i punti sull’asse x hanno ordinata zero. Per trovare le loro ascisse basta risolvere la stessa equazione del primo esempio. Le intersezioni sono (−2, 0) e (3, 0). Puoi verificarlo con una tabella di valori o con la sostituzione, senza disegnare. Il punto (0, −6) appartiene alla parabola, ma si trova sull’asse y.",
+            "practice": "Riprendi l’equazione che hai costruito nel primo esercizio. Indica le due intersezioni con l’asse x. Come faresti a riconoscere un’intersezione con l’asse y?",
+            "sources": [
+              "CISIA-2026",
+              "CISIA-format"
+            ]
+          }
+        ],
+        "language": "it",
+        "audience": "Applicant studying quadratic equations for the Italian-language TOLC-I."
+      }
+    },
+    {
+      "id": "item-1",
+      "revision": 1,
+      "kind": "AssessmentItem",
+      "producer": "assessment-design",
+      "status": "accepted",
+      "depends_on": [
+        "blueprint@1",
+        "goal-1@1"
+      ],
+      "data": {
+        "blueprint": "blueprint@1",
+        "objectives": [
+          "goal-1@1"
+        ],
+        "prompt": "Trova tutte le soluzioni reali di x² − 5x + 6 = 0. Mostra un passaggio che spieghi perché non ce ne sono altre.",
+        "key": "x = 2 oppure x = 3.",
+        "rationale": "(x − 2)(x − 3) = 0. Il prodotto nullo esaurisce i due casi.",
+        "scoring": "Un punto per entrambe le radici e un punto per un metodo completo, inclusa la formula risolutiva corretta.",
+        "format": "constructed calculation",
+        "max_points": 2,
+        "difficulty": null,
+        "validation": "Worked independently from the stem; arithmetic is checked by the regression suite."
+      }
+    },
+    {
+      "id": "item-2",
+      "revision": 1,
+      "kind": "AssessmentItem",
+      "producer": "assessment-design",
+      "status": "accepted",
+      "depends_on": [
+        "blueprint@1",
+        "goal-2@1"
+      ],
+      "data": {
+        "blueprint": "blueprint@1",
+        "objectives": [
+          "goal-2@1"
+        ],
+        "prompt": "La funzione f(x) = x² + x − 12 descrive una parabola. In quali punti incontra l’asse x? Scrivi le coordinate e spiega come hai stabilito l’ordinata.",
+        "key": "(−4, 0) e (3, 0).",
+        "rationale": "f(x) = (x + 4)(x − 3); sull’asse x l’ordinata è zero.",
+        "scoring": "Un punto per le ascisse corrette, uno per le coordinate complete con la motivazione. Accetta l’ordine inverso.",
+        "format": "coordinate interpretation",
+        "max_points": 2,
+        "difficulty": null,
+        "validation": "Worked independently from the stem; arithmetic is checked by the regression suite."
+      }
+    },
+    {
+      "id": "review",
+      "revision": 1,
+      "kind": "ReviewReport",
+      "producer": "materials-review",
+      "status": "accepted",
+      "depends_on": [
+        "preparation@1",
+        "guide@1",
+        "item-1@1",
+        "item-2@1"
+      ],
+      "data": {
+        "targets": [
+          "preparation@1",
+          "guide@1",
+          "item-1@1",
+          "item-2@1"
+        ],
+        "findings": [],
+        "checks": [
+          "Inspect 2026 syllabus p. 1 and CISIA structure section; separate two-item practice from the official test.",
+          "Multiply the factors and substitute each root; verify both coordinate pairs have y=0.",
+          "Map both objectives to teaching, assigned practice and separate rubrics."
+        ],
+        "decision": "pass",
+        "independence": "Author's separate content check and independent arithmetic regression. For a separate agent's seeded audit see the engineering evaluation.",
+        "limitations": [
+          "The paper exercises cover two objectives only. Individual readiness and admission likelihood are unknown. High-stakes use requires qualified review."
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+# Italian practice teacher key and synthetic trace
+
+Keep this file and [the trace](language-learning-trace.json) separate from the learner-facing `language-learning-session.md` until the learner has attempted each item. The example is original and provisionally aligned. It does not assert a CEFR level.
+
+LANG-I1 can be answered “Buongiorno, vorrei un caffè, per favore. No, grazie.” A suitable `Sì, grazie` answer to the milk question also works if the request is for a coffee. “Caffè” communicates the object but omits the polite request and the clarification response. Prompt for the missing turn before showing a full answer. LANG-I2 can be answered “Vorrei dell'acqua, per favore. Naturale, grazie.” LANG-I3 can be answered “Vorrei un tè, per favore. Freddo, grazie.” Equivalent natural Italian requests should be accepted.
+
+The communication rubric gives two points for a comprehensible request and a suitable answer to the clarification. The form rubric gives two points for a polite request construction and suitable Italian wording of the second turn. Report the two dimensions separately. A missing greeting alone does not invalidate an otherwise suitable request. Grammar support follows observed need and does not rely on nationality or accent.
+
+## Worked synthetic trace and forward check
+
+The trace pins all events to objective `LANG-O1@1`. E1 is an unassisted wrong answer in English. E2 is a partial Italian request after a hint, still missing the clarification. E3 is correct with the hint. The checkpoint after E3 preserves the hint and all three attempts. E4 is an independent transfer response after resumption. E5 is a delayed independent partial response that names the drink but omits the requested polite exchange. These are invented example events for testing the workflow, not observations from a student.
+
+Diagnostics produces a provisional profile with competing explanations for E5. It requests a new unassisted probe before explaining the incomplete exchange as a stable deficit. The absent learner has an empty observation list and an initial probe, with no invented competence estimate. Tutoring carries E2 and E3 as assisted attempts, resumes at I2, and keeps the delayed partial response for a later reformulated task. Analytics reports unassisted first-attempt correct `1/3`, hint-assisted correct `1/2`, independent transfer `1/1` and delayed independent correct `0/1`. The denominators refer to observed tasks or attempts within this tiny synthetic trace.
+
+A deliberately simple baseline that counts all correct events together reports `2/5`. It loses the distinction between assisted correction, independent transfer and delayed retention. The specialist workflow preserves those differences but cannot infer a learning gain from invented events. The contract supports event and profile references. A portable checkpoint records active and next task IDs, attempt and hint history, instruction and target languages, and the fact that no reminder was scheduled. The `LearningEvent` fields alone do not carry a full response transcript or all language settings.

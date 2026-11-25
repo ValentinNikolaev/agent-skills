@@ -68,6 +68,21 @@ GUIDE_SOURCES = {
 }
 README_SKILL_GROUPS = (
     (
+        "Education",
+        {
+            "education-learning-science": "Select teaching rules from appraised evidence and document their limits.",
+            "education-curriculum-analysis": "Map syllabus requirements, concepts and prerequisites to their sources.",
+            "education-learning-diagnostics": "Distinguish competing explanations for a learner's observed responses.",
+            "education-instructional-design": "Develop objectives, instructional sequences and editable teaching materials.",
+            "education-assessment-design": "Construct aligned assessments, verified solutions and scoring rubrics.",
+            "education-adaptive-tutoring": "Guide a learner through feedback, independent practice and delayed review.",
+            "education-exam-preparation": "Plan revision and unofficial practice against a dated exam specification.",
+            "education-materials-review": "Audit teaching materials and scoring and retest corrected versions.",
+            "education-learning-analytics": "Interpret authorised learning events, uncertainty and missing evidence.",
+            "education-orchestrator": "Coordinate specialist handoffs, review gates and resumable learning projects.",
+        },
+    ),
+    (
         "Review and verification",
         {
             "code-review": "Review a diff for confirmed defects, plausible risks, and actionable test gaps, with evidence for each finding.",
@@ -601,30 +616,25 @@ def copy_shared_resource_overlays(
     source: SourceSkill, shared_root: Path, repo_root: Path, destination: Path
 ) -> None:
     """Materialize centrally maintained resources required by standalone skills."""
-    if source.name not in MEMORY_SKILLS:
-        return
-
-    shared_source = shared_root / MEMORY_VALIDATOR_SOURCE
-    shared_memory_root = shared_root / "memory"
-    if (
-        shared_root.is_symlink()
-        or shared_memory_root.is_symlink()
-        or shared_source.is_symlink()
-        or not shared_source.is_file()
-    ):
-        raise GenerationError(
-            f"Missing regular shared memory validator: {shared_source}"
-        )
-
-    target = destination / MEMORY_VALIDATOR_TARGET
-    if target.exists():
-        raise GenerationError(
-            f"{source.name}: remove redundant canonical "
-            f"{MEMORY_VALIDATOR_TARGET.as_posix()}; it is generated from "
-            f"{display_path(shared_source, repo_root)}"
-        )
-    target.parent.mkdir(parents=True, exist_ok=True)
-    copy_resource_file(shared_source, target)
+    overlays = []
+    if source.name in MEMORY_SKILLS:
+        overlays.append((MEMORY_VALIDATOR_SOURCE, MEMORY_VALIDATOR_TARGET, "memory validator"))
+    if source.name.startswith("education-"):
+        for filename in ("contracts.json", "evidence.json", "adapters.json"):
+            overlays.append((Path("education") / filename, Path("references/education") / filename, "education resource"))
+    for relative, packaged, label in overlays:
+        shared_source = shared_root / relative
+        if (shared_root.is_symlink() or shared_source.parent.is_symlink()
+                or shared_source.is_symlink() or not shared_source.is_file()):
+            raise GenerationError(f"Missing regular shared {label}: {shared_source}")
+        target = destination / packaged
+        if target.exists():
+            raise GenerationError(
+                f"{source.name}: remove redundant canonical {packaged.as_posix()}; "
+                f"it is generated from {display_path(shared_source, repo_root)}"
+            )
+        target.parent.mkdir(parents=True, exist_ok=True)
+        copy_resource_file(shared_source, target)
 
 
 def write_generated_tree(
@@ -895,6 +905,7 @@ def render_repo_readme(repo_root: Path, skills: Sequence[SourceSkill]) -> str:
         ("A green check you want to trust", "prove-checks", "Evidence that the check can detect the claimed failure."),
         ("A draft that needs a natural edit", "humanizer", "Clearer phrasing that keeps your meaning and voice."),
         ("A product idea to evaluate", "business-viability-assessment", "A viability assessment and a practical validation plan."),
+        ("A syllabus and a learning project", "education-orchestrator", "A study guide, aligned practice and a reviewed handoff."),
     )
     starting_rows = [
         f"| {situation} | [`{name}`]({readme_skill_link(name)}) | {outcome} |"
@@ -999,6 +1010,12 @@ def render_repo_readme(repo_root: Path, skills: Sequence[SourceSkill]) -> str:
         "Use humanizer to edit this draft. Keep the facts and my voice.\n"
         "```\n\n"
         + starting_section
+        + ("[Education workflows and worked projects](docs/education/usage.md) include a physics workbook, "
+           "admission practice and a resumable tutoring example.\n\n"
+           if (repo_root / "docs/education/usage.md").is_file() else "")
+        + ("[Education workflows and worked projects](docs/education/usage.md) include a physics workbook, "
+           "admission practice and a resumable tutoring example.\n\n"
+           if (repo_root / "docs/education/usage.md").is_file() else "")
         + (
             "The GitHub Pages family has new canonical names. See the "
             "[rename table and safe update steps](docs/github-pages-family-migration.md).\n\n"

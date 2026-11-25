@@ -1,0 +1,313 @@
+{
+  "author": [
+    {
+      "id": "scope",
+      "skill": "curriculum-analysis",
+      "outputs": [
+        "CurriculumMap",
+        "PrerequisiteGraph"
+      ],
+      "after": [],
+      "gate": "contract"
+    },
+    {
+      "id": "objectives",
+      "skill": "instructional-design",
+      "outputs": [
+        "LearningObjective",
+        "InstructionalPlan"
+      ],
+      "after": [
+        "scope"
+      ],
+      "gate": "contract"
+    },
+    {
+      "id": "blueprint",
+      "skill": "assessment-design",
+      "outputs": [
+        "AssessmentBlueprint"
+      ],
+      "after": [
+        "objectives"
+      ],
+      "gate": "contract"
+    },
+    {
+      "id": "chapters",
+      "skill": "instructional-design",
+      "outputs": [
+        "LearningMaterial"
+      ],
+      "after": [
+        "objectives",
+        "blueprint"
+      ],
+      "gate": "contract"
+    },
+    {
+      "id": "items",
+      "skill": "assessment-design",
+      "outputs": [
+        "AssessmentItem"
+      ],
+      "after": [
+        "blueprint"
+      ],
+      "gate": "contract"
+    },
+    {
+      "id": "review",
+      "skill": "materials-review",
+      "outputs": [
+        "ReviewReport"
+      ],
+      "after": [
+        "chapters",
+        "items"
+      ],
+      "gate": "alignment-review"
+    }
+  ],
+  "admission": [
+    {
+      "id": "scope",
+      "skill": "curriculum-analysis",
+      "outputs": [
+        "CurriculumMap",
+        "PrerequisiteGraph"
+      ],
+      "after": [],
+      "gate": "contract"
+    },
+    {
+      "id": "baseline",
+      "skill": "learning-diagnostics",
+      "outputs": [
+        "LearnerProfile",
+        "DiagnosticReport"
+      ],
+      "after": [
+        "scope"
+      ],
+      "gate": "contract"
+    },
+    {
+      "id": "preparation",
+      "skill": "exam-preparation",
+      "outputs": [
+        "ExamPreparationPlan"
+      ],
+      "after": [
+        "baseline",
+        "scope"
+      ],
+      "gate": "contract"
+    },
+    {
+      "id": "objectives",
+      "skill": "instructional-design",
+      "outputs": [
+        "LearningObjective",
+        "InstructionalPlan"
+      ],
+      "after": [
+        "scope",
+        "preparation"
+      ],
+      "gate": "contract"
+    },
+    {
+      "id": "blueprint",
+      "skill": "assessment-design",
+      "outputs": [
+        "AssessmentBlueprint"
+      ],
+      "after": [
+        "objectives"
+      ],
+      "gate": "contract"
+    },
+    {
+      "id": "chapters",
+      "skill": "instructional-design",
+      "outputs": [
+        "LearningMaterial"
+      ],
+      "after": [
+        "objectives",
+        "blueprint"
+      ],
+      "gate": "contract"
+    },
+    {
+      "id": "items",
+      "skill": "assessment-design",
+      "outputs": [
+        "AssessmentItem"
+      ],
+      "after": [
+        "blueprint"
+      ],
+      "gate": "contract"
+    },
+    {
+      "id": "review",
+      "skill": "materials-review",
+      "outputs": [
+        "ReviewReport"
+      ],
+      "after": [
+        "preparation",
+        "chapters",
+        "items"
+      ],
+      "gate": "alignment-review"
+    }
+  ],
+  "repair": [
+    {
+      "id": "audit",
+      "skill": "materials-review",
+      "outputs": [
+        "ReviewReport"
+      ],
+      "after": [],
+      "gate": "intake-audit"
+    },
+    {
+      "id": "revise",
+      "skill": "instructional-design",
+      "outputs": [
+        "LearningMaterial"
+      ],
+      "after": [
+        "audit"
+      ],
+      "gate": "contract"
+    },
+    {
+      "id": "review",
+      "skill": "materials-review",
+      "outputs": [
+        "ReviewReport"
+      ],
+      "after": [
+        "revise"
+      ],
+      "gate": "review"
+    }
+  ],
+  "tutor": [
+    {
+      "id": "baseline",
+      "skill": "learning-diagnostics",
+      "outputs": [
+        "LearnerProfile"
+      ],
+      "after": [],
+      "gate": "contract"
+    },
+    {
+      "id": "session",
+      "skill": "adaptive-tutoring",
+      "outputs": [
+        "PracticeSchedule",
+        "LearningEvent"
+      ],
+      "after": [
+        "baseline"
+      ],
+      "gate": "contract"
+    },
+    {
+      "id": "interpret",
+      "skill": "learning-analytics",
+      "outputs": [
+        "AnalyticsReport"
+      ],
+      "after": [
+        "session"
+      ],
+      "gate": "contract"
+    }
+  ],
+  "map": [
+    {
+      "id": "scope",
+      "skill": "curriculum-analysis",
+      "outputs": [
+        "CurriculumMap",
+        "PrerequisiteGraph"
+      ],
+      "after": [],
+      "gate": "contract"
+    }
+  ],
+  "assess": [
+    {
+      "id": "blueprint",
+      "skill": "assessment-design",
+      "outputs": [
+        "AssessmentBlueprint"
+      ],
+      "after": [],
+      "gate": "contract"
+    },
+    {
+      "id": "items",
+      "skill": "assessment-design",
+      "outputs": [
+        "AssessmentItem"
+      ],
+      "after": [
+        "blueprint"
+      ],
+      "gate": "contract"
+    },
+    {
+      "id": "review",
+      "skill": "materials-review",
+      "outputs": [
+        "ReviewReport"
+      ],
+      "after": [
+        "items"
+      ],
+      "gate": "review"
+    }
+  ],
+  "research": [
+    {
+      "id": "appraise",
+      "skill": "learning-science",
+      "outputs": [
+        "ChangeProposal"
+      ],
+      "after": [],
+      "gate": "contract"
+    },
+    {
+      "id": "evaluate",
+      "skill": "learning-science",
+      "outputs": [
+        "EvaluationRecord"
+      ],
+      "after": [
+        "appraise"
+      ],
+      "gate": "contract"
+    }
+  ],
+  "outcomes": [
+    {
+      "id": "interpret",
+      "skill": "learning-analytics",
+      "outputs": [
+        "AnalyticsReport"
+      ],
+      "after": [],
+      "gate": "contract"
+    }
+  ]
+}

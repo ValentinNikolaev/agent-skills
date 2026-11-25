@@ -1,0 +1,4 @@
+interface:
+  display_name: "Instructional Design"
+  short_description: "Write objective-aligned learning material"
+  default_prompt: "Use $education-instructional-design to build an objective-aligned study guide from this syllabus."

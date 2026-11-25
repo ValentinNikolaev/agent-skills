@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "artifacts": [
+    {
+      "id": "style-change",
+      "revision": 1,
+      "kind": "ChangeProposal",
+      "producer": "learning-science",
+      "status": "accepted",
+      "depends_on": [],
+      "data": {
+        "problem": "Request to assign tasks by fixed learner type",
+        "baseline": "R-no-style-matching, 1.0.0",
+        "prediction": "Matched learners would perform better on independent delayed tasks across groups.",
+        "context": "Synthetic governance exercise, drawing on S-PASHLER-2008 and S-CLINTON-2024",
+        "test": "Compare the specific crossover prediction and the studied outcome with the operational rule.",
+        "decision": "rejected",
+        "earlier_attempts": [
+          "Archived decision CP-style-matching-1 in the research-update example"
+        ],
+        "authority": "Maintainer role simulated for this fixture; no promotion to production"
+      }
+    },
+    {
+      "id": "reconsideration",
+      "revision": 1,
+      "kind": "EvaluationRecord",
+      "producer": "learning-science",
+      "status": "accepted",
+      "depends_on": [
+        "style-change@1"
+      ],
+      "data": {
+        "proposal": "style-change@1",
+        "baseline": "Retain current rule and allow flexible representations",
+        "context": "Same abstract, same population, no new follow-up data",
+        "observed": "Repeated proposal does not supply new crossover or delayed evidence.",
+        "regressions": [
+          "Fixed assignments would prevent learners choosing another accessible representation."
+        ],
+        "decision": "Retain rejected record. Reopen only after materially different evidence.",
+        "evidence_kind": "synthetic"
+      }
+    }
+  ]
+}

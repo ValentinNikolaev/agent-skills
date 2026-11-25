@@ -1,0 +1,4 @@
+interface:
+  display_name: "Adaptive Tutoring"
+  short_description: "Guide practice and record learning evidence"
+  default_prompt: "Use $education-adaptive-tutoring to practise this objective with me one question at a time."

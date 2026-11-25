@@ -1,0 +1,26 @@
+---
+name: education-assessment-design
+description: Design and verify assessment items, keys and rubrics. Use for scoring instruments, not learner diagnosis or lesson writing.
+---
+
+# Assessment design
+
+Own `AssessmentBlueprint` and `AssessmentItem`, including keys, worked solutions, rubrics, scoring and item QA. For standalone use, accept objectives or clearly state provisional targets. In a project, use the IDs and versions in `references/education/contracts.json` when bundled. Without the shared contract, preserve the same fields in editable tables and disclose the unavailable validator.
+
+## Inputs and outputs
+
+Establish intended use, target construct, objective and curriculum versions, cognitive demand, response formats, time, permitted aids, instruction language, scoring consequences and accessibility needs. Keep keys and teacher notes separate from learner-facing items. Label original mock exams unofficial. Difficulty estimates are author estimates until empirical calibration exists.
+
+## Procedure
+
+1. Build a blueprint showing objective and requirement coverage, intended evidence, item format, points and scoring rationale. Distinguish a low-stakes practice set from a consequential exam.
+2. Draft prompts that ask for the intended knowledge. For selected response, use plausible misconception-based distractors without grammatical clues or answer-position patterns. For open responses, identify valid alternate paths and interpretations. Avoid unnecessary language load when it is outside the construct.
+3. Work solutions independently of the proposed key, especially numeric answers and units. Write analytic criteria for partial credit and an example of acceptable evidence at each score level. Verify each item's wording against the key, rubric and blueprint.
+4. If making equivalent variants or randomized order, record a reproducible seed and preserve item semantics, point totals and answer mapping. Retest variants separately.
+5. Produce an item QA report using the [item QA template](references/item-qa.md) when it fits the task. A wrong key, materially ambiguous scored item, invalid scoring total or missing essential objective blocks release. High-stakes instruments require qualified human review.
+
+Do not invent reliability, validity, discrimination, ability, norming or admission predictions from a few items. Classical item analysis or IRT needs adequate, suitable response data and a checked model. Use only permitted source items and respect copyright. For research-based design choices, refer to applicable rule IDs in `references/education/evidence.json` when bundled.
+
+## Examples and checks
+
+A request for a mixed-format assessment of quadratic equations activates this skill. A request to infer whether one wrong answer indicates a misconception belongs to learning diagnostics. If a literature response supports two text-grounded interpretations, the rubric must allow both. If an item asks for speed in `m/s`, a key in `km/h` without conversion fails QA. In orchestration, send blueprint, item IDs, scoring and QA status to materials review and return revision requests to the item owner.
