@@ -217,6 +217,8 @@ Regression example: response composition moves after a handler has changed an ac
 
 ## External services and fallbacks
 
+- When a change makes a remote request for each item, trace one item and the largest supported input through the real client. Account for chunk size, retries and concurrency where they affect the call count, quota window or deadline. A worker limit bounds simultaneous calls and can still exhaust a total request allowance. If the input has no established upper bound, use a reachable example. Cite the contract and input that produce the failure.
+- Before recommending a batch operation, check what the provider implements and what the target deployment and selected client can use. Check that a batch returns the required items and preserves the caller's partial-failure behavior. An operation found only in a newer release is a rollout dependency. A bounded per-item path that meets the contract is a valid control. Identify unavailable version or limit evidence explicitly.
 - Separate expected absence from timeouts, authentication failures, malformed responses, and service outages.
 - When a fallback returns the caller's own input (return the resolved value if present, otherwise the input), follow later equality and ownership checks against that input. On the fallback branch they are vacuous unless provenance is preserved and checked: fallback equality proves no resolution or ownership. Trace an unresolved input and a genuinely resolved equal value as separate cases.
 - Require unexpected fallback paths to remain observable according to repository logging policy.

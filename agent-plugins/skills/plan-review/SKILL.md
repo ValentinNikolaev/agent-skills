@@ -43,7 +43,7 @@ limits in an already-authorized report or inline handoff.
 
 1. Identify the plan source and give each step a stable label if it lacks one.
 2. Read applicable repository and path-scoped instructions.
-3. Read explicit acceptance criteria, PRDs, issue text, or requirements supplied by the user or repository.
+3. Read explicit acceptance criteria, PRDs, issue text, or requirements supplied by the user or repository. For a saved requirements snapshot, match its source issue or scope to this plan and check for superseding decisions. Exclude a snapshot tied to another task. A matching older requirement can still apply.
 4. Verify referenced files, symbols, dependencies, commands, and directories not already established by usable shared context or, in light mode, the plan's research section.
 5. Read comparable implementations only when the plan relies on a local pattern.
 6. Record missing, inaccessible, or conflicting sources as limits; do not silently choose between conflicting authoritative sources.
@@ -66,6 +66,8 @@ Check applicable concerns:
 - existing infrastructure is reused when it is the established fit.
 
 Report only issues that improve correctness, safety, completeness, or maintainability. Omit preferences and speculative alternatives.
+
+When a plan calls a service once per item, use the supported input size and retry policy to check its call budget. If the plan depends on batching to meet a limit, verify the provider's operation and the version or rollout step that makes it usable by this consumer. A stale client snapshot cannot establish provider-wide absence. If the operation requires a coordinated release, identify which step must wait. A bounded loop that delivers every required result within budget needs no redesign.
 
 ## Walk operator scenarios for screen changes
 

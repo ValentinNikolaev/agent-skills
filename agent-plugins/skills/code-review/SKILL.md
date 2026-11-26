@@ -52,7 +52,7 @@ For review-fix delta mode, first apply the [delta trigger and scope](references/
 
 1. Read the project's host-memory entry `code-review-integration` first. Follow [project review assets](references/project-review-assets.md) to verify or discover the project's review material, resolve pointers at the reviewed revision, and record provenance and applicable IDs. Read repository instructions and path-scoped rules.
 2. Resolve the repository root and record `git status --short`.
-3. Derive the intended behavior from the request, issue, specification, pull-request description, and tests. If intent remains uncertain, state the uncertainty instead of inventing a requirement.
+3. Derive intent from the request, issue, specification, PR description, and tests. Before using saved acceptance criteria, match their source to this work item and check for superseding decisions. A recent timestamp alone cannot establish relevance. Record unresolved intent.
 4. Determine the comparison base in this order:
    - the base explicitly supplied by the user;
    - the pull request base reported by the provider;
@@ -88,7 +88,7 @@ Keep a ledger of reference files actually read, using their paths. Claim an angl
 
 Start every report, compact output included, with one scope line: `Scope: base=<base>; sources=<included change sources>; filters=<path filters>; exclusions=<...>; assumptions=<...>; depth=<depth>; verifier=<independent|inline>; references_read: <paths>; finder_passes: <completed>/<required>; partitions: <file/function partitions or ledger link>; limits: <unread checks, reduced coverage, verification limits>; cut: <count>`.
 
-Read [references/conditional-checks.md](references/conditional-checks.md) only for languages and change patterns present in the scope, including invariants under event order, persisted shortcuts and retention, concurrent row writers, resumable scans, client failure paths, configuration/bootstrap changes, and tests that replace framework behavior. Load its [CI workflows checks](references/conditional-checks.md#ci-workflows) only when `.github/workflows/` or other CI configuration changes. Do not load or apply unrelated sections.
+Read [references/conditional-checks.md](references/conditional-checks.md) only for languages and change patterns present in the scope, including invariants under event order, persisted shortcuts and retention, concurrent row writers, resumable scans, [per-item service calls and client failure paths](references/conditional-checks.md#external-services-and-fallbacks), configuration/bootstrap changes, and tests that replace framework behavior. Load its [CI workflows checks](references/conditional-checks.md#ci-workflows) only when `.github/workflows/` or other CI configuration changes. Do not load or apply unrelated sections.
 
 Load only the language references needed by changed behavior and its tests:
 

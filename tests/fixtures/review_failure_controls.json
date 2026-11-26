@@ -1,5 +1,29 @@
 [
   {
+    "id": "preview-exceeds-read-allowance",
+    "topic": "remote-call-budget",
+    "verification": "runtime",
+    "context": "A preview accepts 1 to 12 item IDs and must return one price per item. Each preview has a separate five-read allowance. The selected service and client accept one to three IDs per read, preserve order and have no retries. A larger operation on the provider development branch has not shipped.",
+    "source": "def preview(ids):\n    reads = 0\n\n    def read(group):\n        nonlocal reads\n        assert 1 <= len(group) <= 3\n        reads += 1\n        if reads > 5:\n            raise ValueError('read allowance exceeded')\n        return [item * 10 for item in group]\n\n    prices = []\n    for start in range(0, len(ids), 1):\n        prices.extend(read(ids[start:start + 1]))\n    return prices, reads\n\nfor count in (1, 5, 6, 12):\n    ids = list(range(1, count + 1))\n    try:\n        prices, reads = preview(ids)\n        assert prices == [item * 10 for item in ids]\n        print(count, reads)\n    except ValueError as error:\n        print(count, error)\n",
+    "returncode": 0,
+    "stdout": "1 1\n5 5\n6 read allowance exceeded\n12 read allowance exceeded\n",
+    "expected_findings": [
+      "A supported preview with six or more items spends its read allowance before it returns every price."
+    ],
+    "location_line": 14
+  },
+  {
+    "id": "preview-reads-in-supported-batches",
+    "topic": "remote-call-budget",
+    "verification": "runtime",
+    "context": "A preview accepts 1 to 12 item IDs and must return one price per item. Each preview has a separate five-read allowance. The selected service and client accept one to three IDs per read, preserve order and have no retries. A larger operation on the provider development branch has not shipped.",
+    "source": "def preview(ids):\n    reads = 0\n\n    def read(group):\n        nonlocal reads\n        assert 1 <= len(group) <= 3\n        reads += 1\n        if reads > 5:\n            raise ValueError('read allowance exceeded')\n        return [item * 10 for item in group]\n\n    prices = []\n    for start in range(0, len(ids), 3):\n        prices.extend(read(ids[start:start + 3]))\n    return prices, reads\n\nfor count in (1, 5, 6, 12):\n    ids = list(range(1, count + 1))\n    try:\n        prices, reads = preview(ids)\n        assert prices == [item * 10 for item in ids]\n        print(count, reads)\n    except ValueError as error:\n        print(count, error)\n",
+    "returncode": 0,
+    "stdout": "1 1\n5 2\n6 2\n12 4\n",
+    "expected_findings": [],
+    "location_line": null
+  },
+  {
     "id": "recoverable-request-exits-service",
     "topic": "recoverable-exit",
     "verification": "runtime",

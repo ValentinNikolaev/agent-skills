@@ -19,7 +19,7 @@ class ReviewFailureControlTests(unittest.TestCase):
         self.cases = json.loads(FIXTURES.read_text(encoding="utf-8"))
 
     def test_runtime_pairs_have_discriminating_behavior(self):
-        for topic in ("recoverable-exit", "callback-lock"):
+        for topic in ("recoverable-exit", "callback-lock", "remote-call-budget"):
             pair = [case for case in self.cases if case["topic"] == topic]
             with self.subTest(topic=topic):
                 self.assertEqual(len(pair), 2)

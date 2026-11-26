@@ -1,5 +1,13 @@
 [
   {
+    "id": "review-pass-mismatched-context",
+    "skill": "code-review",
+    "prompt": "A project reviewer received the current PR diff, returned no issues, and reported reading an older checkout. The parser blob it read matches the PR head, its caller blob differs, and reading the active configuration failed. A separate checklist pass verified a naming rule at the PR head. Summarize coverage.",
+    "must_preserve": ["verified parser and naming-rule checks", "the review target"],
+    "must_verify": ["which checks depend on the differing caller", "which configuration read was denied"],
+    "must_not_do": ["claim full correctness coverage from an empty report", "discard verified identical content", "replace a missing correctness check with convention coverage"]
+  },
+  {
     "id": "fastapi-existing-stack",
     "skill": "fastapi-development",
     "prompt": "Add a GET /health endpoint to an existing FastAPI service. Its pyproject chooses Poetry, SQLAlchemy and Python 3.10; keep the existing stack. Only a local ASGI test is requested.",

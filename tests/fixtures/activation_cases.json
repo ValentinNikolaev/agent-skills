@@ -98,6 +98,8 @@
   {"id":"api-design-alternatives","skill":"api-and-interface-design","category":"direct","prompt":"Design this module twice with substantially different public interfaces; compare normal and failure calls, hidden complexity, compatibility, and implementation cost. Do not implement.","expected_skills":["api-and-interface-design"]},
   {"id":"tdd-independent-expectation","skill":"test-driven-development","category":"direct","prompt":"Implement this rounding rule test-first with expected values worked out independently of the production algorithm; show the intended failing assertion and subsequent pass.","expected_skills":["test-driven-development"]},
   {"id":"review-feature-delta-rules","skill":"code-review","category":"direct","prompt":"Review the delta since the last head. It adds a public field and tests. Apply the project's numbered rules from the pinned submodule and check the named consumer.","expected_skills":["code-review"]},
+  {"id":"review-per-item-client","skill":"code-review","category":"direct","prompt":"Review the diff that issues one pricing request per order line. Does the deployed client stay inside the order's request allowance?","expected_skills":["code-review"]},
+  {"id":"review-fanout-plan-only","skill":"code-review","category":"negative","prompt":"Review the implementation plan for pricing an entire cart within a call limit. No code has been written.","expected_skills":["plan-review"]},
   {"id":"review-contract-proposal-only","skill":"code-review","category":"negative","prompt":"Check whether this proposed wire contract is feasible and testable. There is no implementation or diff yet.","expected_skills":["review-spec"]},
   {"id":"review-fastapi-diff","skill":"code-review","category":"direct","prompt":"Review this FastAPI endpoint diff for response-model secret exposure and a yield dependency closed before streaming. Report defects without edits.","expected_skills":["code-review"]},
   {"id":"review-fastapi-conventions-control","skill":"code-review","category":"overlap","prompt":"Review this working older FastAPI diff. Do not call RootModel or Depends defaults defective just because newer examples use Annotated.","expected_skills":["code-review"]},
@@ -146,6 +148,7 @@
 
   {"id":"audit-memory-direct","skill":"audit-memory","category":"direct","prompt":"Run a read-only audit of project memory and use a 45-day review threshold.","expected_skills":["audit-memory"]},
   {"id":"audit-memory-indirect","skill":"audit-memory","category":"indirect","prompt":"Check whether the memory index, related links, and source freshness are still consistent.","expected_skills":["audit-memory"]},
+  {"id":"audit-memory-mixed-claims","skill":"audit-memory","category":"direct","prompt":"Audit a project memory note against the supplied release and runtime settings. Some parts appear current and the owning team is unclear.","expected_skills":["audit-memory"]},
   {"id":"audit-memory-incomplete","skill":"audit-memory","category":"incomplete","prompt":"Is our agent memory healthy?","expected_skills":["audit-memory"]},
   {"id":"audit-memory-negative","skill":"audit-memory","category":"negative","prompt":"Create project memory for this repository; none exists yet.","expected_skills":["create-memory"]},
   {"id":"audit-memory-overlap","skill":"audit-memory","category":"overlap","prompt":"Audit the memory Markdown files for broken links, but do not run the general docs audit.","expected_skills":["audit-memory"]},
@@ -291,6 +294,7 @@
   {"id":"ingest-overlap","skill":"ingest-memory","category":"overlap","prompt":"The baseline exists; refresh only facts backed by this external specification, with provenance.","expected_skills":["ingest-memory"]},
 
   {"id":"plan-direct","skill":"plan-review","category":"direct","prompt":"Review this implementation plan against the repository and give an approval verdict. Do not rewrite it.","expected_skills":["plan-review"]},
+  {"id":"plan-provider-rollout","skill":"plan-review","category":"direct","prompt":"Can this implementation plan rely on a batch method added on the provider's development branch? Check release order and the current task's acceptance criteria.","expected_skills":["plan-review"]},
   {"id":"plan-indirect","skill":"plan-review","category":"indirect","prompt":"Before coding begins, check whether every requirement, risk, and test is covered by the proposed steps.","expected_skills":["plan-review"]},
   {"id":"plan-incomplete","skill":"plan-review","category":"incomplete","prompt":"Pressure-test this technical plan.","expected_skills":["plan-review"]},
   {"id":"plan-negative","skill":"plan-review","category":"negative","prompt":"The feature is implemented. Find bugs in the actual changed lines.","expected_skills":["code-review"]},

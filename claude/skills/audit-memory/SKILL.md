@@ -47,7 +47,7 @@ Use `--format json` when structured output helps. Verify validator findings agai
 ## Review Meaning and Freshness
 
 1. Treat age alone as `review due`, not proof that content is stale. Do not infer staleness from unrelated repository activity.
-2. Call a memory stale only when current repository or source evidence contradicts it, supersedes it, or proves that a load-bearing claim is obsolete. Cite both the memory and contradicting evidence.
+2. For a note with several load-bearing claims, scope each freshness finding to the statement the evidence settles. For example, a release record can confirm that a worker shipped while its current retry setting contradicts the note. Cite the statement and its current source. If neither source establishes who owns the worker, leave ownership unverified. Reserve a whole-note stale finding for evidence that invalidates its overall guidance.
 3. Treat an old matching `provenance[].retrieved_at` value as source review due. Do not claim source drift unless the current authorized source was compared successfully.
 4. Compare filenames, names, descriptions, source identities, and distinctive claims for duplicates. Report conflicting durable claims separately; do not silently choose a winner.
 5. Treat one-way local `related` links as contract drift because family relationships are symmetric. Treat external references through `provenance` or body links as evidence, not local relationships.

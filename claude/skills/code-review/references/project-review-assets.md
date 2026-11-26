@@ -16,6 +16,8 @@ Choose a mode and record one reason for **each** asset:
 - `rules-source` when its checklist or rules apply as text. A caller that forbids invoking a project reviewer can still use its rules. State that decision in the report.
 - `ignore` for a different language, unrelated task, or an incompatible side effect, naming which one.
 
+For an invoked reviewer, establish which patch it received and which revision supplied the surrounding files it actually used. A PR diff can be correct while a local checkout supplies an older caller. If a required read was denied, the run stopped early, or the surrounding code differs, record the affected paths and checks as limits. Credit work verified against the review target, including identical blobs from another checkout. An empty result cannot clear an unread path. Keep the status of this pass separate from checklist coverage, and verify any candidates against the target before merging duplicate findings.
+
 Save the reviewed entry through the host's project-memory writer and index. Keep only project scope, asset paths and source revisions, chosen modes and reasons, the pointer fallback, required PR-description sections, any consumer-repository hint, date and a refresh instruction. Preserve other memory and omit secrets, personal data and review findings. Apply invocation-specific overrides for this run without replacing a standing project decision. If project memory is unavailable, use `--no-memory`, report that limit and continue discovery. The helper never invents or writes an in-repository cache. For a host that exposes an index rather than a file, retrieve/store the equivalent fields with its own mechanism.
 
 ## Apply the checklist
