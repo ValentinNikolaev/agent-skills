@@ -33,3 +33,5 @@ When the claim matters and the control can be isolated safely, introduce the sma
 ## Report the evidence boundary
 
 Return the claimed behavior, exact run identity, precondition evidence, proof that the target executed, suppressors found, negative-control result, and remaining limits. Use `PROVEN_DETECTION` only when the intended defect made the check fail and the fixed subject passed. Use `BOUNDED_EVIDENCE` when execution is confirmed but no safe negative control ran. Use `UNVERIFIED` when setup, execution, or failure signaling is unknown. None of these statuses proves all related behavior correct.
+
+Separate what a run observed from explanations of why. An optional test skipped because its configured dependency path was absent establishes that the runner did not execute that test with that configuration; it does not establish whether the dependency exists elsewhere on the machine. When reporting setup limits, name the condition the runner checked, mention any documented way to supply it, and leave machine-wide availability unknown unless independently checked. Keep the execution and detection status based on the check itself.

@@ -202,6 +202,8 @@
   {"id":"prove-checks-incomplete","skill":"prove-checks","category":"incomplete","prompt":"Can we trust this green check?","expected_skills":["prove-checks"]},
   {"id":"prove-checks-negative","skill":"prove-checks","category":"negative","prompt":"Watch the still-running GitHub Actions workflow and tell me when required jobs finish.","expected_skills":["monitor-ci"]},
   {"id":"prove-checks-overlap","skill":"prove-checks","category":"overlap","prompt":"The Actions run is complete; verify that its green smoke test exercised the release path rather than a no-op branch.","expected_skills":["prove-checks"]},
+  {"id":"prove-checks-optional-dependency","skill":"prove-checks","category":"indirect","prompt":"Our test job finished green. Its optional runtime check skipped after this Python interpreter could not find a module. What does that run establish?","expected_skills":["prove-checks"]},
+  {"id":"prove-checks-inventory-only","skill":"prove-checks","category":"negative","prompt":"List the executables available on my workstation's PATH. There is no test or CI run to assess.","expected_skills":[]},
 
   {"id":"monitor-ci-direct","skill":"monitor-ci","category":"direct","prompt":"Use monitor-ci to follow this GitHub Actions run through all required jobs.","expected_skills":["monitor-ci"]},
   {"id":"monitor-ci-indirect","skill":"monitor-ci","category":"indirect","prompt":"Wait for the release workflow and report the final job outcomes and artifact status.","expected_skills":["monitor-ci"]},
