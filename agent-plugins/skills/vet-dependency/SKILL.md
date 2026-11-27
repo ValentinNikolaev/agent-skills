@@ -27,6 +27,8 @@ These module-specific considerations adapt [Samber's dependency-management](http
 
 ## Measure maintenance and fit
 
+Once the exact release and its upstream repository are established, the artifact compatibility check and the upstream maintenance check can run in parallel. Carry the version into both findings and cite the package file, release or issue behind each one. If the maintainer says a feature is supported but the probe fails, check which release first shipped it before deciding whether the candidate meets the contract.
+
 Inspect recent releases, issue and pull-request handling, compatibility work, and the project's own upgrade constraints. Distinguish an inactive maintainer from a quiet mature project; stars and last-push timestamps alone do not settle maintenance. Check whether support for the required version is released, pending in an unanswered PR, or absent. Record dates and links because these facts change.
 
 When a representative behavior can be tested safely, probe it in an isolated temporary environment using the published artifact and a fixture derived from the project's contract. Do not run install scripts or arbitrary package code in the working checkout. If execution is unsafe, unavailable, or costly, mark behavior unverified and give the exact probe needed. Record declared license and provenance; flag compatibility questions for legal review rather than inventing a legal verdict.

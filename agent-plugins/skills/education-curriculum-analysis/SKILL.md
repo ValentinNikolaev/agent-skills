@@ -23,4 +23,6 @@ Source conflicts require a side-by-side entry with edition and issuing body. Do 
 
 ## Checks and examples
 
+For a comparison across jurisdictions or editions, extract each source's requirements independently using the same subject, level and comparison question. Each extraction should return its requirement IDs, exact clauses and any missing sections. Compare the extracts only after checking what each clause asks the learner to do. Two syllabi can both list fractions while only one requires learners to justify a result.
+
 Check unique IDs, source anchors, edition labels, strict prerequisite cycles and coverage denominators. A request to compare two national curricula activates this skill. A request to format an already approved syllabus into a PDF does not. An offline request for the latest admission syllabus can receive a provisional gap analysis, with the official version unresolved. In orchestration, hand off map version and affected requirement IDs to instructional design and assessment design.

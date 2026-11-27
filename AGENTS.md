@@ -8,6 +8,12 @@
 - For a long task or an interrupted workflow, save a concise checkpoint of completed work and remaining steps. Resume from that checkpoint instead of repeating discovery, analysis, or review.
 - Stop when the requested result and necessary verification are complete. List optional improvements without automatically starting another revision cycle.
 
+## Research tasks
+
+- Go directly to a known primary source for a focused question. When the relevant sources are unclear, start with a short exploratory query and use what it turns up to narrow the next search. One agent can run independent lookups in parallel.
+- When delegation is already called for, give each researcher a distinct question, the sources or scope they own, and a stopping condition tied to the evidence needed. Keep follow-up work that depends on an earlier finding with the same researcher.
+- Ask each researcher to return their finding, a precise source reference, and any material gap. For a large table or report, return a short summary and the shared artifact path. The lead checks the evidence behind decisive claims and reconciles conflicting findings before answering.
+
 ## Source and release rules
 
 - Read this file, `CONTRIBUTING.md`, and path-specific instructions before changing a skill.

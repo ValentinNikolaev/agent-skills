@@ -68,6 +68,8 @@ Write one shared frame containing:
 
 Do not embed a preferred answer. Preserve meaningful uncertainty.
 
+When the frame needs several independent facts, the convenor can check their primary sources in parallel. Give all advisors the same findings, source references and unresolved factual questions. If advice diverges over a checkable premise, verify that premise at synthesis and explain which arguments it affects.
+
 ### 2. Run independent advisor passes
 
 Give each pass only its advisor style, the shared frame, and the response contract from the reference. Do not reveal other advisor outputs before the pass finishes. Ask for direct analysis, evidence needs, failure conditions, and a proposed action.

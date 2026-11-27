@@ -89,6 +89,8 @@ Use recent credible sources. Prefer official statistics, government or regulator
 
 For each material external claim, record the source, publication or access date, geography, what it supports, and its limitations.
 
+Once the buyer, geography and forecast period are fixed, investigate demand, competitor pricing and supplier costs in parallel where useful. If research is already delegated, give each researcher a question whose answer could change the verdict or a model input. Ask for the figure or observation, its source and any unresolved assumption. A competitor's list price establishes what it charges. Estimating what the target buyer will pay takes separate evidence. Reconcile billing units, currency and dates before combining figures in the forecast.
+
 Separate:
 
 - **Direct evidence**: paying alternatives, repeated buyer complaints, search or procurement behavior, manual labor, credible adoption, and retention.

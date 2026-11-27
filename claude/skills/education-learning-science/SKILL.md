@@ -27,6 +27,8 @@ The baseline registry is `references/education/evidence.json` in a packaged spec
 5. Deliver a choice tied to the context. For a complex novice procedure, `R-examples` may precede `R-retrieval`; for durable recall after initial learning, use `R-retrieval` and `R-spacing`; for access, consider `R-access` while preserving the assessed construct. Record assisted performance separately under `R-assistance`.
 6. For a proposed registry change, preserve the existing version, proposed revision, conflicting evidence, baseline, prediction, evaluation method, result and decision. Retain rejected attempts. A source update does not silently promote a new rule. Ask a maintainer to review a core change.
 
+For a broad evidence update, independent searches can cover different learner populations or outcomes. Give each the same intervention and comparator and ask for study identifiers, measured outcomes, follow-up and gaps. Before weighing agreement, check whether two reviews draw on the same trial. For a question about one named study, go straight to that study.
+
 Avoid fixed VARK labels, invented retention percentages, automatic mastery cutoffs, universal spacing schedules, and claims that an LLM judge score proves learning. An unsupported research or official-curriculum claim stays provisional until its source is checked.
 
 ## Examples and quality gates
