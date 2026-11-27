@@ -117,7 +117,7 @@ Inspect repository instructions and manifests, then run the narrowest available 
 
 Use documented commands first. Request any command permission the host requires; do not weaken or skip a check silently because a platform-specific allowlist is absent. Separate edit-caused failures from pre-existing, environment, or provider failures.
 
-Review the final diff against the recorded baseline. Confirm that only intended task changes were added and that unrelated pre-existing changes remain untouched.
+After the last edit and verification command, read the checkout's current diff and status again. If a checkout tool returned these together before editing, call it again for the final state. Compare the two snapshots so the report identifies the verified local changes and accounts for any pre-existing work.
 
 ## Final report
 
