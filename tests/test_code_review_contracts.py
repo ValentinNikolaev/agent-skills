@@ -57,6 +57,65 @@ def finding(identity, *, priority="P2", category="correctness", verdict="CONFIRM
 
 
 class ReviewContractTests(unittest.TestCase):
+    def small_delta(self, *candidates):
+        value = document(*candidates)
+        value["references_read"] = [contract.SMALL_DELTA_REFERENCE]
+        value["delta"] = {
+            "base": "abc1234", "head": "def5678", "logic_lines": 60,
+            "closures": "CR-001 fixed: submitting twice now keeps the dialog open.",
+            "accessibility": "The dialog returns focus to its trigger on close.",
+            "permissions": "This change only moves keyboard focus.",
+            "mutants": "Author supplied a total without named mutations: unverified.",
+        }
+        return value
+
+    def test_delta_small_caps_only_verified_incidental_p3s(self):
+        extra = [dict(finding(f"CR-{i:03}", priority="P3"), delta_check="extra") for i in range(10, 15)]
+        extra[0]["assessments"] = finding("CR-010", verdict="REFUTED")["assessments"]
+        required = [
+            dict(finding("CR-001", priority="P1"), delta_check="closure"),
+            dict(finding("CR-002", priority="P3"), delta_check="accessibility"),
+            dict(finding("CR-003"), delta_check="permissions"),
+            dict(finding("CR-004", priority="P3", category="coverage"), delta_check="mutant"),
+        ]
+        value = self.small_delta(*reversed(extra), *required)
+        for cap in (None, 20):
+            result = contract.prepare_report(value, depth="delta-small", max_findings=cap)
+            self.assertEqual({item["id"] for item in result["findings"]},
+                             {c["id"] for c in required + extra[1:4]})
+            self.assertEqual(result["omitted_ids"], ["CR-014"])
+            self.assertEqual(result["cut_count"], 1)
+            self.assertTrue(result["has_blocker"])
+        hidden = contract.prepare_report(value, depth="delta-small", max_findings=0)
+        self.assertEqual(hidden["findings"], [])
+        self.assertEqual(hidden["delta"], value["delta"])
+        self.assertTrue(hidden["has_blocker"])
+
+    def test_delta_small_eligibility_and_required_evidence(self):
+        value = self.small_delta()
+        for lines in (0, 60):
+            value["delta"]["logic_lines"] = lines
+            result = contract.prepare_report(value, depth="delta-small")
+            self.assertEqual(result["findings"], [])
+        for lines in (-1, 61, True, None):
+            value["delta"]["logic_lines"] = lines
+            with self.assertRaisesRegex(contract.ContractError, "0 to 60"):
+                contract.prepare_report(value, depth="delta-small")
+        for field in self.small_delta()["delta"]:
+            incomplete = self.small_delta()
+            del incomplete["delta"][field]
+            with self.subTest(field=field), self.assertRaises(contract.ContractError):
+                contract.prepare_report(incomplete, depth="delta-small")
+        value["references_read"] = [contract.FINDER_REFERENCE]
+        with self.assertRaisesRegex(contract.ContractError, "INCOMPLETE"):
+            contract.prepare_report(value, depth="delta-small")
+
+    def test_delta_small_rejects_unclassified_or_material_incidental_findings(self):
+        candidate = finding("CR-002")
+        for lane in (None, "extra"):
+            with self.subTest(lane=lane), self.assertRaises(contract.ContractError):
+                contract.prepare_report(self.small_delta(dict(candidate, delta_check=lane)), depth="delta-small")
+
     def test_standard_and_deep_require_coordinator_reference_even_without_findings(self):
         for depth in ("standard", "deep"):
             for candidates in ((), (finding("CR-001"),)):

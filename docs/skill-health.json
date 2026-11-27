@@ -32,14 +32,14 @@
     "yaml_outlier_fraction": 0.1
   },
   "last_check": {
-    "version": "33.0.0",
-    "major": 33,
-    "commit": "13389fa02b7706b89bcbcfbffe9344f783a4805a",
+    "version": "36.0.0",
+    "major": 36,
+    "commit": "7944f4ef0b4338ae8970650bfc1e5675c4937d9b",
     "dirty": true,
-    "date": "2026-11-22",
+    "date": "2026-11-27",
     "kind": "delta-review",
-    "reference": "v33 release preparation: editorial checks and delta since 82e5187",
-    "notes": "Reviewed changed instructions and neighbour routes. Growth in ai-detector (+355), discussion-reply (+176) and humanizer (+365) covers external-check cleanup, UI strings, cross-draft review and contribution checks. No routing or numeric conflicts found. 8015 of 10000 routing characters used."
+    "reference": "v36 local preparation: small review-fix deltas, comparison since 13389fa02b77",
+    "notes": "Checked changed review, writing, memory and education routes and their neighbours. The delta-small scope is opt-in, with a separate evidence contract. Routing uses 9637 of 10000 characters."
   },
   "baseline": {
     "skills": {
@@ -65,7 +65,7 @@
         "readme_summary_hash": "3de68bfd2e95"
       },
       "audit-memory": {
-        "body_words": 512,
+        "body_words": 548,
         "description_chars": 209,
         "description_hash": "e3705f7363e4",
         "short_description_hash": "60093dbbc17c",
@@ -93,7 +93,7 @@
         "readme_summary_hash": "220dd2cb2daa"
       },
       "code-review": {
-        "body_words": 4047,
+        "body_words": 4194,
         "description_chars": 165,
         "description_hash": "e0c51e1b36ac",
         "short_description_hash": "520a5ed6412b",
@@ -154,6 +154,76 @@
         "description_hash": "4e63c30cbe2c",
         "short_description_hash": "c9991c6c37b9",
         "readme_summary_hash": "9e75529c91db"
+      },
+      "education-adaptive-tutoring": {
+        "body_words": 480,
+        "description_chars": 130,
+        "description_hash": "b875023a9cf0",
+        "short_description_hash": "33631f4d2246",
+        "readme_summary_hash": "ccd026fb54cd"
+      },
+      "education-assessment-design": {
+        "body_words": 405,
+        "description_chars": 123,
+        "description_hash": "724d920d09e1",
+        "short_description_hash": "402851cd1f4e",
+        "readme_summary_hash": "65dfdb007a19"
+      },
+      "education-curriculum-analysis": {
+        "body_words": 444,
+        "description_chars": 134,
+        "description_hash": "b46780e8743a",
+        "short_description_hash": "b4a3579e1c75",
+        "readme_summary_hash": "d5d9ed5c3281"
+      },
+      "education-exam-preparation": {
+        "body_words": 471,
+        "description_chars": 137,
+        "description_hash": "59683efc5d1e",
+        "short_description_hash": "eae68b9b9b25",
+        "readme_summary_hash": "289dd92df84c"
+      },
+      "education-instructional-design": {
+        "body_words": 471,
+        "description_chars": 134,
+        "description_hash": "bb7f4558e179",
+        "short_description_hash": "0a5a7c291cb5",
+        "readme_summary_hash": "a56790587732"
+      },
+      "education-learning-analytics": {
+        "body_words": 338,
+        "description_chars": 135,
+        "description_hash": "8b6055be527e",
+        "short_description_hash": "4a08dbf7736c",
+        "readme_summary_hash": "9e04b6e61b7f"
+      },
+      "education-learning-diagnostics": {
+        "body_words": 364,
+        "description_chars": 138,
+        "description_hash": "a622d8e1d176",
+        "short_description_hash": "ad192dac0ce8",
+        "readme_summary_hash": "e18179c3b7fb"
+      },
+      "education-learning-science": {
+        "body_words": 640,
+        "description_chars": 183,
+        "description_hash": "d71826552f43",
+        "short_description_hash": "f2ab1abe5fb7",
+        "readme_summary_hash": "9e6980c3d8ca"
+      },
+      "education-materials-review": {
+        "body_words": 380,
+        "description_chars": 128,
+        "description_hash": "f391cd14b785",
+        "short_description_hash": "2c0ac1b26d4a",
+        "readme_summary_hash": "c4671e7f795a"
+      },
+      "education-orchestrator": {
+        "body_words": 577,
+        "description_chars": 109,
+        "description_hash": "0a2a80191a97",
+        "short_description_hash": "5f91ae4e2c13",
+        "readme_summary_hash": "6c1bc22e3095"
       },
       "fastapi-development": {
         "body_words": 697,
@@ -261,7 +331,7 @@
         "readme_summary_hash": "2372a156ece7"
       },
       "plan-review": {
-        "body_words": 1943,
+        "body_words": 2058,
         "description_chars": 124,
         "description_hash": "b32d3a49bddd",
         "short_description_hash": "29d2d83afd11",
@@ -275,7 +345,7 @@
         "readme_summary_hash": "17dbda50044c"
       },
       "prove-checks": {
-        "body_words": 538,
+        "body_words": 618,
         "description_chars": 97,
         "description_hash": "1d307b31c66c",
         "short_description_hash": "32c89e5e47aa",
@@ -380,7 +450,7 @@
         "readme_summary_hash": "f78102e1fbe8"
       }
     },
-    "routing_chars": 8015,
+    "routing_chars": 9637,
     "shared_sentence_keys": [
       "014b6ae592c2",
       "12795dd644b3",
@@ -397,7 +467,8 @@
   },
   "open_items": [
     "Descriptions exceed 250 characters: business-viability-assessment (260), clean-code-comments (254), console-ux-design (289).",
-    "code-review body remains 4047 words; preserve review coverage in any future reduction."
+    "Education orchestrator has 11 relative workflow.py examples. They assume the installed orchestrator directory as documented in references/checkpoints.md.",
+    "code-review body is 4194 words against the 4200-word ceiling. Keep further procedures in references."
   ],
   "history": [
     {
@@ -409,6 +480,16 @@
       "kind": "full-audit",
       "reference": "full audit at 66602cc, 2026-11-09, applied in v30",
       "notes": ""
+    },
+    {
+      "version": "33.0.0",
+      "major": 33,
+      "commit": "13389fa02b7706b89bcbcfbffe9344f783a4805a",
+      "dirty": true,
+      "date": "2026-11-22",
+      "kind": "delta-review",
+      "reference": "v33 release preparation: editorial checks and delta since 82e5187",
+      "notes": "Reviewed changed instructions and neighbour routes. Growth in ai-detector (+355), discussion-reply (+176) and humanizer (+365) covers external-check cleanup, UI strings, cross-draft review and contribution checks. No routing or numeric conflicts found. 8015 of 10000 routing characters used."
     }
   ]
 }

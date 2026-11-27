@@ -21,6 +21,8 @@ CATEGORY_TIERS = {
 }
 VERDICTS = ("CONFIRMED", "PLAUSIBLE", "REFUTED")
 FINDER_REFERENCE = "references/finder-and-verifier.md"
+SMALL_DELTA_REFERENCE = "references/delta-small.md"
+DEPTHS = ("quick", "standard", "deep", "delta-small")
 REFUTATIONS = (
     "contradicting-code", "invariant-or-type", "guard-in-diff",
     "no-observable-effect",
@@ -120,7 +122,7 @@ def contract_questions(fields, retained):
 def prepare_report(
     document: dict, *, depth: str = "standard", max_findings: int | None = None,
 ) -> dict:
-    require(depth in ("quick", "standard", "deep"), "invalid review depth")
+    require(depth in DEPTHS, "invalid review depth")
     require(
         max_findings is None or (type(max_findings) is int and max_findings >= 0),
         "max_findings must be a nonnegative integer",
@@ -131,10 +133,18 @@ def prepare_report(
         isinstance(references, list) and all(nonempty(r) or isinstance(r, dict) for r in references),
         "references_read must contain reference paths or rule source records",
     )
-    require(
-        depth == "quick" or FINDER_REFERENCE in references,
-        f"{depth} review is INCOMPLETE: coordinator must read {FINDER_REFERENCE}",
-    )
+    if depth != "quick":
+        required_reference = SMALL_DELTA_REFERENCE if depth == "delta-small" else FINDER_REFERENCE
+        require(required_reference in references,
+                f"{depth} review is INCOMPLETE: coordinator must read {required_reference}")
+    if depth == "delta-small":
+        delta = document.get("delta")
+        require(isinstance(delta, dict), "declare delta scope and required check results")
+        for field in ("base", "head", "closures", "accessibility", "permissions", "mutants"):
+            require(nonempty(delta.get(field)), f"delta: missing {field}")
+        require(delta["base"] != delta["head"], "pin both revisions of the fix round")
+        size = delta.get("logic_lines")
+        require(type(size) is int and 0 <= size <= 60, "delta-small requires 0 to 60 changed logic lines")
     mode = document.get("verification_mode")
     require(mode in ("independent", "inline"), "declare verification_mode")
     candidates = document.get("candidates")
@@ -220,18 +230,34 @@ def prepare_report(
     coverage = check_coverage(document, references, retained)
     fields = document.get("contract_fields", [])
     questions = contract_questions(fields, retained)
+    eligible = retained
+    if depth == "delta-small":
+        eligible = []
+        extras = 0
+        for item in retained:
+            lane = item.get("delta_check")
+            require(lane in ("closure", "accessibility", "permissions", "mutant", "extra"),
+                    f"{item['id']}: declare delta_check")
+            if lane == "extra":
+                require(item["priority"] == "P3",
+                        f"{item['id']}: use the ordinary delta for a material incidental finding")
+                extras += 1
+                if extras > 3:
+                    continue
+            eligible.append(item)
     # Reserve the best-ranked representative of each category, then fill spare slots.
     representatives = {}
-    for item in retained:
+    for item in eligible:
         representatives.setdefault(item["category"], item["id"])
     first = list(representatives.values())
     reserved = set(first)
-    selection = first + [item["id"] for item in retained if item["id"] not in reserved]
+    selection = first + [item["id"] for item in eligible if item["id"] not in reserved]
     chosen = set(selection[:max_findings])
     displayed = [item for item in retained if item["id"] in chosen]
     omitted = [item for item in retained if item["id"] not in chosen]
     return {
         "verification_mode": mode, "depth": depth,
+        **({"delta": delta} if depth == "delta-small" else {}),
         "references_read": list(references),
         "rule_source_limits": [r for r in references if isinstance(r, dict) and (r.get("unresolved") or r.get("warning"))],
         "convention_coverage": coverage, "contract_fields": fields, "questions": questions,
@@ -246,7 +272,7 @@ def prepare_report(
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--input", required=True, help="JSON input file, or - for stdin")
-    parser.add_argument("--depth", choices=("quick", "standard", "deep"), default="standard")
+    parser.add_argument("--depth", choices=DEPTHS, default="standard")
     parser.add_argument("--max-findings", type=int)
     args = parser.parse_args()
     try:

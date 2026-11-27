@@ -62,6 +62,8 @@ Apply when changed code groups, merges, deduplicates, or assigns ownership to id
 
 ## Review-fix deltas
 
+When the caller selects [delta-small](delta-small.md), use its eligibility check and procedure first. The following passes apply to ordinary review-fix deltas.
+
 - New features, proto fields, config keys and added files trigger the [per-rule, test/comment and contract passes](project-review-assets.md#apply-the-checklist) on their delta scope, including additions accompanying otherwise mechanical fixes.
 
 - Trigger a review-fix delta when fixes change the behavior of concurrent code, transactions, storage/cleanup, retries, or UI interactions (button enabled/visible states, validation and error feedback, dialog step order, or selection/list ordering). One delta review covers all fixes of one review round, from the last reviewed head to the new head, not one review per push; intermediate pushes accumulate until the round is ready.

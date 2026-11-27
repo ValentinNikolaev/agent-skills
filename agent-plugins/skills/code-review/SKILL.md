@@ -34,11 +34,12 @@ UI/UX defects visible in the diff remain in scope even when the implementation f
 
 ## Choose depth and output
 
-Accept `quick | standard | deep` (also `--depth <value>`), defaulting to `standard`:
+Accept `quick | standard | deep | delta-small` (also `--depth <value>`), defaulting to `standard`:
 
 - `quick`: inspect hunks only, favor precision, and disclose the enclosing-function and cross-file coverage limit. Keep discovery separate from verification; do not silently downgrade a retained plausible risk or claim standard coverage.
 - `standard`: use the existing file, caller, test, language, and conditional checks plus the finder angles and independent verifier below.
 - `deep`: use standard coverage, then perform the post-verification gap sweep and apply the vote-retention rule, both in [finder angles and reviewer roles](references/finder-and-verifier.md).
+- `delta-small`: on request, follow only the [small-delta procedure](references/delta-small.md) through handoff for review-fix rounds of ≤60 changed production logic lines.
 
 Accept `--max-findings N` for a nonnegative integer cap on displayed findings, and `--format compact` for automated handoff; neither option reduces the review scope, and the merge verdict stays derived from all retained findings and material verification limits. Default to no finding cap and the full report. Reject invalid values rather than silently substituting defaults.
 
