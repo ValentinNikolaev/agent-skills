@@ -22,6 +22,8 @@ Compare a named implementation scope with an authoritative specification. Produc
 3. Extract each independently verifiable obligation into a stable ID. Preserve a short exact quote and source location; distinguish `must`, `should`, explanatory notes, and examples. Do not turn every sentence into a requirement or infer a target count from document length.
 4. Find the implementation through named paths and symbols, then search relevant alternate paths before claiming absence. Inspect callers, configuration, migrations, and tests when a requirement depends on them.
 
+After a merge or rebase onto the base branch, compare the working branch before and after the sync when selecting tests. If a shared module gained or changed a dependency (including a transitive one), or its import now runs different initialization code, follow its importers to the entry points that load the affected code. Before final review, run those entry points' existing suites alongside the usual focused tests, even when the suite files are absent from the diff. Keep the scope tied to the affected import paths. A local wording change with the same dependencies and import behavior needs only the usual focused check.
+
 ## Compare each obligation
 
 Record one status per requirement:
