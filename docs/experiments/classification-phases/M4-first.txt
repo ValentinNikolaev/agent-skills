@@ -1,0 +1,22 @@
+Scope: base=reviewed SHA-256 `1659663c�`; head=proposed SHA-256 `326958e9�`; sources=supplied one-file patch and contract; filters=`batches.py`; exclusions=callers and tests not supplied; assumptions=items ≥ 0, capacity > 0; depth=quick; verifier=inline; references_read=supplied `code-review/SKILL.md`, `project-review-assets.md`, `review-python.md`, `conditional-checks.md`, `report-contract.md`, `run-contract.md`; finder_passes=1/1 changed hunk; partitions=`batches.py:batch_count`; limits=no repository access, independent verifier, or Python test run; skill source repository could not be independently verified; cut=0.
+
+## Findings
+
+**CR-001 � P1 � correctness � open**  
+Location: `batches.py:2`  
+Summary: Partial batches are omitted.  
+Failure scenario: `items=5, capacity=4` → returns 1 batch, but 2 are needed.  
+Verdict: **CONFIRMED**  
+Evidence: The proposed `return items // capacity` rounds down. An inline arithmetic check gave expected/proposed counts of 1/0 for `(1, 4)`, 1/1 for `(4, 4)`, and 2/1 for `(5, 4)`. The cited empty case `(0, 4)` correctly gives 0.  
+Impact: Any positive item count that is not a multiple of capacity allocates one batch too few.  
+Counterargument: Floor division is correct for empty exports and exact multiples, but those cases do not cover a partly filled final batch.  
+Remediation: Round up for positive counts while preserving zero for an empty export, for example `(items + capacity - 1) // capacity`.
+
+## Coverage
+
+- `batch_count` empty and exact-multiple boundaries � **unknown**; no tests were supplied.
+- `batch_count` partial final batch � **uncovered** in the supplied evidence.
+
+Missing test: **P1**, check zero, one item, an exact multiple, and one item above a multiple; it should catch the under-allocation shown above. No Python tests or mutation controls were run.
+
+**Merge verdict: REQUEST_CHANGES.**

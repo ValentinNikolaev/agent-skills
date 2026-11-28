@@ -1,0 +1,15 @@
+{
+  "revision": "79dee507d8a7c8c432edc4f949780dbd9d6c5ba2",
+  "model": "gpt-6-sol",
+  "effort": "medium",
+  "word_budget": 650,
+  "context_window": 32768,
+  "turns": 1,
+  "timeout_seconds": 300,
+  "grader": "d52d1fc48fad90356981b30d1aa1a8f497f4f8c6955505877fffeb0e4351da65",
+  "packets": {
+    "K7": "93fe4d5352e88e36870ac521bb4ceb9da5b67498b135e19996f14d20a7f00f4b",
+    "R2": "eaa8e1d0b253810bbf8395a9bb2e4c993ae42f853e1461893a8af406edd02d51",
+    "M4": "a89299ed1c7c320a3204a4ab81e53670769c4d4bd96c826a0fbdef95333455b1"
+  }
+}

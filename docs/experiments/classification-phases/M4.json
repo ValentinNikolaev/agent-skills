@@ -1,0 +1,16 @@
+{
+  "case": "M4",
+  "packet_sha256": "a89299ed1c7c320a3204a4ab81e53670769c4d4bd96c826a0fbdef95333455b1",
+  "packet_bytes": 63662,
+  "usage": {
+    "input_tokens": 104249,
+    "cached_input_tokens": 82176,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 880,
+    "reasoning_output_tokens": 280
+  },
+  "commentary": [
+    "I’ll review the single changed line against the supplied contract, check the empty and nonempty cases, and report only what I can verify offline."
+  ],
+  "answer": "Scope: base=reviewed SHA `1659663c`; sources=supplied patch; filters=`batches.py`; exclusions=repository, consumers, and tests not supplied; assumptions=the supplied contract; depth=quick; verifier=inline; references_read=supplied code-review skill, run contract, project-review-assets, review-python, conditional-checks, and report-contract; finder_passes=1/1 hunk; partitions=`batch_count`; limits=no enclosing context or Python test run, and skill source repository unverified offline; cut=0.\n\n## Findings\n\n**CR-001 — P1 correctness — open**  \n**Location:** `batches.py:2`  \n**Failure scenario:** A nonempty export whose item count is not divisible by capacity receives too few batches.  \n**Verdict:** CONFIRMED  \n**Evidence:** `return items // capacity` rounds down. An inline arithmetic check gave `(items, capacity) = (1, 2) → 0` instead of `1`, and `(3, 2) → 1` instead of `2`. The opposite boundaries, `(0, 2) → 0` and `(2, 2) → 1`, satisfy the contract.  \n**Impact:** The planner cannot carry all items for those inputs.  \n**Counterargument:** Floor division fixes the empty case and preserves exact multiples, but neither covers a positive remainder.  \n**Remediation:** Use `return (items + capacity - 1) // capacity`.\n\n## Coverage\n\nChanged path: batch count calculation — **unknown** test coverage; no tests were supplied. No project rule IDs were supplied. The targeted verification is to run or add cases for empty, positive remainder, and exact multiple inputs. The positive remainder case catches this regression; the empty case catches the original defect.\n\n**Merge verdict: REQUEST_CHANGES.**"
+}

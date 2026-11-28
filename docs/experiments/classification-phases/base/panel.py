@@ -1,0 +1,27 @@
+from dataclasses import dataclass, field
+
+
+@dataclass
+class Panel:
+    cache: dict = field(default_factory=dict)
+    visible: str | None = None
+    action: str = "idle"
+
+    def open_result(self, key, status):
+        if status == 200:
+            self.visible = self.cache[key]
+            self.action = "watch"
+        else:
+            self._refused(key, status)
+
+    def watch_result(self, key, status):
+        if status != 200:
+            self._refused(key, status)
+
+    def _refused(self, key, status):
+        if status == 403:
+            self.visible = None
+            self.cache.pop(key, None)
+            self.action = "closed"
+        else:
+            self.action = "retry"

@@ -1,0 +1,35 @@
+{
+  "brief": "Lightly edit this English engineering post for fellow practitioners. Preserve what the writer means and how they talk to peers. Return the passage only. Leave wording alone when it already works.",
+  "cases": [
+    {
+      "id": "receipts",
+      "input": "Do you keep the paper slip when a printer jams? I started keeping mine after two jobs landed under the same number. The dashboard showed one success. The slips showed two different times. I'd love to know: when your printer jams, do you keep the paper slip too?",
+      "checks": ["Keep the question about whether peers retain the paper slip when the printer jams.", "Keep the shared job number, one dashboard success and two times as the reason.", "Ask once, without a stock invitation or a repetition of the opening question."]
+    },
+    {
+      "id": "archive",
+      "input": "I can read our oldest archive with last year's client. This year's client opens it and quietly drops the notes column. If you've kept both clients around, which one do you use to check an archive before you retire the old reader?",
+      "checks": ["Preserve the choice of client, the peers who kept both and the timing before retiring the reader.", "Preserve which client loses the notes column and the quiet failure.", "Keep the concrete question connected to the preceding evidence; no added generic invitation."]
+    },
+    {
+      "id": "gauge",
+      "input": "How do you mark a gauge that's waiting for calibration? That's what I asked the fitter on Tuesday. He reached for the yellow tape, then noticed both rolls on his bench were yellow. For those of you working nights, how do you mark yours when it's too dark to read the tag?",
+      "checks": ["Keep the Tuesday exchange with the fitter and the distinct, unresolved night-shift question to peers.", "Keep both yellow rolls and the unreadable tag in the dark.", "Preserve the two different audiences and occasions even if one question becomes reported speech."]
+    },
+    {
+      "id": "handover",
+      "input": "The handover sheet says the spare is in drawer three. Mine was in drawer five on Monday. Has anyone else on the late shift found it in five? I'm trying to work out whether Monday was a one-off.",
+      "checks": ["Keep the request for late-shift observations specifically about drawer five.", "Keep the sheet's three, Monday's five and uncertainty about recurrence.", "Retain the explanation for asking, without adding a broader discussion prompt."]
+    },
+    {
+      "id": "beacon",
+      "input": "Did the beacon stop transmitting? That's what I thought until I plugged in the spare receiver. There it was, same interval as yesterday. I wrote the receiver's serial number on the ticket.",
+      "checks": ["Keep the writer's initial self-question or an equivalent expression of that initial belief.", "Preserve the spare receiver, interval comparison and whose serial number was recorded.", "Do not turn the self-question into a request for peer responses."]
+    },
+    {
+      "id": "timer",
+      "input": "I had been waiting for the timer to expire when Lea unplugged the rig. I still don't know whether it would have fired.",
+      "checks": ["Preserve the writer's ongoing uncertainty.", "Preserve that waiting was in progress when Lea unplugged the rig.", "Leave the statement free of any newly invented question to readers."]
+    }
+  ]
+}

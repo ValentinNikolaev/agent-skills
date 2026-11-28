@@ -1,0 +1,7 @@
+Scope: base=3ec0cd3ac78d07c57bf98dfc6de7c4b0b3a14697d574f6e39c414c50e5668739; sources=supplied patch to 969b11d2c1f081d026f8ad6d28232a9429f6058912a27796defeb6c5845176e1; filters=panel.py; exclusions=checkout and tests not supplied; assumptions=dispatcher consumes actions as contracted; depth=quick; verifier=inline; references_read=supplied SKILL.md, run-contract.md, project-review-assets.md, review-python.md, accessibility-checklist.md, security-checklist.md, conditional-checks.md, report-contract.md; finder_passes=1/1; partitions=open_result, watch_result, _refused; limits=review confined to the supplied file and contract; dispatcher implementation, installed skill provenance, host memory, shared voice file and tests could not be inspected; no commands run; cut=0.
+
+**Findings:** None. Inline tracing of the specified 200, 403 and 503 responses found that opening expiration now queues `fresh` while preserving the blank view and cache. Watch removal still clears the view, evicts the selected entry and closes. Both outage paths preserve view and cache and set `retry`.
+
+**Coverage mapping:** Opening and watch transitions � unknown; no tests were supplied. No added tests or comments appear in the patch, and no additional project rules were supplied. Verification gap: inspect and run targeted transition tests, including the dispatcher�s action consumption.
+
+**Merge verdict: COMMENT.** No defect found in the supplied delta; dispatcher behavior and test results remain unverified.

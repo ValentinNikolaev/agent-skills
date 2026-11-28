@@ -1,0 +1,212 @@
+[
+  {
+    "id": "receipts",
+    "variants": {
+      "one": {
+        "blind_label": "A",
+        "order": 3,
+        "text": "Do you keep the paper slip when a printer jams? I started keeping mine after two jobs landed under the same number. The dashboard showed one success. The slips showed two different times.",
+        "checks": [
+          1,
+          1,
+          1
+        ]
+      },
+      "two": {
+        "blind_label": "B",
+        "order": 2,
+        "text": "I started keeping the paper slips after two jobs landed under the same number. The dashboard showed one success. The slips showed two different times. When your printer jams, do you keep the paper slip too?",
+        "checks": [
+          1,
+          1,
+          1
+        ]
+      },
+      "base": {
+        "blind_label": "C",
+        "order": 1,
+        "text": "Do you keep the paper slip when a printer jams? I started keeping mine after two jobs landed under the same number. The dashboard showed one success. The slips showed two different times.",
+        "checks": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  {
+    "id": "archive",
+    "variants": {
+      "base": {
+        "blind_label": "A",
+        "order": 3,
+        "text": "I can read our oldest archive with last year's client. This year's client opens it and quietly drops the notes column. If you've kept both clients around, which one do you use to check an archive before you retire the old reader?",
+        "checks": [
+          1,
+          1,
+          1
+        ]
+      },
+      "one": {
+        "blind_label": "B",
+        "order": 1,
+        "text": "I can read our oldest archive with last year's client. This year's client opens it and quietly drops the notes column. If you've kept both clients around, which one do you use to check an archive before you retire the old reader?",
+        "checks": [
+          1,
+          1,
+          1
+        ]
+      },
+      "two": {
+        "blind_label": "C",
+        "order": 2,
+        "text": "I can read our oldest archive with last year's client. This year's client opens it and quietly drops the notes column. If you've kept both clients around, which one do you use to check an archive before you retire the old reader?",
+        "checks": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  {
+    "id": "gauge",
+    "variants": {
+      "two": {
+        "blind_label": "A",
+        "order": 3,
+        "text": "How do you mark a gauge that's waiting for calibration? That's what I asked the fitter on Tuesday. He reached for the yellow tape, then noticed both rolls on his bench were yellow. For those of you working nights, how do you mark yours when it's too dark to read the tag?",
+        "checks": [
+          1,
+          1,
+          1
+        ]
+      },
+      "one": {
+        "blind_label": "B",
+        "order": 1,
+        "text": "How do you mark a gauge that's waiting for calibration? That's what I asked the fitter on Tuesday. He reached for the yellow tape, then noticed both rolls on his bench were yellow. For those of you working nights, how do you mark yours when it's too dark to read the tag?",
+        "checks": [
+          1,
+          1,
+          1
+        ]
+      },
+      "base": {
+        "blind_label": "C",
+        "order": 2,
+        "text": "How do you mark a gauge that's waiting for calibration? That's what I asked the fitter on Tuesday. He reached for the yellow tape, then noticed both rolls on his bench were yellow. For those of you working nights, how do you mark yours when it's too dark to read the tag?",
+        "checks": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  {
+    "id": "handover",
+    "variants": {
+      "two": {
+        "blind_label": "A",
+        "order": 1,
+        "text": "The handover sheet says the spare is in drawer three. Mine was in drawer five on Monday. Has anyone else on the late shift found it in five? I'm trying to work out whether Monday was a one-off.",
+        "checks": [
+          1,
+          1,
+          1
+        ]
+      },
+      "base": {
+        "blind_label": "B",
+        "order": 2,
+        "text": "The handover sheet says the spare is in drawer three. Mine was in drawer five on Monday. Has anyone else on the late shift found it in five? I'm trying to work out whether Monday was a one-off.",
+        "checks": [
+          1,
+          1,
+          1
+        ]
+      },
+      "one": {
+        "blind_label": "C",
+        "order": 3,
+        "text": "The handover sheet says the spare is in drawer three. Mine was in drawer five on Monday. Has anyone else on the late shift found it in five? I'm trying to work out whether Monday was a one-off.",
+        "checks": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  {
+    "id": "beacon",
+    "variants": {
+      "one": {
+        "blind_label": "A",
+        "order": 2,
+        "text": "Did the beacon stop transmitting? That's what I thought until I plugged in the spare receiver. There it was, same interval as yesterday. I wrote the receiver's serial number on the ticket.",
+        "checks": [
+          1,
+          1,
+          1
+        ]
+      },
+      "two": {
+        "blind_label": "B",
+        "order": 1,
+        "text": "Did the beacon stop transmitting? That's what I thought until I plugged in the spare receiver. There it was, same interval as yesterday. I wrote the receiver's serial number on the ticket.",
+        "checks": [
+          1,
+          1,
+          1
+        ]
+      },
+      "base": {
+        "blind_label": "C",
+        "order": 3,
+        "text": "Did the beacon stop transmitting? That's what I thought until I plugged in the spare receiver. There it was, same interval as yesterday. I wrote the receiver's serial number on the ticket.",
+        "checks": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  },
+  {
+    "id": "timer",
+    "variants": {
+      "base": {
+        "blind_label": "A",
+        "order": 1,
+        "text": "I had been waiting for the timer to expire when Lea unplugged the rig. I still don't know whether it would have fired.",
+        "checks": [
+          1,
+          1,
+          1
+        ]
+      },
+      "one": {
+        "blind_label": "B",
+        "order": 2,
+        "text": "I had been waiting for the timer to expire when Lea unplugged the rig. I still don't know whether it would have fired.",
+        "checks": [
+          1,
+          1,
+          1
+        ]
+      },
+      "two": {
+        "blind_label": "C",
+        "order": 3,
+        "text": "I had been waiting for the timer to expire when Lea unplugged the rig. I still don't know whether it would have fired.",
+        "checks": [
+          1,
+          1,
+          1
+        ]
+      }
+    }
+  }
+]

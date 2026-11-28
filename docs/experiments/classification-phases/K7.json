@@ -1,0 +1,16 @@
+{
+  "case": "K7",
+  "packet_sha256": "93fe4d5352e88e36870ac521bb4ceb9da5b67498b135e19996f14d20a7f00f4b",
+  "packet_bytes": 72429,
+  "usage": {
+    "input_tokens": 112558,
+    "cached_input_tokens": 94464,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 1311,
+    "reasoning_output_tokens": 641
+  },
+  "commentary": [
+    "I’ll review the supplied delta against the contract, trace the changed refusal path for each in-scope status, and verify any finding inline. I’ll keep the report compact and within 650 words."
+  ],
+  "answer": "Scope: base=reviewed file SHA `3ec0cd3`; head=proposed file SHA `ba47282`; sources=supplied patch and contract; filters=`panel.py`; exclusions=renderer and tests not supplied; assumptions=contract is authoritative; depth=quick; verifier=inline; references_read: supplied code-review skill, run-contract, project-review-assets, review-python, accessibility-checklist, security-checklist, conditional-checks, report-contract; finder_passes=1/1; partitions=`open_result`, `watch_result`, `_refused`; limits=cross-file behavior, skill source provenance, and tests could not be checked offline; cut=0.\n\n## Findings\n\n**CR-001 — P1 security — open — [panel.py](/scratch/panel.py:23)**  \nFailure scenario: A displayed record’s permission watch returns 403 → the panel remains visible and cached, and the dispatcher schedules a fresh check instead of closing it.  \nVerdict: **CONFIRMED**. `watch_result` sends every non-200 response to `_refused`; its changed 403 branch only sets `self.action = \"fresh\"`. The contract says changing the action alone changes neither view nor storage.  \nImpact: A confirmed loss of access leaves the selected record displayed.  \nCounterargument: A fresh check is correct for an *opening receipt* that expired, but the contract assigns watch 403 a different meaning.  \nRemediation: Handle opening and watch refusals separately. On watch 403, clear `visible`, evict only the selected cache entry, and set `closed`.\n\n## Coverage\n\nContract opening 403: applied (none); the changed branch preserves the cache and requests `fresh`. Contract watch 403: applied (CR-001). I also traced 200 and 503 through the supplied functions; no further finding resulted.\n\nTests supplied: none. A targeted unit test should start with a displayed selected record and another cached record, deliver watch 403, and assert closure, cleared display, and eviction of only the selected entry. **No tests or commands were run.**\n\n**Merge verdict: REQUEST_CHANGES.**"
+}
