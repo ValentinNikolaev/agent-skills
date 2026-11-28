@@ -1,0 +1,7 @@
+This one-file change follows a review of opening an existing local record. The previous review found that when the opening receipt expired, the panel closed permanently. The proposed revision is intended to address that finding. The attached diff is the whole round from the previously reviewed version. No mutation or test results are claimed.
+
+A panel tracks one selected record. Opening begins with a blank view, an existing cache entry for that key and no watch. The receipt checker either accepts the receipt (200), reports expiration (403), or is temporarily unavailable (503). An accepted receipt permits displaying the entry and starts the watch. Expiration queues a fresh permission check before display. An outage leaves the opening request available for retry. The cached entry survives both outcomes.
+
+After display, a separate permission watch returns 200 while access continues, 403 upon a confirmed change removing access, or 503 during an outage. Removal closes the panel, clears the displayed value and evicts only the selected entry. A watch outage preserves the view and the cache and allows another watch attempt.
+
+The dispatcher serializes calls and consumes the action field. `fresh` schedules the fresh check, `retry` repeats the operation that produced the response, and `closed` stops the panel. Updating the action alone changes neither the view nor storage. These are the only statuses and call sequences in scope. No renderer, tests or additional policy files are included in this snapshot.

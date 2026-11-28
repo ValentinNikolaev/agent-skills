@@ -6,17 +6,76 @@ measurement cases supply evaluation inputs without claiming measured speedups.
 
 import json
 from pathlib import Path
+import runpy
 import subprocess
 import sys
+import tempfile
 import unittest
 
 
 FIXTURES = Path(__file__).parent / "fixtures" / "review_failure_controls.json"
+DELTAS = FIXTURES.parent / "code_review_deltas"
+
+
+def delta_versions(case):
+    """Run the repository-owned one-file fixture before and after its review patch."""
+    source = DELTAS / "base" / case["source_file"]
+    patch = (DELTAS / case["patch"]).read_text(encoding="utf-8")
+    with tempfile.TemporaryDirectory() as tmp:
+        target = Path(tmp) / source.name
+        target.write_bytes(source.read_text(encoding="utf-8").encode())
+        before = runpy.run_path(str(target))
+        subprocess.run(["git", "apply", "--no-index", "-"], cwd=tmp,
+                       input=patch.encode(), capture_output=True, check=True)
+        return before, runpy.run_path(str(target))
 
 
 class ReviewFailureControlTests(unittest.TestCase):
     def setUp(self):
         self.cases = json.loads(FIXTURES.read_text(encoding="utf-8"))
+
+    def test_permission_check_deltas(self):
+        cases = {c["id"]: c for c in self.cases if c["topic"] == "permission-check-phase"}
+        self.assertEqual(set(cases), {"K7", "R2"})
+        self.assertEqual(cases["K7"]["context_file"], cases["R2"]["context_file"])
+        self.assertTrue((DELTAS / cases["K7"]["context_file"]).is_file())
+        cached = {"selected": "record", "other": "unrelated"}
+        closed = (None, {"other": "unrelated"}, "closed")
+        expected = {
+            ("open", 200): ("record", cached, "watch"),
+            ("open", 403): (None, cached, "fresh"),
+            ("open", 503): (None, cached, "retry"),
+            ("watch", 200): ("record", cached, "watch"),
+            ("watch", 403): closed,
+            ("watch", 503): ("record", cached, "retry"),
+        }
+        for case_id, case in cases.items():
+            self.assertEqual(len(case["expected_findings"]), int(case_id == "K7"))
+            for revision, module in zip(("base", "head"), delta_versions(case)):
+                outcomes = expected.copy()
+                if revision == "base":
+                    outcomes["open", 403] = closed
+                elif case_id == "K7":
+                    outcomes["watch", 403] = ("record", cached, "fresh")
+                for (phase, status), wanted in outcomes.items():
+                    with self.subTest(case=case_id, revision=revision, phase=phase, status=status):
+                        panel = module["Panel"](cache=cached.copy())
+                        if phase == "open":
+                            panel.open_result("selected", status)
+                        else:
+                            panel.open_result("selected", 200)
+                            panel.watch_result("selected", status)
+                        self.assertEqual((panel.visible, panel.cache, panel.action), wanted)
+
+    def test_partial_batch_delta(self):
+        case = next(c for c in self.cases if c["id"] == "M4")
+        self.assertTrue((DELTAS / case["context_file"]).is_file())
+        self.assertEqual(len(case["expected_findings"]), 1)
+        before, after = delta_versions(case)
+        for items, old, new in [(0, 1, 0), (1, 1, 0), (4, 1, 1), (5, 2, 1)]:
+            with self.subTest(items=items):
+                self.assertEqual(before["batch_count"](items, 4), old)
+                self.assertEqual(after["batch_count"](items, 4), new)
 
     def test_runtime_pairs_have_discriminating_behavior(self):
         for topic in ("recoverable-exit", "callback-lock", "remote-call-budget"):

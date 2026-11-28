@@ -124,5 +124,32 @@
     "expected_findings": [],
     "expected_verification_limits": ["Candidate measurements are absent. The speedup remains unverified; request the candidate result under the baseline conditions."],
     "location_line": null
+  },
+  {
+    "id": "K7",
+    "topic": "permission-check-phase",
+    "verification": "review-fix-delta",
+    "context_file": "panel-contract.md",
+    "source_file": "panel.py",
+    "patch": "K7.diff",
+    "expected_findings": ["After display, a watch 403 requests a fresh check and leaves the revoked record both visible and cached."]
+  },
+  {
+    "id": "R2",
+    "topic": "permission-check-phase",
+    "verification": "review-fix-delta",
+    "context_file": "panel-contract.md",
+    "source_file": "panel.py",
+    "patch": "R2.diff",
+    "expected_findings": []
+  },
+  {
+    "id": "M4",
+    "topic": "batch-count",
+    "verification": "review-fix-delta",
+    "context_file": "batches-contract.md",
+    "source_file": "batches.py",
+    "patch": "M4.diff",
+    "expected_findings": ["A positive remainder drops the final partial batch and leaves too little capacity for the export."]
   }
 ]
