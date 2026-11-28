@@ -297,7 +297,9 @@ def parse_args() -> argparse.Namespace:
         default=[],
         help="Repository-relative file or directory filter; repeat as needed",
     )
-    parser.add_argument("--pretty", action="store_true", help="Pretty-print JSON")
+    layout = parser.add_mutually_exclusive_group()
+    layout.add_argument("--pretty", action="store_true", help="Pretty-print JSON")
+    layout.add_argument("--compact", action="store_true", help="Emit the same JSON without layout whitespace")
     return parser.parse_args()
 
 
@@ -313,6 +315,7 @@ def main() -> int:
             payload,
             ensure_ascii=False,
             indent=2 if args.pretty else None,
+            separators=(",", ":") if args.compact else None,
             sort_keys=True,
         )
     )

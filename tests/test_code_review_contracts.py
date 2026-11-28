@@ -358,6 +358,27 @@ class ReviewContractTests(unittest.TestCase):
             else:
                 self.assertEqual(result.stdout, "")
 
+    def test_compact_cli_preserves_hidden_blocker_deep_votes_and_errors(self):
+        candidate = finding("CR-004", priority="P1", verdict="REFUTED")
+        vote = finding("CR-004", verdict="PLAUSIBLE")["assessments"][0]
+        vote.update(reviewer="other", confirmation="Vérifier le résultat vide.")
+        candidate["assessments"].append(vote)
+        for depth in ("deep", "standard"):
+            cmd = [sys.executable, str(SCRIPT), "--input", "-", "--depth", depth, "--max-findings", "0"]
+            def invoke(options):
+                return subprocess.run(cmd + options, input=json.dumps(document(candidate)), capture_output=True, text=True)
+            plain, compact = invoke([]), invoke(["--compact"])
+            self.assertEqual((plain.returncode, plain.stderr), (compact.returncode, compact.stderr))
+            if depth == "deep":
+                self.assertEqual(plain.returncode, 0, plain.stderr)
+                expanded = json.loads(compact.stdout)
+                self.assertEqual(expanded, json.loads(plain.stdout))
+                self.assertTrue(expanded["has_blocker"])
+                self.assertEqual(expanded["omitted_ids"], ["CR-004"])
+            else:
+                self.assertEqual(compact.returncode, 2)
+                self.assertEqual(plain.stdout, compact.stdout)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -12,6 +12,7 @@ from pathlib import Path, PurePosixPath
 import posixpath
 import re
 import subprocess
+import sys
 
 
 def git(repo, *args):
@@ -316,6 +317,49 @@ def integrate(resolver, entry, extra=(), *, rules_only=False, memory_available=T
             "entry": updated if memory_available else None}
 
 
+def compact_result(result):
+    """Factor repeated provenance while preserving per-path and standing-memory decisions."""
+    rows = result["assets"]
+    common = {}
+    for key in ("source", "revision", "method", "mode", "reason", "pointers"):
+        if rows and key in rows[0] and all(key in row and row[key] == rows[0][key] for row in rows):
+            common[key] = rows[0][key]
+    file_from_path = bool(rows) and all(row.get("file") == row["path"] for row in rows)
+    records = []
+    for row in rows:
+        record = {key: value for key, value in row.items() if key not in common}
+        if file_from_path:
+            del record["file"]
+        if row["path"] in result["rule_inventory"]:
+            record["rule_ids"] = result["rule_inventory"][row["path"]]
+        records.append(record)
+    entry = result["entry"]
+    reuse_rows = entry is not None and entry["assets"] == rows
+    if reuse_rows:
+        entry = {key: value for key, value in entry.items() if key != "assets"}
+    return {"format": "review-assets/1", "action": result["action"], "memory": result["memory"],
+            "common": common, "file_from_path": file_from_path, "assets": records,
+            "entry": entry, "entry_uses_assets": reuse_rows}
+
+
+def expand_result(packet):
+    if packet["format"] != "review-assets/1":
+        raise ValueError("unknown compact asset format")
+    rows, inventory = [], {}
+    for record in packet["assets"]:
+        row = {**packet["common"], **record}
+        if packet["file_from_path"]:
+            row["file"] = row["path"]
+        if "rule_ids" in row:
+            inventory[row["path"]] = row.pop("rule_ids")
+        rows.append(row)
+    entry = packet["entry"]
+    if packet["entry_uses_assets"]:
+        entry = {**entry, "assets": rows}
+    return {"action": packet["action"], "assets": rows, "rule_inventory": inventory,
+            "memory": packet["memory"], "entry": entry}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--repo", default=".")
@@ -325,8 +369,15 @@ def main():
     parser.add_argument("--entry", type=Path, help="Host-exported code-review-integration JSON")
     parser.add_argument("--no-memory", action="store_true")
     parser.add_argument("--rules-only", action="store_true")
+    layout = parser.add_mutually_exclusive_group()
+    layout.add_argument("--compact", action="store_true", help="Factor common fields into a review-assets/1 packet")
+    layout.add_argument("--expand", metavar="PACKET", help="Restore ordinary JSON from a compact file or - for stdin")
     args = parser.parse_args()
     try:
+        if args.expand:
+            raw = sys.stdin.read() if args.expand == "-" else Path(args.expand).read_text(encoding="utf-8-sig")
+            print(json.dumps(expand_result(json.loads(raw)), indent=2))
+            return
         root = Path(args.repo).resolve()
         entry = json.loads(args.entry.read_text(encoding="utf-8-sig")) if args.entry else None
         siblings = [p.resolve() for p in args.sibling]
@@ -336,8 +387,11 @@ def main():
                             if isinstance(r, dict) and r.get("method") == "sibling checkout" and r.get("source"))
         elif entry is not None:
             entry = None
-        print(json.dumps(integrate(resolver, entry, args.asset, rules_only=args.rules_only,
-                                   memory_available=not args.no_memory), indent=2))
+        result = integrate(resolver, entry, args.asset, rules_only=args.rules_only, memory_available=not args.no_memory)
+        if args.compact:
+            print(json.dumps(compact_result(result), separators=(",", ":")))
+        else:
+            print(json.dumps(result, indent=2))
     except (OSError, ValueError, TypeError, KeyError) as exc:
         parser.exit(2, f"Cannot resolve review assets: {exc}\n")
 

@@ -66,6 +66,7 @@ class ReviewAssetTests(unittest.TestCase):
 
     def test_cold_then_warm_file_backed_host_and_caller_veto(self):
         result = assets.integrate(self.resolver(), None)
+        self.assertEqual(assets.expand_result(assets.compact_result(result)), result)
         self.assertEqual(result["action"], "discover")
         self.assertFalse((self.repo / "handbook/.git").exists())
         asset = next(r for r in result["assets"] if "skills/" in r["path"])
@@ -82,6 +83,7 @@ class ReviewAssetTests(unittest.TestCase):
             for veto, mode in ((False, "invoke"), (True, "rules-source")):
                 memory = json.loads(self.host_entry.read_text())
                 warm = assets.integrate(self.resolver(), memory, rules_only=veto)
+                self.assertEqual(assets.expand_result(assets.compact_result(warm)), warm)
                 self.assertEqual(warm["action"], "reuse")
                 self.assertEqual(next(r["mode"] for r in warm["assets"] if r["path"] == asset["path"]), mode)
                 self.assertEqual(next(r["mode"] for r in warm["entry"]["assets"] if r["path"] == asset["path"]), "invoke")
@@ -108,6 +110,7 @@ class ReviewAssetTests(unittest.TestCase):
         self.set_pin("1" * 40)
         before = git(self.repo, "status", "--porcelain")
         result = assets.integrate(self.resolver(), None, memory_available=False)
+        self.assertEqual(assets.expand_result(assets.compact_result(result)), result)
         self.assertIsNone(result["entry"])
         self.assertIn("unavailable", result["memory"])
         row = next(r for r in result["assets"] if r["path"] == "rules/tests.md")
@@ -118,6 +121,7 @@ class ReviewAssetTests(unittest.TestCase):
         self.assertEqual(before, git(self.repo, "status", "--porcelain"))
         self.rules.rename(self.rules.with_name("unrelated"))
         failed = assets.integrate(self.resolver(), None)
+        self.assertEqual(assets.expand_result(assets.compact_result(failed)), failed)
         self.assertTrue(any("unresolved submodule" in r.get("error", "") for r in failed["assets"]))
 
     def test_heading_fallback_and_code_fences(self):

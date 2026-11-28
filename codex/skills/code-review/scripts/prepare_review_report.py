@@ -274,6 +274,7 @@ def main() -> int:
     parser.add_argument("--input", required=True, help="JSON input file, or - for stdin")
     parser.add_argument("--depth", choices=DEPTHS, default="standard")
     parser.add_argument("--max-findings", type=int)
+    parser.add_argument("--compact", action="store_true", help="Emit the same report JSON without layout whitespace")
     args = parser.parse_args()
     try:
         raw = sys.stdin.read() if args.input == "-" else Path(args.input).read_text(encoding="utf-8")
@@ -282,7 +283,7 @@ def main() -> int:
         print(f"Invalid review report: {exc}", file=sys.stderr)
         return 2
     # Keep quoted rule text round-trippable on redirected legacy Windows consoles.
-    print(json.dumps(report, indent=2))
+    print(json.dumps(report, separators=(",", ":")) if args.compact else json.dumps(report, indent=2))
     return 0
 
 
